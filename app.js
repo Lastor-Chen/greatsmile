@@ -1,41 +1,51 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+if (process.env.NODE_ENV !== 'production') { require('dotenv').config() }
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const express = require('express')
+const exphbs = require('express-handlebars')
+const passport = require('./config/passport')
+const flash = require('connect-flash')
+const session = require('express-session')
+const methodOverride = require('method-override')
 
-var app = express();
+const app = express()
+const port = process.env.PORT || 3000
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+app.engine('hbs', exphbs({
+  defaultLayout: 'main',
+  extname: 'hbs',
+  helpers: require('./lib/hbs_helpers')
+}))
+app.set('view engine', 'hbs')
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
+app.use(express.static('public'))
+app.use(flash())
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use(session({
+  secret: 'LastWendyTomatoBurger',
+  resave: false,
+  saveUninitialized: false
+}))
+app.use(passport.initialize())
+app.use(passport.session())
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+// view engine 常用變數
+app.use((req, res, next) => {
+  res.locals.success = req.flash('success')
+  res.locals.error = req.flash('error')
+  res.locals.user = req.user
+  next()
+})
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// start server
+app.listen(port, () => {
+  // app 啟動時，顯示當前 NODE_ENV
+  const mode = process.env.NODE_ENV || 'development'
+  console.log(`\n[App] Using environment "${mode}".`)
+  console.log(`[App] Example app listening on port ${port}!`)
+})
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-module.exports = app;
+module.exports = app
+require('./routes')(app, passport)
