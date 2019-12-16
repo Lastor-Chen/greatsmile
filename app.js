@@ -33,11 +33,15 @@ app.use(passport.session())
 
 // view engine 常用變數
 app.use((req, res, next) => {
+  console.log(req.method, req.path)
   res.locals.success = req.flash('success')
   res.locals.error = req.flash('error')
   res.locals.user = req.user
   next()
 })
+
+// route setup
+require('./routes/index.js')(app)
 
 // start server
 app.listen(port, () => {
@@ -48,4 +52,3 @@ app.listen(port, () => {
 })
 
 module.exports = app
-require('./routes')(app, passport)
