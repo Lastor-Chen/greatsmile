@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     ProductId: DataTypes.INTEGER
   }, {});
   Tag.associate = function(models) {
-    // associations can be defined here
+    Tag.belongsTo(models.Product)
   };
   return Tag;
 };

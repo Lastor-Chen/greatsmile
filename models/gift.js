@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     ProductId: DataTypes.INTEGER
   }, {});
   Gift.associate = function(models) {
-    // associations can be defined here
+    Gift.belongsTo(models.Product)
   };
   return Gift;
 };

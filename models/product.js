@@ -17,7 +17,11 @@ module.exports = (sequelize, DataTypes) => {
     CategoryId: DataTypes.INTEGER
   }, {});
   Product.associate = function(models) {
-    // associations can be defined here
+    Product.hasMany(models.Image)
+    Product.hasMany(models.Gift)
+    Product.hasMany(models.Tag)
+    Product.belongsTo(models.Series)
+    Product.belongsTo(models.Category)
   };
   return Product;
 };
