@@ -7,6 +7,9 @@ module.exports = {
     "database": process.env.MYSQL_DATABASE,
     "host": process.env.MYSQL_HOST,
     "dialect": "mysql",
+    "define": {
+      "underscored": true
+    },
     "logging": false
   },
   "test": {
@@ -15,6 +18,9 @@ module.exports = {
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql",
+    "define": {
+      "underscored": true
+    },
     "logging": false
   },
   "production": {
@@ -23,6 +29,9 @@ module.exports = {
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql",
+    "define": {
+      "underscored": true
+    },
     "logging": false
   }
 }

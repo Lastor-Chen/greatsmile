@@ -44,10 +44,10 @@ module.exports = {
       deadline: {
         type: Sequelize.DATE
       },
-      SeriesId: {
+      series_id: {
         type: Sequelize.INTEGER
       },
-      CategoryId: {
+      category_id: {
         type: Sequelize.INTEGER
       },
       created_at: {
@@ -60,7 +60,7 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('NOW')
       }
-    }, { timestamps: true });
+    });
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Products');

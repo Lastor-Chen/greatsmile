@@ -10,26 +10,12 @@ module.exports = (sequelize, DataTypes) => {
     copyright: DataTypes.STRING,
     maker: DataTypes.STRING,
     status: DataTypes.BOOLEAN,
-    releaseDate: {
-      type: DataTypes.DATE,
-      field: 'release_date'
-    },
-    saleDate: {
-      type: DataTypes.DATE,
-      field: 'sale_date'
-    },
+    releaseDate: DataTypes.DATE,
+    saleDate: DataTypes.DATE,
     deadline: DataTypes.DATE,
     SeriesId: DataTypes.INTEGER,
-    CategoryId: DataTypes.INTEGER,
-    createdAt: {
-      type: DataTypes.DATE,
-      field: 'created_at'
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      field: 'updated_at'
-    }
-  }, { timestamps: true });
+    CategoryId: DataTypes.INTEGER
+  }, {});
   Product.associate = function(models) {
     // associations can be defined here
   };

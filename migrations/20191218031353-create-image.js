@@ -11,7 +11,7 @@ module.exports = {
       url: {
         type: Sequelize.STRING
       },
-      ProductId: {
+      product_id: {
         type: Sequelize.INTEGER
       },
       created_at: {
