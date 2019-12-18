@@ -17,10 +17,10 @@ module.exports = {
          spec: faker.lorem.sentence(),
          copyright: faker.company.companyName(),
          maker: faker.company.companyName(),
-         status: 1,
+         status: index > 4 && index < 10 ? 0 : 1,
          release_date: faker.date.between('2019-10-01', '2019-10-31'), 
-         sale_date: index < 6 ? faker.date.between('2019-12-01', '2019-12-18') : faker.date.between('2019-02-01', '2019-02-31'),
-         deadline: index < 11 ? faker.date.between('2019-11-01', '2019-11-31') : faker.date.between('2019-01-01', '2019-01-31'),
+         sale_date: index < 5 ? faker.date.between('2019-12-01', '2019-12-18') : faker.date.between('2019-02-01', '2019-02-31'),
+         deadline: index < 10 ? faker.date.between('2019-11-01', '2019-11-31') : faker.date.between('2019-01-01', '2019-01-31'),
          Series_id: randomNum(1, 4),
          Category_id: randomNum(1, 4)
        }))
