@@ -21,8 +21,8 @@ module.exports = {
          release_date: faker.date.between('2019-10-01', '2019-10-31'), 
          sale_date: index < 5 ? faker.date.between('2019-12-01', '2019-12-18') : faker.date.between('2020-02-01', '2020-02-31'),
          deadline: index < 10 ? faker.date.between('2019-11-01', '2019-11-31') : faker.date.between('2020-01-01', '2020-01-31'),
-         Series_id: randomNum(1, 4),
-         Category_id: randomNum(1, 4)
+         series_id: randomNum(1, 4),
+         category_id: randomNum(1, 4)
        }))
      )
   }, 

@@ -14,7 +14,7 @@ module.exports = {
         address: faker.address.streetAddress() + faker.address.city(),
         birthday: faker.date.past(30),
         gender: index < 6 ? 'M' : 'F',
-        isAdmin: index === 0 ? 1 : 0
+        is_admin: index === 0 ? 1 : 0
       }))
     )
   },
