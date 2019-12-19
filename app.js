@@ -41,7 +41,7 @@ app.use((req, res, next) => {
 })
 
 // route setup
-require('./routes/index.js')(app)
+require('./routes/index.js')(app, passport)
 
 // start server
 app.listen(port, () => {

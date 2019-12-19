@@ -4,9 +4,11 @@
  */
 const userCtrller = require('../controllers/userCtrller')
 
-module.exports = (app) => {
+
+
+module.exports = (app, passport) => {
   app.get('/', (req, res) => res.send('home page'))
-  
+
   app.use('/products', require('./products.js'))
   app.use('/users', require('./users.js'))
   app.use('/admin', require('./admin/admin.js'))
@@ -15,6 +17,6 @@ module.exports = (app) => {
   app.get('/signup', userCtrller.getSignUp)
   app.post('/signup', userCtrller.signUp)
   app.get('/signin', userCtrller.getSignIn)
-  app.post('/signin', userCtrller.signIn)
+  app.post('/signin', userCtrller.signIn.bind(null, passport))
   app.get('/signout', userCtrller.signOut)
 }
