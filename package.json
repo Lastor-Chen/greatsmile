@@ -6,7 +6,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "test": "NODE_ENV=test npx mocha --exit --recursive --timeout 5000",
+    "test:win": "set NODE_ENV=test&& npx mocha --exit --recursive --timeout 5000"
   },
   "license": "ISC",
   "dependencies": {
@@ -22,7 +24,12 @@
     "sequelize": "^5.21.3"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "dotenv": "^8.2.0",
     "faker": "^4.1.0",
-    "dotenv": "^8.2.0"
+    "mocha": "^6.2.2",
+    "sequelize-test-helpers": "^1.2.0",
+    "sinon": "^7.5.0",
+    "sinon-chai": "^3.3.0"
   }
 }
