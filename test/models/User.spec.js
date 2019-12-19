@@ -12,7 +12,8 @@ const props = [
   'phone',
   'address',
   'birthday',
-  'gender'
+  'gender',
+  'isAdmin'
 ]
 
 describe('# User Model', () => {
