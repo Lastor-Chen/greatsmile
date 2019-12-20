@@ -35,6 +35,20 @@
         </tr>
       </thead>
       <tbody>
+        {{#each products}}
+          <tr>
+            <td>{{this.id}}</td>
+            <td>
+              <img src="{{this.imageUrl}}" title="{{this.name}}" class="img-fluid rounded mx-auto d-block"
+                alt="productImage" style="width: 50px">
+            </td>
+            <td>{{this.name}}</td>
+            <td>{{this.price}}</td>
+            <td>{{this.inventory}}</td>
+            <td>{{this.Category.name}}</td>
+            <td>{{this.Series.name}}</td>
+          </tr>
+        {{/each}}
       </tbody>
     </table>
   </main>
