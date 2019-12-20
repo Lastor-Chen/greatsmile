@@ -5,7 +5,7 @@
       {{!-- 圖片區塊 --}}
       <div class="row py-4 px-5">
         <div class="col-md-8 text-center">
-          <img src="https://via.placeholder.com/530x653" alt="photo">
+          <img src="{{product.mainImg}}" alt="photo" width="530" height="653">
           <div class="mt-4 d-flex justify-content-center align-items-center">
             <div>左</div>
             <div class="mx-3" style="
@@ -14,24 +14,25 @@
               text-align: left;
             ">
               <div class="d-inline-block" style="width: 1000px">
-                <img src="https://via.placeholder.com/70" alt="photo_list">
-                <img src="https://via.placeholder.com/70" alt="photo_list">
-                <img src="https://via.placeholder.com/70" alt="photo_list">
-                <img src="https://via.placeholder.com/70" alt="photo_list">
-                <img src="https://via.placeholder.com/70" alt="photo_list">
-                <img src="https://via.placeholder.com/70" alt="photo_list">
+                {{#each product.Images}}
+                  <img src="{{url}}" alt="photo_list" width="70" height="70">
+                {{/each}}
               </div>
             </div>
             <div>右</div>
           </div>
         </div>
         <div class="col-md-4">
-          <span>Tag</span>
           <div>
-            <h4>Product Name</h4>
-            <p>作品名: Product Title</p>
-            <p>發售日: yyyy年mm月</p>
-            <p>NT price</p>
+            {{#each product.tags}}
+              <button>{{name}}</button>
+            {{/each}}
+          </div>
+          <div>
+            <h4>{{product.name}}</h4>
+            <p>作品名: {{product.Series.name}}</p>
+            <p>發售日: {{product.saleDate}}</p>
+            <p>NT {{product.price}}</p>
           </div>
           <div class="border py-5">
             <form action="#" method="POST">
@@ -52,9 +53,9 @@
       <div class="row py-4 px-5">
         <div class="col-md-2">商品介紹</div>
         <div class="col-md-10">
-          <p>slogan</p>
-          <p>desc</p>
-          <p>copyright</p>
+          <p class="text-warning">{{product.slogan}}</p>
+          <p>{{product.description}}</p>
+          <p>&copy; {{product.copyright}}</p>
         </div>
       </div>
       <hr>
@@ -62,28 +63,32 @@
       <div class="row py-4 px-5">
         <div class="col-md-2">受理期間</div>
         <div class="col-md-10">
-          <p>【受注生產】releaseDate 12:00 開始 deadline 21:00 結束。</p>
+          <p>【受注生產】{{product.release}} 12:00 開始 {{product.dead}} 21:00 結束。</p>
           <p>無庫存時販售終止</p>
         </div>
       </div>
       <hr>
       {{!-- 特典 --}}
+      {{#if product.hasGift}}
       <div class="row py-4 px-5">
-        <div class="col-md-2">特典</div>
+        <div class="col-md-2">
+          <button>特典</button>
+        </div>
         <div class="col-md-6">
-          <p>【預約特典】</p>
-          <p>購買 Product.name 者，將獲得 Gift.name 一枚</p>
+          <p>【GREATSMILE ONLINE SHOP予約特典】</p>
+          <p>「{{product.name}}」をご購入頂いた方に、「{{product.Gifts.0.name}}」をプレゼント！</p>
         </div>
         <div class="col-md-4">
-          <img class="w-100" src="https://via.placeholder.com/361x400" alt="特典圖">
+          <img class="w-100" src="{{product.Gifts.0.image}}" alt="特典圖">
         </div>
       </div>
       <hr>
+      {{/if}}
       {{!-- 價格、購物車 --}}
       <div class="row py-4 px-5">
         <div class="col-md-2">價格</div>
         <div class="col-md-6">
-          <p>NT Product.price</p>
+          <p>NT {{product.price}}</p>
           <div>
             <form action="#" method="POST">
               <button class="d-block">加入購物車</button>
@@ -104,18 +109,18 @@
         <div class="col-md-2">規格</div>
         <div class="col-md-10">
           <div class="row pr-5">
-            <div class="col-md-9 py-2 border-top">Prodcut.name</div>
             <div class="col-md-3 py-2 border-top">商品名</div>
+            <div class="col-md-9 py-2 border-top">{{product.name}}</div>
             <div class="col-md-3 py-2 border-top">發售日期</div>
-            <div class="col-md-9 py-2 border-top">Prodcut.saleDate</div>
+            <div class="col-md-9 py-2 border-top">{{product.saleDate}}</div>
             <div class="col-md-3 py-2 border-top">公告日期</div>
-            <div class="col-md-9 py-2 border-top">Prodcut.releaseDate</div>
+            <div class="col-md-9 py-2 border-top">{{product.releaseDate}}</div>
             <div class="col-md-3 py-2 border-top">製造商</div>
-            <div class="col-md-9 py-2 border-top">Prodcut.maker</div>
+            <div class="col-md-9 py-2 border-top">{{product.maker}}</div>
             <div class="col-md-3 py-2 border-top">作品名</div>
-            <div class="col-md-9 py-2 border-top">Prodcut.Series.name</div>
+            <div class="col-md-9 py-2 border-top">{{product.Series.name}}</div>
             <div class="col-md-3 py-2 border-top">規格</div>
-            <div class="col-md-9 py-2 border-top">Prodcut.spec</div>
+            <div class="col-md-9 py-2 border-top">{{product.spec}}</div>
           </div>
         </div>
       </div>
