@@ -1,62 +1,62 @@
-<div class="container">
-  <main class="col-12">
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" href="/admin/products">商品</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/admin/orders">訂單</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/admin/users">會員</a>
-      </li>
-    </ul>
-    <div class="mt-4">
-      <a href="/admin/products/new" class="btn btn-outline-secondary"><i class="fas fa-plus"></i> 新增商品</a>
-    </div>
-    <table data-toggle="table" data-search="true" data-show-columns="true" data-show-pagination-switch="true"
-      data-pagination="true" id="table">
-      <thead>
+<main class="col-12">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" href="/admin/products">商品</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/orders">訂單</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/users">會員</a>
+    </li>
+  </ul>
+  <div class="mt-4">
+    <a href="/admin/products/new" class="btn btn-outline-secondary"><i class="fas fa-plus"></i> 新增商品</a>
+  </div>
+  <table data-toggle="table" data-search="true" data-show-columns="true" data-show-pagination-switch="true"
+    data-pagination="true" id="table">
+    <thead>
+      <tr>
+        <th data-width="150" rowspan="2" data-valign="middle" class="text-center" data-sortable="true">商品ID</th>
+        <th data-width="150" rowspan="2" data-valign="middle" class="text-center">商品照片</th>
+        <th data-width="150" rowspan="2" data-valign="middle" class="text-center" data-sortable="true">名稱</th>
+        <th data-width="150" rowspan="2" data-valign="middle" class="text-center" data-sortable="true">售價</th>
+        <th data-width="150" rowspan="2" data-valign="middle" class="text-center" data-sortable="true">庫存</th>
+        <th data-width="150" rowspan="2" data-valign="middle" class="text-center" data-sortable="true">模型分類</th>
+        <th data-width="150" rowspan="2" data-valign="middle" class="text-center" data-sortable="true">作品分類</th>
+        <th data-width="150" rowspan="2" data-valign="middle" class="text-center" data-sortable="true">發售日期</th>
+        <th colspan="4" class="text-center">商品操作</th>
+      </tr>
+      <tr>
+        <th class="text-center" data-sortable="true">上架狀態</th>
+        <th class="text-center">編輯商品</th>
+        <th class="text-center">瀏覽商品</th>
+        <th class="text-center">刪除商品</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each products}}
         <tr>
-          <th data-width="150" rowspan="2" data-valign="middle" class="text-center" data-sortable="true">商品ID</th>
-          <th data-width="150" rowspan="2" data-valign="middle" class="text-center">商品照片</th>
-          <th data-width="150" rowspan="2" data-valign="middle" class="text-center" data-sortable="true">名稱</th>
-          <th data-width="150" rowspan="2" data-valign="middle" class="text-center" data-sortable="true">售價</th>
-          <th data-width="150" rowspan="2" data-valign="middle" class="text-center" data-sortable="true">庫存</th>
-          <th data-width="150" rowspan="2" data-valign="middle" class="text-center" data-sortable="true">模型分類</th>
-          <th data-width="150" rowspan="2" data-valign="middle" class="text-center" data-sortable="true">作品分類</th>
-          <th colspan="4" class="text-center">商品操作</th>
+          <td>{{this.id}}</td>
+          <td>
+            <img src="{{this.imageUrl}}" title="{{this.name}}" class="img-fluid rounded mx-auto d-block"
+              alt="productImage" style="width: 50px">
+          </td>
+          <td>{{this.name}}</td>
+          <td>{{this.price}}</td>
+          <td>{{this.inventory}}</td>
+          <td>{{this.Category.name}}</td>
+          <td>{{this.Series.name}}</td>
+          <td>{{this.simplifySale}}</td>
+          <td>
+            {{#if this.status}}
+              <i class="far fa-circle text-success"></i>
+            {{else}}
+              <i class="fas fa-times text-danger"></i>
+            {{/if}}
+          </td>
         </tr>
-        <tr>
-          <th class="text-center" data-sortable="true">上架狀態</th>
-          <th class="text-center">編輯商品</th>
-          <th class="text-center">瀏覽商品</th>
-          <th class="text-center">刪除商品</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each products}}
-          <tr>
-            <td>{{this.id}}</td>
-            <td>
-              <img src="{{this.imageUrl}}" title="{{this.name}}" class="img-fluid rounded mx-auto d-block"
-                alt="productImage" style="width: 50px">
-            </td>
-            <td>{{this.name}}</td>
-            <td>{{this.price}}</td>
-            <td>{{this.inventory}}</td>
-            <td>{{this.Category.name}}</td>
-            <td>{{this.Series.name}}</td>
-            <td>
-              {{#if this.status}}
-                <i class="far fa-circle text-success"></i>
-              {{else}}
-                <i class="fas fa-times text-danger"></i>
-              {{/if}}
-            </td>
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
-  </main>
-</div>
+      {{/each}}
+    </tbody>
+  </table>
+</main>
