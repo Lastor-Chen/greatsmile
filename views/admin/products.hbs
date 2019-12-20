@@ -28,7 +28,7 @@
           <th colspan="4" class="text-center">商品操作</th>
         </tr>
         <tr>
-          <th class="text-center">上架狀態</th>
+          <th class="text-center" data-sortable="true">上架狀態</th>
           <th class="text-center">編輯商品</th>
           <th class="text-center">瀏覽商品</th>
           <th class="text-center">刪除商品</th>
@@ -47,6 +47,13 @@
             <td>{{this.inventory}}</td>
             <td>{{this.Category.name}}</td>
             <td>{{this.Series.name}}</td>
+            <td>
+              {{#if this.status}}
+                <i class="far fa-circle text-success"></i>
+              {{else}}
+                <i class="fas fa-times text-danger"></i>
+              {{/if}}
+            </td>
           </tr>
         {{/each}}
       </tbody>
