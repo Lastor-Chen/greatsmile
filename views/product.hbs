@@ -31,7 +31,7 @@
           <div>
             <h4>{{product.name}}</h4>
             <p>作品名: {{product.Series.name}}</p>
-            <p>發售日: {{product.saleDate}}</p>
+            <p>發售月: {{product.saleDateFormat}}</p>
             <p>NT {{product.price}}</p>
           </div>
           <div class="border py-5">
@@ -63,8 +63,8 @@
       <div class="row py-4 px-5">
         <div class="col-md-2">受理期間</div>
         <div class="col-md-10">
-          <p>【受注生產】{{product.release}} 12:00 開始 {{product.dead}} 21:00 結束。</p>
-          <p>無庫存時販售終止</p>
+          <p>【受注生產】{{product.releaseDateFormat}} 12:00 開始 {{product.deadlineFormat}} 21:00 結束。</p>
+          <p>※ 無庫存時販售終止</p>
         </div>
       </div>
       <hr>
@@ -111,10 +111,10 @@
           <div class="row pr-5">
             <div class="col-md-3 py-2 border-top">商品名</div>
             <div class="col-md-9 py-2 border-top">{{product.name}}</div>
-            <div class="col-md-3 py-2 border-top">發售日期</div>
-            <div class="col-md-9 py-2 border-top">{{product.saleDate}}</div>
-            <div class="col-md-3 py-2 border-top">公告日期</div>
-            <div class="col-md-9 py-2 border-top">{{product.releaseDate}}</div>
+            <div class="col-md-3 py-2 border-top">發售月</div>
+            <div class="col-md-9 py-2 border-top">{{product.saleDateFormat}}</div>
+            <div class="col-md-3 py-2 border-top">公告日</div>
+            <div class="col-md-9 py-2 border-top">{{product.releaseDateFormat}}</div>
             <div class="col-md-3 py-2 border-top">製造商</div>
             <div class="col-md-9 py-2 border-top">{{product.maker}}</div>
             <div class="col-md-3 py-2 border-top">作品名</div>
