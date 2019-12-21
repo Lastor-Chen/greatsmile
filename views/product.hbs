@@ -103,8 +103,12 @@
       <div class="row py-4">
         <div class="col-md-2 font-weight-bold">受理期間</div>
         <div class="col-md-10">
-          <p>【受注生產】{{product.releaseDateFormat}} 12:00 開始 {{product.deadlineFormat}} 21:00 結束。</p>
-          <p>※ 無庫存時販售終止</p>
+          {{#if product.isOnSale}}
+            <s>【受注生產】{{product.releaseDateFormat}} 12:00 開始 {{product.deadlineFormat}} 21:00 結束。</s>
+            <p>※ 無庫存時販售終止</p>
+          {{else}}
+            <p>【受注生產】{{product.releaseDateFormat}} 12:00 開始 {{product.deadlineFormat}} 21:00 結束。</p>
+          {{/if}}
         </div>
       </div>
       <hr>
