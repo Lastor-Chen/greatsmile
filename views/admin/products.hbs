@@ -24,7 +24,7 @@
         <th data-width="150" rowspan="2" data-valign="middle" class="text-center" data-sortable="true">庫存</th>
         <th data-width="150" rowspan="2" data-valign="middle" class="text-center" data-sortable="true">模型分類</th>
         <th data-width="150" rowspan="2" data-valign="middle" class="text-center" data-sortable="true">作品分類</th>
-        <th data-width="150" rowspan="2" data-valign="middle" class="text-center" data-sortable="true">發售日期</th>
+        <th data-width="150" rowspan="2" data-valign="middle" class="text-center" data-sortable="true">發售狀態</th>
         <th colspan="4" class="text-center">商品操作</th>
       </tr>
       <tr>
@@ -47,7 +47,7 @@
           <td>{{this.inventory}}</td>
           <td>{{this.Category.name}}</td>
           <td>{{this.Series.name}}</td>
-          <td>{{this.simplifySale}}</td>
+          <td>{{this.saleStatus}}</td>
           <td>
             {{#if this.status}}
               <i class="far fa-circle text-success"></i>
