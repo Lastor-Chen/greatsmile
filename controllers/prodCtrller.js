@@ -20,7 +20,7 @@ module.exports = {
       product.deadlineFormat = moment(product.deadline).format('YYYY年MM月DD日(dd)')
       product.hasGift = product.Gifts.length !== 0 ? true : false
 
-      res.render('product', { product })
+      res.render('product', { css: 'product', product })
 
     } catch (err) {
       console.error(err)

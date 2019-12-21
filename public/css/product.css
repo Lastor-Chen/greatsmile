@@ -1,0 +1,125 @@
+p {
+  margin: 0;
+}
+
+.main-bg {
+  background: #ebebeb;
+}
+
+section {
+  border-radius: 20px;
+}
+
+/* 麵包屑 */
+.bread {
+  font-size: .85rem;
+}
+
+.bread a {
+  color: #707070;
+}
+
+/* 圖片畫廊 */
+.arrow-btn {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.img-list {
+  width: 500px;
+  overflow: hidden;
+  text-align: left;
+}
+
+.img-list img {
+  width: 70px;
+  height: 70px;
+}
+
+/* Tag 群 */
+.tag-icon {
+  font-weight: bold;
+  padding: .5rem;
+  border-radius: 5px;
+  font-size: .85rem;
+}
+
+.tag-icon.icon1 {  /* 預購中 */
+  background: #34a853; 
+  color: #fff;
+}
+
+.tag-icon.icon2 {  /* 特典 */
+  background: #ffe14d; 
+  color: #e53900;
+}
+
+.tag-icon.icon3 {  /* 庫存販售商品 */
+  background: #34a853;
+  color: #fff;
+}
+
+/* 上部購物車 */
+.small-text {
+  font-size: 12px;
+}
+
+.status-text {
+  color: #228b22;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.cart-btn {
+  display: inline-block;
+  background: #ff5400;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+.cart-btn-lg {
+  width: 80%;
+  height: 100px;
+  font-size: 1.5rem;
+}
+
+.cart-btn-sm {
+  width: 190px;
+  height: 70px;
+  font-size: 1rem;
+}
+
+.qty-select {
+  width: 80px;
+  background: #f0ebe5;
+  border-color: #e0dbd3;
+  height: 1.5rem;
+  padding-left: .5rem;
+}
+
+.qty-select:focus {
+  outline: none;
+}
+
+.buy-info {
+  font-size: 12px;
+  color: #ff0000;
+}
+
+/* 商品介紹 */
+.slogan {
+  color: #ff6600;
+  font-size: 1.2rem;
+}
+
+/* 商品規格 */
+.list-group-item:nth-of-type(odd) {
+  background: #f8f8f8;
+}
+
+.list-group li {
+  border-right: 0;
+  border-left: 0;
+  border-bottom: 0;
+}

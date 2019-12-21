@@ -1,67 +1,95 @@
-<div class="py-5" style="background: #ebebeb">
-  <div class="container">
-    <h3>商品詳細</h3>
-    <section class="mb-5" style="background: #fff;">
+<div class="main-bg">
+  <main class="container pt-2 pb-5">
+    {{!-- 麵包屑 --}}
+    <nav class="bread mb-3">
+      <a href="/">Home </a>&gt;
+      <a href="/products&cate=figure">Figure </a>&gt;
+      <span>{{product.name}}</span>
+    </nav>
+    {{!-- main content --}}
+    <section class="mb-5 p-5" style="background: #fff;">
       {{!-- 圖片區塊 --}}
-      <div class="row py-4 px-5">
+      <div class="row pb-4">
+        {{!-- 畫廊 --}}
         <div class="col-md-8 text-center">
-          <img src="{{product.mainImg}}" alt="photo" width="530" height="653">
+          <img src="{{product.mainImg}}" alt="photo" width="70%">
           <div class="mt-4 d-flex justify-content-center align-items-center">
-            <div>左</div>
-            <div class="mx-3" style="
-              width: 400px;
-              overflow: auto;
-              text-align: left;
-            ">
+            <span class="arrow-btn">
+              <i class="fas fa-angle-left"></i>
+            </span>            
+            <div class="img-list mx-3">
               <div class="d-inline-block" style="width: 1000px">
                 {{#each product.Images}}
-                  <img src="{{url}}" alt="photo_list" width="70" height="70">
+                  <img src="{{url}}" alt="photo_list" class="mr-3 img-thumbnail">
                 {{/each}}
               </div>
             </div>
-            <div>右</div>
+            <span class="arrow-btn">
+              <i class="fas fa-angle-right"></i>
+            </span>
           </div>
         </div>
+        {{!-- info、購物車 --}}
         <div class="col-md-4">
-          <div>
+          <div class="mb-3 pt-1">
             {{#each product.tags}}
-              <button>{{name}}</button>
+              <span class="tag-icon icon{{id}} mr-2">{{name}}</span>
             {{/each}}
           </div>
           <div>
-            <h4>{{product.name}}</h4>
-            <p>作品名: {{product.Series.name}}</p>
-            <p>發售月: {{product.saleDateFormat}}</p>
-            <p>NT {{product.price}}</p>
+            <h4 class="mb-3">{{product.name}}</h4>
+            <p class="mb-1">作品名:　{{product.Series.name}}</p>
+            <p>發售月:　{{product.saleDateFormat}}</p>
           </div>
-          <div class="border py-5">
-            <form action="#" method="POST">
-              <button class="d-block">加入購物車</button>
-              <span>數量</span>
-              <input type="number" value="1">
-              <span>接受預約中</span>
+          <hr>
+          <div class="small-text">
+            <form id="postCart" action="#" method="POST" class="h-100">
+              <div class="form-group text-center">
+                <button class="cart-btn cart-btn-lg btn">
+                  <i class="fas fa-cart-arrow-down"></i>
+                  <span>　加入購物車</span>
+                </button>
+              </div>
+              <div class="form-group mb-0 text-center">
+                <p class="mb-2 status-text">發售中</p>
+                <hr class="my-2">
+                <div class="d-flex px-3 mb-2 justify-content-between align-items-center">
+                  <span>數量</span>
+                  <select class="qty-select" name="quantity">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  </select>
+                </div>
+                <hr class="my-2">
+                <div class="d-flex px-3 justify-content-between align-items-center">
+                  <span>價格</span>
+                  <span>NT {{product.price}}</span>
+                </div>
+              </div>
             </form>
           </div>
-          <div>
-            <p>※ Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            <p>※ Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          <hr class="my-2">
+          <div class="buy-info">
+            <p>※ おひとり様3つまでの販売となります。上限数を超えるご注文に関しましては、キャンセルさせていただきます。</p>
+            <p>※ ご注文後のキャンセルにつきましては、一切お受け致しておりません。</p>
           </div>
         </div>
       </div>
       {{!-- 說明區塊 --}}
       <hr>
-      <div class="row py-4 px-5">
-        <div class="col-md-2">商品介紹</div>
+      <div class="row py-4">
+        <div class="col-md-2 font-weight-bold">商品介紹</div>
         <div class="col-md-10">
-          <p class="text-warning">{{product.slogan}}</p>
+          <p class="slogan">{{product.slogan}}</p>
           <p>{{product.description}}</p>
-          <p>&copy; {{product.copyright}}</p>
+          <p class="mt-5">&copy; {{product.copyright}}</p>
         </div>
       </div>
       <hr>
       {{!-- 受理期間 --}}
-      <div class="row py-4 px-5">
-        <div class="col-md-2">受理期間</div>
+      <div class="row py-4">
+        <div class="col-md-2 font-weight-bold">受理期間</div>
         <div class="col-md-10">
           <p>【受注生產】{{product.releaseDateFormat}} 12:00 開始 {{product.deadlineFormat}} 21:00 結束。</p>
           <p>※ 無庫存時販售終止</p>
@@ -70,9 +98,9 @@
       <hr>
       {{!-- 特典 --}}
       {{#if product.hasGift}}
-      <div class="row py-4 px-5">
+      <div class="row py-4">
         <div class="col-md-2">
-          <button>特典</button>
+          <span class="tag-icon icon2">特典</span>
         </div>
         <div class="col-md-6">
           <p>【GREATSMILE ONLINE SHOP予約特典】</p>
@@ -85,54 +113,86 @@
       <hr>
       {{/if}}
       {{!-- 價格、購物車 --}}
-      <div class="row py-4 px-5">
-        <div class="col-md-2">價格</div>
+      <div class="row py-4">
+        <div class="col-md-2 font-weight-bold">價格</div>
         <div class="col-md-6">
-          <p>NT {{product.price}}</p>
-          <div>
-            <form action="#" method="POST">
-              <button class="d-block">加入購物車</button>
-              <span>數量</span>
-              <input type="number" value="1">
-              <span>接受預約中</span>
+          <small class="text-muted">NT {{product.price}}</small>
+          <div class="mt-2">
+            <form id="postCart" action="#" method="POST">
+              <div class="form-group">
+                <button class="cart-btn cart-btn-sm btn">
+                  <i class="fas fa-cart-arrow-down"></i>
+                  <span>　加入購物車</span>
+                </button>
+              </div>
+              <div>
+                <span class="mr-3">數量</span>
+                <select class="qty-select mr-3" name="quantity">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select>
+                <span class="status-text">發售中</span>
+              </div>
             </form>
           </div>
         </div>
-        <div class="col-md-4">
-          <p>※ Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-          <p>※ Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <div class="col-md-4 buy-info">
+          <p>※ おひとり様3つまでの販売となります。上限数を超えるご注文に関しましては、キャンセルさせていただきます。</p>
+          <p>※ ご注文後のキャンセルにつきましては、一切お受け致しておりません。</p>
         </div>
       </div>
       <hr>
       {{!-- 規格 --}}
-      <div class="row py-4 px-5">
-        <div class="col-md-2">規格</div>
+      <div class="row py-4">
+        <div class="col-md-2 font-weight-bold">規格</div>
         <div class="col-md-10">
-          <div class="row pr-5">
-            <div class="col-md-3 py-2 border-top">商品名</div>
-            <div class="col-md-9 py-2 border-top">{{product.name}}</div>
-            <div class="col-md-3 py-2 border-top">發售月</div>
-            <div class="col-md-9 py-2 border-top">{{product.saleDateFormat}}</div>
-            <div class="col-md-3 py-2 border-top">公告日</div>
-            <div class="col-md-9 py-2 border-top">{{product.releaseDateFormat}}</div>
-            <div class="col-md-3 py-2 border-top">製造商</div>
-            <div class="col-md-9 py-2 border-top">{{product.maker}}</div>
-            <div class="col-md-3 py-2 border-top">作品名</div>
-            <div class="col-md-9 py-2 border-top">{{product.Series.name}}</div>
-            <div class="col-md-3 py-2 border-top">規格</div>
-            <div class="col-md-9 py-2 border-top">{{product.spec}}</div>
-          </div>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <span class="mr-5">商品名</span>
+              <span>{{product.name}}</span>
+            </li>
+            <li class="list-group-item">
+              <span class="mr-5">發售月</span>
+              <span>{{product.saleDateFormat}}</span>
+            </li>
+            <li class="list-group-item">
+              <span class="mr-5">公告日</span>
+              <span>{{product.releaseDateFormat}}</span>
+            </li>
+            <li class="list-group-item">
+              <span class="mr-5">製造商</span>
+              <span>{{product.maker}}</span>
+            </li>
+            <li class="list-group-item">
+              <span class="mr-5">作品名</span>
+              <span>{{product.Series.name}}</span>
+            </li>
+            <li class="list-group-item border-bottom">
+              <span class="mr-5">規　格</span>
+              <span>{{product.spec}}</span>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
-    <section class="mb-5" style="background: #fff;">
-      <div class="p-5">
-        <p class="mb-0">※ Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-        <p class="mb-0">※ Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-        <p class="mb-0">※ Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-        <p class="mb-0">※ Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-        <p class="mb-0">※ Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+    {{!-- waring info --}}
+    <section class="mb-5 p-5" style="background: #fff;">
+      <div class="small-text">
+        ※ 受注期間、予約受付期間内においても販売を終了する場合がございます。ご了承ください。
+        <br>
+        ※ 銀行振り込みの際は、ご注文番号のご記入をお忘れなくお願い致します。
+        <br>
+        ※ クレジットカードでのお支払いにつきましては、予約商品の場合、商品発送予定日が確定・ご案内させていただき次第、発送予定日の2～3週間前から順次決済手続きを行わせていただきます。
+        <br>
+        ※ Amazonペイメントサービスでのお支払いにつきましては、ご注文時に即時決済処理となりますのでご注意下さい。
+        <br>
+        ※ ご利用ガイドにも記載しております通り、ご注文後のキャンセルは承る事ができませんので、ご注文の際はご注意頂きますようお願い致します。
+        <br>
+        ※ 掲載の写真は実際の商品とは多少異なる場合があります。
+        <br>
+        ※ 商品の塗装は彩色工程が手作業になるため、商品個々に多少の差異があります。予めご了承ください。
       </div>
     </section>
-  </div>
-</div>
+  </main>
+</div> 
