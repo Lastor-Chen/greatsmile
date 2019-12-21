@@ -14,11 +14,14 @@ module.exports = {
       const product = await Product.findByPk(+req.params.id, { 
         include: ['Gifts', 'Images', 'tags', 'Series'] 
       })
+
+      // 頁面所需 data
       product.mainImg = product.Images[0].url
       product.saleDateFormat = moment(product.saleDate).format('YYYY年MM月')
       product.releaseDateFormat = moment(product.releaseDate).format('YYYY年MM月DD日(dd)')
       product.deadlineFormat = moment(product.deadline).format('YYYY年MM月DD日(dd)')
       product.hasGift = product.Gifts.length !== 0 ? true : false
+      product.isOnSale = moment(new Date).isAfter(product.deadline)
 
       res.render('product', { css: 'product', product })
 
