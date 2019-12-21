@@ -33,11 +33,11 @@
         </div>
         {{!-- info、購物車 --}}
         <div class="col-md-4">
-          <div class="mb-3 pt-1">
-            {{#each product.tags}}
-              <span class="tag-icon icon{{id}} mr-2">{{name}}</span>
-            {{/each}}
-          </div>
+          {{#if product.hasGift}}
+            <div class="mb-3 pt-1">
+              <span class="tag-icon mr-2">附特典</span>
+            </div>
+          {{/if}}
           <div>
             <h4 class="mb-3">{{product.name}}</h4>
             <p class="mb-1">作品名:　{{product.Series.name}}</p>
@@ -106,7 +106,7 @@
       {{#if product.hasGift}}
       <div class="row py-4">
         <div class="col-md-2">
-          <span class="tag-icon icon2">特典</span>
+          <span class="tag-icon icon2">附特典</span>
         </div>
         <div class="col-md-6">
           <p>【GREATSMILE ONLINE SHOP予約特典】</p>

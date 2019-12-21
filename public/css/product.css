@@ -49,21 +49,8 @@ section {
   padding: .5rem;
   border-radius: 5px;
   font-size: .85rem;
-}
-
-.tag-icon.icon1 {  /* 預購中 */
-  background: #34a853; 
-  color: #fff;
-}
-
-.tag-icon.icon2 {  /* 特典 */
   background: #ffe14d; 
   color: #e53900;
-}
-
-.tag-icon.icon3 {  /* 庫存販售商品 */
-  background: #34a853;
-  color: #fff;
 }
 
 /* 上部購物車 */
