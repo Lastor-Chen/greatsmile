@@ -7,5 +7,6 @@ const { isAdminAuth } = require('../../middleware/auth')
 router.use('/', isAdminAuth)
 router.get('/', (req, res) => res.redirect('/admin/products'))
 router.get('/products', prodCtrller.getProducts)
+router.get('/products/new', prodCtrller.getAddPage)
 
 module.exports = router

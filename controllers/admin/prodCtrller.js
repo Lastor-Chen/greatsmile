@@ -37,5 +37,10 @@ module.exports = {
       console.error(err)
       res.status(500).json(err.toString())
     }
+  },
+
+  getAddPage: (req, res) => {
+    res.render('admin/new')
   }
+
 }

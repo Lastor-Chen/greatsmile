@@ -1,0 +1,83 @@
+<div class="card">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" href="/admin/products/new"><i class="fas fa-plus"></i> 新增商品</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/products">商品</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/orders">訂單</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/users">會員</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <form action="/admin/products" method="POST" enctype="multipart/form-data">
+      <div class="row">
+        <div class="col-5 mx-auto">
+          <div class="form-group">
+            <label for="name">商品名稱</label>
+            <input type="text" class="form-control" id="name">
+          </div>
+          <div class="form-group">
+            <label for="slogan">標語</label>
+            <input type="text" class="form-control" id="slogan">
+          </div>
+          <div class="form-group">
+            <label for="deseription">介紹</label>
+            <textarea class="form-control" id="deseription"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="image">商品圖片</label>
+            <input type="file" class="form-control-file" id="image" name="image">
+          </div>
+          <div class="form-group">
+            <label for="spec">規格</label>
+            <input type="text" class="form-control" id="spec">
+          </div>
+          <div class="form-group">
+            <label for="copyright">版權</label>
+            <input type="text" class="form-control" id="copyright">
+          </div>
+          <div class="form-group">
+            <label for="maker">廠商</label>
+            <input type="text" class="form-control" id="maker">
+          </div>
+        </div>
+        <div class="col-5 mx-auto">
+          <div class="form-group">
+            <label for="price">售價</label>
+            <input type="text" class="form-control" id="price">
+          </div>
+          <div class="form-group">
+            <label for="intenvory">庫存</label>
+            <input type="text" class="form-control" id="intenvory">
+          </div>
+          <div class="form-group">
+            <label for="state">上架狀態</label>
+            <select id="state" class="form-control">
+              <option selected>是</option>
+              <option>否</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="releaseDate">公開日期</label>
+            <input type="date" class="form-control" id="releaseDate">
+          </div>
+          <div class="form-group">
+            <label for="saleDate">發售日</label>
+            <input type="date" class="form-control" id="saleDate">
+          </div>
+          <div class="form-group">
+            <label for="saleDate">發售日</label>
+            <input type="date" class="form-control" id="saleDate">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
