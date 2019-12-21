@@ -30,6 +30,13 @@
 
 .page-link {
   border: 0;
+  background-color: #ebebeb;
+  color: #454545;
+}
+
+.page-link:hover {
+  background-color: #ff9600;
+  color: #ffffff;
 }
 
 .row li {
