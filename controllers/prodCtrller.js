@@ -20,8 +20,9 @@ module.exports = {
       product.saleDateFormat = moment(product.saleDate).format('YYYY年MM月')
       product.releaseDateFormat = moment(product.releaseDate).format('YYYY年MM月DD日(dd)')
       product.deadlineFormat = moment(product.deadline).format('YYYY年MM月DD日(dd)')
-      product.hasGift = product.Gifts.length !== 0 ? true : false
+      product.hasGift = (product.Gifts.length !== 0) ? true : false
       product.isOnSale = moment(new Date).isAfter(product.deadline)
+      product.hasInv = (product.inventory !== 0)
 
       res.render('product', { css: 'product', product })
 

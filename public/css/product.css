@@ -64,6 +64,12 @@ section {
   font-weight: bold;
 }
 
+.status-sold-out {
+  color: #d83820;
+  font-size: 16px;
+  font-weight: bold;
+}
+
 .cart-btn {
   display: inline-block;
   background: #ff5400;
