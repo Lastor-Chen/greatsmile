@@ -25,7 +25,7 @@
   border: 1px solid #ff9600;
 }
 
-.category-bar {
+.category-bar, footer {
   background-color: #806d66;
 }
 
@@ -60,7 +60,7 @@
   color:#454545;
 }
 
-.search-bar, footer{
+.search-bar {
   background-color: #b7a69f;
 }
 
