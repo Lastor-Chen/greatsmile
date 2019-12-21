@@ -27,7 +27,7 @@
         <div class="d-flex align-items-start">
           <ul class="nav-tag">
             <li class="d-inline">
-              <a href="#" class="btn btn-sm active">預購中</a>
+              <a href="#" class="btn btn-sm">預購中</a>
             </li>
             <li class="d-inline">
               <a href="#" class="btn btn-sm">特典</a>
@@ -36,7 +36,7 @@
               <a href="#" class="btn btn-sm">庫存販售商品</a>
             </li>
             <li class="d-inline">
-              <a href="#" class="btn btn-sm">所有商品</a>
+              <a href="#" class="btn btn-sm active">所有商品</a>
             </li>
           </ul>
         </div>
@@ -59,77 +59,24 @@
       </div>
       {{!-- 商品型錄 --}}
       <div class="row">
+        {{#each products}}
         <div class="col-md-2-5 mb-3">
           <div class="card">
             <div class="card-body">
-              <img src="https://goodsmileshop.com/medias/sys_master/images/images/hc2/hb0/9154080047134.jpg"
-                class="card-img-top img-fit mb-2" alt="...">
-              <span class="tag-preorder">預購中</span>
+              <img src="{{this.firstimage.url}}"
+                class="card-img-top img-fit mb-3" alt="...">
+              {{#if isPreorder}}  
+                <span class="tag-preorder">預購中</span>
+              {{/if}}
+              {{#if isGift}}
               <span class="tag-gift">特典</span>
-              <h5 class="card-title mt-3">Product Name</h5>
-              <p class="card-text pt-3 d-flex justify-content-end">10,000 元</p>
+              {{/if}}
+              <h5 class="card-title mt-3">{{this.name}}</h5>
+              <p class="card-text pt-3 d-flex justify-content-end">{{this.price}} 元</p>
             </div>
           </div>
         </div>
-        <div class="col-md-2-5 mb-3">
-          <div class="card">
-            <div class="card-body">
-              <img src="https://goodsmileshop.com/medias/sys_master/images/images/hc2/hb0/9154080047134.jpg"
-                class="card-img-top img-fit mb-2" alt="...">
-              <span class="tag-preorder">預購中</span>
-              <span class="tag-gift">特典</span>
-              <h5 class="card-title mt-3">Product Name</h5>
-              <p class="card-text pt-3 d-flex justify-content-end">10,000 元</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-2-5 mb-3">
-          <div class="card">
-            <div class="card-body">
-              <img src="https://goodsmileshop.com/medias/sys_master/images/images/hc2/hb0/9154080047134.jpg"
-                class="card-img-top img-fit mb-2" alt="...">
-              <span class="tag-preorder">預購中</span>
-              <span class="tag-gift">特典</span>
-              <h5 class="card-title mt-3">Product Name</h5>
-              <p class="card-text pt-3 d-flex justify-content-end">10,000 元</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-2-5 mb-3">
-          <div class="card">
-            <div class="card-body">
-              <img src="https://goodsmileshop.com/medias/sys_master/images/images/hc2/hb0/9154080047134.jpg"
-                class="card-img-top img-fit mb-2" alt="...">
-              <span class="tag-preorder">預購中</span>
-              <span class="tag-gift">特典</span>
-              <h5 class="card-title mt-3">Product Name</h5>
-              <p class="card-text pt-3 d-flex justify-content-end">10,000 元</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-2-5 mb-3">
-          <div class="card">
-            <div class="card-body">
-              <img src="https://goodsmileshop.com/medias/sys_master/images/images/hc2/hb0/9154080047134.jpg"
-                class="card-img-top img-fit mb-2" alt="...">
-              <span class="tag-preorder">預購中</span>
-              <span class="tag-gift">特典</span>
-              <h5 class="card-title mt-3">Product Name</h5>
-              <p class="card-text pt-3 d-flex justify-content-end">10,000 元</p>
-            </div>
-          </div>
-        </div><div class="col-md-2-5 mb-3">
-          <div class="card">
-            <div class="card-body">
-              <img src="https://goodsmileshop.com/medias/sys_master/images/images/hc2/hb0/9154080047134.jpg"
-                class="card-img-top img-fit mb-2" alt="...">
-              <span class="tag-preorder">預購中</span>
-              <span class="tag-gift">特典</span>
-              <h5 class="card-title mt-3">Product Name</h5>
-              <p class="card-text pt-3 d-flex justify-content-end">10,000 元</p>
-            </div>
-          </div>
-        </div>
+        {{/each}}
       </div>
       {{!-- 分頁 --}}
       <div class="row">
