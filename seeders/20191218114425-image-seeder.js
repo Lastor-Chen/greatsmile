@@ -7,16 +7,26 @@ function randomNum(min, max) {
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Images',
-      Array.from({ length: 60 }, (val, index) => ({
-        url: faker.image.image(),
-        product_id: randomNum( 1, 20 )
-      }))
-    )
+    return Promise.all([
+      queryInterface.bulkInsert('Images',
+        Array.from({ length: 20 }, (val, index) => ({
+          url: faker.image.image(),
+          product_id: index + 1
+        }))
+      ),
+      queryInterface.bulkInsert('Images',
+        Array.from({ length: 60 }, (val, index) => ({
+          url: faker.image.image(),
+          product_id: randomNum(1, 20)
+        }))
+      )
+    ])
   },
 
   down: (queryInterface, Sequelize) => {
     const option = { truncate: true, restartIdentity: true }
-    return queryInterface.bulkDelete('Images', null, option)
+    return Promise.all([
+      queryInterface.bulkDelete('Images', null, option)
+    ])
   }
 };
