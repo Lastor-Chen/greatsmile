@@ -9,6 +9,26 @@
   font-size: 25px;
 }
 
+.btn-icon {
+  background-color: #ffffff;
+}
+
+.btn-icon:hover {
+  background-color: #ff9600;
+}
+
+.btn-icon img {
+  width: 40px;
+}
+
+.card {
+  position: relative;
+}
+
+.card:hover .hover{
+  display: block;
+}
+
 .card-title {
   font-size: 12px;
 }
@@ -17,6 +37,16 @@
   font-size: 12px;
 }
 
+.hover {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+  background-color: rgb(140, 140, 140, 0.8);
+}
 
 .img-fit {
   width: 100%;

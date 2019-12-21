@@ -64,7 +64,7 @@
           <div class="card">
             <div class="card-body">
               <img src="{{this.firstimage.url}}"
-                class="card-img-top img-fit mb-3" alt="...">
+                class="card-img-top img-fit mb-3">
               {{#if isPreorder}}  
                 <span class="tag-preorder">預購中</span>
               {{/if}}
@@ -73,6 +73,19 @@
               {{/if}}
               <h5 class="card-title mt-3">{{this.name}}</h5>
               <p class="card-text pt-3 d-flex justify-content-end">{{this.price}} 元</p>
+            </div>
+            <div class="hover ">
+              <div class="pt-5">
+                <a href="/products/{{this.id}}" class="btn btn-icon px-2 py-2 mx-1 d-inline-block">
+                  <img src="/img/magnifying-glass.png">
+                </a>
+                <form action="/cart" method="POST" class="d-inline-block">
+                  <input type="hidden">
+                  <button type="submit" class="btn btn-icon px-2 py-2 mx-1">
+                    <img src="/img/cart.png">
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
