@@ -10,7 +10,7 @@ module.exports = {
         }))
       ),
       queryInterface.bulkInsert('Tag_items',
-        Array.from({ length: 20 }, (val, index) => ({
+        Array.from({ length: 5 }, (val, index) => ({
           tag_Id: 2,
           product_id: index + 1
         }))

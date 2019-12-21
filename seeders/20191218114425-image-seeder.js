@@ -9,8 +9,8 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Images',
       Array.from({ length: 60 }, (val, index) => ({
-        url: faker.image.image(),
-        product_id: randomNum( 1, 20 )
+        url: faker.image.imageUrl(530, 670),
+        product_id: index < 7 ? 1 : randomNum(1, 20)
       }))
     )
   },

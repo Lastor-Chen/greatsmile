@@ -11,7 +11,7 @@ module.exports = {
        Array.from({ length: 20 }, (val, index) => ({
          name: faker.commerce.productName(),
          price: faker.commerce.price(1000,8000),
-         inventory: randomNum(30, 50),
+         inventory: index === 1 ? 0 : randomNum(30, 50),
          slogan: faker.lorem.words(),
          description: faker.lorem.lines(2),
          spec: faker.lorem.sentence(),

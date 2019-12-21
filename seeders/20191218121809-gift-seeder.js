@@ -4,7 +4,7 @@ const faker = require('faker')
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Gifts',
-      Array.from({ length: 20 }, (val, index) => ({
+      Array.from({ length: 5 }, (val, index) => ({
         name: faker.commerce.productName(),
         image: faker.image.image(),
         product_id: index + 1
