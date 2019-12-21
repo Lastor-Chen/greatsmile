@@ -11,8 +11,10 @@
       {{!-- 圖片區塊 --}}
       <div class="row pb-4">
         {{!-- 畫廊 --}}
-        <div class="col-md-8 text-center">
-          <img src="{{product.mainImg}}" alt="photo" width="70%">
+        <div class="col-md-8">
+          <div class="prod-img">
+            <img class="w-100" src="{{product.mainImg}}" alt="product-image">
+          </div>
           <div class="mt-4 d-flex justify-content-center align-items-center">
             <span class="arrow-btn">
               <i class="fas fa-angle-left"></i>
@@ -20,7 +22,7 @@
             <div class="img-list mx-3">
               <div class="d-inline-block" style="width: 1000px">
                 {{#each product.Images}}
-                  <img src="{{url}}" alt="photo_list" class="mr-3 img-thumbnail">
+                  <img src="{{url}}" alt="image-list" class="mr-3 img-thumbnail">
                 {{/each}}
               </div>
             </div>
@@ -107,7 +109,9 @@
           <p>「{{product.name}}」をご購入頂いた方に、「{{product.Gifts.0.name}}」をプレゼント！</p>
         </div>
         <div class="col-md-4">
-          <img class="w-100" src="{{product.Gifts.0.image}}" alt="特典圖">
+          <div class="gift-img">
+            <img class="w-100" src="{{product.Gifts.0.image}}" alt="gift-img">
+          </div>
         </div>
       </div>
       <hr>
@@ -195,4 +199,4 @@
       </div>
     </section>
   </main>
-</div> 
+</div>
