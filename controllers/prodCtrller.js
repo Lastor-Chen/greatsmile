@@ -17,6 +17,7 @@ module.exports = {
 
       // 頁面所需 data
       product.mainImg = product.Images[0].url
+      product.priceFormat = product.price.toLocaleString()
       product.saleDateFormat = moment(product.saleDate).format('YYYY年MM月')
       product.releaseDateFormat = moment(product.releaseDate).format('YYYY年MM月DD日(dd)')
       product.deadlineFormat = moment(product.deadline).format('YYYY年MM月DD日(dd)')
