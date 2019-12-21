@@ -14,6 +14,10 @@ module.exports = {
       product_id: {
         type: Sequelize.INTEGER
       },
+      is_main: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,
