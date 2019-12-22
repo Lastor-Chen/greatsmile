@@ -11,6 +11,7 @@
 
 .btn-icon {
   background-color: #ffffff;
+  border-radius: 8px;
 }
 
 .btn-icon:hover {
@@ -21,8 +22,14 @@
   width: 40px;
 }
 
+.btn-sm {
+  border-radius: 10px;
+  padding: 10px 15px;
+}
+
 .card {
   position: relative;
+  border-radius: 10px;
 }
 
 .card:hover .hover{
@@ -45,7 +52,12 @@
   bottom: 0;
   right: 0;
   text-align: center;
+  border-radius: 10px;
   background-color: rgb(140, 140, 140, 0.8);
+}
+
+.icon-group {
+  padding-top: 100px;
 }
 
 .img-fit {
@@ -73,20 +85,22 @@
   list-style-type: none;
 }
 
+.tag {
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 3px 6px;
+}
+
 .tag-gift {
   background-color: #ffe14d;
   color: #e53900;
-  font-size: 12px;
-  border-radius: 5px;
-  padding: 3px 6px;
+  
 }
 
 .tag-preorder {
   background-color: #34A853;
   color: #ffffff;
-  font-size: 12px;
-  border-radius: 5px;
-  padding: 3px 6px;
 }
 
 /* define bootstrap 5 columns */

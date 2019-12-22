@@ -10,6 +10,10 @@ body {
   background-color: #ff9600;
   border: 1px solid #ff9600;
   color: #804000;
+  border-radius: 10px;
+  width: 10rem;
+  height: 4rem;
+  line-height: 3rem;
 }
 
 .btn-top-bar:hover {
@@ -22,6 +26,8 @@ body {
   background-color: #ff9600;
   border: 1px solid #ff9600;
   color: #ffffff;
+  border-radius: 10px;
+  padding: 6px 12px;
 }
 
 .btn-orange:hover {
@@ -66,6 +72,11 @@ body {
 
 .search-bar, footer{
   background-color: #b7a69f;
+}
+
+.search-input {
+  border-radius: 10px;
+  padding: 6px 35px 6px 12px;
 }
 
 .footer-muted{
