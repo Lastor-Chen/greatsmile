@@ -9,7 +9,6 @@ module.exports = {
     try {
       const products = await Product.findAll({
         include: ['Images', 'Gifts'],
-        order: [['saleDate', 'DESC']],
         where: { status: 1 }
       })
 
@@ -22,7 +21,17 @@ module.exports = {
         product.hasInv = (product.inventory !== 0)
       })
 
-      return res.render('products', { products, css: 'products' })
+      // select 排序
+      const sort = req.query.sort
+      const order = req.query.order
+      const showProducts = products.sort((a, b) => {
+        if (order === 'asc') {      // 升冪排列，價格低至高
+          return a[sort] - b[sort]
+        }
+        return b[sort] - a[sort]
+      })
+
+      return res.render('products', { showProducts, css: 'products' })
 
     } catch (err) {
       console.error(err)

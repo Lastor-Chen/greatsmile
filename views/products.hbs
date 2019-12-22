@@ -46,11 +46,11 @@
         </div>
         <div class="d-flex align-items-start">
           <div class="form-group d-inline-block">
-            <select class="form-control" id="exampleFormControlSelect1">
-              <option>發售日 新→舊</option>
-              <option>發售日 舊→新</option>
-              <option>價格 低→高</option>
-              <option>價格 高→低</option>
+            <select class="form-control" id="exampleFormControlSelect1" onchange="location = this.value;">
+              <option value="?sort=releaseDate">介紹日 新→舊</option>
+              <option value="?sort=saleDate">發售日 新→舊</option>
+              <option value="?sort=price&order=asc">價格 低→高</option>
+              <option value="?sort=price&order=desc">價格 高→低</option>
             </select>
           </div>
           <a href="#" class="btn btn-display">
@@ -63,7 +63,7 @@
       </div>
       {{!-- 商品型錄 --}}
       <div class="row">
-        {{#each products}}
+        {{#each showProducts}}
         <div class="col-md-2-5 mb-3">
           <div class="card">
             <div class="card-body">
