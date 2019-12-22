@@ -67,3 +67,20 @@
 .footer-muted{
   color: #ffffff;
 }
+
+.back-top-btn {
+  display: inline-block;
+  background: #806d66;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 5px;
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+}
+
+.back-top-btn:hover {
+  color: rgb(231, 219, 211);
+  background: #63514a;
+}
