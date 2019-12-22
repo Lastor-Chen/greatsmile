@@ -36,6 +36,12 @@
   display: block;
 }
 
+.card-bg {
+  width: 166px;
+  height: 210px;
+  background-color: #eee;
+}
+
 .card-title {
   font-size: 12px;
 }
