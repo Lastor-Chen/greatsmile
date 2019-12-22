@@ -22,12 +22,13 @@ module.exports = {
           is_main: false
         }))
       )
-    ]) 
-    
+    ])
   },
 
   down: (queryInterface, Sequelize) => {
     const option = { truncate: true, restartIdentity: true }
-    return queryInterface.bulkDelete('Images', null, option)
+    return Promise.all([
+      queryInterface.bulkDelete('Images', null, option)
+    ])
   }
 };

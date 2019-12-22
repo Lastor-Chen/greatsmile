@@ -1,0 +1,160 @@
+/* 麵包屑 */
+.bread {
+  font-size: .85rem;
+}
+
+.bread a {
+  color: #707070;
+}
+
+.active, .active:hover {
+  background-color: #ff9600;
+  border: 1px solid #ff9600;
+  color: #ffffff;
+}
+
+.btn-display {
+  padding: 0 10px;
+  font-size: 25px;
+}
+
+.btn-icon {
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+.btn-icon:hover {
+  background-color: #ff9600;
+}
+
+.btn-icon img {
+  width: 40px;
+}
+
+.btn-sm {
+  border-radius: 10px;
+  padding: 10px 15px;
+}
+
+.card {
+  position: relative;
+  border-radius: 10px;
+}
+
+.card:hover .hover{
+  display: block;
+}
+
+.card-bg {
+  width: 166px;
+  height: 210px;
+  background-color: #eee;
+}
+
+.card-title {
+  font-size: 12px;
+  height: 2rem;
+}
+
+.card-text {
+  font-size: 12px;
+}
+
+.hover {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+  border-radius: 10px;
+  background-color: rgb(140, 140, 140, 0.8);
+}
+
+.icon-group {
+  padding-top: 100px;
+}
+
+.img-fit {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.nav-tag {
+  padding: 0 10px;
+}
+
+.page-link {
+  border: 0;
+  background-color: #ebebeb;
+  color: #454545;
+}
+
+.page-link:hover {
+  background-color: #ff9600;
+  color: #ffffff;
+}
+
+.row li {
+  list-style-type: none;
+}
+
+.tag {
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 3px 6px;
+}
+
+.tag-gift {
+  background-color: #ffe14d;
+  color: #e53900;
+  
+}
+
+.tag-preorder {
+  background-color: #34A853;
+  color: #ffffff;
+}
+
+.tag-sold-out {
+  background-color: #9E9E9F;
+  color: #ffffff;
+}
+
+/* define bootstrap 5 columns */
+.col-xs-2-5,
+.col-sm-2-5,
+.col-md-2-5,
+.col-lg-2-5 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.col-xs-2-5 {
+    width: 20%;
+    float: left;
+}
+
+@media (min-width: 768px) {
+.col-sm-2-5 {
+        width: 20%;
+        float: left;
+    }
+}
+@media (min-width: 992px) {
+    .col-md-2-5 {
+        width: 20%;
+        float: left;
+    }
+}
+@media (min-width: 1200px) {
+    .col-lg-2-5 {
+        width: 20%;
+        float: left;
+    }
+}
