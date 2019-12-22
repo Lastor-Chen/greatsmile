@@ -8,6 +8,7 @@ p {
 
 section {
   border-radius: 20px;
+  background: #fff;
 }
 
 /* 麵包屑 */
@@ -41,6 +42,10 @@ section {
 .img-list img {
   width: 70px;
   height: 70px;
+}
+
+.gallery {
+  width: 1000px;
 }
 
 /* Tag 群 */

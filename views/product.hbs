@@ -7,7 +7,7 @@
       <span>{{product.name}}</span>
     </nav>
     {{!-- main content --}}
-    <section class="mb-5 p-5" style="background: #fff;">
+    <section class="mb-5 p-5">
       {{!-- 圖片區塊 --}}
       <div class="row pb-4">
         {{!-- 畫廊 --}}
@@ -20,7 +20,7 @@
               <i class="fas fa-angle-left"></i>
             </span>            
             <div class="img-list mx-3">
-              <div class="d-inline-block" style="width: 1000px">
+              <div class="d-inline-block gallery">
                 {{#each product.Images}}
                   <img src="{{url}}" alt="image-list" class="mr-3 img-thumbnail">
                 {{/each}}
@@ -205,7 +205,7 @@
       </div>
     </section>
     {{!-- waring info --}}
-    <section class="mb-5 p-5" style="background: #fff;">
+    <section class="mb-5 p-5">
       <div class="small-text">
         ※ 受注期間、予約受付期間内においても販売を終了する場合がございます。ご了承ください。
         <br>
