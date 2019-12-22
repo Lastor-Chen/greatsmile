@@ -66,11 +66,17 @@
               <div class="card-img-top card-bg mb-3">
                 <img src="{{this.mainImg}}" class="card-img-top img-fit">
               </div>
-              {{#if isPreorder}}  
+              {{#if hasInv}}
+                {{#if isPreorder}}
                 <span class="tag tag-preorder">預購中</span>
-              {{else}}  
+                {{else}}
                 <span class="tag tag-preorder">發售中</span>
+                {{/if}}
+              {{else}}
+                <span class="tag tag-sold-out">已售完</span>
               {{/if}}
+
+              
               {{#if isGift}}
               <span class="tag tag-gift">特典</span>
               {{/if}}

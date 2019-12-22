@@ -17,6 +17,7 @@ module.exports = {
         product.priceFormat = product.price.toLocaleString()
         product.isPreorder = moment(today).isBefore(product.deadline)
         product.isGift = product.Gifts.length > 0 ? true :false
+        product.hasInv = (product.inventory !== 0)
       });  
 
       return res.render('products', { products, css: 'products' })

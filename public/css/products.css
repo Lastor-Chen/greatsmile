@@ -109,6 +109,11 @@
   color: #ffffff;
 }
 
+.tag-sold-out {
+  background-color: #9E9E9F;
+  color: #ffffff;
+}
+
 /* define bootstrap 5 columns */
 .col-xs-2-5,
 .col-sm-2-5,
