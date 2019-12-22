@@ -12,7 +12,7 @@ module.exports = {
 
       const today = new Date()
       products.forEach(product => {
-        product.firstimage = product.Images[0]
+        product.mainImg = product.Images.find(img => img.isMain).url
         product.priceFormat = product.price.toLocaleString()
         product.isPreorder = moment(today).isBefore(product.deadline)
         product.isGift = product.Gifts.length > 0 ? true :false
