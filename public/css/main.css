@@ -68,8 +68,8 @@
   color: #ffffff;
 }
 
-.back-top-btn {
-  display: inline-block;
+.back-top {
+  display: none;
   background: #806d66;
   color: #fff;
   text-decoration: none;
@@ -80,7 +80,7 @@
   right: 5%;
 }
 
-.back-top-btn:hover {
+.back-top:hover {
   color: rgb(231, 219, 211);
   background: #63514a;
 }
