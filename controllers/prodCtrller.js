@@ -25,6 +25,9 @@ module.exports = {
       const sort = req.query.sort
       const order = req.query.order
       const showProducts = products.sort((a, b) => {
+        if (!order && !sort) {      // 還未選擇排序時，預設介紹日排序
+          return b.releaseDate - a.releaseDate
+        }
         if (order === 'asc') {      // 升冪排列，價格低至高
           return a[sort] - b[sort]
         }
