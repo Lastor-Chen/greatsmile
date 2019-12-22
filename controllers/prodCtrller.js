@@ -7,7 +7,8 @@ module.exports = {
     try{
       const products = await Product.findAll({
         include: ['Images', 'Gifts'],
-        order: [['saleDate', 'DESC']]
+        order: [['saleDate', 'DESC']],
+        where: {status: 1}
       })
 
       const today = new Date()
