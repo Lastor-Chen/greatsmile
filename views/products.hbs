@@ -47,10 +47,22 @@
         <div class="d-flex align-items-start">
           <div class="form-group d-inline-block">
             <select class="form-control" id="exampleFormControlSelect1" onchange="location = this.value;">
-              <option value="?sort=releaseDate">介紹日 新→舊</option>
-              <option value="?sort=saleDate">發售日 新→舊</option>
-              <option value="?sort=price&order=asc">價格 低→高</option>
-              <option value="?sort=price&order=desc">價格 高→低</option>
+              <option value="?sort=releaseDate"
+              {{#ifEqual selectSort 'sort=releaseDate'}}selected="selected"{{/ifEqual}}>
+                介紹日 新→舊
+              </option>
+              <option value="?sort=saleDate" 
+              {{#ifEqual selectSort 'sort=saleDate'}}selected="selected"{{/ifEqual}}>
+                發售日 新→舊
+              </option>
+              <option value="?sort=price&order=asc"
+              {{#ifEqual selectSort 'sort=price&order=asc'}}selected="selected"{{/ifEqual}}>
+                價格 低→高
+              </option>
+              <option value="?sort=price&order=desc"
+              {{#ifEqual selectSort 'sort=price&order=desc'}}selected="selected"{{/ifEqual}}>
+                價格 高→低
+              </option>
             </select>
           </div>
           <a href="#" class="btn btn-display">

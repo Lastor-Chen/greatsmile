@@ -31,7 +31,8 @@ module.exports = {
         return b[sort] - a[sort]
       })
 
-      return res.render('products', { showProducts, css: 'products' })
+      const selectSort = order ? `sort=${sort}&order=${order}` : `sort=${sort}`
+      return res.render('products', { showProducts, selectSort, css: 'products' })
 
     } catch (err) {
       console.error(err)
