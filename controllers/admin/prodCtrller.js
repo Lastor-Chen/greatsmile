@@ -32,7 +32,7 @@ module.exports = {
         }
 
       })
-      res.render('admin/products', { products })
+      res.render('admin/products', { products, css: 'admin' })
     } catch (err) {
       console.error(err)
       res.status(500).json(err.toString())

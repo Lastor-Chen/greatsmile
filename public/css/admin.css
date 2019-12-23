@@ -1,0 +1,16 @@
+.container {
+  max-width: 1250px;
+}
+
+#table > tbody {
+  font-size: 14px;
+}
+
+#table > thead {
+  background-color: #6c757d;
+  color: white;
+}
+
+.table-bordered td, .table-bordered th {
+    border: 0px solid #dee2e6;
+}
