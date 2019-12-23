@@ -42,13 +42,12 @@ module.exports = {
       })
 
       const selectedSort = `${sort},${orderBy}`
+      const bread = req.path.includes('search') ? '搜尋商品' : '製品一覽'
 
       res.render('products', { 
         js: 'products',
         css: 'products',
-        products,
-        selectedSort,
-        searchQuery
+        products, selectedSort, searchQuery, bread
       })
 
     } catch (err) {
