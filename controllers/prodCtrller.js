@@ -31,7 +31,12 @@ module.exports = {
 
       const selectSort = sort ? `${sort}${foo}` : 'releaseDate'
 
-      return res.render('products', { products, selectSort, css: 'products' })
+      return res.render('products', { 
+        js: 'products',
+        css: 'products',
+        products,
+        selectSort 
+      })
 
     } catch (err) {
       console.error(err)

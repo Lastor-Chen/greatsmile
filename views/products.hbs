@@ -46,24 +46,24 @@
         </div>
         <div class="d-flex align-items-start">
           <div class="form-group d-inline-block">
-            <select class="form-control" id="exampleFormControlSelect1" onchange="location = this.value;">
+            <select id="order" class="form-control">
               <option 
-                value="?sort=releaseDate"
-                {{#ifEqual selectSort 'releaseDateDESC'}}selected="selected"{{/ifEqual}}
+                value="releaseDate,DESC"
+                {{#ifEqual selectSort 'releaseDateDESC'}}selected{{/ifEqual}}
               >介紹日 新→舊</option>
               <option 
-                value="?sort=saleDate"
-                {{#ifEqual selectSort 'saleDateDESC'}}selected="selected"{{/ifEqual}}
+                value="saleDate,DESC"
+                {{#ifEqual selectSort 'saleDateDESC'}}selected{{/ifEqual}}
               >發售日 新→舊</option>
               <option 
-                value="?sort=price&order=ASC"
-                {{#ifEqual selectSort 'priceASC'}}selected="selected"{{/ifEqual}}
+                value="price,ASC"
+                {{#ifEqual selectSort 'priceASC'}}selected{{/ifEqual}}
               >
                 價格 低→高
               </option>
               <option 
-                value="?sort=price&order=DESC"
-                {{#ifEqual selectSort 'priceDESC'}}selected="selected"{{/ifEqual}}
+                value="price,DESC"
+                {{#ifEqual selectSort 'priceDESC'}}selected{{/ifEqual}}
               >
                 價格 高→低
               </option>
