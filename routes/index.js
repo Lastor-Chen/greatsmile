@@ -13,6 +13,8 @@ module.exports = (app, passport) => {
   app.use('/users', require('./users.js'))
   app.use('/admin', require('./admin/admin.js'))
 
+  app.get('/search', require('../controllers/prodCtrller').getProducts)
+
   // user account
   app.get('/signup', userCtrller.getSignUp)
   app.post('/signup', userCtrller.signUp)
