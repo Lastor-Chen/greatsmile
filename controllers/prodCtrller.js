@@ -1,6 +1,7 @@
 const db = require('../models')
 const Product = db.Product
 
+const Op = require('sequelize').Op
 const moment = require('moment')
 moment.locale('zh-tw')
 
@@ -12,10 +13,21 @@ module.exports = {
       const orderBy = req.query.order || 'DESC'
       const order = [[sort, orderBy]]
 
+      // search 商品名 or 作品名
+      // 組合出 SQL， WHERE 'status' AND ('name' OR 'Series.name')
+      const searchQuery = req.query.q
+      const where = { status: 1 }
+      if (searchQuery) {
+        where[Op.or] = {
+          name: { [Op.like]: `%${searchQuery}%` },
+          '$Series.name$': { [Op.like]: `%${searchQuery}%` }
+        } 
+      }
+
       // db Query
       const products = await Product.findAll({
-        include: ['Images', 'Gifts'],
-        where: { status: 1 },
+        include: ['Images', 'Gifts', 'Series'],
+        where,
         order
       })
 
@@ -35,7 +47,7 @@ module.exports = {
         js: 'products',
         css: 'products',
         products,
-        selectedSort 
+        selectedSort
       })
 
     } catch (err) {
