@@ -47,7 +47,8 @@ module.exports = {
         js: 'products',
         css: 'products',
         products,
-        selectedSort
+        selectedSort,
+        searchQuery
       })
 
     } catch (err) {
