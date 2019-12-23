@@ -7,10 +7,10 @@ moment.locale('zh-tw')
 module.exports = {
   getProducts: async (req, res) => {
     try {
-      // 排序條件
-      const sort = req.query.sort
-      const foo = req.query.order ? req.query.order : 'DESC'
-      const order = sort ? [[sort, foo]] : [['releaseDate', foo]]
+      // 排序條件，預設為 ['releaseDate', 'DESC']
+      const sort = req.query.sort || 'releaseDate'
+      const orderBy = req.query.order || 'DESC'
+      const order = [[sort, orderBy]]
 
       // db Query
       const products = await Product.findAll({
@@ -29,13 +29,13 @@ module.exports = {
         product.hasInv = (product.inventory !== 0)
       })
 
-      const selectSort = sort ? `${sort}${foo}` : 'releaseDate'
+      const selectedSort = `${sort},${orderBy}`
 
-      return res.render('products', { 
+      res.render('products', { 
         js: 'products',
         css: 'products',
         products,
-        selectSort 
+        selectedSort 
       })
 
     } catch (err) {
