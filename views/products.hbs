@@ -47,20 +47,24 @@
         <div class="d-flex align-items-start">
           <div class="form-group d-inline-block">
             <select class="form-control" id="exampleFormControlSelect1" onchange="location = this.value;">
-              <option value="?sort=releaseDate"
-              {{#ifEqual selectSort 'sort=releaseDate'}}selected="selected"{{/ifEqual}}>
-                介紹日 新→舊
-              </option>
-              <option value="?sort=saleDate" 
-              {{#ifEqual selectSort 'sort=saleDate'}}selected="selected"{{/ifEqual}}>
-                發售日 新→舊
-              </option>
-              <option value="?sort=price&order=asc"
-              {{#ifEqual selectSort 'sort=price&order=asc'}}selected="selected"{{/ifEqual}}>
+              <option 
+                value="?sort=releaseDate"
+                {{#ifEqual selectSort 'releaseDateDESC'}}selected="selected"{{/ifEqual}}
+              >介紹日 新→舊</option>
+              <option 
+                value="?sort=saleDate"
+                {{#ifEqual selectSort 'saleDateDESC'}}selected="selected"{{/ifEqual}}
+              >發售日 新→舊</option>
+              <option 
+                value="?sort=price&order=ASC"
+                {{#ifEqual selectSort 'priceASC'}}selected="selected"{{/ifEqual}}
+              >
                 價格 低→高
               </option>
-              <option value="?sort=price&order=desc"
-              {{#ifEqual selectSort 'sort=price&order=desc'}}selected="selected"{{/ifEqual}}>
+              <option 
+                value="?sort=price&order=DESC"
+                {{#ifEqual selectSort 'priceDESC'}}selected="selected"{{/ifEqual}}
+              >
                 價格 高→低
               </option>
             </select>
@@ -75,7 +79,7 @@
       </div>
       {{!-- 商品型錄 --}}
       <div class="row">
-        {{#each showProducts}}
+        {{#each products}}
         <div class="col-md-2-5 mb-3">
           <div class="card">
             <div class="card-body">

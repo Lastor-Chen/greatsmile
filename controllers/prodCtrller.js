@@ -7,11 +7,19 @@ moment.locale('zh-tw')
 module.exports = {
   getProducts: async (req, res) => {
     try {
+      // 排序條件
+      const sort = req.query.sort
+      const foo = req.query.order ? req.query.order : 'DESC'
+      const order = sort ? [[sort, foo]] : [['releaseDate', foo]]
+
+      // db Query
       const products = await Product.findAll({
         include: ['Images', 'Gifts'],
-        where: { status: 1 }
+        where: { status: 1 },
+        order
       })
 
+      // 製作頁面資料
       const today = new Date()
       products.forEach(product => {
         product.mainImg = product.Images.find(img => img.isMain).url
@@ -21,21 +29,9 @@ module.exports = {
         product.hasInv = (product.inventory !== 0)
       })
 
-      // select 排序
-      const sort = req.query.sort
-      const order = req.query.order
-      const showProducts = products.sort((a, b) => {
-        if (!order && !sort) {      // 還未選擇排序時，預設介紹日排序
-          return b.releaseDate - a.releaseDate
-        }
-        if (order === 'asc') {      // 升冪排列，價格低至高
-          return a[sort] - b[sort]
-        }
-        return b[sort] - a[sort]
-      })
+      const selectSort = sort ? `${sort}${foo}` : 'releaseDate'
 
-      const selectSort = order ? `sort=${sort}&order=${order}` : `sort=${sort}`
-      return res.render('products', { showProducts, selectSort, css: 'products' })
+      return res.render('products', { products, selectSort, css: 'products' })
 
     } catch (err) {
       console.error(err)
