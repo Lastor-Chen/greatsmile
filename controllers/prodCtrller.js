@@ -7,12 +7,19 @@ moment.locale('zh-tw')
 module.exports = {
   getProducts: async (req, res) => {
     try {
+      // 排序條件，預設為 ['releaseDate', 'DESC']
+      const sort = req.query.sort || 'releaseDate'
+      const orderBy = req.query.order || 'DESC'
+      const order = [[sort, orderBy]]
+
+      // db Query
       const products = await Product.findAll({
         include: ['Images', 'Gifts'],
-        order: [['saleDate', 'DESC']],
-        where: { status: 1 }
+        where: { status: 1 },
+        order
       })
 
+      // 製作頁面資料
       const today = new Date()
       products.forEach(product => {
         product.mainImg = product.Images.find(img => img.isMain).url
@@ -22,7 +29,14 @@ module.exports = {
         product.hasInv = (product.inventory !== 0)
       })
 
-      return res.render('products', { products, css: 'products' })
+      const selectedSort = `${sort},${orderBy}`
+
+      res.render('products', { 
+        js: 'products',
+        css: 'products',
+        products,
+        selectedSort 
+      })
 
     } catch (err) {
       console.error(err)

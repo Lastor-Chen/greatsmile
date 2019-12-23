@@ -46,11 +46,23 @@
         </div>
         <div class="d-flex align-items-start">
           <div class="form-group d-inline-block">
-            <select class="form-control" id="exampleFormControlSelect1">
-              <option>發售日 新→舊</option>
-              <option>發售日 舊→新</option>
-              <option>價格 低→高</option>
-              <option>價格 高→低</option>
+            <select id="sort" class="form-control">
+              <option 
+                value="releaseDate,DESC"
+                {{#ifEqual selectedSort 'releaseDate,DESC'}}selected{{/ifEqual}}
+              >最新公開</option>
+              <option 
+                value="saleDate,DESC"
+                {{#ifEqual selectedSort 'saleDate,DESC'}}selected{{/ifEqual}}
+              >最新發售</option>
+              <option 
+                value="price,ASC"
+                {{#ifEqual selectedSort 'price,ASC'}}selected{{/ifEqual}}
+              >價格低</option>
+              <option 
+                value="price,DESC"
+                {{#ifEqual selectedSort 'price,DESC'}}selected{{/ifEqual}}
+              >價格高</option>
             </select>
           </div>
           <a href="#" class="btn btn-display">
