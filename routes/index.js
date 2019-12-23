@@ -7,7 +7,7 @@ const userCtrller = require('../controllers/userCtrller')
 
 
 module.exports = (app, passport) => {
-  app.get('/', (req, res) => res.send('home page'))
+  app.get('/', (req, res) => res.render('home'))
 
   app.use('/products', require('./products.js'))
   app.use('/users', require('./users.js'))
