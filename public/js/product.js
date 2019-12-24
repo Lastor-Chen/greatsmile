@@ -23,4 +23,9 @@ $(document).ready(function () {
       },
     ]
   })
+
+  lightbox.option({
+    'fitImagesInViewport': false,
+    'maxWidth': 720
+  })
 })

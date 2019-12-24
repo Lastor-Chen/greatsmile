@@ -14,7 +14,9 @@
         <ul class="gallery-main">
           {{#each product.Images}}
             <li>
-              <img class="w-100" src="{{url}}" alt="product-image">
+              <a href="{{url}}" data-lightbox="images">
+                <img class="w-100" src="{{url}}" alt="product-image">
+              </a>
             </li>
           {{/each}}
         </ul>
