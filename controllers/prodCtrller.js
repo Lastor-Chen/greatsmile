@@ -1,5 +1,6 @@
 const db = require('../models')
 const Product = db.Product
+const pageLimit = 10
 
 const Op = require('sequelize').Op
 const moment = require('moment')
@@ -24,15 +25,25 @@ module.exports = {
         } 
       }
 
-      // db Query
-      const products = await Product.findAll({
-        include: ['Images', 'Gifts', 'Series'],
-        where,
-        order
-      })
+      // 設定分頁偏移
+      let offset = 0
+      if (req.query.page) {
+        offset = (req.query.page - 1) * pageLimit
+      }
 
+      // db Query
+      const result = await Product.findAndCountAll({
+        include: ['Images', 'Gifts', 'Series'],
+        distinct: true, // 去重顯示正確數量
+        where,
+        order,
+        offset,
+        limit: pageLimit
+      })
+      
       // 製作頁面資料
       const today = new Date()
+      const products = result.rows
       products.forEach(product => {
         product.mainImg = product.Images.find(img => img.isMain).url
         product.priceFormat = product.price.toLocaleString()
@@ -41,13 +52,17 @@ module.exports = {
         product.hasInv = (product.inventory !== 0)
       })
 
+      // 取得頁數資料
+      let pages = Math.ceil(result.count / pageLimit)
+      let totalPage = Array.from({ length: pages }).map((item, index) => index + 1)
+
       const selectedSort = `${sort},${orderBy}`
       const bread = req.path.includes('search') ? '搜尋商品' : '製品一覽'
 
       res.render('products', { 
         js: 'products',
         css: 'products',
-        products, selectedSort, searchQuery, bread
+        products, selectedSort, searchQuery, bread, totalPage
       })
 
     } catch (err) {
