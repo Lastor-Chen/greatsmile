@@ -72,7 +72,7 @@ module.exports = {
       product.isOnSale = moment(new Date).isAfter(product.deadline)
       product.hasInv = (product.inventory !== 0)
 
-      res.render('product', { css: 'product', product })
+      res.render('product', { css: 'product', js: 'product', product })
 
     } catch (err) {
       console.error(err)

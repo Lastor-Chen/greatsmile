@@ -17,31 +17,47 @@ section {
 }
 
 /* 圖片畫廊 */
-.prod-img {
-  width: 530px;
-  height: 670px;
+.slider-for {
+  max-width: 530px;
   margin: 0 auto;
-  background: #eee;
 }
 
-.arrow-btn {
-  font-size: 2rem;
-  cursor: pointer;
-}
-
-.img-list {
+.slider-nav {
   width: 500px;
-  overflow: hidden;
-  text-align: left;
+  margin: 0 auto;
 }
 
-.img-list img {
+.slider-nav img {
   width: 70px;
-  height: 70px;
+  height: 70px; 
 }
 
-.gallery {
-  width: 1000px;
+.slick-prev {
+  left: -45px;
+}
+
+.slick-next {
+  right: -32px;
+}
+
+.slick-prev:before, .slick-next:before {
+  font-size: 1.5rem;
+  background: #545b62;
+  color: #fff;
+  padding: 0.3rem 0.6rem;
+  border-radius: 5px;
+}
+
+.slick-prev:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f053";
+}
+
+.slick-next:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f054";
 }
 
 /* Tag 群 */
