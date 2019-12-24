@@ -42,6 +42,33 @@ module.exports = {
 
   getAddPage: (req, res) => {
     res.render('admin/new')
-  }
+  },
+
+  postDisplay: async (req, res) => {
+    try {
+      const productId = req.params.id
+      const product = await Product.findByPk(productId)
+      product.status = true
+      product.save().then(function () { })
+    } catch (err) {
+      console.error(err)
+      res.status(500).json(err.toString())
+    }
+    res.redirect('/admin/products')
+  },
+
+  postUndisplay: async (req, res) => {
+    try {
+      const productId = req.params.id
+      const product = await Product.findByPk(productId)
+      product.status = false
+      product.save().then(function () { })
+    } catch (err) {
+      console.error(err)
+      res.status(500).json(err.toString())
+    }
+    res.redirect('/admin/products')
+  },
+
 
 }
