@@ -7,9 +7,8 @@
   color: #707070;
 }
 
-.active, .active:hover {
+.active, .active:hover, .page-item.active .page-link {
   background-color: #ff9600;
-  border: 1px solid #ff9600;
   color: #ffffff;
 }
 
