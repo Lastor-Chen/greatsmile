@@ -1,19 +1,26 @@
 $(document).ready(function () {
-  $('.slider-for').slick({
+  $('.gallery-main').slick({
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
     fade: true,
     infinite: false,
-    asNavFor: '.slider-nav'
+    asNavFor: '.gallery-nav'
   })
 
-  $('.slider-nav').slick({
+  $('.gallery-nav').slick({
     slidesToShow: 5.5,
-    slidesToScroll: 5,
     arrows: false,
-    asNavFor: '.slider-for',
     infinite: false,
-    focusOnSelect: true
+    focusOnSelect: true,
+    asNavFor: '.gallery-main',
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 4.5,
+        }
+      },
+    ]
   })
 })

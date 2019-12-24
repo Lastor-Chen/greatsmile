@@ -10,24 +10,26 @@
     {{!-- 圖片區塊 --}}
     <div class="row pb-4">
       {{!-- 畫廊 --}}
-      <div class="col-md-8">
-        <div class="slider-for">
+      <div class="col-lg-8">
+        <div class="gallery-main">
           {{#each product.Images}}
             <div class="">
-              <img class="" src="{{url}}" alt="product-image">
+              <img class="w-100" src="{{url}}" alt="product-image">
             </div>
           {{/each}}
         </div>
-        <div class="slider-nav mt-4">
+        <ul class="gallery-nav mt-4">
           {{#each product.Images}}
-            <div>
-              <img src="{{url}}" alt="product-image-sm" class="img-thumbnail">
-            </div>
+            <li>
+              <a href="jquery:;">
+                <img src="{{url}}" alt="product-image-sm" class="img-thumbnail">
+              </a>
+            </li>
           {{/each}}
-        </div>
+        </ul>
       </div>
       {{!-- info、購物車 --}}
-      <div class="col-md-4">
+      <div class="col-lg-4 mt-lg-0 mt-sm-5">
         {{#if product.hasGift}}
           <div class="mb-3 pt-1">
             <span class="tag-icon mr-2">附特典</span>

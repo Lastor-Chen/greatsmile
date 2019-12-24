@@ -17,27 +17,29 @@ section {
 }
 
 /* 圖片畫廊 */
-.slider-for {
-  max-width: 530px;
+.gallery-main {
+  width: 530px;
+  height: 670px;
+  margin: 0 auto;
+  background: #eee;
+}
+
+.gallery-nav {
+  width: 90%;
   margin: 0 auto;
 }
 
-.slider-nav {
-  width: 500px;
-  margin: 0 auto;
-}
-
-.slider-nav img {
+.gallery-nav img {
   width: 70px;
   height: 70px; 
 }
 
 .slick-prev {
-  left: -45px;
+  left: -50px;
 }
 
 .slick-next {
-  right: -32px;
+  right: -37px;
 }
 
 .slick-prev:before, .slick-next:before {
@@ -58,6 +60,24 @@ section {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   content: "\f054";
+}
+
+@media screen and (max-width: 1199.98px) {
+  .gallery-main {
+    width: 400px;
+    height: 506px;
+  }
+}
+
+@media screen and (max-width: 767.98px) {
+  .gallery-main {
+    width: 350px;
+    height: 442px;
+  }
+
+  .gallery-nav {
+    width: 100%;
+  }
 }
 
 /* Tag 群 */
