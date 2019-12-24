@@ -8,7 +8,7 @@ function randomNum(min, max) {
 module.exports = {
   up: (queryInterface, Sequelize) => {
      return queryInterface.bulkInsert('Products',
-       Array.from({ length: 20 }, (val, index) => ({
+       Array.from({ length: 100 }, (val, index) => ({
          name: faker.commerce.productName(),
          price: faker.commerce.price(1000,8000),
          inventory: index === 1 ? 0 : randomNum(30, 50),

@@ -9,16 +9,16 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return Promise.all([
       queryInterface.bulkInsert('Images',
-        Array.from({ length: 20 }, (val, index) => ({
+        Array.from({ length: 100 }, (val, index) => ({
           url: faker.image.imageUrl(530, 670, 'cats'),
           product_id: index + 1,
           is_main: true
         }))
       ),
       queryInterface.bulkInsert('Images',
-        Array.from({ length: 60 }, (val, index) => ({
+        Array.from({ length: 260 }, (val, index) => ({
           url: faker.image.imageUrl(530, 670),
-          product_id: index < 6 ? 1 : randomNum(2, 20),
+          product_id: index < 6 ? 1 : randomNum(2, 100),
           is_main: false
         }))
       )

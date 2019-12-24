@@ -2,7 +2,7 @@ const db = require('../models')
 const Product = db.Product
 const Image = db.Image
 const Gift = db.Gift
-const pageLimit = 10
+const pageLimit = 30
 
 const Op = require('sequelize').Op
 const moment = require('moment')
