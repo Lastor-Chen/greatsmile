@@ -4,138 +4,143 @@
       {{!-- 麵包屑 --}}
       <nav class="bread mb-3">
         <a href="/">Home </a>&gt;
-        <span>製品一覽</span>
+        <span>{{bread}}</span>
       </nav>
-      {{!-- 分頁 --}}
-      <div class="row">
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-      {{!-- tag + select --}}
-      <div class="row d-flex justify-content-between">
-        <div class="d-flex align-items-start">
-          <ul class="nav-tag">
-            <li class="d-inline">
-              <a href="#" class="btn btn-sm">預購中</a>
-            </li>
-            <li class="d-inline">
-              <a href="#" class="btn btn-sm">特典</a>
-            </li>
-            <li class="d-inline">
-              <a href="#" class="btn btn-sm">庫存販售商品</a>
-            </li>
-            <li class="d-inline">
-              <a href="#" class="btn btn-sm active">所有商品</a>
-            </li>
-          </ul>
-        </div>
-        <div class="d-flex align-items-start">
-          <div class="form-group d-inline-block">
-            <select id="sort" class="form-control">
-              <option 
-                value="releaseDate,DESC"
-                {{#ifEqual selectedSort 'releaseDate,DESC'}}selected{{/ifEqual}}
-              >最新公開</option>
-              <option 
-                value="saleDate,DESC"
-                {{#ifEqual selectedSort 'saleDate,DESC'}}selected{{/ifEqual}}
-              >最新發售</option>
-              <option 
-                value="price,ASC"
-                {{#ifEqual selectedSort 'price,ASC'}}selected{{/ifEqual}}
-              >價格低</option>
-              <option 
-                value="price,DESC"
-                {{#ifEqual selectedSort 'price,DESC'}}selected{{/ifEqual}}
-              >價格高</option>
-            </select>
-          </div>
-          <a href="#" class="btn btn-display">
-            <i class="fas fa-list"></i>
-          </a>
-          <a href="#" class="btn btn-display">
-            <i class="fas fa-th-large"></i>
-          </a>
-        </div>
-      </div>
-      {{!-- 商品型錄 --}}
-      <div class="row">
-        {{#each products}}
-        <div class="col-md-2-5 mb-3">
-          <div class="card">
-            <div class="card-body">
-              <div class="card-img-top card-bg mb-3">
-                <img src="{{this.mainImg}}" class="card-img-top img-fit">
-              </div>
-              {{#if hasInv}}
-                {{#if isPreorder}}
-                <span class="tag tag-preorder">預購中</span>
-                {{else}}
-                <span class="tag tag-preorder">發售中</span>
-                {{/if}}
-              {{else}}
-                <span class="tag tag-sold-out">已售完</span>
-              {{/if}}
-
-              
-              {{#if isGift}}
-              <span class="tag tag-gift">特典</span>
-              {{/if}}
-              <h5 class="card-title mt-3">{{this.name}}</h5>
-              <p class="card-text pt-3 d-flex justify-content-end">NTD {{this.priceFormat}}</p>
-            </div>
-            <div class="hover ">
-              <div class="icon-group">
-                <a href="/products/{{this.id}}" class="btn btn-icon px-2 py-2 mx-1 d-inline-block">
-                  <img src="/img/magnifying-glass.png">
+      {{#if products.length}}
+        {{!-- 分頁 --}}
+        <div class="row">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" href="#">
+                  <span aria-hidden="true">&laquo;</span>
                 </a>
-                <form action="/cart" method="POST" class="d-inline-block">
-                  <input type="hidden">
-                  <button type="submit" class="btn btn-icon px-2 py-2 mx-1">
-                    <img src="/img/cart.png">
-                  </button>
-                </form>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        {{!-- tag + select --}}
+        <div class="row d-flex justify-content-between">
+          <div class="d-flex align-items-start">
+            <ul class="nav-tag">
+              <li class="d-inline">
+                <a href="#" class="btn btn-sm">預購中</a>
+              </li>
+              <li class="d-inline">
+                <a href="#" class="btn btn-sm">特典</a>
+              </li>
+              <li class="d-inline">
+                <a href="#" class="btn btn-sm">庫存販售商品</a>
+              </li>
+              <li class="d-inline">
+                <a href="#" class="btn btn-sm active">所有商品</a>
+              </li>
+            </ul>
+          </div>
+          <div class="d-flex align-items-start">
+            <div class="form-group d-inline-block">
+              <div id="searchQuery" data-q="{{searchQuery}}" hidden></div>
+              <select id="sort" class="form-control">
+                <option 
+                  value="releaseDate,DESC"
+                  {{#ifEqual selectedSort 'releaseDate,DESC'}}selected{{/ifEqual}}
+                >最新公開</option>
+                <option 
+                  value="saleDate,DESC"
+                  {{#ifEqual selectedSort 'saleDate,DESC'}}selected{{/ifEqual}}
+                >最新發售</option>
+                <option 
+                  value="price,ASC"
+                  {{#ifEqual selectedSort 'price,ASC'}}selected{{/ifEqual}}
+                >價格低</option>
+                <option 
+                  value="price,DESC"
+                  {{#ifEqual selectedSort 'price,DESC'}}selected{{/ifEqual}}
+                >價格高</option>
+              </select>
+            </div>
+            <a href="#" class="btn btn-display">
+              <i class="fas fa-list"></i>
+            </a>
+            <a href="#" class="btn btn-display">
+              <i class="fas fa-th-large"></i>
+            </a>
+          </div>
+        </div>
+        {{!-- 商品型錄 --}}
+        <div class="row">
+          {{#each products}}
+          <div class="col-md-2-5 mb-3">
+            <div class="card">
+              <div class="card-body">
+                <div class="card-img-top card-bg mb-3">
+                  <img src="{{this.mainImg}}" class="card-img-top img-fit">
+                </div>
+                {{#if hasInv}}
+                  {{#if isPreorder}}
+                  <span class="tag tag-preorder">預購中</span>
+                  {{else}}
+                  <span class="tag tag-preorder">發售中</span>
+                  {{/if}}
+                {{else}}
+                  <span class="tag tag-sold-out">已售完</span>
+                {{/if}}
+
+                
+                {{#if isGift}}
+                <span class="tag tag-gift">特典</span>
+                {{/if}}
+                <h5 class="card-title mt-3">{{this.name}}</h5>
+                <p class="card-text pt-3 d-flex justify-content-end">NTD {{this.priceFormat}}</p>
+              </div>
+              <div class="hover ">
+                <div class="icon-group">
+                  <a href="/products/{{this.id}}" class="btn btn-icon px-2 py-2 mx-1 d-inline-block">
+                    <img src="/img/magnifying-glass.png">
+                  </a>
+                  <form action="/cart" method="POST" class="d-inline-block">
+                    <input type="hidden">
+                    <button type="submit" class="btn btn-icon px-2 py-2 mx-1">
+                      <img src="/img/cart.png">
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
+          {{/each}}
         </div>
-        {{/each}}
-      </div>
-      {{!-- 分頁 --}}
-      <div class="row">
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+        {{!-- 分頁 --}}
+        <div class="row">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" href="#">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      {{else}}
+        <h6 class="font-weight-bold">沒有與搜尋結果相符合的商品。</h6>
+      {{/if}}
     </main>
   </div>
 </div>

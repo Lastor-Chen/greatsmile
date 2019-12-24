@@ -1,5 +1,8 @@
 body {
   background-color: #ebebeb;
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
 }
 
 .btn-top-bar {

@@ -7,11 +7,13 @@ const userCtrller = require('../controllers/userCtrller')
 
 
 module.exports = (app, passport) => {
-  app.get('/', (req, res) => res.send('home page'))
+  app.get('/', (req, res) => res.render('home'))
 
   app.use('/products', require('./products.js'))
   app.use('/users', require('./users.js'))
   app.use('/admin', require('./admin/admin.js'))
+
+  app.get('/search', require('../controllers/prodCtrller').getProducts)
 
   // user account
   app.get('/signup', userCtrller.getSignUp)
