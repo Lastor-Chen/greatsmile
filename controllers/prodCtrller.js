@@ -1,5 +1,7 @@
 const db = require('../models')
 const Product = db.Product
+const Image = db.Image
+const Gift = db.Gift
 const pageLimit = 10
 
 const Op = require('sequelize').Op
@@ -33,7 +35,12 @@ module.exports = {
 
       // db Query
       const result = await Product.findAndCountAll({
-        include: ['Images', 'Gifts', 'Series'],
+        include: [
+          { model: Image,
+            separate: true },
+          { model: Gift,
+            separate: true },
+          'Series'],
         distinct: true, // 去重顯示正確數量
         where,
         order,
@@ -56,13 +63,27 @@ module.exports = {
       let pages = Math.ceil(result.count / pageLimit)
       let totalPage = Array.from({ length: pages }).map((item, index) => index + 1)
 
+      // 取得分頁連結
+      const url = []
+      if (req.query.sort) {
+        url.push(`sort=${req.query.sort}&order=${req.query.order}`)
+      }
+
+      let showUrl = url.join('&') + '&'
+      console.log('showUrl', showUrl)
+      if (req.query.q) {
+        showUrl = `/search?q=${req.query.q}&` + showUrl
+      } else {
+        showUrl = `/products?` + showUrl
+      }
+
       const selectedSort = `${sort},${orderBy}`
       const bread = req.path.includes('search') ? '搜尋商品' : '製品一覽'
 
       res.render('products', { 
         js: 'products',
         css: 'products',
-        products, selectedSort, searchQuery, bread, totalPage
+        products, selectedSort, searchQuery, bread, totalPage, showUrl
       })
 
     } catch (err) {
