@@ -60,8 +60,11 @@ module.exports = {
       })
 
       // 取得頁數資料
+      let page = Number(req.query.page) || 1
       let pages = Math.ceil(result.count / pageLimit)
       let totalPage = Array.from({ length: pages }).map((item, index) => index + 1)
+      let prev = page - 1 < 1 ? 1 : page - 1
+      let next = page + 1 > pages ? pages : page + 1
 
       // 取得分頁連結
       const url = []
@@ -83,7 +86,7 @@ module.exports = {
       res.render('products', { 
         js: 'products',
         css: 'products',
-        products, selectedSort, searchQuery, bread, totalPage, showUrl
+        products, selectedSort, searchQuery, bread, totalPage, showUrl, prev, next
       })
 
     } catch (err) {
