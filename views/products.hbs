@@ -16,9 +16,11 @@
                   <span aria-hidden="true">&laquo;</span>
                 </a>
               </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              {{#each totalPage}}
+              <li class="page-item">
+                <a class="page-link" href="#">{{this}}</a>
+              </li>
+              {{/each}}
               <li class="page-item">
                 <a class="page-link" href="#">
                   <span aria-hidden="true">&raquo;</span>
@@ -127,9 +129,11 @@
                   <span aria-hidden="true">&laquo;</span>
                 </a>
               </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              {{#each totalPage}}
+                <li class="page-item">
+                  <a class="page-link" href="#">{{this}}</a>
+               </li>
+              {{/each}}
               <li class="page-item">
                 <a class="page-link" href="#">
                   <span aria-hidden="true">&raquo;</span>
