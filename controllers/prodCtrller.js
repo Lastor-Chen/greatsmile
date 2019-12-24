@@ -7,6 +7,7 @@ const pageLimit = 10
 const Op = require('sequelize').Op
 const moment = require('moment')
 moment.locale('zh-tw')
+const { pageUrl } = require('../lib/showUrl.js')
 
 module.exports = {
   getProducts: async (req, res) => {
@@ -67,18 +68,8 @@ module.exports = {
       let next = page + 1 > pages ? pages : page + 1
 
       // 取得分頁連結
-      const url = []
-      if (req.query.sort) {
-        url.push(`sort=${req.query.sort}&order=${req.query.order}`)
-      }
-
-      let showUrl = url.join('&') + '&'
-      console.log('showUrl', showUrl)
-      if (req.query.q) {
-        showUrl = `/search?q=${req.query.q}&` + showUrl
-      } else {
-        showUrl = `/products?` + showUrl
-      }
+      const query = { ...req.query }  // 深拷貝，保護原始資料
+      const showUrl = await pageUrl(query)
 
       const selectedSort = `${sort},${orderBy}`
       const bread = req.path.includes('search') ? '搜尋商品' : '製品一覽'
