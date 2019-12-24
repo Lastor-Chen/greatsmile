@@ -70,5 +70,15 @@ module.exports = {
     res.redirect('/admin/products')
   },
 
+  deleteProduct: async (req, res) => {
+    try {
+      const product = await Product.findByPk(req.params.id)
+      product.destroy()
+    } catch (err) {
+      console.error(err)
+      res.status(500).json(err.toString())
+    }
+    res.redirect('/admin/products')
+  },
 
 }

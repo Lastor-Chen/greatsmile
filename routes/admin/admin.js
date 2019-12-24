@@ -20,4 +20,6 @@ router.get('/products/new', prodCtrller.getAddPage)
 router.post('/products/:id/display', prodCtrller.postDisplay)
 router.post('/products/:id/undisplay', prodCtrller.postUndisplay)
 
+router.delete('/products/:id', prodCtrller.deleteProduct)
+
 module.exports = router
