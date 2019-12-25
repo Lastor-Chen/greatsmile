@@ -2,11 +2,12 @@ const db = require('../models')
 const Product = db.Product
 const Image = db.Image
 const Gift = db.Gift
-const pageLimit = 30
 
 const Op = require('sequelize').Op
 const moment = require('moment')
 moment.locale('zh-tw')
+
+const pageLimit = 30
 const { pageUrl } = require('../lib/showUrl.js')
 
 module.exports = {
@@ -29,26 +30,24 @@ module.exports = {
       }
 
       // 設定分頁偏移
-      let offset = 0
-      if (req.query.page) {
-        offset = (req.query.page - 1) * pageLimit
-      }
+      const page = +req.query.page || 1
+      const offset = (page - 1) * pageLimit 
 
       // db Query
       const result = await Product.findAndCountAll({
         include: [
-          { model: Image,
-            separate: true },
-          { model: Gift,
-            separate: true },
-          'Series'],
+          // 設定 separate，使 '$Series.name$' 能工作
+          { model: Image, separate: true },
+          { model: Gift, separate: true },
+          'Series'
+        ],
         distinct: true, // 去重顯示正確數量
         where,
         order,
         offset,
         limit: pageLimit
       })
-      
+
       // 製作頁面資料
       const today = new Date()
       const products = result.rows
@@ -60,12 +59,11 @@ module.exports = {
         product.hasInv = (product.inventory !== 0)
       })
 
-      // 取得頁數資料
-      let page = Number(req.query.page) || 1
-      let pages = Math.ceil(result.count / pageLimit)
-      let totalPage = Array.from({ length: pages }).map((item, index) => index + 1)
-      let prev = page - 1 < 1 ? 1 : page - 1
-      let next = page + 1 > pages ? pages : page + 1
+      // 製作 pagination bar 資料
+      const totalPages = Math.ceil(result.count / pageLimit)
+      const pagesArray = Array.from({ length: totalPages }, (val, index) => index + 1)
+      const prev = (page === 1) ? 1 : page - 1
+      const next = (page === totalPages) ? totalPages : page + 1
 
       // 取得分頁連結
       const query = { ...req.query }  // 深拷貝，保護原始資料
@@ -77,7 +75,7 @@ module.exports = {
       res.render('products', { 
         js: 'products',
         css: 'products',
-        products, selectedSort, searchQuery, bread, totalPage, showUrl, page, prev, next
+        products, selectedSort, searchQuery, bread, pagesArray, showUrl, page, prev, next
       })
 
     } catch (err) {
