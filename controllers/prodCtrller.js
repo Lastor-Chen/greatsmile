@@ -1,9 +1,14 @@
 const db = require('../models')
 const Product = db.Product
+const Image = db.Image
+const Gift = db.Gift
 
 const Op = require('sequelize').Op
 const moment = require('moment')
 moment.locale('zh-tw')
+
+const pageLimit = 30
+const { genQueryString } = require('../lib/tools.js')
 
 module.exports = {
   getProducts: async (req, res) => {
@@ -24,15 +29,28 @@ module.exports = {
         } 
       }
 
+      // 設定分頁偏移
+      const page = +req.query.page || 1
+      const offset = (page - 1) * pageLimit 
+
       // db Query
-      const products = await Product.findAll({
-        include: ['Images', 'Gifts', 'Series'],
+      const result = await Product.findAndCountAll({
+        include: [
+          // 設定 separate，使 '$Series.name$' 能工作
+          { model: Image, separate: true },
+          { model: Gift, separate: true },
+          'Series'
+        ],
+        distinct: true, // 去重顯示正確數量
         where,
-        order
+        order,
+        offset,
+        limit: pageLimit
       })
 
       // 製作頁面資料
       const today = new Date()
+      const products = result.rows
       products.forEach(product => {
         product.mainImg = product.Images.find(img => img.isMain).url
         product.priceFormat = product.price.toLocaleString()
@@ -41,13 +59,22 @@ module.exports = {
         product.hasInv = (product.inventory !== 0)
       })
 
+      // 製作 pagination bar 資料
+      const totalPages = Math.ceil(result.count / pageLimit)
+      const pagesArray = Array.from({ length: totalPages }, (val, index) => index + 1)
+      const prev = (page === 1) ? 1 : page - 1
+      const next = (page === totalPages) ? totalPages : page + 1
+
+      // 生成 pagination bar 超連結位址
+      const queryString = genQueryString(req.query)
+
       const selectedSort = `${sort},${orderBy}`
       const bread = req.path.includes('search') ? '搜尋商品' : '製品一覽'
 
       res.render('products', { 
         js: 'products',
         css: 'products',
-        products, selectedSort, searchQuery, bread
+        products, selectedSort, searchQuery, bread, pagesArray, queryString, page, prev, next
       })
 
     } catch (err) {

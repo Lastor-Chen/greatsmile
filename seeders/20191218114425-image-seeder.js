@@ -9,19 +9,19 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return Promise.all([
       queryInterface.bulkInsert('Images',
-        Array.from({ length: 60 }, (val, index) => ({
+        Array.from({ length: 260 }, (val, index) => ({
           url: `https://picsum.photos/seed/${index + 1}/530/670`,
-          product_id: index < 6 ? 1 : randomNum(2, 20),
+          product_id: index < 6 ? 1 : randomNum(2, 100),
           is_main: false
         }))
       ),
       queryInterface.bulkInsert('Images',
-        Array.from({ length: 20 }, (val, index) => ({
+        Array.from({ length: 100 }, (val, index) => ({
           url: `https://picsum.photos/seed/main${index + 1}/530/670`,
           product_id: index + 1,
           is_main: true
         }))
-      )
+      ),
     ])
   },
 
@@ -32,3 +32,6 @@ module.exports = {
     ])
   }
 };
+
+// id 1 商品必有7張圖
+// 各商品只有一張 main image，假圖 API 網址包含 "main" 字樣

@@ -7,10 +7,16 @@
   color: #707070;
 }
 
-.active, .active:hover {
+.page-item.active .page-link,
+.page-link:hover i,
+.page-link:hover {
   background-color: #ff9600;
-  border: 1px solid #ff9600;
   color: #ffffff;
+  border-radius: 5px;
+}
+
+.page-link i {
+  color: hsl(30, 8%, 59%);
 }
 
 .btn-display {
