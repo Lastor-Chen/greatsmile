@@ -2,6 +2,12 @@ p {
   margin: 0;
 }
 
+ol, ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 section {
   border-radius: 20px;
   background: #fff;
@@ -17,31 +23,75 @@ section {
 }
 
 /* 圖片畫廊 */
-.prod-img {
+.gallery-main {
   width: 530px;
   height: 670px;
   margin: 0 auto;
   background: #eee;
 }
 
-.arrow-btn {
-  font-size: 2rem;
-  cursor: pointer;
+.gallery-nav {
+  width: 90%;
+  margin: 0 auto;
 }
 
-.img-list {
-  width: 500px;
-  overflow: hidden;
-  text-align: left;
-}
-
-.img-list img {
+.gallery-nav img {
   width: 70px;
-  height: 70px;
+  height: 70px; 
 }
 
-.gallery {
-  width: 1000px;
+.slick-prev {
+  left: -50px;
+}
+
+.slick-next {
+  right: -37px;
+}
+
+.slick-slide a:focus {
+  outline: none
+}
+
+.gallery-nav .slick-current img {
+  border: 3px solid #ff9600;
+}
+
+.slick-prev:before, .slick-next:before {
+  font-size: 1.5rem;
+  background: #545b62;
+  color: #fff;
+  padding: 0.3rem 0.6rem;
+  border-radius: 5px;
+}
+
+.slick-prev:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f053";
+}
+
+.slick-next:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f054";
+}
+
+@media screen and (max-width: 1199.98px) {
+  .gallery-main {
+    width: 400px;
+    height: 506px;
+  }
+}
+
+@media screen and (max-width: 767.98px) {
+  .gallery-main {
+    width: 350px;
+    height: 442px;
+  }
+
+  .gallery-nav {
+    width: 100%;
+  }
 }
 
 /* Tag 群 */

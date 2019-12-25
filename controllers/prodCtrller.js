@@ -58,12 +58,20 @@ module.exports = {
 
   getProduct: async (req, res) => {
     try {
-      const product = await Product.findByPk(+req.params.id, { 
-        include: ['Gifts', 'Images', 'tags', 'Series'] 
+      const product = await Product.findOne({ 
+        // 只取上架中商品
+        where: { 'id': +req.params.id, 'status': true },
+        include: ['Gifts', 'Images', 'tags', 'Series'],
+        // 使 Images 第一張為 mainImg，之後依上傳順排序
+        order: [
+          ['Images', 'isMain', 'DESC'],
+          ['Images', 'id', 'ASC']
+        ]
       })
+      
+      if (!product) return res.redirect('/products')
 
       // 頁面所需 data
-      product.mainImg = product.Images.find(img => img.isMain).url
       product.priceFormat = product.price.toLocaleString()
       product.saleDateFormat = moment(product.saleDate).format('YYYY年MM月')
       product.releaseDateFormat = moment(product.releaseDate).format('YYYY年MM月DD日(dd)')
@@ -72,7 +80,7 @@ module.exports = {
       product.isOnSale = moment(new Date).isAfter(product.deadline)
       product.hasInv = (product.inventory !== 0)
 
-      res.render('product', { css: 'product', product })
+      res.render('product', { css: 'product', js: 'product', product })
 
     } catch (err) {
       console.error(err)

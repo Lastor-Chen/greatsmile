@@ -10,28 +10,28 @@
     {{!-- 圖片區塊 --}}
     <div class="row pb-4">
       {{!-- 畫廊 --}}
-      <div class="col-md-8">
-        <div class="prod-img">
-          <img class="w-100" src="{{product.mainImg}}" alt="product-image">
-        </div>
-        <div class="mt-4 d-flex justify-content-center align-items-center">
-          <span class="arrow-btn">
-            <i class="fas fa-angle-left"></i>
-          </span>            
-          <div class="img-list mx-3">
-            <div class="d-inline-block gallery">
-              {{#each product.Images}}
-                <img src="{{url}}" alt="image-list" class="mr-3 img-thumbnail">
-              {{/each}}
-            </div>
-          </div>
-          <span class="arrow-btn">
-            <i class="fas fa-angle-right"></i>
-          </span>
-        </div>
+      <div class="col-lg-8">
+        <ul class="gallery-main">
+          {{#each product.Images}}
+            <li>
+              <a href="{{url}}" data-lightbox="images">
+                <img class="w-100" src="{{url}}" alt="product-image">
+              </a>
+            </li>
+          {{/each}}
+        </ul>
+        <ul class="gallery-nav mt-4">
+          {{#each product.Images}}
+            <li>
+              <a href="jquery:;">
+                <img src="{{url}}" alt="product-image-sm" class="img-thumbnail">
+              </a>
+            </li>
+          {{/each}}
+        </ul>
       </div>
       {{!-- info、購物車 --}}
-      <div class="col-md-4">
+      <div class="col-lg-4 mt-lg-0 mt-sm-5">
         {{#if product.hasGift}}
           <div class="mb-3 pt-1">
             <span class="tag-icon mr-2">附特典</span>
@@ -44,7 +44,7 @@
         </div>
         <hr>
         <div class="small-text">
-          <form id="postCart" action="#" method="POST" class="h-100">
+          <form action="#" method="POST" class="h-100">
             <div class="form-group text-center">
               <button class="cart-btn cart-btn-lg btn"
                 {{#unless product.hasInv}}disabled{{/unless}}
@@ -135,7 +135,7 @@
       <div class="col-md-6">
         <small>NTD {{product.priceFormat}}</small>
         <div class="mt-2">
-          <form id="postCart" action="#" method="POST">
+          <form action="#" method="POST">
             <div class="form-group">
               <button class="cart-btn cart-btn-sm btn"
                 {{#unless product.hasInv}}disabled{{/unless}}
