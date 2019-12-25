@@ -58,7 +58,9 @@ module.exports = {
 
   getProduct: async (req, res) => {
     try {
-      const product = await Product.findByPk(+req.params.id, { 
+      const product = await Product.findOne({ 
+        // 只取上架中商品
+        where: { 'id': +req.params.id, 'status': true },
         include: ['Gifts', 'Images', 'tags', 'Series'],
         // 使 Images 第一張為 mainImg，之後依上傳順排序
         order: [
@@ -66,6 +68,8 @@ module.exports = {
           ['Images', 'id', 'ASC']
         ]
       })
+      
+      if (!product) return res.redirect('/products')
 
       // 頁面所需 data
       product.priceFormat = product.price.toLocaleString()
