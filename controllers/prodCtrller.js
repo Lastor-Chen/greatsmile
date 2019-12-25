@@ -8,7 +8,7 @@ const moment = require('moment')
 moment.locale('zh-tw')
 
 const pageLimit = 30
-const { pageUrl } = require('../lib/showUrl.js')
+const { genQueryString } = require('../lib/tools.js')
 
 module.exports = {
   getProducts: async (req, res) => {
@@ -65,9 +65,8 @@ module.exports = {
       const prev = (page === 1) ? 1 : page - 1
       const next = (page === totalPages) ? totalPages : page + 1
 
-      // 取得分頁連結
-      const query = { ...req.query }  // 深拷貝，保護原始資料
-      const showUrl = await pageUrl(query)
+      // 生成 pagination bar 超連結位址
+      const queryString = genQueryString(req.query)
 
       const selectedSort = `${sort},${orderBy}`
       const bread = req.path.includes('search') ? '搜尋商品' : '製品一覽'
@@ -75,7 +74,7 @@ module.exports = {
       res.render('products', { 
         js: 'products',
         css: 'products',
-        products, selectedSort, searchQuery, bread, pagesArray, showUrl, page, prev, next
+        products, selectedSort, searchQuery, bread, pagesArray, queryString, page, prev, next
       })
 
     } catch (err) {
