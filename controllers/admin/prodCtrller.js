@@ -41,7 +41,7 @@ module.exports = {
   },
 
   getAddPage: (req, res) => {
-    res.render('admin/new')
+    res.render('admin/new', { css: 'adminAdd' })
   },
 
   postDisplay: async (req, res) => {
