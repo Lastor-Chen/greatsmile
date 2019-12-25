@@ -8,33 +8,7 @@
       </nav>
       {{#if products.length}}
         {{!-- 分頁 --}}
-        <div class="row">
-          <nav aria-label="Page navigation example">
-            <ul class="pagination">
-              <li class="page-item">
-                <a class="page-link" href="{{showUrl}}page={{prev}}">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              {{#each pagesArray}}
-                {{#ifEqual this ../page}}
-                  <li class="page-item active">
-                    <a class="page-link" href="{{../showUrl}}page={{this}}">{{this}}</a>
-                  </li>
-                {{else}}
-                  <li class="page-item ">
-                    <a class="page-link" href="{{../showUrl}}page={{this}}">{{this}}</a>
-                  </li>
-                {{/ifEqual}}
-              {{/each}}
-              <li class="page-item">
-                <a class="page-link" href="{{showUrl}}page={{next}}">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
+        {{>pagination}}
         {{!-- tag + select --}}
         <div class="row d-flex justify-content-between">
           <div class="d-flex align-items-start">
@@ -127,33 +101,7 @@
           {{/each}}
         </div>
         {{!-- 分頁 --}}
-        <div class="row">
-          <nav aria-label="Page navigation example">
-            <ul class="pagination">
-              <li class="page-item">
-                <a class="page-link" href="{{showUrl}}page={{prev}}">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              {{#each pagesArray}}
-                {{#ifEqual this ../page}}
-                  <li class="page-item active">
-                    <a class="page-link" href="{{../showUrl}}page={{this}}">{{this}}</a>
-                  </li>
-                {{else}}
-                  <li class="page-item ">
-                    <a class="page-link" href="{{../showUrl}}page={{this}}">{{this}}</a>
-                  </li>
-                {{/ifEqual}}
-              {{/each}}
-              <li class="page-item">
-                <a class="page-link" href="{{showUrl}}page={{next}}">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
+        {{>pagination}}
       {{else}}
         <h6 class="font-weight-bold">沒有與搜尋結果相符合的商品。</h6>
       {{/if}}

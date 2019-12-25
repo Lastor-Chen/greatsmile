@@ -1,0 +1,27 @@
+<div class="row">
+  <nav>
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" href="{{showUrl}}page={{prev}}">
+          <span>&laquo;</span>
+        </a>
+      </li>
+      {{#each pagesArray}}
+        {{#ifEqual this ../page}}
+          <li class="page-item active">
+            <a class="page-link" href="{{../showUrl}}page={{this}}">{{this}}</a>
+          </li>
+      {{else}}
+        <li class="page-item ">
+          <a class="page-link" href="{{../showUrl}}page={{this}}">{{this}}</a>
+        </li>
+        {{/ifEqual}}
+      {{/each}}
+      <li class="page-item">
+        <a class="page-link" href="{{showUrl}}page={{next}}">
+          <span>&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
