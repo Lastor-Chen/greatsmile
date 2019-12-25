@@ -17,3 +17,5 @@ module.exports = {
     return queryInterface.bulkDelete('Gifts', null, option)
   }
 };
+
+// 只有前 5 項商品有特典
