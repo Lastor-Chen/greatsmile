@@ -3,7 +3,7 @@
     <ul class="pagination">
       <li class="page-item">
         <a class="page-link" href="{{queryString}}page={{prev}}">
-          <span>&laquo;</span>
+          <i class="fas fa-chevron-left"></i>
         </a>
       </li>
       {{#each pagesArray}}
@@ -11,15 +11,15 @@
           <li class="page-item active">
             <a class="page-link" href="{{../queryString}}page={{this}}">{{this}}</a>
           </li>
-      {{else}}
-        <li class="page-item ">
-          <a class="page-link" href="{{../queryString}}page={{this}}">{{this}}</a>
-        </li>
+        {{else}}
+          <li class="page-item">
+            <a class="page-link" href="{{../queryString}}page={{this}}">{{this}}</a>
+          </li>
         {{/ifEqual}}
       {{/each}}
       <li class="page-item">
         <a class="page-link" href="{{queryString}}page={{next}}">
-          <span>&raquo;</span>
+          <i class="fas fa-chevron-right"></i>
         </a>
       </li>
     </ul>
