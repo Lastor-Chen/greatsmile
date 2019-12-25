@@ -1,0 +1,121 @@
+<nav class="navbar fixed-top navbar-light bg-light">
+  <div class="container">
+    <ul class="nav nav-pills nav-fill">
+      <span class="navbar-brand mb-0 h1">LOGO</span>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/products/new"><i class="fas fa-plus"></i> 新增商品</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="/admin/products">商品</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/orders">訂單</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/users">會員</a>
+      </li>
+      <br>
+    </ul>
+    <a class="btn btn-outline-secondary ml-3" href="/signout">登出</a>
+  </div>
+</nav>
+<div class="container mt-5">
+  <div class="card-body">
+    <table data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true" id="table">
+      <thead>
+        <tr>
+          <th data-valign="middle" class="text-center" data-sortable="true">#</th>
+          <th data-valign="middle" class="text-center">商品照片</th>
+          <th data-valign="middle" class="text-center" data-sortable="true" data-width="150">名稱</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">售價</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">庫存</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">模型分類</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">作品分類</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">發售狀態</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">上架狀態</th>
+          <th data-valign="middle" class="text-center">商品操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each products}}
+          <tr>
+            <td>{{this.id}}</td>
+            <td>
+              <a href="/products/{{this.id}}" target="_blank" class="text-decoration-none text-dark d-block">
+                <img src="{{this.mainImg}}" title="{{this.name}}" class="rounded mx-auto d-block" alt="productImage"
+                  style="height:50px">
+              </a>
+            </td>
+            <td>
+              <a href="/products/{{this.id}}" target="_blank" class="text-decoration-none text-dark d-block">
+                {{this.name}}
+              </a>
+            </td>
+            <td>{{this.price}}</td>
+            <td>{{this.inventory}}</td>
+            <td>{{this.Category.name}}</td>
+            <td>{{this.Series.name}}</td>
+            <td>{{this.saleStatus}}</td>
+            <td>
+              {{#if this.status}}
+                <form action="/admin/products/{{this.id}}/undisplay" method="POST">
+                  <input type="text" name="id" hidden>
+                  <button type="submit" class="btn" title="將此商品下架"><i class="far fa-circle text-success"></i></button>
+                </form>
+              {{else}}
+                <form action="/admin/products/{{this.id}}/display" method="POST">
+                  <input type="text" name="id" hidden>
+                  <button type="submit" class="btn" title="將此商品上架"><i class="fas fa-times text-danger"></i>
+                  </button>
+                </form>
+              {{/if}}
+            </td>
+            <td>
+              <button type="button" class="btn font-weight-normal">
+                <a href="/admin/products/{{this.id}}/edit" class="text-decoration-none text-dark "><i
+                    class="fas fa-edit" title="編輯此商品"></i></a>
+              </button>
+              <button type="button" class="btn font-weight-normal">
+                <a href="/admin/products/{{this.id}}" target="_blank" class="text-decoration-none text-dark ">
+                  <i class="fas fa-search-plus" title="商品詳情"></i>
+                </a>
+              </button>
+              <!-- Delete Button trigger modal -->
+              <button type="button" class="btn font-weight-normal" data-toggle="modal" data-target="#delete_{{this.id}}"
+                title="刪除此商品">
+                <i class="far fa-trash-alt" aria-hidden="true"></i>
+              </button>
+            </td>
+          </tr>
+          {{!-- Delete modal --}}
+          <div class="modal fade" id="delete_{{this.id}}" tabindex="-1" role="dialog"
+            aria-labelledby="delete_{{this.id}}Label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="delete_{{this.id}}Label">刪除確認</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <h5 class="modal-title ml-3" id="ModalScrollable{{this.id}}Title">
+                    {{this.name}}</h5>
+                  </br>
+                  <h5 class="text-danger text-right">你真的要刪除這項商品嗎？</h5>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                  <form action="/admin/products/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-outline-danger font-weight-normal">確認刪除
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

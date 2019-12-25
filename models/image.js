@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     ProductId: DataTypes.INTEGER,
     isMain: DataTypes.BOOLEAN
   }, {});
-  Image.associate = function(models) {
+  Image.associate = function (models) {
     Image.belongsTo(models.Product)
   };
   return Image;

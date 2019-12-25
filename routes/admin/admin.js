@@ -3,9 +3,15 @@ const prodCtrller = require('../../controllers/admin/prodCtrller.js')
 
 const { isAdminAuth } = require('../../middleware/auth')
 
+// 判斷 admin 權限，set admin layout
+router.use('/', isAdminAuth, (req, res, next) => {
+  res.locals.layout = 'admin'
+  next()
+})
+
 // route base '/admin'
-router.use('/', isAdminAuth)
 router.get('/', (req, res) => res.redirect('/admin/products'))
 router.get('/products', prodCtrller.getProducts)
+router.get('/products/new', prodCtrller.getAddPage)
 
 module.exports = router
