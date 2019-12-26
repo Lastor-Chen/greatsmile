@@ -10,6 +10,7 @@ module.exports = (app, passport) => {
   app.get('/', (req, res) => res.render('home'))
 
   app.use('/products', require('./products.js'))
+  app.use('/cart', require('./cart.js'))
   app.use('/users', require('./users.js'))
   app.use('/admin', require('./admin/admin.js'))
 
