@@ -133,12 +133,9 @@
                 </div>
                 <div class="modal-body">
                   <div class="row">
-                    <div class="col-6 d-flex flex-wrap">
+                    <div class="col-6 d-flex justify-content-start flex-wrap">
                       {{#each this.Images}}
-                        <div class="p-2 flex-fill bd-highlight">
-                          <img src="{{this.url}}" class="rounded mx-auto d-block" alt="productImage"
-                            style="height:100px">
-                        </div>
+                        <img src="{{this.url}}" class="rounded mx-1" alt="productImage" style="height:100px">
                       {{/each}}
                     </div>
                     <div class="col-6">
