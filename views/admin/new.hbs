@@ -52,7 +52,7 @@
           <div class="form-group row">
             <label for="category" class="col-sm-2 col-form-label text-right">商品分類</label>
             <div class="col-sm-7">
-              <select class="form-control" name="category" id="category">
+              <select class="form-control" name="CategoryId" id="category">
                 {{#each categories}}
                   <option value={{this.id}}>{{this.name}}</option>
                 {{/each}}
@@ -186,7 +186,7 @@
           <div class="form-group row">
             <label for="series" class="col-sm-2 col-form-label text-right">隸屬作品</label>
             <div class="col-sm-7">
-              <select class="form-control" name="series" id="series">
+              <select class="form-control" name="seriesId" id="series">
                 {{#each series}}
                   <option value={{this.id}}>{{this.name}}</option>
                 {{/each}}

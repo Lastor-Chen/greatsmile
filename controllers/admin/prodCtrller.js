@@ -98,6 +98,24 @@ module.exports = {
     try {
       const input = { ...req.body }
       console.log(input)
+      const product = {
+        name: input.name,
+        price: input.price,
+        inventory: input.inventory,
+        slogan: input.slogan,
+        description: input.description,
+        spec: input.spec,
+        copyright: input.copyright,
+        maker: input.copyright,
+        status: input.status,
+        releaseDate: input.releseDate,
+        saleDate: input.saleDate,
+        deadline: input.deadline,
+        SeriesId: Number(input.seriesId),
+        CategoryId: Number(input.CategoryId)
+      }
+
+      await Product.create(product)
 
     } catch (err) {
       console.error(err)
