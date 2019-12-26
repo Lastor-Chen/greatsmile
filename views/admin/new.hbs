@@ -66,7 +66,7 @@
             <div class="col-sm-7 d-flex align-items-center">
               {{#each tag}}
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" name="tag_{{this.id}}">
+                  <input class="form-check-input" type="checkbox" name="tag[]" value={{this.id}}>
                   <label class="form-check-label">{{this.name}}</label>
                 </div>
               {{/each}}

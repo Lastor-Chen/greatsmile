@@ -1,5 +1,5 @@
 const db = require('../../models')
-const { Product, Category, Series, Image, Tag } = db
+const { Product, Category, Series, Image, Tag, TagItem } = db
 const moment = require('moment')
 const imgur = require('imgur')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
@@ -114,8 +114,17 @@ module.exports = {
         SeriesId: Number(input.seriesId),
         CategoryId: Number(input.CategoryId)
       }
+      const newProduct = await Product.create(product)
 
-      await Product.create(product)
+      //寫入TagItem
+      const tagArray = input.tag
+      tagArray.forEach(tagId => {
+        const tagItem = {
+          tag_id: Number(tagId),
+          product_id: newProduct.id
+        }
+        TagItem.create(tagItem)
+      })
 
     } catch (err) {
       console.error(err)
