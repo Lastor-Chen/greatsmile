@@ -108,7 +108,7 @@ module.exports = {
         copyright: input.copyright,
         maker: input.copyright,
         status: input.status,
-        releaseDate: input.releseDate,
+        releaseDate: input.releaseDate,
         saleDate: input.saleDate,
         deadline: input.deadline,
         SeriesId: Number(input.seriesId),
@@ -153,6 +153,63 @@ module.exports = {
       res.status(500).json(err.toString())
     }
     res.redirect('/admin/products')
-  }
+  },
+
+  getEditPage: async (req, res) => {
+    try {
+      const id = req.params.id
+      const product = await Product.findByPk(id)
+      const releaseDate = product.releaseDate.toJSON().split('T')[0]
+      const saleDate = product.saleDate.toJSON().split('T')[0]
+      const deadline = product.deadline.toJSON().split('T')[0]
+
+      const [categories, series, tag] = await Promise.all([
+        Category.findAll({
+          order: [['id', 'ASC']],
+        }),
+        Series.findAll({
+          order: [['id', 'ASC']],
+        }),
+        Tag.findAll({
+          order: [['id', 'ASC']],
+        })
+      ])
+
+      const tagItem = await TagItem.findAll({
+        where: { product_id: id }
+      })
+
+      tag.forEach(tag => {
+        tagItem.forEach(tagItem => {
+          if (tag.id === tagItem.tag_id) {
+            tag.checked = true
+          }
+        })
+      })
+
+      const images = await Image.findAll({
+        where: { product_id: id },
+        order: [['id', 'ASC']]
+      })
+
+      console.log(images)
+
+      res.render('admin/edit', {
+        product,
+        categories,
+        series,
+        tag,
+        releaseDate,
+        saleDate,
+        deadline,
+        tagItem,
+        images,
+        css: 'adminAdd'
+      })
+    } catch (err) {
+      console.error(err)
+      res.status(500).json(err.toString())
+    }
+  },
 
 }

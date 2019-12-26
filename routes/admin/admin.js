@@ -17,6 +17,7 @@ router.use('/', (req, res, next) => {
 router.get('/', (req, res) => res.redirect('/admin/products'))
 router.get('/products', prodCtrller.getProducts)
 router.get('/products/new', prodCtrller.getAddPage)
+router.get('/products/:id/edit', prodCtrller.getEditPage)
 
 router.post('/products/', upload.array('image', 10), prodCtrller.postNewProduct)
 router.post('/products/:id/display', prodCtrller.postDisplay)

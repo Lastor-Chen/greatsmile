@@ -3,7 +3,7 @@
     <ul class="nav nav-pills nav-fill">
       <span class="navbar-brand mb-0 h1">LOGO</span>
       <li class="nav-item">
-        <a class="nav-link active" href="/admin/products/new"><i class="fas fa-plus"></i> 新增商品</a>
+        <a class="nav-link" href="/admin/products/new"><i class="fas fa-plus"></i> 新增商品</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/admin/products">商品</a>
@@ -20,7 +20,7 @@
   </div>
 </nav>
 <div class="container card-cantainer">
-  <form action="/admin/products" method="POST" enctype="multipart/form-data">
+  <form action="/admin/products/{{product.id}}?_method=PUT" method="POST" enctype="multipart/form-data">
     <div class="card my-3">
       <div class="card-body">
         <h4>基本資訊</h4>
@@ -28,7 +28,7 @@
           <div class="form-group row">
             <label for="name" class="col-sm-2 col-form-label text-right">商品名稱</label>
             <div class="col-sm-7">
-              <input type="text" name="name" class="form-control" id="name">
+              <input type="text" name="name" class="form-control" id="name" value={{product.name}}>
             </div>
           </div>
         </div>
@@ -36,7 +36,7 @@
           <div class="form-group row">
             <label for="slogan" class="col-sm-2 col-form-label text-right">商品標語</label>
             <div class="col-sm-7">
-              <input type="text" name="slogan" class="form-control" id="slogan">
+              <input type="text" name="slogan" class="form-control" id="slogan" value={{product.slogan}}>
             </div>
           </div>
         </div>
@@ -44,7 +44,8 @@
           <div class="form-group row">
             <label for="description" class="col-sm-2 col-form-label text-right">商品內文</label>
             <div class="col-sm-7">
-              <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+              <textarea class="form-control" name="description" id="description"
+                rows="3">{{product.description}}</textarea>
             </div>
           </div>
         </div>
@@ -54,7 +55,9 @@
             <div class="col-sm-7">
               <select class="form-control" name="CategoryId" id="category">
                 {{#each categories}}
-                  <option value={{this.id}}>{{this.name}}</option>
+                  <option value={{this.id}} {{#ifEqual this.id ../product.CategoryId}} selected {{/ifEqual}}>
+                    {{this.name}}
+                  </option>
                 {{/each}}
               </select>
             </div>
@@ -66,7 +69,8 @@
             <div class="col-sm-7 d-flex align-items-center">
               {{#each tag}}
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" name="tag[]" value={{this.id}}>
+                  <input class="form-check-input" type="checkbox" name="tag[]" value={{this.id}} {{#if this.checked}}
+                    checked {{/if}}>
                   <label class="form-check-label">{{this.name}}</label>
                 </div>
               {{/each}}
@@ -82,7 +86,7 @@
           <div class="form-group row">
             <label for="price" class="col-sm-2 col-form-label text-right">商品售價</label>
             <div class="col-sm-7">
-              <input type="number" name="price" class="form-control" id="price">
+              <input type="number" name="price" class="form-control" id="price" value={{product.price}}>
             </div>
           </div>
         </div>
@@ -90,7 +94,7 @@
           <div class="form-group row">
             <label for="inventory" class="col-sm-2 col-form-label text-right">商品數量</label>
             <div class="col-sm-7">
-              <input type="number" name="inventory" class="form-control" id="inventory">
+              <input type="number" name="inventory" class="form-control" id="inventory" value={{product.inventory}}>
             </div>
           </div>
         </div>
@@ -98,7 +102,7 @@
           <div class="form-group row">
             <label for="spec" class="col-sm-2 col-form-label text-right">商品規格</label>
             <div class="col-sm-7">
-              <input type="text" name="spec" class="form-control" id="spec">
+              <input type="text" name="spec" class="form-control" id="spec" value={{product.spec}}>
             </div>
           </div>
         </div>
@@ -106,7 +110,7 @@
           <div class="form-group row">
             <label for="releaseDate" class="col-sm-2 col-form-label text-right">公開日期</label>
             <div class="col-sm-7">
-              <input type="date" name="releaseDate" class="form-control" id="releaseDate">
+              <input type="date" name="releaseDate" class="form-control" id="releaseDate" value={{releaseDate}}>
             </div>
           </div>
         </div>
@@ -114,7 +118,7 @@
           <div class="form-group row">
             <label for="deadline" class="col-sm-2 col-form-label text-right">預購截止日期</label>
             <div class="col-sm-7">
-              <input type="date" name="deadline" class="form-control" id="deadline">
+              <input type="date" name="deadline" class="form-control" id="deadline" value={{deadline}}>
             </div>
           </div>
         </div>
@@ -122,7 +126,7 @@
           <div class="form-group row">
             <label for="saleDate" class="col-sm-2 col-form-label text-right">發售日期</label>
             <div class="col-sm-7">
-              <input type="date" name="saleDate" class="form-control" id="saleDate">
+              <input type="date" name="saleDate" class="form-control" id="saleDate" value={{saleDate}}>
             </div>
           </div>
         </div>
@@ -131,8 +135,8 @@
             <label for="status" class="col-sm-2 col-form-label text-right">商品是否上架</label>
             <div class="col-sm-7">
               <select class="form-control" name="status" id="status">
-                <option value="1">是</option>
-                <option value="0">否</option>
+                <option value="1" {{#ifEqual ture product.status}} selected {{/ifEqual}}>是</option>
+                <option value="0" {{#ifEqual false product.status}} selected {{/ifEqual}}>否</option>
               </select>
             </div>
           </div>
@@ -144,7 +148,17 @@
               <div class="custom-file col-sm-7 d-flex align-items-center">
                 <input type="file" name="image" multiple="multiple" id="image">
               </div>
-              <small id="emailHelp" class="form-text text-muted ml-3">預設第一張為商品主圖片</small>
+              <div class="ml-2 mt-2 row">
+                {{#each images}}
+                  <div class="text-center">
+                    <img src={{this.url}} class="img-thumbnail mx-1 {{#if this.isMain}} border border-primary {{/if}}"
+                      style="width: 100px">
+                    {{#if this.isMain}}
+                      <p>主商品圖</p>
+                    {{/if}}
+                  </div>
+                {{/each}}
+              </div>
             </div>
           </div>
         </div>
@@ -159,7 +173,8 @@
             <div class="col-sm-7">
               <select class="form-control" name="seriesId" id="series">
                 {{#each series}}
-                  <option value={{this.id}}>{{this.name}}</option>
+                  <option value={{this.id}} {{#ifEqual this.id ../product.SeriesId}} selected {{/ifEqual}}>{{this.name}}
+                  </option>
                 {{/each}}
               </select>
             </div>
@@ -169,7 +184,7 @@
           <div class="form-group row">
             <label for="copyright" class="col-sm-2 col-form-label text-right">版權</label>
             <div class="col-sm-7">
-              <input type="text" name="copyright" class="form-control" id="copyright">
+              <input type="text" name="copyright" class="form-control" id="copyright" value={{product.copyright}}>
             </div>
           </div>
         </div>
@@ -177,14 +192,14 @@
           <div class="form-group row">
             <label for="maker" class="col-sm-2 col-form-label text-right">廠商</label>
             <div class="col-sm-7">
-              <input type="text" name="maker" class="form-control" id="maker">
+              <input type="text" name="maker" class="form-control" id="maker" value={{product.maker}}>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="col-12 text-right">
-      <button class="btn btn-primary" type="submit">新增商品</button>
+      <button class="btn btn-primary" type="submit">更新商品</button>
       </br>
       </br>
     </div>
