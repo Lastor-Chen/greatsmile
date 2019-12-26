@@ -1,7 +1,8 @@
 const db = require('../../models')
-const { Product, Category, Series, Image } = db
-
+const { Product, Category, Series, Image, Tag } = db
 const moment = require('moment')
+const imgur = require('imgur')
+const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 
 module.exports = {
   getProducts: async (req, res) => {
@@ -40,8 +41,20 @@ module.exports = {
     }
   },
 
-  getAddPage: (req, res) => {
-    res.render('admin/new', { css: 'adminAdd' })
+  getAddPage: async (req, res) => {
+    const [categories, series, tag] = await Promise.all([
+      Category.findAll({
+        order: [['id', 'ASC']],
+      }),
+      Series.findAll({
+        order: [['id', 'ASC']],
+      }),
+      Tag.findAll({
+        order: [['id', 'ASC']],
+      })
+    ])
+
+    res.render('admin/new', { categories, series, tag, css: 'adminAdd' })
   },
 
   postDisplay: async (req, res) => {
@@ -83,6 +96,8 @@ module.exports = {
 
   postNewProduct: async (req, res) => {
     try {
+      const input = { ...req.body }
+      console.log(input)
 
     } catch (err) {
       console.error(err)

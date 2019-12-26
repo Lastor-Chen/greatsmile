@@ -26,58 +26,50 @@
         <h4>基本資訊</h4>
         <div class="px-5">
           <div class="form-group row">
-            <label for="productName" class="col-sm-2 col-form-label text-right">商品名稱</label>
+            <label for="name" class="col-sm-2 col-form-label text-right">商品名稱</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" id="productName">
+              <input type="text" name="name" class="form-control" id="name">
             </div>
           </div>
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="productSlogan" class="col-sm-2 col-form-label text-right">商品標語</label>
+            <label for="slogan" class="col-sm-2 col-form-label text-right">商品標語</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" id="productName">
+              <input type="text" name="slogan" class="form-control" id="slogan">
             </div>
           </div>
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="productDescription" class="col-sm-2 col-form-label text-right">商品內文</label>
+            <label for="description" class="col-sm-2 col-form-label text-right">商品內文</label>
             <div class="col-sm-7">
-              <textarea class="form-control" id="productDescription" rows="3"></textarea>
+              <textarea class="form-control" name="description" id="description" rows="3"></textarea>
             </div>
           </div>
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="productCategory" class="col-sm-2 col-form-label text-right">商品分類</label>
+            <label for="category" class="col-sm-2 col-form-label text-right">商品分類</label>
             <div class="col-sm-7">
-              <select class="form-control" id="productCategory">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+              <select class="form-control" name="category" id="category">
+                {{#each categories}}
+                  <option value={{this.id}}>{{this.name}}</option>
+                {{/each}}
               </select>
             </div>
           </div>
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="productCategory" class="col-sm-2 col-form-label text-right">商品標籤</label>
+            <label for="tag" class="col-sm-2 col-form-label text-right">商品標籤</label>
             <div class="col-sm-7 d-flex align-items-center">
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="category1" value="option1">
-                <label class="form-check-label" for="category1">1</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="category2" value="option2">
-                <label class="form-check-label" for="category2">2</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="category3" value="option2">
-                <label class="form-check-label" for="category3">3</label>
-              </div>
+              {{#each tag}}
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" name="tag_{{this.id}}">
+                  <label class="form-check-label">{{this.name}}</label>
+                </div>
+              {{/each}}
             </div>
           </div>
         </div>
@@ -88,100 +80,100 @@
         <h4>銷售資訊</h4>
         <div class="px-5">
           <div class="form-group row">
-            <label for="productPrice" class="col-sm-2 col-form-label text-right">商品售價</label>
+            <label for="price" class="col-sm-2 col-form-label text-right">商品售價</label>
             <div class="col-sm-7">
-              <input type="number" class="form-control" id="productPrice">
+              <input type="number" name="price" class="form-control" id="price">
             </div>
           </div>
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="productInventory" class="col-sm-2 col-form-label text-right">商品數量</label>
+            <label for="inventory" class="col-sm-2 col-form-label text-right">商品數量</label>
             <div class="col-sm-7">
-              <input type="number" class="form-control" id="productInventory">
+              <input type="number" name="inventory" class="form-control" id="inventory">
             </div>
           </div>
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="productSpec" class="col-sm-2 col-form-label text-right">商品規格</label>
+            <label for="spec" class="col-sm-2 col-form-label text-right">商品規格</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" id="productSpec">
+              <input type="text" name="spec" class="form-control" id="spec">
             </div>
           </div>
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="productReleseDate" class="col-sm-2 col-form-label text-right">公開日期</label>
+            <label for="releseDate" class="col-sm-2 col-form-label text-right">公開日期</label>
             <div class="col-sm-7">
-              <input type="date" class="form-control" id="productReleseDate">
+              <input type="date" name="releseDate" class="form-control" id="releseDate">
             </div>
           </div>
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="productSaleDate" class="col-sm-2 col-form-label text-right">發售日期</label>
+            <label for="deadline" class="col-sm-2 col-form-label text-right">預購截止日期</label>
             <div class="col-sm-7">
-              <input type="date" class="form-control" id="productSaleDate">
+              <input type="date" name="deadline" class="form-control" id="deadline">
             </div>
           </div>
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="productDeadline" class="col-sm-2 col-form-label text-right">預購截止日期</label>
+            <label for="saleDate" class="col-sm-2 col-form-label text-right">發售日期</label>
             <div class="col-sm-7">
-              <input type="date" class="form-control" id="productDeadline">
+              <input type="date" name="saleDate" class="form-control" id="saleDate">
             </div>
           </div>
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="productStatus" class="col-sm-2 col-form-label text-right">商品是否上架</label>
+            <label for="status" class="col-sm-2 col-form-label text-right">商品是否上架</label>
             <div class="col-sm-7">
-              <select class="form-control" id="productStatus">
-                <option>是</option>
-                <option>否</option>
+              <select class="form-control" name="status" id="status">
+                <option value="1">是</option>
+                <option value="0">否</option>
               </select>
             </div>
           </div>
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="projectMainImg" class="col-sm-2 col-form-label text-right">商品主圖片</label>
+            <label for="mainImg" class="col-sm-2 col-form-label text-right">商品主圖片</label>
             <div class="custom-file col-sm-7 d-flex align-items-center">
-              <input type="file" id="projectMainImg">
+              <input type="file" name="mainImg" id="mainImg">
             </div>
           </div>
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="projectImg01" class="col-sm-2 col-form-label text-right">商品其他圖片</label>
+            <label for="img01" class="col-sm-2 col-form-label text-right">商品其他圖片</label>
             <div class="custom-file col-sm-7 d-flex align-items-center">
-              <input type="file" id="projectImg01">
+              <input type="file" name="img01" id="img01">
             </div>
           </div>
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="projectImg02" class="col-sm-2 col-form-label text-right"> </label>
+            <label for="img02" class="col-sm-2 col-form-label text-right"> </label>
             <div class="custom-file col-sm-7 d-flex align-items-center">
-              <input type="file" id="projectImg02">
+              <input type="file" name="img02" id="img02">
             </div>
           </div>
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="projectImg03" class="col-sm-2 col-form-label text-right"> </label>
+            <label for="img03" class="col-sm-2 col-form-label text-right"> </label>
             <div class="custom-file col-sm-7 d-flex align-items-center">
-              <input type="file" id="projectImg03">
+              <input type="file" name="img03" id="img03">
             </div>
           </div>
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="projectImg04" class="col-sm-2 col-form-label text-right"> </label>
+            <label for="img04" class="col-sm-2 col-form-label text-right"> </label>
             <div class="custom-file col-sm-7 d-flex align-items-center">
-              <input type="file" id="projectImg04">
+              <input type="file" name="img04" id="img04">
             </div>
           </div>
         </div>
@@ -192,31 +184,29 @@
         <h4>其他資訊</h4>
         <div class="px-5">
           <div class="form-group row">
-            <label for="productSeries" class="col-sm-2 col-form-label text-right">隸屬作品</label>
+            <label for="series" class="col-sm-2 col-form-label text-right">隸屬作品</label>
             <div class="col-sm-7">
-              <select class="form-control" id="productSeries">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+              <select class="form-control" name="series" id="series">
+                {{#each series}}
+                  <option value={{this.id}}>{{this.name}}</option>
+                {{/each}}
               </select>
             </div>
           </div>
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="productCopyright" class="col-sm-2 col-form-label text-right">版權</label>
+            <label for="copyright" class="col-sm-2 col-form-label text-right">版權</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" id="productCopyright">
+              <input type="text" name="copyright" class="form-control" id="copyright">
             </div>
           </div>
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="productMaker" class="col-sm-2 col-form-label text-right">廠商</label>
+            <label for="maker" class="col-sm-2 col-form-label text-right">廠商</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" id="productMaker">
+              <input type="text" name="maker" class="form-control" id="maker">
             </div>
           </div>
         </div>
