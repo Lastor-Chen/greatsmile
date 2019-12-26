@@ -4,22 +4,28 @@ const CartItem = db.CartItem
 
 module.exports = {
   async postCart(req, res) {
-    const CartId = req.session.cartId || null
-    const product_id = req.body.productId
+    try {
+      const cartId = req.session.cartId || null
+      const product_id = req.body.productId
 
-    const [[cart], [cartItem]] = await Promise.all([
       // 確認 client 是否已有 cart，若無就給一個
-      Cart.findOrCreate({ where: { id: CartId } }),
+      const [cart] = await Cart.findOrCreate({ where: { id: cartId } })
+
       // 確認 cart 是否已有 item，若無就給一個
-      CartItem.findOrCreate({ where: { CartId, product_id } })
-    ])
-    
-    await cartItem.increment('quantity')
+      const [cartItem] = await CartItem.findOrCreate({ where: { CartId: cart.id, product_id } })
 
-    // 發 session 紀錄用戶是哪台 cart
-    req.session.cartId = cart.id
-    await req.session.save()
+      // 遞增目標商品數量
+      await cartItem.increment('quantity')
 
-    res.redirect('back')
+      // 發 session 紀錄用戶是哪台 cart
+      req.session.cartId = cart.id
+      await req.session.save()
+
+      res.redirect('back')
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
   }
 }
