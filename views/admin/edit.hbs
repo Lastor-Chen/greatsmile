@@ -143,19 +143,25 @@
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="image" class="col-sm-2 col-form-label text-right">商品圖片</label>
+            <label for="image" class="col-sm-2 col-form-label text-right">新增商品圖片</label>
             <div>
               <div class="custom-file col-sm-7 d-flex align-items-center">
                 <input type="file" name="image" multiple="multiple" id="image">
               </div>
+            </div>
+          </div>
+        </div>
+        <div class="px-5">
+          <div class="form-group row">
+            <label for="image" class="col-sm-2 col-form-label text-right">選擇主圖片</label>
+            <div class="form-check form-check-inline">
               <div class="ml-2 mt-2 row">
                 {{#each images}}
-                  <div class="text-center">
-                    <img src={{this.url}} class="img-thumbnail mx-1 {{#if this.isMain}} border border-primary {{/if}}"
-                      style="width: 100px">
-                    {{#if this.isMain}}
-                      <p>主商品圖</p>
-                    {{/if}}
+                  <div class="text-center mr-1">
+                    <div>
+                      <img src={{this.url}} class="img-thumbnail mx-1" style="width: 100px">
+                    </div>
+                    <input class="form-check-input mt-2" type="radio" name="mainImg" value="{{this.id}}">
                   </div>
                 {{/each}}
               </div>
