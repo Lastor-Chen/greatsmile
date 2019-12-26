@@ -5,6 +5,7 @@ const exphbs = require('express-handlebars')
 const passport = require('./config/passport')
 const flash = require('connect-flash')
 const session = require('express-session')
+// const cookieParser = require('cookie-parser')
 const methodOverride = require('method-override')
 
 const app = express()
@@ -23,8 +24,11 @@ app.use(methodOverride('_method'))
 app.use(express.static('public'))
 app.use(flash())
 
+// app.use(cookieParser())
 app.use(session({
   secret: 'LastWendyTomatoBurger',
+  name: 'greatSmile',
+  cookie: { maxAge: 80000 },
   resave: false,
   saveUninitialized: false
 }))
@@ -34,6 +38,7 @@ app.use(passport.session())
 // view engine 常用變數
 app.use((req, res, next) => {
   console.log(req.method, req.path)
+  console.log(req.session)
   res.locals.success = req.flash('success')
   res.locals.error = req.flash('error')
   res.locals.user = req.user
