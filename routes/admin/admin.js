@@ -3,7 +3,8 @@ const prodCtrller = require('../../controllers/admin/prodCtrller.js')
 
 const { isAdminAuth } = require('../../middleware/auth')
 
-
+const multer = require('multer')
+const upload = multer({ dest: 'temp/' })
 
 // route base '/admin'
 router.use('/', isAdminAuth)
@@ -17,7 +18,7 @@ router.get('/', (req, res) => res.redirect('/admin/products'))
 router.get('/products', prodCtrller.getProducts)
 router.get('/products/new', prodCtrller.getAddPage)
 
-router.post('/products/', prodCtrller.postNewProduct)
+router.post('/products/', upload.single('mainImg'), prodCtrller.postNewProduct)
 router.post('/products/:id/display', prodCtrller.postDisplay)
 router.post('/products/:id/undisplay', prodCtrller.postUndisplay)
 

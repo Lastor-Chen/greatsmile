@@ -97,7 +97,7 @@ module.exports = {
   postNewProduct: async (req, res) => {
     try {
       const input = { ...req.body }
-      console.log(input)
+      console.log(req)
       const product = {
         name: input.name,
         price: input.price,
@@ -125,6 +125,20 @@ module.exports = {
         }
         TagItem.create(tagItem)
       })
+
+      //寫入mainImage
+      const { file } = req
+      if (file) {
+        imgur.setClientId(IMGUR_CLIENT_ID)
+        const mainImg = {
+          url: (await imgur.uploadFile(file.path)).data.link,
+          ProductId: newProduct.id,
+          isMain: true
+        }
+        Image.create(mainImg)
+      }
+
+
 
     } catch (err) {
       console.error(err)
