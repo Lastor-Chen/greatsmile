@@ -81,4 +81,14 @@ module.exports = {
     res.redirect('/admin/products')
   },
 
+  postNewProduct: async (req, res) => {
+    try {
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json(err.toString())
+    }
+    res.redirect('/admin/products')
+  }
+
 }
