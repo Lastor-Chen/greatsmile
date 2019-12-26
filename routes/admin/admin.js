@@ -18,7 +18,7 @@ router.get('/', (req, res) => res.redirect('/admin/products'))
 router.get('/products', prodCtrller.getProducts)
 router.get('/products/new', prodCtrller.getAddPage)
 
-router.post('/products/', upload.single('mainImg'), prodCtrller.postNewProduct)
+router.post('/products/', upload.array('image', 10), prodCtrller.postNewProduct)
 router.post('/products/:id/display', prodCtrller.postDisplay)
 router.post('/products/:id/undisplay', prodCtrller.postUndisplay)
 

@@ -97,7 +97,7 @@ module.exports = {
   postNewProduct: async (req, res) => {
     try {
       const input = { ...req.body }
-      console.log(req)
+
       const product = {
         name: input.name,
         price: input.price,
@@ -126,19 +126,27 @@ module.exports = {
         TagItem.create(tagItem)
       })
 
-      //寫入mainImage
-      const { file } = req
-      if (file) {
-        imgur.setClientId(IMGUR_CLIENT_ID)
+      //寫入Image
+      const { files } = req
+      if (files) {
         const mainImg = {
-          url: (await imgur.uploadFile(file.path)).data.link,
+          url: (await imgur.uploadFile(files[0].path)).data.link,
           ProductId: newProduct.id,
           isMain: true
         }
         Image.create(mainImg)
+
+        //移除第一筆後全寫入
+        files.shift()
+        for (const file of files) {
+          const img = {
+            url: (await imgur.uploadFile(file.path)).data.link,
+            ProductId: newProduct.id,
+            isMain: false
+          }
+          Image.create(img)
+        }
       }
-
-
 
     } catch (err) {
       console.error(err)
