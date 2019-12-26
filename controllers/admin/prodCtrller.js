@@ -192,8 +192,6 @@ module.exports = {
         order: [['id', 'ASC']]
       })
 
-      console.log(images)
-
       res.render('admin/edit', {
         product,
         categories,
@@ -212,4 +210,66 @@ module.exports = {
     }
   },
 
+  putProduct: async (req, res) => {
+    try {
+      const id = req.params.id
+      const input = { ...req.body }
+
+      //修改商品資訊
+      let product = await Product.findByPk(id)
+      await product.update(input)
+
+      //清除舊有TagItem
+      await TagItem.destroy({
+        where: { product_id: +id }
+      })
+
+      //新增TagItem資訊
+      const tagArray = input.tag
+      tagArray.forEach(tagId => {
+        const tagItem = {
+          tag_id: Number(tagId),
+          product_id: id
+        }
+        TagItem.create(tagItem)
+      })
+
+      //新增Image
+      const { files } = req
+      if (files) {
+        for (const file of files) {
+          const img = {
+            url: (await imgur.uploadFile(file.path)).data.link,
+            ProductId: id,
+            isMain: false
+          }
+          Image.create(img)
+        }
+      }
+
+      //修改mainImg
+      if (input.mainImg) {
+        const mainImgId = input.mainImg
+        const images = await Image.findAll({
+          where: { product_id: id }
+        })
+        console.log(images)
+        for (const image of images) {
+          await image.update({
+            isMain: false
+          }).then(function () { })
+        }
+
+        const mainImg = await Image.findByPk(mainImgId)
+        await mainImg.update({
+          isMain: true
+        }).then(function () { })
+      }
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json(err.toString())
+    }
+    res.redirect('/admin/products')
+  },
 }

@@ -23,6 +23,8 @@ router.post('/products/', upload.array('image', 10), prodCtrller.postNewProduct)
 router.post('/products/:id/display', prodCtrller.postDisplay)
 router.post('/products/:id/undisplay', prodCtrller.postUndisplay)
 
+router.put('/products/:id', upload.array('image', 10), prodCtrller.putProduct)
+
 
 router.delete('/products/:id', prodCtrller.deleteProduct)
 
