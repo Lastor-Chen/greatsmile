@@ -8,14 +8,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      quantity: {
-        type: Sequelize.INTEGER
-      },
       cart_id: {
         type: Sequelize.INTEGER
       },
       product_id: {
         type: Sequelize.INTEGER
+      },
+      quantity: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0
       },
       created_at: {
         allowNull: false,

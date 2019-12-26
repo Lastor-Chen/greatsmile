@@ -6,9 +6,9 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true
     },
-    quantity: DataTypes.INTEGER,
     CartId: DataTypes.INTEGER,
-    ProductId: DataTypes.INTEGER
+    ProductId: DataTypes.INTEGER,
+    quantity: DataTypes.INTEGER
   }, {});
   CartItem.associate = function(models) {
     // associations can be defined here
