@@ -1,0 +1,18 @@
+{{#if success}}
+  <h1>成功加入商品</h1>
+{{/if}}
+
+{{#if error}}
+  <h1>不得超過3個</h1>
+{{/if}}
+
+<div class="cart-alert alert alert-light alert-dismissible fade show">
+  <div class="cart-img mr-3">
+    <img class="img-thumbnail" src="{{product.Images.0.url}}" alt="cart-item-img">
+  </div>
+  <div>
+    <p>{{product.name}}</p>
+    <p class="text-danger">已將商品加入購物車</p>
+  </div>
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>

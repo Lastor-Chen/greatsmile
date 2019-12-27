@@ -24,12 +24,13 @@ module.exports = {
 
       // 計算商品數量
       if (currentQty + inputQty > QTY_Limit) {
-        console.log('不能超過 3 個')
         await cartItem.update({ quantity: QTY_Limit })
+        req.flash('error', '失敗')
         return res.redirect('back')
       } 
       
       await cartItem.update({ quantity: (currentQty + inputQty) })
+      req.flash('success', '成功')
       res.redirect('back')
 
     } catch (err) {
