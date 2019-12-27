@@ -8,7 +8,8 @@ module.exports = {
       const QTY_Limit = 3
 
       const cartId = req.session.cartId || null
-      const product_id = req.body.productId
+      const product_id = req.body.productId  // sequelize bug，得用底線命名
+      const { productName, productImg } = req.body
       const inputQty = +req.body.quantity || 1
 
       // 確認 client 是否已有 Cart，若無就給一個
@@ -25,12 +26,14 @@ module.exports = {
       // 計算商品數量
       if (currentQty + inputQty > QTY_Limit) {
         await cartItem.update({ quantity: QTY_Limit })
-        req.flash('error', '失敗')
+        req.flash('error', '超過單件商品之最大購買數量，已為您調整為最大購買數量。')
+        req.flash('addedItem', { productName, productImg })
         return res.redirect('back')
       } 
       
       await cartItem.update({ quantity: (currentQty + inputQty) })
-      req.flash('success', '成功')
+      req.flash('success', '已成功加進購物車')
+      req.flash('addedItem', { productName, productImg })
       res.redirect('back')
 
     } catch (err) {

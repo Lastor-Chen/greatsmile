@@ -1,4 +1,3 @@
-{{>cartAlert}}
 <main class="container pt-2 pb-5">
   {{!-- 麵包屑 --}}
   <nav class="bread mb-3">
@@ -49,6 +48,8 @@
           <form id="addCart1" action="/cart" method="POST" class="h-100">
             <div class="form-group text-center">
               <input type="hidden" name="productId" value="{{product.id}}">
+              <input type="hidden" name="productName" value="{{product.name}}">
+              <input type="hidden" name="productImg" value="{{product.Images.0.url}}">
               <button class="cart-btn cart-btn-lg btn" {{#unless product.hasInv}}disabled{{/unless}}>
                 <i class="fas fa-cart-arrow-down"></i>
                 <span>　加入購物車</span>
@@ -139,6 +140,8 @@
           <form id="addCart2" action="/cart" method="POST">
             <div class="form-group">
               <input type="hidden" name="productId" value="{{product.id}}">
+              <input type="hidden" name="productName" value="{{product.name}}">
+              <input type="hidden" name="productImg" value="{{product.Images.0.url}}">
               <button class="cart-btn cart-btn-sm btn" {{#unless product.hasInv}}disabled{{/unless}}>
                 <i class="fas fa-cart-arrow-down"></i>
                 <span>　加入購物車</span>
