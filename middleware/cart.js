@@ -4,9 +4,10 @@ const CartItem = db.CartItem
 module.exports = {
   async getCartItem(req, res, next) {
     const cartId = req.session.cartId
+    let itemSum = 0
     if (cartId) {
       // 購物車，商品計數
-      res.locals.itemSum = await CartItem.sum('quantity', {
+      itemSum = await CartItem.sum('quantity', {
         where: { CartId: cartId }
       })
 
@@ -15,6 +16,10 @@ module.exports = {
       res.locals.itemName = productName
       res.locals.itemImg = productImg
     }
+
+    // 從 if 拉出，使無 cardId 時，也能顯示計數
+    // 僅對無庫存商品 postCart 時，防止 itemSum 為 NaN
+    res.locals.itemSum = itemSum || 0
 
     next()
   }

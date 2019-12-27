@@ -35,8 +35,10 @@ module.exports = {
         inventory = product.inventory
       }
 
-      if (!inventory) {
-        req.flash('error', '選購的商品已售完。')
+      if (inventory - (currentQty + inputQty) < 0) {
+        // 庫存不足時，刪除已 create 的紀錄
+        if (currentQty === 0) { await cartItem.destroy() }
+        req.flash('error', '選購的商品已無庫存。')
         req.flash('addedItem', { productName, productImg })
         return res.redirect('back')
       }
