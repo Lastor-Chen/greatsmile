@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs')
+const passport = require('passport')
 const db = require('../models')
 const { User } = db
 
@@ -23,7 +24,7 @@ module.exports = {
       await User.create(input)
 
       req.flash('success', '已成功註冊帳號')
-      res.redirect('/signin')
+      res.redirect('/users/signin')
 
     } catch (err) {
       console.error(err)
@@ -35,11 +36,11 @@ module.exports = {
     return res.render('signin')
   },
 
-  signIn: (passport, req, res, next) => {
+  signIn: (req, res, next) => {
     passport.authenticate('local', {
       successRedirect: '/admin',
       successFlash: true,
-      failureRedirect: '/signin',
+      failureRedirect: '/users/signin',
       failureFlash: true,
       badRequestMessage: '請輸入 Email 與 Passport'
     })(req, res, next)
