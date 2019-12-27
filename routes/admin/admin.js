@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const prodCtrller = require('../../controllers/admin/prodCtrller.js')
+const userCtrller = require('../../controllers/admin/userCtrller')
 
 const { isAdminAuth } = require('../../middleware/auth')
 
@@ -13,5 +14,7 @@ router.use('/', isAdminAuth, (req, res, next) => {
 router.get('/', (req, res) => res.redirect('/admin/products'))
 router.get('/products', prodCtrller.getProducts)
 router.get('/products/new', prodCtrller.getAddPage)
+
+router.get('/users', userCtrller.getUsers)
 
 module.exports = router
