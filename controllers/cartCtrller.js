@@ -1,6 +1,7 @@
 const db = require('../models')
 const Cart = db.Cart
 const CartItem = db.CartItem
+const Product = db.Product
 
 module.exports = {
   async postCart(req, res) {
@@ -8,7 +9,7 @@ module.exports = {
       const QTY_Limit = 3
 
       const cartId = req.session.cartId || null
-      const product_id = req.body.productId  // sequelize bug，得用底線命名
+      const product_id = +req.body.productId  // sequelize bug，得用底線命名
       const { productName, productImg } = req.body
       const inputQty = +req.body.quantity || 1
 
@@ -20,8 +21,25 @@ module.exports = {
       await req.session.save()
 
       // 確認 CartItem 是否已有 record，若無建一個
-      const [cartItem] = await CartItem.findOrCreate({ where: { CartId: cart.id, product_id } })
+      const [cartItem, wasCreated] = await CartItem.findOrCreate({ 
+        where: { CartId: cart.id, product_id },
+        include: { model: Product, attributes: ['inventory'] }
+      })
       const currentQty = cartItem.quantity || 0
+
+      // 確認庫存，商品首次被加購物車 cartItem.Product 為空
+      // 只有首次加入時，才 Query Product 查庫存
+      let inventory = cartItem.Product ? cartItem.Product.inventory : null
+      if (wasCreated) {
+        const product = await Product.findByPk(product_id)
+        inventory = product.inventory
+      }
+
+      if (!inventory) {
+        req.flash('error', '選購的商品已售完。')
+        req.flash('addedItem', { productName, productImg })
+        return res.redirect('back')
+      }
 
       // 計算商品數量
       if (currentQty + inputQty > QTY_Limit) {
