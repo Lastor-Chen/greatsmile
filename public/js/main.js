@@ -10,3 +10,10 @@ $(window).scroll(() => {
 $('.back-top').click(() => {
   $("html, body").animate({ scrollTop: 0 }, 500)
 })
+
+// cartAlert 自動消失
+if ($('.cart-alert').length) {
+  setTimeout(() => {
+    $('.cart-alert').alert('close')
+  }, 5000)
+}
