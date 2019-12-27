@@ -44,8 +44,9 @@
         </div>
         <hr>
         <div class="small-text">
-          <form action="#" method="POST" class="h-100">
+          <form action="/cart" method="POST" class="h-100">
             <div class="form-group text-center">
+              <input type="hidden" name="productId" value="{{product.id}}">
               <button class="cart-btn cart-btn-lg btn"
                 {{#unless product.hasInv}}disabled{{/unless}}
               >
@@ -135,7 +136,8 @@
       <div class="col-md-6">
         <small>NTD {{product.priceFormat}}</small>
         <div class="mt-2">
-          <form action="#" method="POST">
+          <form action="/cart" method="POST">
+            <input type="hidden" name="productId" value="{{product.id}}">
             <div class="form-group">
               <button class="cart-btn cart-btn-sm btn"
                 {{#unless product.hasInv}}disabled{{/unless}}
