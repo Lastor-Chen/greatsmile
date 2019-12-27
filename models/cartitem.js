@@ -8,7 +8,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     CartId: DataTypes.INTEGER,
     ProductId: DataTypes.INTEGER,
-    quantity: DataTypes.INTEGER
+    quantity: {
+      type: DataTypes.INTEGER,
+      validate: { max: 3 }
+    }
   }, {});
   CartItem.associate = function(models) {
     // associations can be defined here
