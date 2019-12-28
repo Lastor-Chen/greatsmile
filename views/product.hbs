@@ -43,42 +43,44 @@
           <p>發售月:　{{product.saleDateFormat}}</p>
         </div>
         <hr>
+        {{!-- 購物車 --}}
         <div class="small-text">
-          <form action="#" method="POST" class="h-100">
+          <form id="addCart1" action="/cart" method="POST" class="h-100">
             <div class="form-group text-center">
-              <button class="cart-btn cart-btn-lg btn"
-                {{#unless product.hasInv}}disabled{{/unless}}
-              >
+              <input type="hidden" name="productId" value="{{product.id}}">
+              <input type="hidden" name="productName" value="{{product.name}}">
+              <input type="hidden" name="productImg" value="{{product.Images.0.url}}">
+              <button class="cart-btn cart-btn-lg btn" {{#unless product.hasInv}}disabled{{/unless}}>
                 <i class="fas fa-cart-arrow-down"></i>
                 <span>　加入購物車</span>
               </button>
             </div>
-            <div class="form-group mb-0 text-center">
-              {{#if product.isOnSale}}
-                {{#if product.hasInv}}
-                  <p class="mb-2 status-text">發售中</p>
-                {{else}}
-                  <p class="mb-2 status-sold-out">已售完</p>
-                {{/if}}
-              {{else}}
-                <p class="mb-2 status-text">預約中</p>
-              {{/if}}
-              <hr class="my-2">
-              <div class="d-flex px-3 mb-2 justify-content-between align-items-center">
-                <span>數量</span>
-                <select class="qty-select" name="quantity">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </select>
-              </div>
-              <hr class="my-2">
-              <div class="d-flex px-3 justify-content-between align-items-center">
-                <span>價格</span>
-                <span>NTD {{product.priceFormat}}</span>
-              </div>
-            </div>
           </form>
+          <div class="mb-0 text-center">
+            {{#if product.isOnSale}}
+              {{#if product.hasInv}}
+                <p class="mb-2 status-text">發售中</p>
+              {{else}}
+                <p class="mb-2 status-sold-out">已售完</p>
+              {{/if}}
+            {{else}}
+              <p class="mb-2 status-text">預約中</p>
+            {{/if}}
+            <hr class="my-2">
+            <div class="d-flex px-3 mb-2 justify-content-between align-items-center">
+              <span>數量</span>
+              <select class="qty-select" name="quantity" form="addCart1">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <hr class="my-2">
+            <div class="d-flex px-3 justify-content-between align-items-center">
+              <span>價格</span>
+              <span>NTD {{product.priceFormat}}</span>
+            </div>
+          </div>
         </div>
         <hr class="my-2">
         <div class="buy-info">
@@ -135,33 +137,34 @@
       <div class="col-md-6">
         <small>NTD {{product.priceFormat}}</small>
         <div class="mt-2">
-          <form action="#" method="POST">
+          <form id="addCart2" action="/cart" method="POST">
             <div class="form-group">
-              <button class="cart-btn cart-btn-sm btn"
-                {{#unless product.hasInv}}disabled{{/unless}}
-              >
+              <input type="hidden" name="productId" value="{{product.id}}">
+              <input type="hidden" name="productName" value="{{product.name}}">
+              <input type="hidden" name="productImg" value="{{product.Images.0.url}}">
+              <button class="cart-btn cart-btn-sm btn" {{#unless product.hasInv}}disabled{{/unless}}>
                 <i class="fas fa-cart-arrow-down"></i>
                 <span>　加入購物車</span>
               </button>
             </div>
-            <div class="d-flex align-items-center">
-              <span class="mr-3">數量</span>
-              <select class="qty-select mr-3" name="quantity">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-              </select>
-              {{#if product.isOnSale}}
-                {{#if product.hasInv}}
-                  <span class="status-text">發售中</span>
-                {{else}}
-                  <span class="status-sold-out">已售完</span>
-                {{/if}}
-              {{else}}
-                <span class="status-text">預約中</span>
-              {{/if}}
-            </div>
           </form>
+          <div class="d-flex align-items-center">
+            <span class="mr-3">數量</span>
+            <select class="qty-select mr-3" name="quantity" form="addCart2">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+            {{#if product.isOnSale}}
+              {{#if product.hasInv}}
+                <span class="status-text">發售中</span>
+              {{else}}
+                <span class="status-sold-out">已售完</span>
+              {{/if}}
+            {{else}}
+              <span class="status-text">預約中</span>
+            {{/if}}
+          </div>
         </div>
       </div>
       <div class="col-md-4 buy-info">

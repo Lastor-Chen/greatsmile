@@ -1,3 +1,7 @@
+p {
+  margin: 0;
+}
+
 body {
   background-color: #ebebeb;
   display: flex;
@@ -99,3 +103,24 @@ body {
   background: #63514a;
 }
 
+/* cartAlert */
+.cart-alert {
+  display: flex;
+  position: fixed;
+  top: 3rem;
+  right: 30%;
+  width: 380px;
+  border: 1px dotted #adb5bd;
+  border-radius: 10px;
+  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, .3);
+  z-index: 99;
+}
+
+.cart-img {
+  min-width: 80px;
+}
+
+.cart-img img {
+  width: 70px;
+  height: 70px;
+}

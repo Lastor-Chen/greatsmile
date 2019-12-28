@@ -25,6 +25,8 @@ app.use(flash())
 
 app.use(session({
   secret: 'LastWendyTomatoBurger',
+  name: 'greatSmile',
+  cookie: { maxAge: 80000 },
   resave: false,
   saveUninitialized: false
 }))
@@ -41,7 +43,7 @@ app.use((req, res, next) => {
 })
 
 // route setup
-require('./routes/index.js')(app, passport)
+require('./routes/index.js')(app)
 
 // start server
 app.listen(port, () => {
