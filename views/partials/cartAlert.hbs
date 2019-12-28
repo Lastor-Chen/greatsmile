@@ -1,24 +1,11 @@
-{{#if success}}
+{{#if addedItem}}
   <div class="cart-alert alert alert-light alert-dismissible fade show">
     <div class="cart-img mr-3">
-      <img class="img-thumbnail" src="{{itemImg}}" alt="cart-item-img">
+      <img class="img-thumbnail" src="{{addedItem.productImg}}" alt="cart-item-img">
     </div>
     <div class="cart-msg">
-      <p class="text-dark">{{itemName}}</p>
-      <p class="text-danger">{{success}}</p>
-    </div>
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-  </div>
-{{/if}}
-
-{{#if error}}
-  <div class="cart-alert alert alert-light alert-dismissible fade show">
-    <div class="cart-img mr-3">
-      <img class="img-thumbnail" src="{{itemImg}}" alt="cart-item-img">
-    </div>
-    <div class="cart-msg">
-      <p class="text-dark">{{itemName}}</p>
-      <p class="text-danger">{{error}}</p>
+      <p class="text-dark">{{addedItem.productName}}</p>
+      <p class="text-danger">{{addedItem.msg}}</p>
     </div>
     <button type="button" class="close" data-dismiss="alert">&times;</button>
   </div>

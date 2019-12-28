@@ -38,22 +38,21 @@ module.exports = {
       if (inventory - (currentQty + inputQty) < 0) {
         // 庫存不足時，刪除已 create 的紀錄
         if (currentQty === 0) { await cartItem.destroy() }
-        req.flash('error', '選購的商品已無庫存。')
-        req.flash('addedItem', { productName, productImg })
+        req.flash('addedItem', { productName, productImg, msg: '選購的商品已無庫存。' })
         return res.redirect('back')
       }
 
       // 計算商品數量
       if (currentQty + inputQty > QTY_Limit) {
         await cartItem.update({ quantity: QTY_Limit })
-        req.flash('error', '超過單件商品之最大購買數量，已為您調整為最大購買數量。')
-        req.flash('addedItem', { productName, productImg })
+        req.flash('addedItem', { 
+          productName, productImg, msg: '超過單件商品之最大購買數量，已為您調整為最大購買數量。'
+        })
         return res.redirect('back')
       } 
       
       await cartItem.update({ quantity: (currentQty + inputQty) })
-      req.flash('success', '已成功加進購物車')
-      req.flash('addedItem', { productName, productImg })
+      req.flash('addedItem', { productName, productImg, msg: '已成功加進購物車' })
       res.redirect('back')
 
     } catch (err) {

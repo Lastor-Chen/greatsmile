@@ -12,9 +12,7 @@ module.exports = {
       })
 
       // 傳遞被加入購物車之商品 data
-      const { productName, productImg } = req.flash('addedItem')[0] || {}
-      res.locals.itemName = productName
-      res.locals.itemImg = productImg
+      res.locals.addedItem = req.flash('addedItem')[0]
     }
 
     // 從 if 拉出，使無 cardId 時，也能顯示計數
