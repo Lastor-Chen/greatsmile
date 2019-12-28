@@ -20,6 +20,10 @@ module.exports = {
         //寫入主商品圖, 若無商品圖則寫入無圖片圖示
         if (product.Images.length != 0) {
           product.mainImg = product.Images.find(img => img.isMain).url
+          product.secondImg = product.Images.filter(function (item, index, array) {
+            return !item.isMain
+          })
+
         } else {
           product.mainImg = 'https://citainsp.org/wp-content/uploads/2016/01/default.jpg'
         }
@@ -37,24 +41,30 @@ module.exports = {
       res.render('admin/products', { products, css: 'admin' })
     } catch (err) {
       console.error(err)
-      res.status(500).json(err.toString())
+      res.status(500).json({ status: 'serverError', message: err.toString() })
     }
   },
 
   getAddPage: async (req, res) => {
-    const [categories, series, tag] = await Promise.all([
-      Category.findAll({
-        order: [['id', 'ASC']],
-      }),
-      Series.findAll({
-        order: [['id', 'ASC']],
-      }),
-      Tag.findAll({
-        order: [['id', 'ASC']],
-      })
-    ])
+    try {
+      const [categories, series, tag] = await Promise.all([
+        Category.findAll({
+          order: [['id', 'ASC']],
+        }),
+        Series.findAll({
+          order: [['id', 'ASC']],
+        }),
+        Tag.findAll({
+          order: [['id', 'ASC']],
+        })
+      ])
 
-    res.render('admin/new', { categories, series, tag, css: 'adminAdd' })
+      res.render('admin/new', { categories, series, tag, css: 'adminAdd' })
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
   },
 
   postDisplay: async (req, res) => {
@@ -62,12 +72,13 @@ module.exports = {
       const productId = req.params.id
       const product = await Product.findByPk(productId)
       product.status = true
-      product.save().then(function () { })
+      await product.save()
+
+      res.redirect('/admin/products')
     } catch (err) {
       console.error(err)
-      res.status(500).json(err.toString())
+      res.status(500).json({ status: 'serverError', message: err.toString() })
     }
-    res.redirect('/admin/products')
   },
 
   postUndisplay: async (req, res) => {
@@ -75,46 +86,33 @@ module.exports = {
       const productId = req.params.id
       const product = await Product.findByPk(productId)
       product.status = false
-      product.save().then(function () { })
+      await product.save()
+
+      res.redirect('/admin/products')
     } catch (err) {
       console.error(err)
-      res.status(500).json(err.toString())
+      res.status(500).json({ status: 'serverError', message: err.toString() })
     }
-    res.redirect('/admin/products')
   },
 
   deleteProduct: async (req, res) => {
     try {
       const product = await Product.findByPk(req.params.id)
       product.destroy()
+      res.redirect('/admin/products')
     } catch (err) {
       console.error(err)
-      res.status(500).json(err.toString())
+      res.status(500).json({ status: 'serverError', message: err.toString() })
     }
-    res.redirect('/admin/products')
   },
 
   postNewProduct: async (req, res) => {
     try {
       const input = { ...req.body }
+      input.SeriesId = +input.SeriesId
+      input.CategoryId = +input.CategoryId
 
-      const product = {
-        name: input.name,
-        price: input.price,
-        inventory: input.inventory,
-        slogan: input.slogan,
-        description: input.description,
-        spec: input.spec,
-        copyright: input.copyright,
-        maker: input.copyright,
-        status: input.status,
-        releaseDate: input.releaseDate,
-        saleDate: input.saleDate,
-        deadline: input.deadline,
-        SeriesId: Number(input.seriesId),
-        CategoryId: Number(input.CategoryId)
-      }
-      const newProduct = await Product.create(product)
+      const newProduct = await Product.create(input)
 
       //寫入TagItem
       const tagArray = input.tag
@@ -147,12 +145,11 @@ module.exports = {
           Image.create(img)
         }
       }
-
+      res.redirect('/admin/products')
     } catch (err) {
       console.error(err)
-      res.status(500).json(err.toString())
+      res.status(500).json({ status: 'serverError', message: err.toString() })
     }
-    res.redirect('/admin/products')
   },
 
   getEditPage: async (req, res) => {
@@ -206,7 +203,7 @@ module.exports = {
       })
     } catch (err) {
       console.error(err)
-      res.status(500).json(err.toString())
+      res.status(500).json({ status: 'serverError', message: err.toString() })
     }
   },
 
@@ -253,7 +250,7 @@ module.exports = {
         const images = await Image.findAll({
           where: { product_id: id }
         })
-        console.log(images)
+
         for (const image of images) {
           await image.update({
             isMain: false
@@ -265,11 +262,10 @@ module.exports = {
           isMain: true
         }).then(function () { })
       }
-
+      res.redirect('/admin/products')
     } catch (err) {
       console.error(err)
-      res.status(500).json(err.toString())
+      res.status(500).json({ status: 'serverError', message: err.toString() })
     }
-    res.redirect('/admin/products')
   },
 }
