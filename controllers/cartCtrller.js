@@ -24,6 +24,8 @@ module.exports = {
           product.mainImg = product.Images.find(img => img.isMain).url
           product.isPreorder = moment(today).isBefore(product.deadline)
           product.isGift = product.Gifts.length > 0 ? true : false
+          product.isCheck1 = product.CartItem.quantity < 3 ? true : false
+          product.isCheck2 = product.CartItem.quantity > 1 ? true : false
           totalPrice += (product.price * product.CartItem.quantity)
         } 
       )}
