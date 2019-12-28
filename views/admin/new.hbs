@@ -66,8 +66,8 @@
             <div class="col-sm-7 d-flex align-items-center">
               {{#each tag}}
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" name="tag[]" value={{this.id}}>
-                  <label class="form-check-label">{{this.name}}</label>
+                  <input class="form-check-input" type="checkbox" name="tag[]" id="tag_{{this.id}}" value={{this.id}}>
+                  <label class="form-check-label" for="tag_{{this.id}}">{{this.name}}</label>
                 </div>
               {{/each}}
             </div>
@@ -88,7 +88,7 @@
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="inventory" class="col-sm-2 col-form-label text-right">商品數量</label>
+            <label for="inventory" class="col-sm-2 col-form-label text-right">商品庫存</label>
             <div class="col-sm-7">
               <input type="number" name="inventory" class="form-control" id="inventory">
             </div>
@@ -132,7 +132,7 @@
             <div class="col-sm-7">
               <select class="form-control" name="status" id="status">
                 <option value="1">是</option>
-                <option value="0">否</option>
+                <option value="0" selected>否</option>
               </select>
             </div>
           </div>
@@ -144,7 +144,8 @@
               <div class="custom-file col-sm-7 d-flex align-items-center">
                 <input type="file" name="image" multiple="multiple" id="image">
               </div>
-              <small id="emailHelp" class="form-text text-muted ml-3">預設第一張為商品主圖片</small>
+              <small id="emailHelp" class="form-text text-muted ml-3">＊ 預設第一張為商品主圖片</small>
+              <small id="emailHelp" class="form-text text-muted ml-3">＊ 建議大小為570x670px</small>
             </div>
           </div>
         </div>
@@ -167,7 +168,7 @@
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="copyright" class="col-sm-2 col-form-label text-right">版權</label>
+            <label for="copyright" class="col-sm-2 col-form-label text-right">版權所屬</label>
             <div class="col-sm-7">
               <input type="text" name="copyright" class="form-control" id="copyright">
             </div>
@@ -175,7 +176,7 @@
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="maker" class="col-sm-2 col-form-label text-right">廠商</label>
+            <label for="maker" class="col-sm-2 col-form-label text-right">製造商</label>
             <div class="col-sm-7">
               <input type="text" name="maker" class="form-control" id="maker">
             </div>
