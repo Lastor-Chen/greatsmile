@@ -8,6 +8,7 @@
         </div>
         {{!-- 商品內容 --}}
         <div class="panel-body col-md-12 py-3">
+          {{#if cartProducts.length}}
           <div class="cart-product">
             {{!-- 標題 --}}
             <div class="row">
@@ -100,6 +101,12 @@
               </div>
             </div>
           </div>
+          {{else}}
+            <div>
+              <p class="text-center mb-0">購物車無商品</p>
+              <p class="text-center">選擇上方類型以瀏覽商品</p>
+            </div>
+          {{/if}}
         </div>
       </div>
     </section>
