@@ -31,7 +31,7 @@ module.exports = {
       )}
       const totalPriceFormat = totalPrice.toLocaleString()
       
-      res.render('cart', { cartProducts, totalPriceFormat, css: 'cart' })
+      res.render('cart', { cart, cartProducts, totalPriceFormat, css: 'cart' })
 
     } catch(err) {
       console.error(err)
