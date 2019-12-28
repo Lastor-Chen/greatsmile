@@ -82,6 +82,9 @@
   font-size: 22px;
   border-bottom: 1px solid rgb(221, 221, 221);
 }
+.panel-heading div {
+  margin: 0 18px;
+}
 
 .product-btn {
   font-size: 14px;
