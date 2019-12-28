@@ -79,11 +79,6 @@
                 <a href="/admin/products/{{this.id}}/edit" class="text-decoration-none text-dark "><i
                     class="fas fa-edit" title="編輯此商品"></i></a>
               </button>
-              {{!-- <button type="button" class="btn font-weight-normal">
-                <a href="/admin/products/{{this.id}}" target="_blank" class="text-decoration-none text-dark ">
-                  <i class="fas fa-search-plus" title="商品詳情"></i>
-                </a>
-              </button> --}}
               <!-- Detail Button trigger modal -->
               <button type="button" class="btn font-weight-normal" data-toggle="modal"
                 data-target=".detailModal{{this.id}}"><i class="fas fa-search-plus" title="商品詳情"></i></button>
@@ -132,33 +127,48 @@
                   </button>
                 </div>
                 <div class="modal-body">
+                  <h4>#{{this.id}} {{this.name}}</h4>
+                  <hr>
                   <div class="row">
-                    <div class="col-6 d-flex justify-content-start flex-wrap">
-                      {{#each this.Images}}
-                        <img src="{{this.url}}" class="rounded mx-1" alt="productImage" style="height:100px">
-                      {{/each}}
+                    <div class="col-6 ">
+                      <p>商品標語： {{this.slogan}}</p>
+                      <p>商品內文：{{this.description}}</p>
                     </div>
                     <div class="col-6">
                       <div>
-                        <h4>#{{this.id}} {{this.name}}</h4>
-                        <p>售價 {{this.price}}</p>
-                        <p>庫存 {{this.inventory}}</p>
-                        <p>規格 {{this.spec}}</p>
-                        <p>版權 {{this.copyright}}</p>
-                        <p>廠商 {{this.maker}}</p>
+                        <p>售價： {{this.price}}</p>
+                        <p>庫存： {{this.inventory}}</p>
+                        <p>規格： {{this.spec}}</p>
+                        <p>版權： {{this.copyright}}</p>
+                        <p>廠商： {{this.maker}}</p>
                         {{#if this.status}}
-                          <p>狀態 上架中</p>
+                          <p>狀態： 上架中</p>
                         {{else}}
-                          <p>狀態 未上架</p>
+                          <p>狀態： 未上架</p>
                         {{/if}}
-                        <p>分類 {{this.Category.name}}</p>
-                        <p>作品 {{this.Series.name}}</p>
+                        <p>分類： {{this.Category.name}}</p>
+                        <p>作品： {{this.Series.name}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+                  <div>
+                    <p class="md-2">商品圖片：</p>
+                    <div class="row">
+                      <div class="col-2 text-center">
+                        <img src="{{this.mainImg}}" class="rounded mx-1 mb-2 border border-primary" alt="productImage"
+                          style="height:100px">
+                        <p>主圖片</p>
+                      </div>
+                      <div class="col-10">
+                        {{#each this.secondImg}}
+                          <img src="{{this.url}}" class="rounded mx-1 mb-2" alt="productImage" style="height:100px">
+                        {{/each}}
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <a href=""></a>
                   <button type="button" class="btn font-weight-normal">
                     <a href="/admin/products/{{this.id}}/edit" class="btn btn-primary">編輯此商品</a>
                   </button>
