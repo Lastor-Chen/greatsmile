@@ -45,7 +45,9 @@
                       {{/if}}
               
                     </div>
-                    <form action="/cartItem/{{this.CartItem.id}}/delete" method="POST" class="product-btn pt-1">刪除</form>
+                    <form action="/cartItem/{{this.CartItem.id}}/delete" method="POST">
+                      <button type="submit" class="btn product-btn px-0 pt-1">刪除</button>
+                    </form>
                   </div>
                 </div>
                 <div class="col-md-5 font-format">
