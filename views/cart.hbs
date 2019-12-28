@@ -50,7 +50,19 @@
                 <div class="col-md-5 font-format">
                   <div class="d-flex justify-content-between align-items-center">
                     <span>NTD {{this.priceFormat}}</span>
-                    <span>{{this.CartItem.quantity}}</span>
+                    <span>
+                      <div class="d-flex align-items-center item-quantity">
+                        <form action="/cartItem/{{this.CartItem.id}}/sub" method="POST">
+                          <button type="submit" class="btn btn-sm btn-outline-secondary">-</button>
+                        </form>
+                        <span class="px-3">
+                          {{this.CartItem.quantity}}
+                        </span>
+                        <form action="/cartItem/{{this.CartItem.id}}/add" method="POST">
+                          <button type="submit" class="btn btn-sm btn-outline-secondary">+</button>
+                        </form>
+                      </div>
+                    </span>
                     <span>NTD {{this.subPriceFormat}}</span>
                   </div>
                 </div>
