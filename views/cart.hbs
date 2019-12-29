@@ -56,7 +56,7 @@
                     <span>
                       <div class="d-flex align-items-center item-quantity">
                         {{#if this.isCheck2}}
-                          <form action="/cartItem/{{this.CartItem.id}}/sub" method="POST">
+                          <form action="/cart/cartItem/{{this.CartItem.id}}/sub" method="POST">
                             <button type="submit" class="btn btn-sm btn-outline-secondary">-</button>
                           </form>
                         {{else}}
