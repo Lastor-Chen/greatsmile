@@ -59,7 +59,7 @@ module.exports = {
         })
       ])
 
-      res.render('admin/new', { categories, series, tag, css: 'newEdit' })
+      res.render('admin/new', { categories, series, tag })
 
     } catch (err) {
       console.error(err)
@@ -198,8 +198,7 @@ module.exports = {
         saleDate,
         deadline,
         tagItem,
-        images,
-        css: 'newEdit'
+        images
       })
     } catch (err) {
       console.error(err)
