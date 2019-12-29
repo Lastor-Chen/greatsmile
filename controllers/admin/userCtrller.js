@@ -13,7 +13,6 @@ module.exports = {
         user.modifybirthday = user.birthday.toJSON().split('T')[0]
       })
 
-      console.log(users)
       res.render('admin/users', { users, css: 'admin' })
     } catch (err) {
       console.error(err)

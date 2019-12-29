@@ -12,14 +12,13 @@ module.exports = {
   signUp: async (req, res) => {
     try {
       const input = { ...req.body }  // 深拷貝，保護原始資料
-
       // check input
       const error = await checkSignUp(input)
       if (error) return res.render('signup', { error, input })
 
-      input.avatar = '/img/default.png'
-      input.introduction = ''
       input.password = bcrypt.hashSync(input.password, 10)
+      input.isAdmin = false
+      input.birthday = new Date
       await User.create(input)
 
       req.flash('success', '已成功註冊帳號')
