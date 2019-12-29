@@ -7,10 +7,10 @@ function randomNum(min, max) {
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('OrderItems',
-      Array.from({ length: 30 }, (val, index) => ({
+      Array.from({ length: 50 }, (val, index) => ({
         price: randomNum(1000, 10000),
         quantity: randomNum(1, 3),
-        order_id: randomNum(1, 25),
+        order_id: index < 25 ? index + 1 : index - 24,
         product_id: randomNum(1, 100)
       }))
     )
