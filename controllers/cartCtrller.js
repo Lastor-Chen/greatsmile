@@ -35,7 +35,7 @@ module.exports = {
       }
       const totalPriceFormat = totalPrice.toLocaleString()
 
-      res.render('cart', { cart, cartProducts, totalPriceFormat, css: 'cart' })
+      res.render('cart', { cart, cartProducts, totalPriceFormat, css: 'cart', js: 'cart'})
 
     } catch (err) {
       console.error(err)
@@ -117,6 +117,21 @@ module.exports = {
       cartItem.update({
         quantity: cartItem.quantity - 1,
       })
+      return res.redirect('back')
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  },
+  updateCartItem: async (req, res) => {
+    try {
+      const cartItem = await CartItem.findByPk(req.params.id)
+
+      cartItem.update({
+        quantity: req.body.productQty2
+      })
+
       return res.redirect('back')
 
     } catch (err) {

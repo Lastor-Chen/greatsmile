@@ -45,8 +45,13 @@
                       {{/if}}
               
                     </div>
-                    <form action="/cartItem/{{this.CartItem.id}}/delete" method="POST">
+                    <form action="/cartItem/{{this.CartItem.id}}/delete" method="POST" class="d-inline-block">
                       <button type="submit" class="btn product-btn px-0 pt-1">刪除</button>
+                    </form>
+                    <span> | </span>
+                    <form action="/cart/cartItem/{{this.CartItem.id}}/update" method="POST" class="d-inline-block">
+                      <input type="hidden" min="1" max="3" class="productQty2" name="productQty2" value="">
+                      <button type="submit" class="btn product-btn px-0 pt-1">更新</button>
                     </form>
                   </div>
                 </div>
@@ -62,9 +67,9 @@
                         {{else}}
                             <button class="btn btn-sm btn-outline-secondary btn-unavailable disabled">-</button>
                         {{/if}}
-                        <span class="px-3">
-                          {{this.CartItem.quantity}}
-                        </span>
+
+                          <input type="number" min="1" max="3" class="productQty" name="productQty" value="{{this.CartItem.quantity}}">
+
                         {{#if this.isCheck1}}
                           <form action="/cart/cartItem/{{this.CartItem.id}}/add" method="POST">
                             <button type="submit" class="btn btn-sm btn-outline-secondary">+</button>
@@ -76,6 +81,7 @@
                     </span>
                     <span>NTD {{this.subPriceFormat}}</span>
                   </div>
+                  <p class="note text-center pt-2"></p> {{!-- 提醒訊息 --}}
                 </div>
               </div>
               <hr>
