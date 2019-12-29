@@ -11,7 +11,7 @@ module.exports = (app, passport) => {
 
   app.use('/products', require('./products.js'))
   app.use('/users', require('./users.js'))
-  app.use('/admin', require('./admin/admin.js'))
+  app.use('/admin', require('./admin/index.js'))
 
   app.get('/search', require('../controllers/prodCtrller').getProducts)
 
