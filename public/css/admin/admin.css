@@ -2,6 +2,10 @@
   max-width: 1250px;
 }
 
+main.container {
+  padding-top: 56px;
+}
+
 #table > tbody {
   font-size: 14px;
 }
@@ -12,11 +16,11 @@
 }
 
 .table-bordered td, .table-bordered th {
-    border: 0px solid #dee2e6;
+  border: 0px solid #dee2e6;
 }
 
 .card-body {
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    padding: 0rem;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 0rem;
 }
