@@ -153,18 +153,16 @@
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="image" class="col-sm-2 col-form-label text-right">選擇主圖片</label>
-            <div class="form-check form-check-inline">
-              <div class="ml-2 mt-2 row">
-                {{#each images}}
-                  <div class="text-center mr-1">
-                    <div>
-                      <img src={{this.url}} class="img-thumbnail mx-1" style="width: 100px">
-                    </div>
-                    <input class="form-check-input mt-2" type="radio" name="mainImg" value="{{this.id}}">
-                  </div>
-                {{/each}}
-              </div>
+            <label for="image" class="col-2 col-form-label text-right">選擇主圖片</label>
+            <div class="form-check form-check-inline mr-0 pl-2 col-10 d-flex flex-wrap">
+              {{#each images}}
+                <div class="text-center mr-1">
+                  <label for="{{this.id}}" class="d-block">
+                    <img src={{this.url}} class="img-thumbnail mx-1" style="width: 100px">
+                  </label>
+                  <input id="{{this.id}}" class="form-check-input mt-2" type="radio" name="mainImg" value="{{this.id}}">
+                </div>
+              {{/each}}
             </div>
           </div>
         </div>
