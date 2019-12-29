@@ -5,13 +5,14 @@
 const { getCartItem } = require('../middleware/cart.js')
 
 module.exports = app => {
-  app.use('/admin', require('./admin/admin.js'))
+  app.use('/admin', require('./admin/index.js'))
   app.use('/cart', require('./cart.js'))
 
   app.use('/', getCartItem)  // 請勿更動順序
   app.use('/products', require('./products.js'))
   app.use('/users', require('./users.js'))
-  
-  app.get('/', (req, res) => res.render('home'))
+
+  app.use('/admin', require('./admin/index.js'))
+
   app.get('/search', require('../controllers/prodCtrller').getProducts)
 }

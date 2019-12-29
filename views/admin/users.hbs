@@ -1,0 +1,78 @@
+<nav class="navbar fixed-top navbar-light bg-light">
+  <div class="container">
+    <ul class="nav nav-pills nav-fill">
+      <span class="navbar-brand mb-0 h1">LOGO</span>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/products/new"><i class="fas fa-plus"></i> 新增商品</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/products">商品</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/orders">訂單</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="/admin/users">會員</a>
+      </li>
+      <br>
+    </ul>
+    <a class="btn btn-outline-secondary ml-3" href="/signout">登出</a>
+  </div>
+</nav>
+<div class="container mt-5">
+  <div class="card-body pt-3">
+    <table data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true" id="table">
+      <thead>
+        <tr>
+          <th data-valign="middle" class="text-center" data-sortable="true">#</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">名稱</th>
+          <th data-valign="middle" class="text-center" data-sortable="true" data-width="150">email</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">電話</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">生日</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">性別</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">訂單數量</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">管理員權限</th>
+          <th data-valign="middle" class="text-center">會員操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each users}}
+          <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.phone}}</td>
+            <td>{{this.modifybirthday}}</td>
+            <td>
+              {{#ifEqual this.gender 'M'}}<i class="fas fa-mars text-primary"></i>{{/ifEqual}}
+              {{#ifEqual this.gender 'F'}}<i class="fas fa-venus text-danger"></i>{{/ifEqual}}
+            </td>
+            <td></td>
+            <td>
+              {{#if this.isAdmin}}
+                <i class="fas fa-check text-success"></i>
+              {{else}}
+                <i class="fas fa-times text-danger"></i>
+              {{/if}}
+            </td>
+            <td>
+              <button type="button" class="btn font-weight-normal">
+                <a href="/admin/user/{{this.id}}/edit " class="text-decoration-none text-dark "><i class="fas fa-edit"
+                    title="編輯會員資料"></i></a>
+              </button>
+              <button type="button" class="btn font-weight-normal">
+                <a href="#" target="_blank" class="text-decoration-none text-dark ">
+                  <i class="fas fa-search-plus" title="詳細資料"></i>
+                </a>
+              </button>
+              <!-- Delete Button trigger modal -->
+              <button type="button" class="btn font-weight-normal" data-toggle="modal" data-target="#delete_{{this.id}}"
+                title="刪除此會員">
+                <i class="far fa-trash-alt" aria-hidden="true"></i>
+              </button>
+            </td>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
