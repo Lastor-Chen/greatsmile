@@ -58,11 +58,15 @@
             <td>{{this.saleStatus}}</td>
             <td>
               {{#if this.status}}
+                <p hidden>1</p>
+                {{!-- 排序用 --}}
                 <form action="/admin/products/{{this.id}}/undisplay" method="POST">
                   <input type="text" name="id" hidden>
                   <button type="submit" class="btn" title="將此商品下架"><i class="far fa-circle text-success"></i></button>
                 </form>
               {{else}}
+                <p hidden>0</p>
+                {{!-- 排序用 --}}
                 <form action="/admin/products/{{this.id}}/display" method="POST">
                   <input type="text" name="id" hidden>
                   <button type="submit" class="btn" title="將此商品上架"><i class="fas fa-times text-danger"></i>
@@ -75,11 +79,9 @@
                 <a href="/admin/products/{{this.id}}/edit" class="text-decoration-none text-dark "><i
                     class="fas fa-edit" title="編輯此商品"></i></a>
               </button>
-              <button type="button" class="btn font-weight-normal">
-                <a href="/admin/products/{{this.id}}" target="_blank" class="text-decoration-none text-dark ">
-                  <i class="fas fa-search-plus" title="商品詳情"></i>
-                </a>
-              </button>
+              <!-- Detail Button trigger modal -->
+              <button type="button" class="btn font-weight-normal" data-toggle="modal"
+                data-target=".detailModal{{this.id}}"><i class="fas fa-search-plus" title="商品詳情"></i></button>
               <!-- Delete Button trigger modal -->
               <button type="button" class="btn font-weight-normal" data-toggle="modal" data-target="#delete_{{this.id}}"
                 title="刪除此商品">
@@ -110,6 +112,67 @@
                     <button type="submit" class="btn btn-outline-danger font-weight-normal">確認刪除
                     </button>
                   </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          {{!--detail product modal --}}
+          <div class="modal fade detailModal{{this.id}}" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">商品詳細</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <h4>#{{this.id}} {{this.name}}</h4>
+                  <hr>
+                  <div class="row">
+                    <div class="col-6 ">
+                      <p>商品標語： {{this.slogan}}</p>
+                      <p>商品內文：{{this.description}}</p>
+                    </div>
+                    <div class="col-6">
+                      <div>
+                        <p>售價： {{this.price}}</p>
+                        <p>庫存： {{this.inventory}}</p>
+                        <p>規格： {{this.spec}}</p>
+                        <p>版權： {{this.copyright}}</p>
+                        <p>廠商： {{this.maker}}</p>
+                        {{#if this.status}}
+                          <p>狀態： 上架中</p>
+                        {{else}}
+                          <p>狀態： 未上架</p>
+                        {{/if}}
+                        <p>分類： {{this.Category.name}}</p>
+                        <p>作品： {{this.Series.name}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+                  <div>
+                    <p class="md-2">商品圖片：</p>
+                    <div class="row">
+                      <div class="col-2 text-center">
+                        <img src="{{this.mainImg}}" class="rounded mx-1 mb-2 border border-primary" alt="productImage"
+                          style="height:100px">
+                        <p>主圖片</p>
+                      </div>
+                      <div class="col-10">
+                        {{#each this.secondImg}}
+                          <img src="{{this.url}}" class="rounded mx-1 mb-2" alt="productImage" style="height:100px">
+                        {{/each}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn font-weight-normal">
+                    <a href="/admin/products/{{this.id}}/edit" class="btn btn-primary">編輯此商品</a>
+                  </button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
               </div>
             </div>
