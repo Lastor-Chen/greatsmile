@@ -12,9 +12,8 @@ router.use('/', isAdminAuth, (req, res, next) => {
 
 // route base '/admin'
 router.get('/', (req, res) => res.redirect('/admin/products'))
-router.get('/products', prodCtrller.getProducts)
-router.get('/products/new', prodCtrller.getAddPage)
+router.use('/products', require('../../routes/admin/products.js'))
+router.use('/users', require('../../routes/admin/users.js'))
 
-router.get('/users', userCtrller.getUsers)
 
 module.exports = router
