@@ -38,7 +38,7 @@ module.exports = {
         //售價加上dot
         product.price = product.price.toLocaleString()
       })
-      res.render('admin/products', { products, css: 'admin' })
+      res.render('admin/products', { products })
     } catch (err) {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
