@@ -98,4 +98,17 @@ module.exports = {
       res.status(500).json({ status: 'serverError', message: err.toString() })
     }
   },
+  postCartItemAdd: async (req, res) => {
+    try {
+      const cartItem = await CartItem.findByPk(req.params.id)
+      cartItem.update({
+        quantity: cartItem.quantity + 1,
+      })
+      return res.redirect('back')
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  }
 }

@@ -66,7 +66,7 @@
                           {{this.CartItem.quantity}}
                         </span>
                         {{#if this.isCheck1}}
-                          <form action="/cartItem/{{this.CartItem.id}}/add" method="POST">
+                          <form action="/cart/cartItem/{{this.CartItem.id}}/add" method="POST">
                             <button type="submit" class="btn btn-sm btn-outline-secondary">+</button>
                           </form>
                         {{else}}
