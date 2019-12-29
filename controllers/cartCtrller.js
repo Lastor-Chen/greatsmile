@@ -9,13 +9,14 @@ moment.locale('zh-tw')
 module.exports = {
   getCart: async (req, res) => {
     try {
-      const cart = await Cart.findOne({
+      let cart = await Cart.findByPk(req.session.cartId, { 
         include: [{
           model: Product, as: 'products',
           include: ['Gifts', 'Images']
         }]
       })
-
+      
+      cart = cart || { products: [] }
       let cartProducts = cart.products
       let totalPrice = 0
       if (cartProducts.length > 0) {
