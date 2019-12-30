@@ -151,6 +151,15 @@ module.exports = {
         return res.redirect('back')
       }
 
+      // input 的數小於等於 0 時跳出提醒
+      if (inputQty <= 0) {
+        cartItem.update({
+          quantity: 1
+        })
+        req.flash('error', '最小購買值為 1 ，如不需要請刪除。')
+        return res.redirect('back')
+      }
+
       cartItem.update({
         quantity: inputQty
       })
