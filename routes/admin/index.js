@@ -13,5 +13,6 @@ router.get('/', (req, res) => res.redirect('/admin/products'))
 
 router.use('/products', require('./products.js'))
 router.use('/users', require('./users.js'))
+router.use('/orders', require('./orders.js'))
 
 module.exports = router
