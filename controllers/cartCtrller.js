@@ -174,7 +174,8 @@ module.exports = {
     try {
       const cartItem = await CartItem.findByPk(req.params.id)
       cartItem.destroy()
-
+      req.flash('error', '商品已從購物車移除。')
+      
       return res.redirect('back')
 
     } catch(err) {
