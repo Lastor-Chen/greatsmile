@@ -139,4 +139,16 @@ module.exports = {
       res.status(500).json({ status: 'serverError', message: err.toString() })
     }
   },
+  deleteCartItem: async (req, res) => {
+    try {
+      const cartItem = await CartItem.findByPk(req.params.id)
+      cartItem.destroy()
+
+      return res.redirect('back')
+
+    } catch(err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  },
 }
