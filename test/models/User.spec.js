@@ -18,7 +18,7 @@ const props = [
 
 describe('# User Model', () => {
   propTest(UserModel, 'User', props)
-  assnTest(TagModel, [
+  assnTest(UserModel, [
     ['hasMany', 'Order'],
     ['hasMany', 'Post']
   ])
