@@ -140,7 +140,7 @@ module.exports = {
         include: { model: Product, attributes: ['name', 'inventory'] }
       })
       let inventory = cartItem.Product ? cartItem.Product.inventory : null
-      const inputQty = +req.body.productQty2
+      const inputQty = +req.body.productQty2 || cartItem.quantity
 
       // 當 input 的數量大於庫存數時會跳出提醒，並把值變更為庫存數的量
       if (inventory < inputQty) {
