@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     gender: DataTypes.STRING,
     isAdmin: DataTypes.BOOLEAN
   }, {});
-  User.associate = function(models) {
-    // associations can be defined here
+  User.associate = function (models) {
+    User.hasMany(models.Order)
   };
   return User;
 };
