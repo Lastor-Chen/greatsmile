@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Order = sequelize.define('Order', {
-    userId: DataTypes.INTEGER,
+    UserId: DataTypes.INTEGER,
     sn: DataTypes.STRING,
     amount: DataTypes.INTEGER,
     payMethod: DataTypes.STRING,
@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'order_id',
       as: 'products'
     })
+    Order.belongsTo(models.User)
   };
   return Order;
 };

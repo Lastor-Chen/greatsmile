@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     SeriesId: DataTypes.INTEGER,
     CategoryId: DataTypes.INTEGER
   }, {});
-  Product.associate = function(models) {
+  Product.associate = function (models) {
     Product.hasMany(models.Image)
     Product.hasMany(models.Gift)
     Product.belongsTo(models.Series)
@@ -25,6 +25,16 @@ module.exports = (sequelize, DataTypes) => {
       through: models.TagItem,
       foreignKey: 'product_id',
       as: 'tags'
+    })
+    Product.belongsToMany(models.Cart, {
+      through: models.CartItem,
+      foreignKey: 'product_id',
+      as: 'carts'
+    })
+    Product.belongsToMany(models.Order, {
+      through: models.OrderItem,
+      foreignKey: 'order_id',
+      as: 'orders'
     })
   };
   return Product;

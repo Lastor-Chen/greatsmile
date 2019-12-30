@@ -6,7 +6,7 @@ function randomNum(min, max) {
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('OrderItems',
+    return queryInterface.bulkInsert('order_items',
       Array.from({ length: 50 }, (val, index) => ({
         price: randomNum(1000, 10000),
         quantity: randomNum(1, 3),
@@ -18,6 +18,6 @@ module.exports = {
 
   down: (queryInterface, Sequelize) => {
     const option = { truncate: true, restartIdentity: true }
-    return queryInterface.bulkDelete('OrderItems', null, option)
+    return queryInterface.bulkDelete('order_items', null, option)
   }
 };
