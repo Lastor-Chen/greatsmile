@@ -1,26 +1,5 @@
-<nav class="navbar fixed-top navbar-light bg-light">
-  <div class="container">
-    <ul class="nav nav-pills nav-fill">
-      <span class="navbar-brand mb-0 h1">LOGO</span>
-      <li class="nav-item">
-        <a class="nav-link active" href="/admin/products/new"><i class="fas fa-plus"></i> 新增商品</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/admin/products">商品</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/admin/orders">訂單</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/admin/users">會員</a>
-      </li>
-      <br>
-    </ul>
-    <a class="btn btn-outline-secondary ml-3" href="/signout">登出</a>
-  </div>
-</nav>
-<div class="container card-cantainer">
-  <form action="/admin/products" method="POST" enctype="multipart/form-data">
+<main class="container">
+  <form class="pt-4" action="/admin/products" method="POST" enctype="multipart/form-data">
     <div class="card my-3">
       <div class="card-body">
         <h4>基本資訊</h4>
@@ -191,4 +170,4 @@
       </br>
     </div>
   </form>
-</div>
+</main>

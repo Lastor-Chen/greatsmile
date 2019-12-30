@@ -38,7 +38,7 @@ module.exports = {
         //售價加上dot
         product.price = product.price.toLocaleString()
       })
-      res.render('admin/products', { products, css: 'admin' })
+      res.render('admin/products', { products })
     } catch (err) {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
@@ -59,7 +59,7 @@ module.exports = {
         })
       ])
 
-      res.render('admin/new', { categories, series, tag, css: 'adminAdd' })
+      res.render('admin/new', { categories, series, tag })
 
     } catch (err) {
       console.error(err)
@@ -198,8 +198,7 @@ module.exports = {
         saleDate,
         deadline,
         tagItem,
-        images,
-        css: 'adminAdd'
+        images
       })
     } catch (err) {
       console.error(err)
