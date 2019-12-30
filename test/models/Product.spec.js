@@ -28,7 +28,9 @@ describe('# Product Model', () => {
     ['hasMany', 'Gift'],
     ['belongsTo', 'Series'],
     ['belongsTo', 'Category'],
-    ['belongsToMany', 'Tag']
+    ['belongsToMany', 'Tag'],
+    ['belongsToMany', 'Cart'],
+    ['belongsToMany', 'Order']
   ])
   actionTest(db.Product)
 })
