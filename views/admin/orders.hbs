@@ -62,17 +62,13 @@
               {{/if}}
             </td> --}}
             <td>
-              <button type="button" class="btn font-weight-normal">
-                <a href="/admin/user/{{this.id}}/edit " class="text-decoration-none text-dark "><i class="fas fa-edit"
-                    title="編輯會員資料"></i></a>
-              </button>
-              <button type="button" class="btn font-weight-normal">
-                <a href="#" target="_blank" class="text-decoration-none text-dark ">
-                  <i class="fas fa-search-plus" title="詳細資料"></i>
-                </a>
-              </button>
+              <a href="/admin/user/{{this.id}}/edit " class="btn btn-outline-dark mr-1"><i class="fas fa-edit"
+                  title="編輯會員資料"></i></a>
+              <a href="#" target="_blank" class="btn btn-outline-dark mr-1">
+                <i class="fas fa-search-plus" title="詳細資料"></i>
+              </a>
               <!-- Delete Button trigger modal -->
-              <button type="button" class="btn font-weight-normal" data-toggle="modal" data-target="#delete_{{this.id}}"
+              <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#delete_{{this.id}}"
                 title="刪除此會員">
                 <i class="far fa-trash-alt" aria-hidden="true"></i>
               </button>
