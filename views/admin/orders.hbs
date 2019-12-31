@@ -40,39 +40,82 @@
               {{/if}}
             </td>
             <td>{{this.User.email}}</td>
-            {{!-- <td>{{this.receiver}}</td>
-            <td>{{this.address}}</td>
-            <td>{{this.phone}}</td> --}}
-            {{!-- <td>
-              {{#ifEqual this.gender 'M'}}<i class="fas fa-mars text-primary"></i>{{/ifEqual}}
-              {{#ifEqual this.gender 'F'}}<i class="fas fa-venus text-danger"></i>{{/ifEqual}}
-            </td>
-            <td>
-              {{#if this.orderCount}}
-                {{this.orderCount}}
-              {{else}}
-                -
-              {{/if}}
-            </td>
-            <td>
-              {{#if this.isAdmin}}
-                <i class="fas fa-check text-success"></i>
-              {{else}}
-                <i class="fas fa-times text-danger"></i>
-              {{/if}}
-            </td> --}}
             <td>
               <a href="/admin/user/{{this.id}}/edit " class="btn btn-outline-dark mr-1"><i class="fas fa-edit"
                   title="編輯會員資料"></i></a>
-              <a href="#" target="_blank" class="btn btn-outline-dark mr-1">
-                <i class="fas fa-search-plus" title="詳細資料"></i>
-              </a>
+              <button type="button" class="btn btn-outline-dark mr-1" data-toggle="modal"
+                data-target=".orderModal{{this.id}}"><i class="fas fa-search-plus" title="訂單詳情"></i></button>
               <!-- Delete Button trigger modal -->
               <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#delete_{{this.id}}"
                 title="刪除此會員">
                 <i class="far fa-trash-alt" aria-hidden="true"></i>
               </button>
             </td>
+            {{!--detail product modal --}}
+            <div class="modal fade orderModal{{this.id}}" tabindex="-1" role="dialog">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">#{{this.id}} / SN {{this.sn}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row col-11">
+                      <div class="col-md-7 item-title">商品{{cartProducts.length}}</div>
+                      <div class="col-md-5 item-title">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span>商品價格</span>
+                          <span>數量</span>
+                          <span>合計價格</span>
+                        </div>
+                      </div>
+                    </div>
+                    <hr>
+                    <div>
+                      {{#each this.products}}
+                        <div class="row col-11">
+                          <div class="row col-7">
+                            <a href="/products/{{this.id}}" class="product-img">
+                              <img src="{{this.mainImg}}" class="rounded mx-auto d-block" alt="productImage"
+                                style="height:50px">
+                            </a>
+                            <div class="col-md-7 item-title">{{this.name}}</div>
+                          </div>
+                          <div class="col-md-5 font-format">
+                            <div class="d-flex justify-content-between align-items-center">
+                              <span>NTD {{this.price}}</span>
+                              <span>
+                                <div class="d-flex align-items-center item-quantity">
+                                  <span class="px-3">
+                                    {{this.OrderItem.quantity}}
+                                  </span>
+                                </div>
+                              </span>
+                              <span>
+                                <div class="d-flex align-items-center item-quantity">
+                                  <span class="px-3">
+                                    NTD {{this.subPrice}}
+                                  </span>
+                                </div>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <hr>
+                      {{/each}}
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn font-weight-normal">
+                      <a href="/admin/products/{{this.id}}/edit" class="btn btn-primary">編輯此商品</a>
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
         {{/each}}
       </tbody>
     </table>
