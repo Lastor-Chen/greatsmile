@@ -1,0 +1,84 @@
+<main class="container">
+  <div class="card-body pt-4">
+    <table data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true" id="table">
+      <thead>
+        <tr>
+          <th data-valign="middle" class="text-center" data-sortable="true">#</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">SN</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">成立時間</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">總金額</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">付款方式</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">付款狀態</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">出貨狀態</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">會員帳號</th>
+          {{!-- <th data-valign="middle" class="text-center" data-sortable="true">收件人</th>
+          <th data-valign="middle" class="text-center" data-sortable="true" data-width="150">收件地址</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">聯絡電話</th> --}}
+          <th data-valign="middle" class="text-center">會員操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each orders}}
+          <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.sn}}</td>
+            <td>{{this.createdTime}}</td>
+            <td>{{this.amount}}</td>
+            <td>{{this.payMethod}}</td>
+            <td>
+              {{#if this.payStatus}}
+                <i class="fas fa-check text-success"></i>
+              {{else}}
+                <i class="fas fa-times text-danger"></i>
+              {{/if}}
+            </td>
+            <td>
+              {{#if this.shipStatus}}
+                <i class="fas fa-check text-success"></i>
+              {{else}}
+                <i class="fas fa-times text-danger"></i>
+              {{/if}}
+            </td>
+            <td>{{this.User.email}}</td>
+            {{!-- <td>{{this.receiver}}</td>
+            <td>{{this.address}}</td>
+            <td>{{this.phone}}</td> --}}
+            {{!-- <td>
+              {{#ifEqual this.gender 'M'}}<i class="fas fa-mars text-primary"></i>{{/ifEqual}}
+              {{#ifEqual this.gender 'F'}}<i class="fas fa-venus text-danger"></i>{{/ifEqual}}
+            </td>
+            <td>
+              {{#if this.orderCount}}
+                {{this.orderCount}}
+              {{else}}
+                -
+              {{/if}}
+            </td>
+            <td>
+              {{#if this.isAdmin}}
+                <i class="fas fa-check text-success"></i>
+              {{else}}
+                <i class="fas fa-times text-danger"></i>
+              {{/if}}
+            </td> --}}
+            <td>
+              <button type="button" class="btn font-weight-normal">
+                <a href="/admin/user/{{this.id}}/edit " class="text-decoration-none text-dark "><i class="fas fa-edit"
+                    title="編輯會員資料"></i></a>
+              </button>
+              <button type="button" class="btn font-weight-normal">
+                <a href="#" target="_blank" class="text-decoration-none text-dark ">
+                  <i class="fas fa-search-plus" title="詳細資料"></i>
+                </a>
+              </button>
+              <!-- Delete Button trigger modal -->
+              <button type="button" class="btn font-weight-normal" data-toggle="modal" data-target="#delete_{{this.id}}"
+                title="刪除此會員">
+                <i class="far fa-trash-alt" aria-hidden="true"></i>
+              </button>
+            </td>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</main>
