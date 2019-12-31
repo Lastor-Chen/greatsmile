@@ -5,12 +5,20 @@ module.exports = {
   async addressPage(req, res) {
     try {
       const cartId = req.session.cartId
-      const cart = await Cart.findByPk(cartId, {
-        include: 'products'
-      }) 
+      const cart = await Cart.findByPk(1, {
+        include: [
+          { 
+            association: 'products',
+            attributes: ['id', 'name', 'price'],
+            include: [{
+              association: 'Images',
+              where: { is_main: true }
+            }],
+          }
+        ]
+      })
 
-      console.log(cart && cart.dataValues)
-
+      console.log(cart.products[0].CartItem)
       res.render('address', { css: 'address', cart })
 
     } catch (err) {
