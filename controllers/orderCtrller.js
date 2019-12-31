@@ -18,8 +18,16 @@ module.exports = {
         ]
       })
 
-      console.log(cart.products[0].CartItem)
-      res.render('address', { css: 'address', cart })
+      // 製作頁面資料
+      const products = (cart && cart.products) || []
+      let totalPrice = 0
+      products.forEach(prod => {
+        prod.quantity = prod.CartItem.quantity
+        prod.amount = (prod.price * prod.quantity)
+        totalPrice += prod.amount
+      })
+
+      res.render('address', { css: 'address', cart, totalPrice })
 
     } catch (err) {
       console.error(err)

@@ -75,11 +75,11 @@
         <div class="px-3 pb-3">
           <div class="d-flex justify-content-between border-bottom py-2 font-small">
             <span>小計:</span>
-            <span>NTD 1,000</span>
+            <span>NTD {{addDot totalPrice}}</span>
           </div>
           <div class="d-flex justify-content-between font-weight-bold py-2">
             <span>合計:</span>
-            <span>NTD 1,000</span>
+            <span>NTD {{addDot totalPrice}}</span>
           </div>
         </div>
       </section>
@@ -100,8 +100,8 @@
                 </a>
                 <div class="font-smaller">
                   <div class="w-50 ml-auto text-left">
-                    <p>NTD {{price}} x {{CartItem.quantity}} =</p>
-                    <p class="font-weight-bold">NTD 1,000</p>
+                    <p>NTD {{addDot price}} x {{addDot quantity}} =</p>
+                    <p class="font-weight-bold">NTD {{addDot amount}}</p>
                   </div>
                 </div>
               </div>
