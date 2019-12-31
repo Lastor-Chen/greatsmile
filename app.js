@@ -26,7 +26,7 @@ app.use(flash())
 app.use(session({
   secret: 'LastWendyTomatoBurger',
   name: 'greatSmile',
-  cookie: { maxAge: 80000 },
+  cookie: { maxAge: 1000*60*10 },
   resave: false,
   saveUninitialized: false
 }))
