@@ -5,7 +5,7 @@ module.exports = {
   async addressPage(req, res) {
     try {
       const cartId = req.session.cartId
-      const cart = await Cart.findByPk(1, {
+      const cart = await Cart.findByPk(cartId, {
         include: [
           { 
             association: 'products',
@@ -18,8 +18,13 @@ module.exports = {
         ]
       })
 
+      // 確認有無選購商品
+      if (!cart || !cart.products.length) {
+        return res.redirect('/cart')
+      } 
+
       // 製作頁面資料
-      const products = (cart && cart.products) || []
+      const products = cart.products
       let totalPrice = 0
       products.forEach(prod => {
         prod.quantity = prod.CartItem.quantity
