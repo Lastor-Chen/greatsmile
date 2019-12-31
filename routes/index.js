@@ -10,6 +10,7 @@ module.exports = app => {
   app.use('/', getCartItem)  // 請勿更動順序
   app.use('/products', require('./products.js'))
   app.use('/cart', require('./cart.js'))
+  app.use('/order', require('./order.js'))
   app.use('/users', require('./users.js'))
   app.use('/admin', require('./admin/index.js'))
 
