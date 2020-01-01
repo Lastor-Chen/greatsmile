@@ -124,3 +124,22 @@ body {
   width: 70px;
   height: 70px;
 }
+
+/* alert.hbs */
+.alert-success {
+  color: #339b01;
+  font-size: 12px;
+  border: 1px dotted #339b01;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0);
+  text-align: center;
+}
+
+.alert-danger {
+  color: #ff4d39;
+  font-size: 12px;
+  border: 1px dotted #ff4d39;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0);
+  text-align: center;
+}
