@@ -1,0 +1,114 @@
+<div class="container py-5">
+  <div class="row">
+    {{!-- 主內容 --}}
+    <main class="col-8" role="main">
+      <section class="panel">
+        {{!-- 結帳步驟 step nav --}}
+        <nav class="step border-bottom px-2">
+          <ul class="nav justify-content-around">
+            <li class="px-4 py-3 active">1.收件地址</li>
+            <li class="px-4 py-3">2.寄件方式</li>
+            <li class="px-4 py-3">3.付款&帳單</li>
+            <li class="px-4 py-3">4.最後檢視</li>
+          </ul>
+        </nav>
+        {{!-- 內容表單 --}}
+        <div class="row p-4">
+          <section class="col-4">
+            <h6 class="mb-4 font-weight-bold">選擇地址</h6>
+            <p class="font-small">請從你的地址清單中選擇一處，或輸入新地址</p>
+          </section>
+          <section class="col-8">
+            <div class="col-10">
+              <form action="/order" method="POST">
+                <div class="form-row row-cols-2">
+                  <div class="col mb-0">
+                    <input type="text" name="lastName" placeholder="姓氏*">
+                  </div>
+                  <div class="col mb-0">
+                    <input type="text" name="firstName" placeholder="名子*">
+                  </div>
+                  <div class="col-12 mb-4">
+                    <span class="font-small text-danger">收件地址請使用繁體中文</span>
+                  </div>
+                  <div class="col">
+                    <input type="text" name="postCode" placeholder="郵遞區號*">
+                  </div>
+                  <div class="col"></div>
+                  <div class="col">
+                    <input type="text" name="region" placeholder="縣市*">
+                  </div>
+                  <div class="col">
+                    <input type="text" name="townCity" placeholder="鄉鎮市區*">
+                  </div>
+                  <div class="col-12">
+                    <input type="text" name="line1" placeholder="街道地址*">
+                  </div>
+                  <div class="col-12 mb-0">
+                    <input type="text" name="line2" placeholder="大樓名, 房號等">
+                  </div>
+                  <div class="col-12 mb-4">
+                    <span class="font-small text-danger">※收件地址請使用繁體中文</span>
+                  </div>
+                  <div class="col-12 mb-0">
+                    <input type="text" name="phone" placeholder="手機號碼*">
+                  </div>
+                </div>
+                <div class="form-check my-4">
+                  <label class="form-check-label">
+                    <input class="form-check-input" name="saveAddress" type="checkbox">
+                    <span>儲存收件地址</span>
+                  </label>
+                </div>
+                <button class="btn order-btn">下一步</button>
+              </form>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+    {{!-- 側邊攔 --}}
+    <aside class="col-4">
+      {{!-- 總金額 --}}
+      <section class="panel mb-4">
+        <h6 class="font-weight-bold border-bottom p-3">訂單合計</h6>
+        <div class="px-3 pb-3">
+          <div class="d-flex justify-content-between border-bottom py-2 font-small">
+            <span>小計:</span>
+            <span>NTD {{addDot totalPrice}}</span>
+          </div>
+          <div class="d-flex justify-content-between font-weight-bold py-2">
+            <span>合計:</span>
+            <span>NTD {{addDot totalPrice}}</span>
+          </div>
+        </div>
+      </section>
+      {{!-- 產品 --}}
+      <section class="panel">
+        <h6 class="font-weight-bold border-bottom p-3">配送商品</h6>
+        <div class="prod-list px-3">
+          {{#each cart.products}}
+            <div class="row">
+              <div class="col-2 px-0">
+                <a href="/products/{{id}}">
+                  <img src="{{Images.0.url}}" alt="product-img">
+                </a>
+              </div>
+              <div class="col-10 pl-2">
+                <a href="/products/{{id}}">
+                  <h6 class="mb-3">{{name}}</h6>
+                </a>
+                <div class="font-smaller">
+                  <div class="w-50 ml-auto text-left">
+                    <p>NTD {{addDot price}} x {{addDot quantity}} =</p>
+                    <p class="font-weight-bold">NTD {{addDot amount}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </section>
+    </aside>
+  </div>
+</div>
