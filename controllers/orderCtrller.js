@@ -81,7 +81,10 @@ module.exports = {
         totalPrice += prod.amount
       })
 
-      res.render('delivery', { css: "delivery", cart, totalPrice })
+      // 預設運費
+      const totalPrice2 = totalPrice + 150
+
+      res.render('delivery', { css: "delivery", cart, totalPrice, totalPrice2 })
 
     } catch (err) {
       console.error(err)
