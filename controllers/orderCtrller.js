@@ -38,5 +38,27 @@ module.exports = {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
     }
-  }
+  },
+
+  async address(req, res) {
+    try {
+
+      res.redirect('/order/delivery-method')
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  },
+
+  async deliveryPage(req, res) {
+    try {
+
+      res.render('delivery', { css: "delivery" })
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  },
 }
