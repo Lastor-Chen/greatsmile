@@ -50,7 +50,7 @@
                       <button type="submit" class="btn product-btn px-0 pt-1">刪除</button>
                     </form>
                     <span> | </span>
-                    <form action="/cart/cartItem/{{this.CartItem.id}}/update" method="POST" id="updateFrom" class="d-inline-block">
+                    <form action="/cart/cartItem/{{this.CartItem.id}}/update" method="POST" id="updateFrom{{this.CartItem.id}}" class="d-inline-block">
                       <button type="submit" class="btn product-btn px-0 pt-1">更新</button>
                     </form>
                   </div>
@@ -61,21 +61,17 @@
                     <span>
                       <div class="d-flex align-items-center item-quantity">
                         {{#if this.isCheck2}}
-                          <form action="/cart/cartItem/{{this.CartItem.id}}/sub" method="POST">
-                            <button type="submit" class="btn btn-sm btn-outline-secondary">-</button>
-                          </form>
+                          <button type="submit" class="btn btn-sm btn-outline-secondary btn-sub">-</button>
                         {{else}}
                             <button class="btn btn-sm btn-outline-secondary btn-unavailable disabled">-</button>
                         {{/if}}
 
-                          <input type="number" min="1" max="3" class="productQty" form="updateFrom" name="productQty" value="{{this.CartItem.quantity}}">
+                          <input type="number" min="1" max="3" class="productQty" form="updateFrom{{this.CartItem.id}}" name="productQty" value="{{this.CartItem.quantity}}">
 
                         {{#if this.isCheck1}}
-                          <form action="/cart/cartItem/{{this.CartItem.id}}/add" method="POST">
-                            <button type="submit" class="btn btn-sm btn-outline-secondary">+</button>
-                          </form>
+                          <button type="submit" class="btn btn-sm btn-outline-secondary btn-add">+</button>
                         {{else}}
-                          <button class="btn btn-sm btn-outline-secondary btn-unavailable disabled">+</button>
+                          <button class="btn btn-sm btn-outline-secondary btn-add btn-unavailable disabled">+</button>
                         {{/if}}
                       </div>
                     </span>

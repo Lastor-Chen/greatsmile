@@ -98,29 +98,6 @@ module.exports = {
       res.status(500).json({ status: 'serverError', message: err.toString() })
     }
   },
-  addCartItem: async (req, res) => {
-    try {
-      const cartItem = await CartItem.findByPk(req.params.id, { 
-        include: {model: Product, attributes: ['name', 'inventory']} })
-      const currentQty = cartItem.quantity || 0
-      let inventory = cartItem.Product ? cartItem.Product.inventory : null
-      
-      // 當商品庫存數等於 input 的數量時，再按一次就會跑出提醒
-      if (inventory <= currentQty) {
-        req.flash('error', `${cartItem.Product.name} 商品庫存為 ${inventory}，要買要快喔！`)
-        return res.redirect('back')
-      }
-
-      cartItem.update({
-        quantity: cartItem.quantity + 1,
-      })
-      return res.redirect('back')
-
-    } catch (err) {
-      console.error(err)
-      res.status(500).json({ status: 'serverError', message: err.toString() })
-    }
-  },
   subCartItem: async (req, res) => {
     try {
       const cartItem = await CartItem.findByPk(req.params.id)
@@ -141,7 +118,8 @@ module.exports = {
       })
       let inventory = cartItem.Product ? cartItem.Product.inventory : null
       const inputQty = +req.body.productQty || cartItem.quantity
-      
+      console.log('inputQty', req.body.productQty)
+    
       // 當 input 的數量大於庫存數時會跳出提醒，並把值變更為庫存數的量
       if (inventory < inputQty) {
         await cartItem.update({
