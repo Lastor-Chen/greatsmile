@@ -22,5 +22,15 @@ for (let i = 0; i < index; i++) {
 
     $(`.productQty:eq(${i})`).val(+quantity + 1)
   })
+
+  // 減少的數量等於 0 將不能再往下減
+  $(`.btn-sub:eq(${i})`).on('click', function () {
+    const quantity = $(`.productQty:eq(${i})`).val()
+    if (quantity == 0) {
+      return
+    }
+    $(`.note:eq(${i})`).text('')
+    $(`.productQty:eq(${i})`).val(+quantity - 1)
+  })
 }
 
