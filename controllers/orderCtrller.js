@@ -53,8 +53,35 @@ module.exports = {
 
   async deliveryPage(req, res) {
     try {
+      const cartId = req.session.cartId
+      const cart = await Cart.findByPk(cartId, {
+        include: [
+          {
+            association: 'products',
+            attributes: ['id', 'name', 'price'],
+            include: [{
+              association: 'Images',
+              where: { is_main: true }
+            }],
+          }
+        ]
+      })
 
-      res.render('delivery', { css: "delivery" })
+      // 確認有無選購商品
+      if (!cart || !cart.products.length) {
+        return res.redirect('/cart')
+      }
+
+      // 製作頁面資料
+      const products = cart.products
+      let totalPrice = 0
+      products.forEach(prod => {
+        prod.quantity = prod.CartItem.quantity
+        prod.amount = (prod.price * prod.quantity)
+        totalPrice += prod.amount
+      })
+
+      res.render('delivery', { css: "delivery", cart, totalPrice })
 
     } catch (err) {
       console.error(err)
