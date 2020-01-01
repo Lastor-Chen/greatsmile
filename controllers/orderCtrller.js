@@ -40,17 +40,6 @@ module.exports = {
     }
   },
 
-  async address(req, res) {
-    try {
-
-      res.redirect('/order/delivery-method')
-
-    } catch (err) {
-      console.error(err)
-      res.status(500).json({ status: 'serverError', message: err.toString() })
-    }
-  },
-
   async deliveryPage(req, res) {
     try {
       const cartId = req.session.cartId
