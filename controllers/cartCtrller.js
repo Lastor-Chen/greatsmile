@@ -140,11 +140,11 @@ module.exports = {
         include: { model: Product, attributes: ['name', 'inventory'] }
       })
       let inventory = cartItem.Product ? cartItem.Product.inventory : null
-      const inputQty = +req.body.productQty2 || cartItem.quantity
-
+      const inputQty = +req.body.productQty || cartItem.quantity
+      
       // 當 input 的數量大於庫存數時會跳出提醒，並把值變更為庫存數的量
       if (inventory < inputQty) {
-        cartItem.update({
+        await cartItem.update({
           quantity: inventory
         })
         req.flash('error', `${cartItem.Product.name} 商品庫存為 ${inventory}，快下單吧～`)
@@ -153,14 +153,14 @@ module.exports = {
 
       // input 的數小於等於 0 時跳出提醒
       if (inputQty <= 0) {
-        cartItem.update({
+        await cartItem.update({
           quantity: 1
         })
         req.flash('error', '最小購買值為 1 ，如不需要請刪除。')
         return res.redirect('back')
       }
 
-      cartItem.update({
+      await cartItem.update({
         quantity: inputQty
       })
       return res.redirect('back')
