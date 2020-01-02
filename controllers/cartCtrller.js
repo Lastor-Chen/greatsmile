@@ -29,7 +29,6 @@ module.exports = {
           product.isPreorder = moment(today).isBefore(product.deadline)
           product.isGift = product.Gifts.length > 0 ? true : false
           product.isCheck1 = product.CartItem.quantity < 3 ? true : false
-          product.isCheck2 = product.CartItem.quantity > 1 ? true : false
           totalPrice += (product.price * product.CartItem.quantity)
         }
         )
@@ -139,7 +138,7 @@ module.exports = {
         quantity: inputQty
       })
       req.flash('success', `${cartItem.Product.name} 商品數量更新成功。`)
-      
+
       return res.redirect('back')
 
     } catch (err) {
