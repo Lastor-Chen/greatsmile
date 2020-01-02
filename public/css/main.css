@@ -124,3 +124,11 @@ body {
   width: 70px;
   height: 70px;
 }
+
+.userpage-item {
+  font-size: 12px;
+}
+
+.userpage-link{
+  color: #49443f;
+}

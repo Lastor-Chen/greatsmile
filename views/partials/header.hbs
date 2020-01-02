@@ -3,12 +3,19 @@
     <div class="container py-3">
       <a href="/" class="navbar-brand">LOGO</a>
       <div>
-        <a class="btn btn-primary mr-2 btn-top-bar" href="/users/signin">登入·註冊</a>
+        {{#if isAuthenticated}}
+          <a href="/users/profile" class="btn btn-primary mr-2 btn-top-bar" style="line-height: 1.5rem;">
+            <span class="userpage-item">歡迎 {{user.nickname}}</span>
+            </br>
+            <span class="userpage-item userpage-link">我的帳戶</span>
+          </a>
+        {{else}}
+          <a class="btn btn-primary mr-2 btn-top-bar" href="/users/signin">登入·註冊</a>
+        {{/if}}
         <a class="btn btn-primary btn-top-bar" href="/cart">購物車 {{itemSum}}</a>
       </div>
     </div>
   </div>
-
   <div class="container-fluid category-bar">
     <ul class="nav mx-auto">
       <li class="nav-item px-3">
@@ -28,7 +35,6 @@
       </li>
     </ul>
   </div>
-
   <div class="container-fluid py-2 search-bar">
     <div class="row mx-auto">
       <div class="col-md-12 ">
