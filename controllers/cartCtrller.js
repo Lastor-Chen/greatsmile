@@ -28,10 +28,8 @@ module.exports = {
           product.mainImg = product.Images.find(img => img.isMain).url
           product.isPreorder = moment(today).isBefore(product.deadline)
           product.isGift = product.Gifts.length > 0 ? true : false
-          product.isCheck1 = product.CartItem.quantity < 3 ? true : false
           totalPrice += (product.price * product.CartItem.quantity)
-        }
-        )
+        })
       }
       const totalPriceFormat = totalPrice.toLocaleString()
 
@@ -148,7 +146,7 @@ module.exports = {
       res.status(500).json({ status: 'serverError', message: err.toString() })
     }
   },
-  
+
   deleteCartItem: async (req, res) => {
     try {
       const cartItem = await CartItem.findByPk(req.params.id)

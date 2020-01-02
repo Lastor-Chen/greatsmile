@@ -61,14 +61,8 @@
                     <span>
                       <div class="d-flex align-items-center item-quantity">
                         <button type="submit" class="btn btn-sm btn-outline-secondary btn-sub">-</button>
-
                         <input type="number" min="0" max="3" class="productQty" form="updateFrom{{this.CartItem.id}}" name="productQty" value="{{this.CartItem.quantity}}">
-
-                        {{#if this.isCheck1}}
-                          <button type="submit" class="btn btn-sm btn-outline-secondary btn-add">+</button>
-                        {{else}}
-                          <button class="btn btn-sm btn-outline-secondary btn-add btn-unavailable disabled">+</button>
-                        {{/if}}
+                        <button type="submit" class="btn btn-sm btn-outline-secondary btn-add">+</button>
                       </div>
                     </span>
                     <span>NTD {{this.subPriceFormat}}</span>
