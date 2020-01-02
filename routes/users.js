@@ -8,5 +8,6 @@ router.post('/signup', userCtrller.signUp)
 router.get('/signin', userCtrller.getSignIn)
 router.post('/signin', userCtrller.signIn)
 router.get('/signout', userCtrller.signOut)
+router.get('/profile', userCtrller.getProfile)
 
 module.exports = router

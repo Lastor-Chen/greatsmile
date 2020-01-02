@@ -50,4 +50,8 @@ module.exports = {
     req.logout()
     res.redirect('/')
   },
+
+  getProfile: (req, res) => {
+    res.render('profile', { css: 'profile' })
+  }
 }
