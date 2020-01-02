@@ -8,6 +8,7 @@
         </div>
         {{!-- 商品內容 --}}
         <div class="panel-body col-md-12 py-3">
+          {{> alert}}
           {{#if cartProducts.length}}
           <div class="cart-product">
             {{!-- 標題 --}}
@@ -45,37 +46,28 @@
                       {{/if}}
               
                     </div>
-                    <form action="/cartItem/{{this.CartItem.id}}/delete" method="POST">
+                    <form action="/cart/cartItem/{{this.CartItem.id}}/delete?_method=DELETE" method="POST" class="d-inline-block">
                       <button type="submit" class="btn product-btn px-0 pt-1">刪除</button>
+                    </form>
+                    <span> | </span>
+                    <form action="/cart/cartItem/{{this.CartItem.id}}/update?_method=PUT" method="POST" id="updateFrom{{this.CartItem.id}}" class="d-inline-block">
+                      <button type="submit" class="btn product-btn px-0 pt-1">更新</button>
                     </form>
                   </div>
                 </div>
                 <div class="col-md-5 font-format">
-                  <div class="d-flex justify-content-between align-items-center">
+                  <div class="d-flex justify-content-between align-items-center note-flag">
                     <span>NTD {{this.priceFormat}}</span>
                     <span>
                       <div class="d-flex align-items-center item-quantity">
-                        {{#if this.isCheck2}}
-                          <form action="/cartItem/{{this.CartItem.id}}/sub" method="POST">
-                            <button type="submit" class="btn btn-sm btn-outline-secondary">-</button>
-                          </form>
-                        {{else}}
-                            <button class="btn btn-sm btn-outline-secondary btn-unavailable disabled">-</button>
-                        {{/if}}
-                        <span class="px-3">
-                          {{this.CartItem.quantity}}
-                        </span>
-                        {{#if this.isCheck1}}
-                          <form action="/cartItem/{{this.CartItem.id}}/add" method="POST">
-                            <button type="submit" class="btn btn-sm btn-outline-secondary">+</button>
-                          </form>
-                        {{else}}
-                          <button class="btn btn-sm btn-outline-secondary btn-unavailable disabled">+</button>
-                        {{/if}}
+                        <button type="submit" class="btn btn-sm btn-outline-secondary btn-sub">-</button>
+                        <input type="number" min="0" max="3" class="productQty" form="updateFrom{{this.CartItem.id}}" name="productQty" value="{{this.CartItem.quantity}}">
+                        <button type="submit" class="btn btn-sm btn-outline-secondary btn-add">+</button>
                       </div>
                     </span>
                     <span>NTD {{this.subPriceFormat}}</span>
                   </div>
+                  <p class="note text-center pt-2"></p> {{!-- 提醒訊息 --}}
                 </div>
               </div>
               <hr>

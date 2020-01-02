@@ -20,6 +20,10 @@
   cursor: default;
 }
 
+.btn-sub {
+  z-index: 1;  /* 防止點擊特效被蓋掉 */
+}
+
 .cart-amount {
   margin: 0 18px;
 }
@@ -65,10 +69,24 @@
   border-radius: 5px;
 }
 
+.item-quantity input {
+  color: #454545;
+  line-height: .75rem;
+  width: 3rem;
+  text-align: center;
+  padding: .25rem .35rem;
+  border: 0;
+  background-color: #f0ebe5;
+}
+
 .item-title {
   color: #727272;
   font-size: 12px;
   font-weight: bold;
+}
+
+.note {
+  color: #dc3545;
 }
 
 .panel {
@@ -125,4 +143,14 @@ aside .panel {
 .tag-preorder {
   background-color: #34A853;
   color: #ffffff;
+}
+
+/* 移除數量 <input> 的上下箭頭 */
+input[type=number] {
+    -moz-appearance:textfield;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
