@@ -11,5 +11,6 @@ router.post('/signin', userCtrller.signIn)
 router.get('/signout', userCtrller.signOut)
 
 router.get('/profile', isAuth, userCtrller.getProfile)
+router.get('/orders', isAuth, userCtrller.getOrders)
 
 module.exports = router

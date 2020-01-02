@@ -53,5 +53,9 @@ module.exports = {
 
   getProfile: (req, res) => {
     res.render('profile', { css: 'profile' })
-  }
+  },
+
+  getOrders: (req, res) => {
+    res.render('orders', { css: 'profile' })
+  },
 }
