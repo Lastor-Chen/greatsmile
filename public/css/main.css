@@ -57,18 +57,18 @@ body {
   color:#ffffff;
 }
 
-.navbar {
+.category-bar .navbar {
   padding-right: 0;
   padding-left: 0;
 }
 
-.nav-link {
+.category-bar .nav-link {
   color: #ffffff;
   display: block;
-  text-decoration:none;
+  text-decoration: none;
 }
 
-.nav-link:hover{
+.category-bar .nav-link:hover{
   background-color:#eee;
   color:#454545;
 }
