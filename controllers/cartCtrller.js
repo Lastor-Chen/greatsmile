@@ -124,7 +124,7 @@ module.exports = {
         await cartItem.update({
           quantity: inventory
         })
-        req.flash('error', `${cartItem.Product.name} 商品庫存為 ${inventory}，快下單吧～`)
+        req.flash('success', `${cartItem.Product.name} 商品庫存為 ${inventory}，快下單吧～`)
         return res.redirect('back')
       }
       
@@ -138,6 +138,8 @@ module.exports = {
       await cartItem.update({
         quantity: inputQty
       })
+      req.flash('success', `${cartItem.Product.name} 商品數量更新成功。`)
+      
       return res.redirect('back')
 
     } catch (err) {
