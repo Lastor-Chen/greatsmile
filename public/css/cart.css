@@ -20,6 +20,10 @@
   cursor: default;
 }
 
+.btn-sub {
+  z-index: 1;  /* 防止點擊特效被蓋掉 */
+}
+
 .cart-amount {
   margin: 0 18px;
 }
