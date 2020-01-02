@@ -100,12 +100,24 @@ module.exports = {
   },
   updateCartItem: async (req, res) => {
     try {
+      const QTY_Limit = 3
+
       const cartItem = await CartItem.findByPk(req.params.id, {
         include: { model: Product, attributes: ['name', 'inventory'] }
       })
       let inventory = cartItem.Product ? cartItem.Product.inventory : null
       const inputQty = req.body.productQty || 1
 
+      // 當 input 的數量大於3時將阻擋，並只能更改為最大上限
+      if (inputQty > QTY_Limit) {
+        await cartItem.update({
+          quantity: QTY_Limit
+        })
+
+        req.flash('error', `${cartItem.Product.name} 超過單件商品之最大購買數量，已為您調整為最大購買數量。`)
+        return res.redirect('back')
+      }
+      
       // 當 input 的數量大於庫存數時會跳出提醒，並把值變更為庫存數的量
       if (inventory < inputQty) {
         await cartItem.update({
