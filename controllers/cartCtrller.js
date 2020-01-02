@@ -14,7 +14,7 @@ module.exports = {
           model: Product, as: 'products',
           include: ['Gifts', 'Images']
         }],
-        order: [['products', CartItem, 'id', 'ASC']]
+        order: [['products', CartItem, 'id', 'DESC']]
       })
       
       cart = cart || { products: [] }
