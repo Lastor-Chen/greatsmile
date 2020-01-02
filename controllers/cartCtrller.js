@@ -42,6 +42,7 @@ module.exports = {
       res.status(500).json({ status: 'serverError', message: err.toString() })
     }
   },
+
   postCart: async (req, res) => {
     try {
       const QTY_Limit = 3
@@ -98,6 +99,7 @@ module.exports = {
       res.status(500).json({ status: 'serverError', message: err.toString() })
     }
   },
+
   updateCartItem: async (req, res) => {
     try {
       const QTY_Limit = 3
@@ -146,6 +148,7 @@ module.exports = {
       res.status(500).json({ status: 'serverError', message: err.toString() })
     }
   },
+  
   deleteCartItem: async (req, res) => {
     try {
       const cartItem = await CartItem.findByPk(req.params.id)
