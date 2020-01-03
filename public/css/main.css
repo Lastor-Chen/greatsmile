@@ -146,12 +146,13 @@ body {
 
 .fa-shopping-cart {
   vertical-align: sub;
+  font-size: 1.5rem;
 }
 
 .btn .badge {
   position: relative;
-  top: -15px;
-  left: -14px;
+  top: -13px;
+  left: -13px;
 }
 
 .badge-danger {
