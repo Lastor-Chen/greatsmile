@@ -2,12 +2,22 @@
   <div class="card-body pt-4">
     <div class="row col-12">
       <div class="col-6 mx-auto">
-        <form class="form-inline d-flex justify-content-end" action="/admin/tags" method="POST">
-          <div class="form-group mx-sm-3 mb-2 mt-1">
-            <input type="text" class="form-control" name="name" placeholder="輸入新標籤...">
-          </div>
-          <button type="submit" class="btn btn-primary mb-2 mt-1">新增標籤</button>
-        </form>
+        {{#if tag}}
+          <form class="form-inline d-flex justify-content-end" action="/admin/tags/{{tag.id}}?_method=PUT"
+            method="POST">
+            <div class="form-group mx-sm-3 mb-2 mt-1">
+              <input type="text" class="form-control" name="name" placeholder="輸入標籤名稱..." value={{tag.name}}>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2 mt-1">更新標籤</button>
+          </form>
+        {{else}}
+          <form class="form-inline d-flex justify-content-end" action="/admin/tags" method="POST">
+            <div class="form-group mx-sm-3 mb-2 mt-1">
+              <input type="text" class="form-control" name="name" placeholder="輸入新標籤...">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2 mt-1">新增標籤</button>
+          </form>
+        {{/if}}
         <table data-toggle="table" id="table">
           <thead>
             <tr>
@@ -23,8 +33,8 @@
                 <td>{{this.name}}</td>
                 <td>
                   <button type="button" class="btn font-weight-normal">
-                    <a href="/admin/user/{{this.id}}/edit " class="text-decoration-none text-dark "><i
-                        class="fas fa-edit" title="編輯標籤資料"></i></a>
+                    <a href="/admin/tags/{{this.id}} " class="text-decoration-none text-dark "><i class="fas fa-edit"
+                        title="編輯標籤資料"></i></a>
                   </button>
                   <!-- Delete Button trigger modal -->
                   <button type="button" class="btn font-weight-normal" data-toggle="modal"
