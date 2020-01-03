@@ -64,6 +64,9 @@ body {
 
 .category-bar .nav-link {
   color: #ffffff;
+  font-size: 12px;
+  text-align: center;
+  width: 100px;
   display: block;
   text-decoration: none;
 }
@@ -72,6 +75,7 @@ body {
   background-color:#eee;
   color:#454545;
 }
+
 .category-bar .active {
   background-color:#eee;
   color:#454545;
