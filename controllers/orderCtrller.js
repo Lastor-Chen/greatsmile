@@ -26,6 +26,7 @@ module.exports = {
       // 製作頁面資料
       const products = cart.products
       let totalPrice = 0
+      const shippingFee = 150
       products.forEach(prod => {
         prod.quantity = prod.CartItem.quantity
         prod.amount = (prod.price * prod.quantity)
@@ -33,9 +34,9 @@ module.exports = {
       })
 
       // 預設運費
-      const totalPrice2 = totalPrice + 150
+      const totalPrice2 = totalPrice + shippingFee
       
-      res.render('view', { css: 'view', cart, totalPrice, totalPrice2 })
+      res.render('view', { css: 'view', cart, totalPrice, totalPrice2, shippingFee })
 
     } catch (err) {
       console.error(err)
