@@ -145,17 +145,11 @@ body {
 }
 
 /* navbar sticky效果 */
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
 .navbar {
   z-index: 999;
-}
+} 
 
-/* 修正sticky效果運作時會吃掉最上方內容的情況 */
-.sticky + .content {
-  padding-top: 140px;
+.navbar {
+  position:sticky;
+  top:0;
 }
