@@ -18,10 +18,22 @@ module.exports = {
       const orderBy = req.query.order || 'DESC'
       const order = [[sort, orderBy]]
 
+      // Category 
+      const where = { status: 1 }
+      const categoryQuery = req.query.category
+      const categoryId = {
+        'Figure': 1,
+        '豆丁人': 2,
+        'Figma': 3,
+        '組裝模型(仮)': 4
+      }
+      if (categoryQuery) {
+        where.category_id = categoryId[categoryQuery]
+      }
+
       // search 商品名 or 作品名
       // 組合出 SQL， WHERE 'status' AND ('name' OR 'Series.name')
       const searchQuery = req.query.q
-      const where = { status: 1 }
       if (searchQuery) {
         where[Op.or] = {
           name: { [Op.like]: `%${searchQuery}%` },
