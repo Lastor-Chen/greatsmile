@@ -70,4 +70,23 @@ module.exports = {
     }
   },
 
+  deleteTag: async (req, res) => {
+    try {
+
+      const id = req.params.tagsid
+      tag = await Tag.findByPk(id)
+      await tag.destroy()
+
+      const tags = await Tag.findAll({
+        order: [['id', 'DESC']]
+      })
+
+      res.render('admin/tags', { tags })
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json(err.toString())
+    }
+  },
+
 }

@@ -38,10 +38,37 @@
                   </button>
                   <!-- Delete Button trigger modal -->
                   <button type="button" class="btn font-weight-normal" data-toggle="modal"
-                    data-target="#delete_{{this.id}}" title="刪除此會員">
+                    data-target="#delete_{{this.id}}" title="刪除此標籤">
                     <i class="far fa-trash-alt" aria-hidden="true"></i>
                   </button>
                 </td>
+                {{!-- Delete modal --}}
+                <div class="modal fade" id="delete_{{this.id}}" tabindex="-1" role="dialog"
+                  aria-labelledby="delete_{{this.id}}Label" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="delete_{{this.id}}Label">刪除確認</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <h5 class="modal-title ml-3" id="ModalScrollable{{this.id}}Title">
+                          {{this.name}}</h5>
+                        </br>
+                        <h5 class="text-danger text-right">你真的要刪除這則標籤嗎？</h5>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <form action="/admin/tags/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+                          <button type="submit" class="btn btn-outline-danger font-weight-normal">確認刪除
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             {{/each}}
           </tbody>
         </table>

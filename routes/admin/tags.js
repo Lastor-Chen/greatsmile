@@ -6,5 +6,6 @@ router.get('/', tagCtrller.getTags)
 router.post('/', tagCtrller.postTags)
 router.get('/:tagsid', tagCtrller.getEditPage)
 router.put('/:tagsid', tagCtrller.putTag)
+router.delete('/:tagsid', tagCtrller.deleteTag)
 
 module.exports = router
