@@ -56,6 +56,17 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1rem;
 }
 
+.order-btn-lg {          /* view */
+  display: inline-block;
+  background: #ff5400;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  height: 100px;
+}
+
 .btn-edit {              /* view */
   color: #454545;
   font-size: .85rem;
