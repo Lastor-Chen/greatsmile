@@ -2,7 +2,7 @@
 $(window).scroll(() => {
   const scrollTop = $(window).scrollTop()
   if (scrollTop > 500) return $('.back-top').fadeIn()
-  
+
   $('.back-top').fadeOut()
 })
 
@@ -16,4 +16,16 @@ if ($('.cart-alert').length) {
   setTimeout(() => {
     $('.cart-alert').alert('close')
   }, 5000)
+}
+
+// sticky效果
+window.onscroll = function () { myFunction() };
+var navbar = document.getElementById("navbar");
+var sticky = navbar.offsetTop;
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
 }

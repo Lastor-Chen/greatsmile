@@ -143,3 +143,15 @@ body {
   background-color: rgba(0, 0, 0, 0);
   text-align: center;
 }
+
+/* navbar sticky效果 */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.navbar {
+  z-index: 999;
+}
+
