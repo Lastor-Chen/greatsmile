@@ -1,1 +1,37 @@
-<h1>hihi Tags!</h1>
+<main class="container">
+  <div class="card-body pt-4">
+    <div class="row col-12">
+      <div class="col-6">
+        <table data-toggle="table" id="table">
+          <thead>
+            <tr>
+              <th data-valign="middle" class="text-center" data-sortable="true">#</th>
+              <th data-valign="middle" class="text-center" data-sortable="true">標籤名稱</th>
+              <th data-valign="middle" class="text-center">標籤操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each tags}}
+              <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.name}}</td>
+                <td>
+                  <button type="button" class="btn font-weight-normal">
+                    <a href="/admin/user/{{this.id}}/edit " class="text-decoration-none text-dark "><i
+                        class="fas fa-edit" title="編輯標籤資料"></i></a>
+                  </button>
+                  <!-- Delete Button trigger modal -->
+                  <button type="button" class="btn font-weight-normal" data-toggle="modal"
+                    data-target="#delete_{{this.id}}" title="刪除此會員">
+                    <i class="far fa-trash-alt" aria-hidden="true"></i>
+                  </button>
+                </td>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      <div class="col-6">
+      </div>
+    </div>
+  </div>
+</main>
