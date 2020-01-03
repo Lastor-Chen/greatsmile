@@ -160,3 +160,7 @@ body {
   padding-top: 140px;
 }
 
+/* 購物車移到最上層 */
+.cart-alert {
+  z-index: 1000;
+}
