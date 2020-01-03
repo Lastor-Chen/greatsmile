@@ -32,7 +32,7 @@ module.exports = {
         totalPrice += prod.amount
       })
 
-      res.render('address', { css: 'address', cart, totalPrice })
+      res.render('address', { css: 'delivery', cart, totalPrice })
 
     } catch (err) {
       console.error(err)
@@ -114,7 +114,7 @@ module.exports = {
       // 預設運費
       const totalPrice2 = totalPrice + 150
 
-      res.render('pay', { css: "delivery", cart, totalPrice, totalPrice2 })
+      res.render('pay', { css: "delivery", js: "pay", cart, totalPrice, totalPrice2 })
 
     } catch (err) {
       console.error(err)

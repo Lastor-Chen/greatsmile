@@ -2,7 +2,7 @@
   <div class="row">
     {{!-- 主內容 --}}
     <main class="col-8" role="main">
-      <section class="panel">
+      <div class="panel">
         {{!-- 結帳步驟 step nav --}}
         <nav class="step border-bottom px-2">
           <ul class="nav justify-content-around">
@@ -13,36 +13,80 @@
           </ul>
         </nav>
         {{!-- 內容表單 --}}
-        <div class="row p-4">
-          <section class="col-4">
-            <h6 class="mb-4 font-weight-bold">選擇寄件方式</h6>
-          </section>
-          <section class="col-8">
-            <div class="col-10">
-              <form action="/order/pay-method" method="GET">
-                <div class="form-check mb-2">
-                  <input id="radio1" class="form-check-input" type="radio" name="delivery_method" value="option1">
-                  <label class="form-check-label radio-label" for="radio1">
-                    <span>便利商店取貨 - NTD 80</span>
-                  </label>
-                </div>
-                <div class="form-check mb-2">
-                  <input id="radio2" class="form-check-input" type="radio" name="delivery_method" value="option2"
-                    checked>
-                  <label class="form-check-label radio-label" for="radio2">
-                    <span>宅配 - NTD 150</span>
-                  </label>
-                </div>
-                <div class="text-danger mb-4">
-                  <p>※顧客可能無法選擇所偏好的快遞公司。</p>
-                  <p>※所有寄件後的稅金及費用由顧客承擔。</p>
-                </div>
-                <button class="btn order-btn">下一步</button>
-              </form>
+        <form action="/order/pay-method" method="GET">
+          <section class="row m-0 p-4 border-bottom">
+            <div class="col-4">
+              <h6 class="mb-4 font-weight-bold">選擇付款方式</h6>
+            </div>
+            <div class="col-8">
+              <div class="form-check mb-2">
+                <input id="radio1" class="form-check-input" type="radio" name="delivery_method" value="option1">
+                <label class="form-check-label radio-label" for="radio1">
+                  <span>信用卡付款</span>
+                </label>
+              </div>
+              <div class="form-check mb-2">
+                <input id="radio2" class="form-check-input" type="radio" name="delivery_method" value="option2">
+                <label class="form-check-label radio-label" for="radio2">
+                  <span>便利商店付款</span>
+                </label>
+              </div>
+              <div class="form-check mb-2">
+                <input id="radio3" class="form-check-input" type="radio" name="delivery_method" value="option3">
+                <label class="form-check-label radio-label" for="radio3">
+                  <span>便利商店取貨付款</span>
+                </label>
+              </div>
             </div>
           </section>
-        </div>
-      </section>
+          <section class="row m-0 p-4 border-bottom">
+            <div class="col-4">
+              <h6 class="mb-4 font-weight-bold">帳單地址</h6>
+              <p class="font-small">如果您的帳單地址和收件地址不一樣，請勾選此格並填入。</p>
+            </div>
+            <div class="col-8">
+              <div class="form-check mb-4">
+                <label class="form-check-label">
+                  <input id="toggle-check" class="form-check-input" type="checkbox" name="" value="option1">
+                  <span>輸入其他帳單地址</span>
+                </label>
+              </div>
+              <div class="col-10 px-0 toggle-form" style="display: none;">
+                <div class="form-row row-cols-2">
+                  <div class="col">
+                    <input type="text" name="lastName" placeholder="姓氏*">
+                  </div>
+                  <div class="col">
+                    <input type="text" name="firstName" placeholder="名字*">
+                  </div>
+                  <div class="col">
+                    <input type="text" name="postCode" placeholder="郵遞區號*">
+                  </div>
+                  <div class="col"></div>
+                  <div class="col">
+                    <input type="text" name="region" placeholder="縣市*">
+                  </div>
+                  <div class="col">
+                    <input type="text" name="townCity" placeholder="鄉鎮市區*">
+                  </div>
+                  <div class="col-12">
+                    <input type="text" name="line1" placeholder="街道地址*">
+                  </div>
+                  <div class="col-12">
+                    <input type="text" name="line2" placeholder="大樓名, 房號等">
+                  </div>
+                  <div class="col-12 mb-0">
+                    <input type="text" name="phone" placeholder="手機號碼*">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <div class="col-8 p-4 ml-auto">
+            <button class="btn order-btn">下一步</button>
+          </div>
+        </form>
+      </div>
     </main>
     {{!-- 側邊攔 --}}
     <aside class="col-4">
