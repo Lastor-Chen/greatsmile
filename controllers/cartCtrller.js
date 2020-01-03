@@ -9,14 +9,13 @@ moment.locale('zh-tw')
 module.exports = {
   getCart: async (req, res) => {
     try {
-      let cart = await Cart.findByPk(req.session.cartId, { 
+      let cart = await Cart.findByPk(req.session.cartId, {
         include: [{
           model: Product, as: 'products',
           include: ['Gifts', 'Images']
         }],
         order: [['products', CartItem, 'id', 'DESC']]
       })
-      
       cart = cart || { products: [] }
       let cartProducts = cart.products
       let totalPrice = 0
@@ -58,7 +57,7 @@ module.exports = {
       await req.session.save()
 
       // 確認 CartItem 是否已有 record，若無建一個
-      const [cartItem, wasCreated] = await CartItem.findOrCreate({ 
+      const [cartItem, wasCreated] = await CartItem.findOrCreate({
         where: { CartId: cart.id, product_id },
         include: { model: Product, attributes: ['inventory'] }
       })
@@ -82,12 +81,12 @@ module.exports = {
       // 計算商品數量
       if (currentQty + inputQty > QTY_Limit) {
         await cartItem.update({ quantity: QTY_Limit })
-        req.flash('addedItem', { 
+        req.flash('addedItem', {
           productName, productImg, msg: '超過單件商品之最大購買數量，已為您調整為最大購買數量。'
         })
         return res.redirect('back')
-      } 
-      
+      }
+
       await cartItem.update({ quantity: (currentQty + inputQty) })
       req.flash('addedItem', { productName, productImg, msg: '已成功加進購物車' })
       res.redirect('back')
