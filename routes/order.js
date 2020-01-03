@@ -5,5 +5,6 @@ const orderCtrller = require('../controllers/orderCtrller.js')
 router.get('/', orderCtrller.addressPage)
 router.get('/delivery-method', orderCtrller.deliveryPage)
 router.get('/pay-method', orderCtrller.payPage)
+router.get('/view', orderCtrller.viewPage)
 
 module.exports = router
