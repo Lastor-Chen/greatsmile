@@ -10,7 +10,7 @@
           <th data-valign="middle" class="text-center" data-sortable="true">付款方式</th>
           <th data-valign="middle" class="text-center" data-sortable="true">付款狀態</th>
           <th data-valign="middle" class="text-center" data-sortable="true">出貨狀態</th>
-          <th data-valign="middle" class="text-center" data-sortable="true">會員帳號</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">收件人</th>
           <th data-valign="middle" class="text-center">訂單操作</th>
         </tr>
       </thead>
@@ -36,7 +36,7 @@
                 <i class="fas fa-times text-danger"></i>
               {{/if}}
             </td>
-            <td>{{this.User.email}}</td>
+            <td>{{this.receiver}}</td>
             <td>
               {{!--detail Button trigger modal --}}
               <button type="button" class="btn btn-outline-dark mr-1" data-toggle="modal"
@@ -58,6 +58,18 @@
                     </button>
                   </div>
                   <div class="modal-body">
+                    <div class="row col-12">
+                      <div class="col-6">
+                        <p>訂購人：{{this.User.name}} </p>
+                      </div>
+                      <div class="col-6">
+                        <p>聯絡電話：{{this.User.phone}}</p>
+                      </div>
+                      <div class="col-12">
+                        <p class="mb-0">會員信箱：{{this.User.email}}</p>
+                      </div>
+                    </div>
+                    <hr>
                     <div class="row col-12">
                       <div class="col-6">
                         <p>收件人：{{this.receiver}}</p>
@@ -93,7 +105,7 @@
                           </div>
                           <div class="col-5 text-center ml-4 pr-0">
                             <div class="d-flex justify-content-between">
-                              <span class="mr-5">NTD {{this.price}}</span>
+                              <span class="mr-5">NTD {{this.OrderItem.price}}</span>
                               <span>
                                 <div class="d-flex align-items-center">
                                   <span class="pr-4">

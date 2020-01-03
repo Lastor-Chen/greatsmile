@@ -20,10 +20,10 @@ module.exports = {
         order.createdTime = order.createdAt.toJSON().split('T')[0]
         order.products.forEach(product => {
           product.mainImg = product.Images.find(img => img.isMain).url
-          product.subPrice = product.OrderItem.quantity * product.price
+          product.subPrice = product.OrderItem.quantity * product.OrderItem.price
         })
       })
-      console.log(orders[0])
+
       res.render('admin/orders', { orders })
     } catch (err) {
       console.error(err)
