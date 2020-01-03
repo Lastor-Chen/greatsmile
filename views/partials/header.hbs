@@ -4,7 +4,11 @@
       <a href="/" class="navbar-brand">LOGO</a>
       <div>
         <a class="btn btn-primary mr-2 btn-top-bar" href="/users/signin">登入·註冊</a>
-        <a class="btn btn-primary btn-top-bar" href="/cart">購物車 {{itemSum}}</a>
+        <a class="btn btn-primary btn-top-bar pl-4" href="/cart">
+          購物車
+          <i class="fa fa-shopping-cart fa mt-1"></i>
+          <span class="badge badge-danger">{{itemSum}}</span>
+        </a>
       </div>
     </div>
   </div>
