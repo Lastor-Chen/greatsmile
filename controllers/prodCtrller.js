@@ -81,7 +81,7 @@ module.exports = {
       const queryString = genQueryString(req.query)
 
       const selectedSort = `${sort},${orderBy}`
-      const bread = req.path.includes('search') ? '搜尋商品' : '製品一覽'
+      const bread = req.path.includes('search') ? '搜尋商品' : (categoryQuery ? `${categoryQuery}` : '製品一覽')
 
       res.render('products', { 
         js: 'products',
