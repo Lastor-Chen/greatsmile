@@ -13,19 +13,24 @@
   <div class="container-fluid category-bar">
     <ul class="nav mx-auto">
       <li class="nav-item px-3">
-        <a class="nav-link py-4" href="/products">製品一覽</a>
+        <a class="nav-link py-4 {{#if isAllProducts}}active{{/if}}" 
+        href="/products">製品一覽</a>
       </li>
       <li class="nav-item px-3">
-        <a class="nav-link py-4" href="/products?category=Figure">Figure</a>
+        <a class="nav-link py-4 {{#ifEqual categoryQuery 'Figure'}}active{{/ifEqual}}" 
+        href="/products?category=Figure">Figure</a>
       </li>
       <li class="nav-item px-3">
-        <a class="nav-link py-4" href="/products?category=豆丁人">豆丁人</a>
+        <a class="nav-link py-4 {{#ifEqual categoryQuery '豆丁人'}}active{{/ifEqual}}" 
+        href="/products?category=豆丁人">豆丁人</a>
       </li>
       <li class="nav-item px-3">
-        <a class="nav-link py-4" href="/products?category=Figma">Figma</a>
+        <a class="nav-link py-4 {{#ifEqual categoryQuery 'Figma'}}active{{/ifEqual}}" 
+        href="/products?category=Figma">Figma</a>
       </li>
       <li class="nav-item px-3">
-        <a class="nav-link py-4" href="/products?category=組裝模型(仮)">組裝模型(仮)</a>
+        <a class="nav-link py-4 {{#ifEqual categoryQuery '組裝模型(仮)'}}active{{/ifEqual}}" 
+        href="/products?category=組裝模型(仮)">組裝模型(仮)</a>
       </li>
     </ul>
   </div>

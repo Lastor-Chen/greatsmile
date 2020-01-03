@@ -72,6 +72,10 @@ body {
   background-color:#eee;
   color:#454545;
 }
+.category-bar .active {
+  background-color:#eee;
+  color:#454545;
+}
 
 .search-bar {
   background-color: #b7a69f;

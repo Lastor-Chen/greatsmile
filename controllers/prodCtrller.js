@@ -83,10 +83,13 @@ module.exports = {
       const selectedSort = `${sort},${orderBy}`
       const bread = req.path.includes('search') ? '搜尋商品' : (categoryQuery ? `${categoryQuery}` : '製品一覽')
 
+      // 當為所有商品頁的 製品一覽 時為 true 
+      const isAllProducts = (!categoryQuery && true) ? true : false
+      
       res.render('products', { 
         js: 'products',
         css: 'products',
-        products, selectedSort, searchQuery, bread, pagesArray, queryString, categoryQuery, page, prev, next
+        products, selectedSort, searchQuery, bread, pagesArray, queryString, categoryQuery, page, prev, next, isAllProducts
       })
 
     } catch (err) {
