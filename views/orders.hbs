@@ -6,77 +6,104 @@
         <div class="panel-heading col-md-12">
           <div class="mt-3">訂購紀錄</div>
         </div>
+        <table class="table table-sm mt-4 mb-0 mx-4">
+          <thead>
+            <tr>
+              <th scope="col" class="accordion-thead">訂單序號</th>
+              <th scope="col" class="accordion-thead">成立日期</th>
+              <th scope="col" class="accordion-thead">總金額</th>
+            </tr>
+          </thead>
+        </table>
         {{#if orders}}
-          {{#each orders}}
-            <table class="table table-sm mt-4 mb-0 mx-4">
-              <thead>
-                <tr>
-                  <th scope="col">訂單序號</th>
-                  <th scope="col">成立日期</th>
-                  <th scope="col">總金額</th>
-                  <th scope="col">付款方式</th>
-                  <th scope="col">付款狀態</th>
-                  <th scope="col">寄送狀態</th>
-                  <th scope="col">訂單內容</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th id="accordion">{{this.sn}}</th>
-                  <td>{{this.createdTime}}</td>
-                  <td>{{this.amountFormat}}</td>
-                  <td>{{this.payMethod}}</td>
-                  <td>
-                    {{#if this.payStatus}}
-                      已付款
-                    {{else}}
-                      未付款
-                    {{/if}}
-                  </td>
-                  <td>
-                    {{#if this.shipStatus}}
-                      已出貨
-                    {{else}}
-                      未出貨
-                    {{/if}}
-                  </td>
-                  <td>
-                    <button class="btn text-pick pt-0" data-toggle="collapse" data-target="#collapse_{{this.id}}">
-                      <i class="fas fa-search"></i>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div id="collapse_{{this.id}}" class="collapse col-12" data-parent="#accordion">
-              <div class="card-body row pt-0 pl-5">
-                <div class="col-4">
-                  <h6 class="border-bottom">收件資訊</h6>
-                  <p>{{this.receiver}}</p>
-                  <p>{{this.phone}}</p>
-                  <p>{{this.address}}</p>
+          <div id="accordion" class="mb-4">
+            {{#each orders}}
+              <div class="card mx-4 mt-2">
+                <div class="card-header order-card" class="btn btn-link btn-block" data-toggle="collapse"
+                  data-target="#collapseOne_{{this.id}}">
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td class="accordion-thead">{{this.sn}}</td>
+                        <td class="accordion-thead">{{this.createdTime}}</td>
+                        <td class="accordion-thead">{{this.amountFormat}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-                <div class="col-8">
-                  <h6 class="border-bottom">出貨清單</h6>
-                  {{#each this.products}}
-                    <div class="row col-12 mb-2">
-                      <a href="/products/{{this.id}}" class="product-img">
-                        <img src="{{this.mainImg}}" class="rounded mx-auto d-block" alt="productImage"
-                          style="height:50px">
-                      </a>
-                      <div>
-                        <div class="ml-3">{{this.name}}</div>
-                        <div class="row ml-3">
-                          <div>NTD {{this.orderPrice}}</div>
-                          <div class="ml-3">x {{this.OrderItem.quantity}}</div>
-                        </div>
-                      </div>
-                    </div>
-                  {{/each}}
+                <div id="collapseOne_{{this.id}}" class="collapse" aria-labelledby="headingOne"
+                  data-parent="#accordion">
+                  <div class="card-body">
+                    <table class="order-info">
+                      <tbody>
+                        <tr>
+                          <td class="accordion-title">收件人</td>
+                          <td class="accordion-data">{{this.receiver}}</td>
+                        </tr>
+                        <tr>
+                          <td class="accordion-title">聯絡電話</td>
+                          <td class="accordion-data">{{this.phone}}</td>
+                        </tr>
+                        <tr>
+                          <td class="accordion-title">收件地址</td>
+                          <td class="accordion-data">{{this.address}}</td>
+                        </tr>
+                        <tr>
+                          <td class="accordion-title">付款方式</td>
+                          <td class="accordion-data">{{this.payMethod}}</td>
+                        </tr>
+                        <tr>
+                          <td class="accordion-title">付款狀態</td>
+                          <td class="accordion-data">
+                            {{#if this.payStatus}}
+                              已付款
+                            {{else}}
+                              未付款
+                            {{/if}}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="accordion-title">出貨狀態</td>
+                          <td class="accordion-data">
+                            {{#if this.shipStatus}}
+                              已出貨
+                            {{else}}
+                              未出貨
+                            {{/if}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <hr>
+                    <table class="order-info">
+                      <tbody>
+                        {{#each this.products}}
+                          <tr>
+                            <td class="accordion-title"></td>
+                            <td class="accordion-data">
+                              <div class="row col-12 mb-2">
+                                <a href="/products/{{this.id}}" class="product-img">
+                                  <img src="{{this.mainImg}}" class="rounded mx-auto d-block" alt="productImage"
+                                    style="height:50px">
+                                </a>
+                                <div>
+                                  <div class="ml-3">{{this.name}}</div>
+                                  <div class="row ml-3">
+                                    <div>NTD {{this.orderPrice}}</div>
+                                    <div class="ml-3">x {{this.OrderItem.quantity}}</div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        {{/each}}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
-            </div>
-          {{/each}}
+            {{/each}}
+          </div>
         {{else}}
           <div class="col-12 my-3">
             <div class="text-center">
@@ -87,6 +114,7 @@
           </div>
         {{/if}}
       </div>
+      <br>
     </section>
     {{!-- 側邊欄 --}}
     <section class="col-md-3 mb-5 p-3">
