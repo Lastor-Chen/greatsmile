@@ -114,7 +114,7 @@ module.exports = {
       // 預設運費
       const totalPrice2 = totalPrice + 150
 
-      res.render('checkout_3', { css: "checkout", js: "pay", cart, totalPrice, totalPrice2 })
+      res.render('checkout_3', { css: "checkout", js: "checkout", cart, totalPrice, totalPrice2 })
 
     } catch (err) {
       console.error(err)
