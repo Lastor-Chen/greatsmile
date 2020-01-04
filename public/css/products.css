@@ -92,6 +92,12 @@
   padding: 0 10px;
 }
 
+.nav-tag li .active{
+  color: #ffffff;
+  background-color: #ff9600;
+  border-radius: 10px;
+}
+
 .page-link {
   border: 0;
   background-color: #ebebeb;
