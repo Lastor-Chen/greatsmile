@@ -2,6 +2,12 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
 
+ol, ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .panel {
   border-radius: 20px;
   background: #fff;
@@ -46,14 +52,10 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
-.order-btn {
-  display: inline-block;
-  background: #ff5400;
-  color: #fff;
-  font-weight: bold;
-  border-radius: 10px;
-  padding: 1rem 1.5rem;
-  font-size: 1rem;
+.summary-content li {
+  color: #454545;
+  font-size: .9rem;
+  line-height: 1.5rem;
 }
 
 /* input radio */
@@ -82,7 +84,18 @@ input[type=radio]:checked+label::after {
   border-radius: 50%;
 }
 
-.order-btn-lg {          /* view */
+/* form btn */
+.order-btn {
+  display: inline-block;
+  background: #ff5400;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+}
+
+.order-btn-lg {
   display: inline-block;
   background: #ff5400;
   color: #fff;
@@ -93,23 +106,15 @@ input[type=radio]:checked+label::after {
   height: 100px;
 }
 
-.btn-edit {              /* view */
+.btn-edit {
   color: #454545;
-  font-size: .85rem;
+  font-size: .9rem;
   font-weight: bold;
   line-height: 1.5rem;
   border-radius: 5px;
   background-color: #eeeeee;
   width: 100px;
   height: 40px;
-}
-
-.summary-content li {    /* view */
-  color: #454545;
-  font-size: .85rem;
-  line-height: 1.5rem;
-  list-style-type: none;
-  text-align: left;
 }
 
 /* aside */
