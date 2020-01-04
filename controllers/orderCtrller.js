@@ -2,7 +2,7 @@ const db = require('../models')
 const Cart = db.Cart
 
 module.exports = {
-  async addressPage(req, res) {
+  async getCheckout1(req, res) {
     try {
       const cartId = req.session.cartId
       const cart = await Cart.findByPk(cartId, {
@@ -40,7 +40,7 @@ module.exports = {
     }
   },
 
-  async deliveryPage(req, res) {
+  async getCheckout2(req, res) {
     try {
       const cartId = req.session.cartId
       const cart = await Cart.findByPk(cartId, {
@@ -81,7 +81,7 @@ module.exports = {
     }
   },
 
-  async payPage(req, res) {
+  async getCheckout3(req, res) {
     try {
       const cartId = req.session.cartId
       const cart = await Cart.findByPk(cartId, {
@@ -122,7 +122,7 @@ module.exports = {
     }
   },
 
-  async viewPage(req, res) {
+  async getCheckout4(req, res) {
     try {
       const cartId = req.session.cartId
       const cart = await Cart.findByPk(cartId, {
