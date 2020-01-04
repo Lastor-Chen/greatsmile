@@ -32,7 +32,7 @@ module.exports = {
         totalPrice += prod.amount
       })
 
-      res.render('checkout_1', { css: 'delivery', cart, totalPrice })
+      res.render('checkout_1', { css: 'checkout', cart, totalPrice })
 
     } catch (err) {
       console.error(err)
@@ -73,7 +73,7 @@ module.exports = {
       // 預設運費
       const totalPrice2 = totalPrice + 150
 
-      res.render('checkout_2', { css: "delivery", cart, totalPrice, totalPrice2 })
+      res.render('checkout_2', { css: "checkout", cart, totalPrice, totalPrice2 })
 
     } catch (err) {
       console.error(err)
@@ -114,7 +114,7 @@ module.exports = {
       // 預設運費
       const totalPrice2 = totalPrice + 150
 
-      res.render('checkout_3', { css: "delivery", js: "pay", cart, totalPrice, totalPrice2 })
+      res.render('checkout_3', { css: "checkout", js: "pay", cart, totalPrice, totalPrice2 })
 
     } catch (err) {
       console.error(err)
@@ -156,7 +156,7 @@ module.exports = {
       // 預設運費
       const totalPrice2 = totalPrice + shippingFee
 
-      res.render('checkout_4', { css: 'view', cart, totalPrice, totalPrice2, shippingFee })
+      res.render('checkout_4', { css: 'checkout', cart, totalPrice, totalPrice2, shippingFee })
 
     } catch (err) {
       console.error(err)
