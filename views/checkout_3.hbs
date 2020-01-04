@@ -13,26 +13,26 @@
           </ul>
         </nav>
         {{!-- 內容表單 --}}
-        <form action="/orders/checkout-4" method="GET">
+        <form action="/orders/checkout-4" method="POST">
           <section class="row m-0 p-4 border-bottom">
             <div class="col-4">
               <h6 class="mb-4 font-weight-bold">選擇付款方式</h6>
             </div>
             <div class="col-8">
               <div class="form-check mb-2">
-                <input id="radio1" class="form-check-input" type="radio" name="delivery_method" value="option1">
+                <input id="radio1" class="form-check-input" type="radio" name="payMethod" value="option1">
                 <label class="form-check-label radio-label" for="radio1">
                   <span>信用卡付款</span>
                 </label>
               </div>
               <div class="form-check mb-2">
-                <input id="radio2" class="form-check-input" type="radio" name="delivery_method" value="option2">
+                <input id="radio2" class="form-check-input" type="radio" name="payMethod" value="option2">
                 <label class="form-check-label radio-label" for="radio2">
                   <span>便利商店付款</span>
                 </label>
               </div>
               <div class="form-check mb-2">
-                <input id="radio3" class="form-check-input" type="radio" name="delivery_method" value="option3">
+                <input id="radio3" class="form-check-input" type="radio" name="payMethod" value="option3">
                 <label class="form-check-label radio-label" for="radio3">
                   <span>便利商店取貨付款</span>
                 </label>
@@ -54,29 +54,29 @@
               <div class="col-10 px-0 toggle-form" style="display: none;">
                 <div class="form-row row-cols-2">
                   <div class="col">
-                    <input type="text" name="lastName" placeholder="姓氏*">
+                    <input type="text" name="lastName" placeholder="姓氏*" disabled>
                   </div>
                   <div class="col">
-                    <input type="text" name="firstName" placeholder="名字*">
+                    <input type="text" name="firstName" placeholder="名字*" disabled>
                   </div>
                   <div class="col">
-                    <input type="text" name="postCode" placeholder="郵遞區號*">
+                    <input type="text" name="postCode" placeholder="郵遞區號*" disabled>
                   </div>
                   <div class="col"></div>
                   <div class="col">
-                    <input type="text" name="region" placeholder="縣市*">
+                    <input type="text" name="region" placeholder="縣市*" disabled>
                   </div>
                   <div class="col">
-                    <input type="text" name="townCity" placeholder="鄉鎮市區*">
+                    <input type="text" name="townCity" placeholder="鄉鎮市區*" disabled>
                   </div>
                   <div class="col-12">
-                    <input type="text" name="line1" placeholder="街道地址*">
+                    <input type="text" name="line1" placeholder="街道地址*" disabled>
                   </div>
                   <div class="col-12">
-                    <input type="text" name="line2" placeholder="大樓名, 房號等">
+                    <input type="text" name="line2" placeholder="大樓名, 房號等" disabled>
                   </div>
                   <div class="col-12 mb-0">
-                    <input type="text" name="phone" placeholder="手機號碼*">
+                    <input type="text" name="phone" placeholder="手機號碼*" disabled>
                   </div>
                 </div>
               </div>

@@ -13,7 +13,7 @@
           </ul>
         </nav>
         {{!-- 內容表單 --}}
-        <form action="/orders/checkout-2" method="GET">
+        <form action="/orders/checkout-2" method="POST">
           <section class="row m-0 p-4">
             <div class="col-4">
               <h6 class="mb-4 font-weight-bold">選擇地址</h6>
@@ -36,10 +36,10 @@
                   </div>
                   <div class="col"></div>
                   <div class="col">
-                    <input type="text" name="region" placeholder="縣市*">
+                    <input type="text" name="area" placeholder="縣市*">
                   </div>
                   <div class="col">
-                    <input type="text" name="townCity" placeholder="鄉鎮市區*">
+                    <input type="text" name="zone" placeholder="鄉鎮市區*">
                   </div>
                   <div class="col-12">
                     <input type="text" name="line1" placeholder="街道地址*">
@@ -57,7 +57,7 @@
                 <div class="form-check my-4">
                   <label class="form-check-label">
                     <input class="form-check-input" name="saveAddress" type="checkbox">
-                    <span>儲存收件地址</span>
+                    <span>儲存收件地址 (未實裝)</span>
                   </label>
                 </div>
               </div>

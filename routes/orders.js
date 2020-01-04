@@ -3,8 +3,9 @@ const orderCtrller = require('../controllers/orderCtrller.js')
 
 // route base '/orders'
 router.get('/checkout-1', orderCtrller.getCheckout1)
-router.get('/checkout-2', orderCtrller.getCheckout2)
-router.get('/checkout-3', orderCtrller.getCheckout3)
-router.get('/checkout-4', orderCtrller.getCheckout4)
+router.post('/checkout-2', orderCtrller.checkout2)
+router.post('/checkout-3', orderCtrller.checkout3)
+router.post('/checkout-4', orderCtrller.checkout4)
+router.post('/', orderCtrller.postOrder)
 
 module.exports = router

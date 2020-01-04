@@ -35,7 +35,7 @@ module.exports = {
       cart.subtotal = subtotal
       cart.dataValues.subtotal = subtotal
 
-      req.flash('passData', cart)
+      req.flash('passData', { cart })
       res.render('checkout_1', { css: 'checkout', cart })
 
     } catch (err) {
@@ -44,14 +44,22 @@ module.exports = {
     }
   },
 
-  async getCheckout2(req, res) {
+  async checkout2(req, res) {
     try {
-      const cart = req.flash('passData')[0]
+      console.log(req.body)
+      const address = req.body
+
+      const data = req.flash('passData')[0]
+      console.log(data)
+
+      const cart = data.cart
+      data.address = address
 
       // 預設運費
       cart.total = cart.subtotal + 150
+      data.cart = cart
 
-      req.flash('passData', cart)
+      req.flash('passData', data)
       res.render('checkout_2', { css: "checkout", cart })
 
     } catch (err) {
@@ -60,11 +68,18 @@ module.exports = {
     }
   },
 
-  async getCheckout3(req, res) {
+  async checkout3(req, res) {
     try {
-      const cart = req.flash('passData')[0]
+      console.log(req.body)
 
-      req.flash('passData', cart)
+      const { deliveryMethod } = req.body
+      const data = req.flash('passData')[0]
+      console.log(data)
+
+      const cart = data.cart
+      data.deliveryMethod = deliveryMethod
+
+      req.flash('passData', data)
       res.render('checkout_3', { css: "checkout", js: "checkout", cart })
 
     } catch (err) {
@@ -73,12 +88,34 @@ module.exports = {
     }
   },
 
-  async getCheckout4(req, res) {
+  async checkout4(req, res) {
     try {
-      const cart = req.flash('passData')[0]
+      console.log(req.body)
 
-      req.flash('passData', cart)
+      const { payMethod } = req.body
+      const data = req.flash('passData')[0]
+      console.log(data)
+
+      const cart = data.cart
+      data.payMethod = payMethod
+
+      req.flash('passData', data)
       res.render('checkout_4', { css: 'checkout', cart })
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  },
+
+  async postOrder(req, res) {
+    try {
+      console.log(req.body)
+
+      const data = req.flash('passData')[0]
+      console.log(data)
+
+      res.render('checkout_4', { css: 'checkout' })
 
     } catch (err) {
       console.error(err)
