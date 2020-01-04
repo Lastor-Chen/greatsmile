@@ -20,10 +20,19 @@ module.exports = {
   postTags: async (req, res) => {
     try {
       const input = { ...req.body }
+      if (input.name.trim() === '') {
 
-      await Tag.create(input)
+        req.flash('error', '標籤名稱不能為空白')
+        res.redirect('/admin/tags')
 
-      res.redirect('/admin/tags')
+      } else {
+
+        await Tag.create(input)
+
+        req.flash('success', '新增成功！')
+        res.redirect('/admin/tags')
+        
+      }
 
     } catch (err) {
       console.error(err)
@@ -51,18 +60,24 @@ module.exports = {
 
   putTag: async (req, res) => {
     try {
-
       const input = { ...req.body }
-      const id = req.params.tagsid
-      const tag = await Tag.findByPk(id)
 
-      await tag.update(input)
+      if (input.name.trim() === '') {
+        
+        req.flash('error', '標籤名稱不能為空白')
+        res.redirect('back')
 
-      const tags = await Tag.findAll({
-        order: [['id', 'DESC']]
-      })
+      } else {
 
-      res.render('admin/tags', { tags })
+        const id = req.params.tagsid
+        const tag = await Tag.findByPk(id)
+
+        await tag.update(input)
+
+        req.flash('success', '更新成功！')
+        res.redirect('/admin/tags')
+
+      }
 
     } catch (err) {
       console.error(err)
@@ -77,11 +92,8 @@ module.exports = {
       tag = await Tag.findByPk(id)
       await tag.destroy()
 
-      const tags = await Tag.findAll({
-        order: [['id', 'DESC']]
-      })
-
-      res.render('admin/tags', { tags })
+      req.flash('success', '刪除成功！')
+      res.redirect('/admin/tags')
 
     } catch (err) {
       console.error(err)
