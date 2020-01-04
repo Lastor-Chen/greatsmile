@@ -148,4 +148,5 @@ body {
   position:sticky;
   top:0;
   z-index: 900;
+  height: 0rem;
 }
