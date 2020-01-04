@@ -48,20 +48,24 @@ module.exports = {
 
   async checkout2(req, res) {
     try {
-      console.log(req.body)
-      const address = req.body
+      // 整理收件人資料
+      const foo = req.body
+      const receiver = {
+        receiver: `${foo.lastName} ${foo.firstName}`,
+        address: `${foo.postCode},${foo.area},${foo.zone},${foo.line1},${foo.line2}`,
+        phone: foo.phone
+      }
+      
+      // 收件人資料注入 passData
+      const data = { ...req.flash('passData')[0], ...receiver }
 
-      const data = req.flash('passData')[0]
+      // 預設運費 (臨時)
+      data.cart.total = data.cart.subtotal + 150
+      req.flash('passData', data)
       console.log(data)
 
       const cart = data.cart
-      data.address = address
 
-      // 預設運費
-      cart.total = cart.subtotal + 150
-      data.cart = cart
-
-      req.flash('passData', data)
       res.render('checkout_2', { css: "checkout", cart })
 
     } catch (err) {
@@ -72,16 +76,16 @@ module.exports = {
 
   async checkout3(req, res) {
     try {
-      console.log(req.body)
+      // 整理寄送方式
+      const deliveryMethod = req.body
 
-      const { deliveryMethod } = req.body
-      const data = req.flash('passData')[0]
+      // 寄送方式注入 passData
+      const data = { ...req.flash('passData')[0], ...deliveryMethod }
+      req.flash('passData', data)
       console.log(data)
 
       const cart = data.cart
-      data.deliveryMethod = deliveryMethod
-
-      req.flash('passData', data)
+      
       res.render('checkout_3', { css: "checkout", js: "checkout", cart })
 
     } catch (err) {
@@ -92,16 +96,16 @@ module.exports = {
 
   async checkout4(req, res) {
     try {
-      console.log(req.body)
+      // 整理付款方式
+      const payMethod = req.body
 
-      const { payMethod } = req.body
-      const data = req.flash('passData')[0]
+      // 付款方式注入 passData
+      const data = { ...req.flash('passData')[0], ...payMethod}
+      req.flash('passData', data)
       console.log(data)
 
       const cart = data.cart
-      data.payMethod = payMethod
-
-      req.flash('passData', data)
+      
       res.render('checkout_4', { css: 'checkout', cart })
 
     } catch (err) {
@@ -112,34 +116,29 @@ module.exports = {
 
   async postOrder(req, res) {
     try {
-      console.log(req.body)
-
       const data = req.flash('passData')[0]
-      console.log(data)
-      
-      const { cart, address, deliveryMethod, payMethod } = data
- 
+
+      // 建立 Order
       const order = await Order.create({
-        UserId: 1,
-        sn: 'ABCDE',
-        receiver: address.firstName + address.lastName,
-        phone: address.phone,
-        address: address.line1,
+        ...data,
+        UserId: req.user.id,
+        sn: 'ABCD',
         amount: data.cart.total,
-        payMethod: payMethod,
-        deliveryMethod: deliveryMethod,
+        payStatus: false,
+        shipStatus: false
       })
 
-      // OrderItems
+      // 建立 OrderItem
+      const cart = data.cart
       await Promise.all(
-        cart.products.map(prod => {
+        cart.products.map(prod =>
           OrderItem.create({
             price: prod.price,
             quantity: prod.quantity,
             OrderId: order.id,
             product_id: prod.id
           })
-        })
+        )
       )
 
       res.redirect('/products')
