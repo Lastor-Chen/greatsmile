@@ -1,5 +1,7 @@
 const db = require('../models')
 const Cart = db.Cart
+const Order = db.Order
+const OrderItem = db.OrderItem
 
 module.exports = {
   async getCheckout1(req, res) {
@@ -114,8 +116,33 @@ module.exports = {
 
       const data = req.flash('passData')[0]
       console.log(data)
+      
+      const { cart, address, deliveryMethod, payMethod } = data
+ 
+      const order = await Order.create({
+        UserId: 1,
+        sn: 'ABCDE',
+        receiver: address.firstName + address.lastName,
+        phone: address.phone,
+        address: address.line1,
+        amount: data.cart.total,
+        payMethod: payMethod,
+        deliveryMethod: deliveryMethod,
+      })
 
-      res.render('checkout_4', { css: 'checkout' })
+      // OrderItems
+      await Promise.all(
+        cart.products.map(prod => {
+          OrderItem.create({
+            price: prod.price,
+            quantity: prod.quantity,
+            OrderId: order.id,
+            product_id: prod.id
+          })
+        })
+      )
+
+      res.redirect('/products')
 
     } catch (err) {
       console.error(err)
