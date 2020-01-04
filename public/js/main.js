@@ -17,3 +17,17 @@ if ($('.cart-alert').length) {
     $('.cart-alert').alert('close')
   }, 5000)
 }
+
+window.onscroll = function () { myFunction() }
+var navbar = document.getElementById("navbar")
+let stickybar = document.getElementById("stickybar")
+var stickyRange = navbar.offsetTop + 224
+function myFunction() {
+  if (window.pageYOffset >= stickyRange) {
+    navbar.style.visibility = "hidden"
+    stickybar.style.visibility = "visible"
+  } else {
+    navbar.style.visibility = "visible"
+    stickybar.style.visibility = "hidden"
+  }
+}

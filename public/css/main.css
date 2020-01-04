@@ -144,12 +144,8 @@ body {
   text-align: center;
 }
 
-/* navbar sticky效果 */
-.navbar {
-  z-index: 999;
-} 
-
-.navbar {
+#stickybar {
   position:sticky;
   top:0;
+  z-index: 900;
 }
