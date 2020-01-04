@@ -6,8 +6,8 @@
         {{!-- 結帳步驟 step nav --}}
         <nav class="step border-bottom px-2">
           <ul class="nav justify-content-around">
-            <li class="px-4 py-3 active">1.收件地址</li>
-            <li class="px-4 py-3">2.寄件方式</li>
+            <li class="px-4 py-3">1.收件地址</li>
+            <li class="px-4 py-3 active">2.寄件方式</li>
             <li class="px-4 py-3">3.付款&帳單</li>
             <li class="px-4 py-3">4.最後檢視</li>
           </ul>
@@ -15,50 +15,26 @@
         {{!-- 內容表單 --}}
         <div class="row p-4">
           <section class="col-4">
-            <h6 class="mb-4 font-weight-bold">選擇地址</h6>
-            <p class="font-small">請從你的地址清單中選擇一處，或輸入新地址</p>
+            <h6 class="mb-4 font-weight-bold">選擇寄件方式</h6>
           </section>
           <section class="col-8">
             <div class="col-10">
-              <form action="/order/delivery-method" method="GET">
-                <div class="form-row row-cols-2">
-                  <div class="col mb-0">
-                    <input type="text" name="lastName" placeholder="姓氏*">
-                  </div>
-                  <div class="col mb-0">
-                    <input type="text" name="firstName" placeholder="名字*">
-                  </div>
-                  <div class="col-12 mb-4">
-                    <span class="font-small text-danger">收件地址請使用繁體中文</span>
-                  </div>
-                  <div class="col">
-                    <input type="text" name="postCode" placeholder="郵遞區號*">
-                  </div>
-                  <div class="col"></div>
-                  <div class="col">
-                    <input type="text" name="region" placeholder="縣市*">
-                  </div>
-                  <div class="col">
-                    <input type="text" name="townCity" placeholder="鄉鎮市區*">
-                  </div>
-                  <div class="col-12">
-                    <input type="text" name="line1" placeholder="街道地址*">
-                  </div>
-                  <div class="col-12 mb-0">
-                    <input type="text" name="line2" placeholder="大樓名, 房號等">
-                  </div>
-                  <div class="col-12 mb-4">
-                    <span class="font-small text-danger">※收件地址請使用繁體中文</span>
-                  </div>
-                  <div class="col-12 mb-0">
-                    <input type="text" name="phone" placeholder="手機號碼*">
-                  </div>
-                </div>
-                <div class="form-check my-4">
-                  <label class="form-check-label">
-                    <input class="form-check-input" name="saveAddress" type="checkbox">
-                    <span>儲存收件地址</span>
+              <form action="/order/pay-method" method="GET">
+                <div class="form-check mb-2">
+                  <input id="radio1" class="form-check-input" type="radio" name="delivery_method" value="option1">
+                  <label class="form-check-label radio-label" for="radio1">
+                    <span>便利商店取貨 - NTD 80</span>
                   </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input id="radio2" class="form-check-input" type="radio" name="delivery_method" value="option2" checked>
+                  <label class="form-check-label radio-label" for="radio2">
+                    <span>宅配 - NTD 150</span>
+                  </label>
+                </div>
+                <div class="text-danger mb-4">
+                  <p>※顧客可能無法選擇所偏好的快遞公司。</p>
+                  <p>※所有寄件後的稅金及費用由顧客承擔。</p>
                 </div>
                 <button class="btn order-btn">下一步</button>
               </form>
@@ -77,9 +53,13 @@
             <span>小計:</span>
             <span>NTD {{addDot totalPrice}}</span>
           </div>
+          <div class="d-flex justify-content-between border-bottom py-2 font-small">
+            <span>運費:</span>
+            <span>NTD 150</span>
+          </div>
           <div class="d-flex justify-content-between font-weight-bold py-2">
             <span>合計:</span>
-            <span>NTD {{addDot totalPrice}}</span>
+            <span>NTD {{addDot totalPrice2}}</span>
           </div>
         </div>
       </section>

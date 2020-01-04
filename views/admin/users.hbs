@@ -26,7 +26,13 @@
               {{#ifEqual this.gender 'M'}}<i class="fas fa-mars text-primary"></i>{{/ifEqual}}
               {{#ifEqual this.gender 'F'}}<i class="fas fa-venus text-danger"></i>{{/ifEqual}}
             </td>
-            <td></td>
+            <td>
+              {{#if this.orderCount}}
+                {{this.orderCount}}
+              {{else}}
+                -
+              {{/if}}
+            </td>
             <td>
               {{#if this.isAdmin}}
                 <i class="fas fa-check text-success"></i>

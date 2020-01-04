@@ -1,0 +1,147 @@
+<main class="container">
+  <div class="card-body pt-4">
+    <table data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true" id="table">
+      <thead>
+        <tr>
+          <th data-valign="middle" class="text-center" data-sortable="true">#</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">SN</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">成立時間</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">總金額</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">付款方式</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">付款狀態</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">出貨狀態</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">收件人</th>
+          <th data-valign="middle" class="text-center">訂單操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each orders}}
+          <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.sn}}</td>
+            <td>{{this.createdTime}}</td>
+            <td>{{this.amount}}</td>
+            <td>{{this.payMethod}}</td>
+            <td>
+              {{#if this.payStatus}}
+                <i class="fas fa-check text-success"></i>
+              {{else}}
+                <i class="fas fa-times text-danger"></i>
+              {{/if}}
+            </td>
+            <td>
+              {{#if this.shipStatus}}
+                <i class="fas fa-check text-success"></i>
+              {{else}}
+                <i class="fas fa-times text-danger"></i>
+              {{/if}}
+            </td>
+            <td>{{this.receiver}}</td>
+            <td>
+              {{!--detail Button trigger modal --}}
+              <button type="button" class="btn btn-outline-dark mr-1" data-toggle="modal"
+                data-target=".orderModal{{this.id}}"><i class="fas fa-search-plus" title="出貨詳情"></i></button>
+              <!-- Delete Button trigger modal -->
+              <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#delete_{{this.id}}"
+                title="刪除此會員">
+                <i class="far fa-trash-alt" aria-hidden="true"></i>
+              </button>
+            </td>
+            {{!--detail product modal --}}
+            <div class="modal fade orderModal{{this.id}}" tabindex="-1" role="dialog">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">#{{this.id}} / SN {{this.sn}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row col-12">
+                      <div class="col-6">
+                        <p>訂購人：{{this.User.name}} </p>
+                      </div>
+                      <div class="col-6">
+                        <p>聯絡電話：{{this.User.phone}}</p>
+                      </div>
+                      <div class="col-12">
+                        <p class="mb-0">會員信箱：{{this.User.email}}</p>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row col-12">
+                      <div class="col-6">
+                        <p>收件人：{{this.receiver}}</p>
+                      </div>
+                      <div class="col-6">
+                        <p>聯絡電話：{{this.phone}}</p>
+                      </div>
+                      <div class="col-12">
+                        <p class="mb-0">收件地址：{{this.address}}</p>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row col-12">
+                      <div class="col-7 text-center">商品{{cartProducts.length}}</div>
+                      <div class="col-5 text-center">
+                        <div class="d-flex justify-content-between">
+                          <span>商品價格</span>
+                          <span>數量</span>
+                          <span>合計價格</span>
+                        </div>
+                      </div>
+                    </div>
+                    <hr>
+                    <div>
+                      {{#each this.products}}
+                        <div class="row col-12">
+                          <div class="row col-7 pl-5 text-center">
+                            <a href="/products/{{this.id}}" class="product-img">
+                              <img src="{{this.mainImg}}" class="rounded mx-auto d-block" alt="productImage"
+                                style="height:50px">
+                            </a>
+                            <div class="col-md-7">{{this.name}}</div>
+                          </div>
+                          <div class="col-5 text-center ml-4 pr-0">
+                            <div class="d-flex justify-content-between">
+                              <span class="mr-5">NTD {{this.OrderItem.price}}</span>
+                              <span>
+                                <div class="d-flex align-items-center">
+                                  <span class="pr-4">
+                                    {{this.OrderItem.quantity}}
+                                  </span>
+                                </div>
+                              </span>
+                              <span>
+                                <div class="d-flex align-items-center">
+                                  <span class="pl-3">
+                                    NTD {{this.subPrice}}
+                                  </span>
+                                </div>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <hr>
+                      {{/each}}
+                      <div class="row col-12">
+                        <div class="col-9"></div>
+                        <div class="col-3 d-flex justify-content-between align-items-center pr-0">
+                          <span>總價：</span>
+                          <span class="font-weight-bold pr-1">NTD {{this.amount}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</main>

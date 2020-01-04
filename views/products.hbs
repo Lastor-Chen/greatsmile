@@ -75,14 +75,14 @@
                 <div class="hover ">
                   <div class="icon-group">
                     <a href="/products/{{this.id}}" class="btn btn-icon px-2 py-2 mx-1 d-inline-block">
-                      <img src="/img/magnifying-glass.png">
+                      <i class="fas fa-search fa-2x"></i>
                     </a>
                     <form action="/cart" method="POST" class="d-inline-block">
                       <input type="hidden" name="productId" value="{{this.id}}">
                       <input type="hidden" name="productName" value="{{this.name}}">
                       <input type="hidden" name="productImg" value="{{this.mainImg}}">
-                      <button type="submit" class="btn btn-icon px-2 py-2 mx-1">
-                        <img src="/img/cart.png">
+                      <button type="submit" class="btn btn-icon px-2 py-2 mx-1" {{#if hasInv}} {{else}} hidden{{/if}}>
+                        <i class="fas fa-cart-arrow-down fa-2x"></i>
                       </button>
                     </form>
                   </div>

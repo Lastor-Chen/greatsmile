@@ -167,3 +167,21 @@ body {
 .sticky + .content {
   padding-top: 140px;
 }
+
+/* cart icon */
+.fa-shopping-cart {
+  vertical-align: sub;
+  font-size: 1.5rem;
+}
+
+.btn .badge {
+  position: relative;
+  top: -13px;
+  left: -13px;
+}
+
+.badge-danger {
+  background-color: #ff5400;
+  border-radius: 20px;
+  color: #fff;
+}
