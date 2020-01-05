@@ -1,5 +1,5 @@
 const db = require('../models')
-const { Cart, Order, OrderItem, Delivery } = db
+const { Cart, CartItem, Order, OrderItem, Delivery } = db
 
 module.exports = {
   async getCheckout1(req, res) {
@@ -144,6 +144,9 @@ module.exports = {
           })
         )
       )
+
+      // 清除購物車 items
+      await CartItem.destroy({ where: { CartId: cart.id } })
 
       res.redirect('/products')
 
