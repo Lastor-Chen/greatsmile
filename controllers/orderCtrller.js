@@ -1,5 +1,5 @@
 const db = require('../models')
-const { Cart, CartItem, Product, Order, OrderItem, Delivery } = db
+const { Cart, CartItem, Order, OrderItem, Delivery } = db
 
 module.exports = {
   async getCheckout(req, res) {
@@ -37,6 +37,7 @@ module.exports = {
       // 製作 passData
       cart.dataValues.subtotal = subtotal
       const data = { cart }
+      req.flash('passData')  // reset flash
       req.flash('passData', data)
 
       res.redirect('checkout-1')
