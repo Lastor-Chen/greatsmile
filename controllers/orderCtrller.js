@@ -1,7 +1,5 @@
 const db = require('../models')
-const Cart = db.Cart
-const Order = db.Order
-const OrderItem = db.OrderItem
+const { Cart, Order, OrderItem, Delivery } = db
 
 module.exports = {
   async getCheckout1(req, res) {
@@ -74,16 +72,26 @@ module.exports = {
   async checkout3(req, res) {
     try {
       // 整理寄送方式
-      const deliveryMethod = req.body
+      const input = req.body
+      input.deliveryId = input.deliveryId.split(',')[0]
+
+      const delivery = await Delivery.findByPk(input.deliveryId)
+      input.shipping = delivery.price
 
       // 寄送方式注入 passData
-      const data = { ...req.flash('passData')[0], ...deliveryMethod }
+      const data = { ...req.flash('passData')[0], ...input }
+
+      // 計算運費
+      data.total = ( data.cart.subtotal + input.shipping)
       req.flash('passData', data)
       console.log(data)
 
+      // 製作頁面資料
+      const total = data.total
+      const shipping = data.shipping
       const cart = data.cart
       
-      res.render('checkout_3', { css: "checkout", js: "checkout", cart })
+      res.render('checkout_3', { css: "checkout", js: "checkout", cart, shipping, total })
 
     } catch (err) {
       console.error(err)
@@ -101,9 +109,12 @@ module.exports = {
       req.flash('passData', data)
       console.log(data)
 
+      // 製作頁面資料
+      const total = data.total
+      const shipping = data.shipping
       const cart = data.cart
       
-      res.render('checkout_4', { css: 'checkout', cart })
+      res.render('checkout_4', { css: 'checkout', cart, shipping, total })
 
     } catch (err) {
       console.error(err)
