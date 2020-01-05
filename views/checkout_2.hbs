@@ -13,21 +13,27 @@
           </ul>
         </nav>
         {{!-- 內容表單 --}}
-        <form action="/orders/checkout-3" method="POST">
+        <form id="shipForm" action="/orders/checkout-3" method="POST">
           <section class="row m-0 p-4">
             <div class="col-4">
               <h6 class="mb-4 font-weight-bold">選擇寄件方式</h6>
             </div>
             <div class="col-8">
               <div class="form-check mb-2">
-                <input id="radio1" class="form-check-input" type="radio" name="deliveryMethod" value="option1">
+                <input id="radio1" class="form-check-input" type="radio" name="deliveryMethod" value="店鋪取貨,0">
                 <label class="form-check-label radio-label" for="radio1">
+                  <span>店鋪取貨 - NTD 0</span>
+                </label>
+              </div>
+              <div class="form-check mb-2">
+                <input id="radio2" class="form-check-input" type="radio" name="deliveryMethod" value="便利商店取貨,80">
+                <label class="form-check-label radio-label" for="radio2">
                   <span>便利商店取貨 - NTD 80</span>
                 </label>
               </div>
               <div class="form-check mb-2">
-                <input id="radio2" class="form-check-input" type="radio" name="deliveryMethod" value="option2" checked>
-                <label class="form-check-label radio-label" for="radio2">
+                <input id="radio3" class="form-check-input" type="radio" name="deliveryMethod" value="宅配,150">
+                <label class="form-check-label radio-label" for="radio3">
                   <span>宅配 - NTD 150</span>
                 </label>
               </div>
@@ -51,15 +57,24 @@
         <div class="px-3 pb-3">
           <div class="d-flex justify-content-between border-bottom py-2 font-small">
             <span>小計:</span>
-            <span>NTD {{addDot cart.subtotal}}</span>
+            <p>
+              <span>NTD </span>
+              <span id="subtotal" data-val="{{cart.subtotal}}">{{addDot cart.subtotal}}</span>
+            </p>
           </div>
           <div class="d-flex justify-content-between border-bottom py-2 font-small">
             <span>運費:</span>
-            <span>NTD 150</span>
+            <p>
+              <span>NTD </span>
+              <span id="shipping">0</span>
+            </p>
           </div>
           <div class="d-flex justify-content-between font-weight-bold py-2">
             <span>合計:</span>
-            <span>NTD {{addDot cart.total}}</span>
+            <p>
+              <span>NTD </span>
+              <span id="total">{{addDot cart.subtotal}}</span>
+            </p>
           </div>
         </div>
       </section>

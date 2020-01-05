@@ -36,7 +36,7 @@ module.exports = {
       })
       cart.subtotal = subtotal
       cart.dataValues.subtotal = subtotal
-
+      console.log(cart.dataValues)
       req.flash('passData', { cart })
       res.render('checkout_1', { css: 'checkout', cart })
 
@@ -49,24 +49,21 @@ module.exports = {
   async checkout2(req, res) {
     try {
       // 整理收件人資料
-      const foo = req.body
+      const input = req.body
       const receiver = {
-        receiver: `${foo.lastName} ${foo.firstName}`,
-        address: `${foo.postCode},${foo.area},${foo.zone},${foo.line1},${foo.line2}`,
-        phone: foo.phone
+        receiver: `${input.lastName} ${input.firstName}`,
+        address: `${input.postCode},${input.area},${input.zone},${input.line1},${input.line2}`,
+        phone: input.phone
       }
       
       // 收件人資料注入 passData
       const data = { ...req.flash('passData')[0], ...receiver }
-
-      // 預設運費 (臨時)
-      data.cart.total = data.cart.subtotal + 150
       req.flash('passData', data)
       console.log(data)
 
       const cart = data.cart
 
-      res.render('checkout_2', { css: "checkout", cart })
+      res.render('checkout_2', { css: "checkout", js: 'checkout', cart })
 
     } catch (err) {
       console.error(err)
