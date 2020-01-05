@@ -2,7 +2,7 @@
 $('#shipForm').change((e) => {
   const radio = e.target
 
-  const shipping = +(radio.value).split(',')[1]
+  const shipping = +$(radio).data('price')
   $('#shipping').text(shipping)
   
   const subtotal = +$('#subtotal').data('val')

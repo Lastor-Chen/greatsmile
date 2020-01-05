@@ -73,7 +73,7 @@ module.exports = {
     try {
       // 整理寄送方式
       const input = req.body
-      input.deliveryId = input.deliveryId.split(',')[0]
+      input.deliveryId = input.deliveryId
 
       const delivery = await Delivery.findByPk(input.deliveryId)
       input.shipping = delivery.price
