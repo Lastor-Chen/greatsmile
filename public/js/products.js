@@ -17,6 +17,12 @@ $('#sort').on('change', function() {
     queryString += `category=${categoryQuery}&`
   } 
   
+  // 取得 tag
+  const tagQuery = $('#tagQuery').data('tag')
+  if (tagQuery) {
+    queryString += `tag=${tagQuery}&`
+  } 
+
   // 最後加上 selected 排序
   queryString += `sort=${sort}&order=${order}`
 

@@ -116,7 +116,7 @@ module.exports = {
       res.render('products', { 
         js: 'products',
         css: 'products',
-        products, selectedSort, searchQuery, bread, pagesArray, queryString, categoryQuery, page, prev, next, isAllProducts
+        products, selectedSort, searchQuery, bread, pagesArray, queryString, categoryQuery, tagQuery, page, prev, next, isAllProducts
       })
 
     } catch (err) {
