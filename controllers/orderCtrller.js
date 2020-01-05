@@ -68,7 +68,7 @@ module.exports = {
       // 整理收件人資料
       const input = req.body
       const receiver = {
-        receiver: `${input.lastName} ${input.firstName}`,
+        receiver: [input.lastName, input.firstName],
         address: [input.postCode, input.area, input.zone, input.line1, input.line2],
         phone: input.phone
       }
@@ -186,6 +186,7 @@ module.exports = {
       // 取出 data 並 format
       const data = req.flash('passData')[0]
       data.address = data.address.join(',')
+      data.receiver = data.receiver.join(',')
 
       // 建立 Order
       const order = await Order.create({
@@ -198,7 +199,6 @@ module.exports = {
 
       // 建立 OrderItem
       const cart = data.cart
-      console.log(cart.products[0])
       await Promise.all(
         cart.products.map(prod =>
           OrderItem.create({
