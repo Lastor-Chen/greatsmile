@@ -2,7 +2,7 @@ const db = require('../models')
 const { Cart, CartItem, Order, OrderItem, Delivery } = db
 
 module.exports = {
-  async getCheckout(req, res) {
+  async setCheckout(req, res) {
     try {
       // Query 資料庫
       const cartId = req.session.cartId
@@ -40,7 +40,7 @@ module.exports = {
       req.flash('passData')  // reset flash
       req.flash('passData', data)
 
-      res.redirect('checkout-1')
+      res.redirect('checkout_1')
 
     } catch (err) {
       console.error(err)
@@ -48,16 +48,17 @@ module.exports = {
     }
   },
 
-  async getCheckout_1(req, res) {
+  getCheckout(req, res) {
     try {
       const data = req.flash('passData')[0]
       console.log(data)
 
       // 無 passData，阻擋退回
       if (!data) return res.redirect('/cart')
-
       req.flash('passData', data)
-      res.render('checkout_1', { css: 'checkout', data })
+
+      const view = req.path.slice(1)
+      res.render(view, { css: 'checkout', js: 'checkout', data })
 
     } catch (err) {
       console.error(err)
@@ -65,7 +66,7 @@ module.exports = {
     }
   },
 
-  async checkout_1(req, res) {
+  checkout_1(req, res) {
     try {
       // 整理收件人資料
       const input = req.body
@@ -80,24 +81,7 @@ module.exports = {
       req.flash('passData', data)
       console.log(data)
 
-      res.redirect('checkout-2')
-
-    } catch (err) {
-      console.error(err)
-      res.status(500).json({ status: 'serverError', message: err.toString() })
-    }
-  },
-
-  async getCheckout_2(req, res) {
-    try {
-      const data = req.flash('passData')[0]
-      console.log(data)
-
-      // 無 passData，阻擋退回
-      if (!data) return res.redirect('/cart')
-
-      req.flash('passData', data)
-      res.render('checkout_2', { css: "checkout", js: 'checkout', data })
+      res.redirect('checkout_2')
 
     } catch (err) {
       console.error(err)
@@ -123,7 +107,7 @@ module.exports = {
       req.flash('passData', data)
       console.log(data)
 
-      res.redirect('checkout-3')
+      res.redirect('checkout_3')
 
     } catch (err) {
       console.error(err)
@@ -131,24 +115,7 @@ module.exports = {
     }
   },
 
-  async getCheckout_3(req, res) {
-    try {
-      const data = req.flash('passData')[0]
-      console.log(data)
-
-      // 無 passData，阻擋退回
-      if (!data) return res.redirect('/cart')
-
-      req.flash('passData', data)
-      res.render('checkout_3', { css: "checkout", js: "checkout", data })
-
-    } catch (err) {
-      console.error(err)
-      res.status(500).json({ status: 'serverError', message: err.toString() })
-    }
-  },
-
-  async checkout_3(req, res) {
+  checkout_3(req, res) {
     try {
       // 整理付款方式
       const payMethod = req.body
@@ -158,24 +125,7 @@ module.exports = {
       req.flash('passData', data)
       console.log(data)
 
-      res.redirect('checkout-4')
-
-    } catch (err) {
-      console.error(err)
-      res.status(500).json({ status: 'serverError', message: err.toString() })
-    }
-  },
-
-  async getCheckout_4(req, res) {
-    try {
-      const data = req.flash('passData')[0]
-      console.log(data)
-
-      // 無 passData，阻擋退回
-      if (!data) return res.redirect('/cart')
-
-      req.flash('passData', data)
-      res.render('checkout_4', { css: 'checkout', data })
+      res.redirect('checkout_4')
 
     } catch (err) {
       console.error(err)
