@@ -4,22 +4,24 @@ const { Cart, CartItem, Order, OrderItem, Delivery } = db
 module.exports = {
   async getCheckout1(req, res) {
     try {
+      // 確認登入狀態
+      if (!req.user) return res.redirect('/users/signin')
+
+      // Query 資料庫
       const cartId = req.session.cartId
       const cart = await Cart.findByPk(cartId, {
         include: [{
-            association: 'products',
-            attributes: ['id', 'name', 'price'],
-            include: [{
-              association: 'Images',
-              where: { is_main: true }
-            }],
+          association: 'products',
+          attributes: ['id', 'name', 'price'],
+          include: [{
+            association: 'Images',
+            where: { is_main: true }
+          }],
         }]
       })
 
       // 確認有無選購商品
-      if (!cart || !cart.products.length) {
-        return res.redirect('/cart')
-      } 
+      if (!cart || !cart.products.length) return res.redirect('/cart')
 
       // 計算商品價錢
       let subtotal = 0
@@ -33,9 +35,12 @@ module.exports = {
         prod.dataValues.amount = prod.amount
       })
       cart.subtotal = subtotal
+
+      // 製作 passData
       cart.dataValues.subtotal = subtotal
-      console.log(cart.dataValues)
-      req.flash('passData', { cart })
+      const data = { cart }
+      req.flash('passData', data)
+
       res.render('checkout_1', { css: 'checkout', cart })
 
     } catch (err) {
