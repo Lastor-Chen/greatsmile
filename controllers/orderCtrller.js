@@ -50,16 +50,16 @@ module.exports = {
       const input = req.body
       const receiver = {
         receiver: `${input.lastName} ${input.firstName}`,
-        address: `${input.postCode},${input.area},${input.zone},${input.line1},${input.line2}`,
+        address: [input.postCode, input.area, input.zone, input.line1, input.line2],
         phone: input.phone
       }
-      
+
       // 收件人資料注入 passData
       const data = { ...req.flash('passData')[0], ...receiver }
       req.flash('passData', data)
       console.log(data)
 
-      const cart = data.cart
+      const { cart } = data
 
       res.render('checkout_2', { css: "checkout", js: 'checkout', cart })
 
@@ -73,24 +73,23 @@ module.exports = {
     try {
       // 整理寄送方式
       const input = req.body
-      input.deliveryId = input.deliveryId
+      input.DeliveryId = +input.DeliveryId
 
-      const delivery = await Delivery.findByPk(input.deliveryId)
+      const delivery = await Delivery.findByPk(input.DeliveryId)
       input.shipping = delivery.price
+      input.deliveryMethod = delivery.method
 
       // 寄送方式注入 passData
       const data = { ...req.flash('passData')[0], ...input }
 
       // 計算運費
-      data.total = ( data.cart.subtotal + input.shipping)
+      data.amount = (data.cart.subtotal + input.shipping)
       req.flash('passData', data)
       console.log(data)
 
       // 製作頁面資料
-      const total = data.total
-      const shipping = data.shipping
-      const cart = data.cart
-      
+      const { amount: total, shipping, cart } = data
+
       res.render('checkout_3', { css: "checkout", js: "checkout", cart, shipping, total })
 
     } catch (err) {
@@ -109,12 +108,7 @@ module.exports = {
       req.flash('passData', data)
       console.log(data)
 
-      // 製作頁面資料
-      const total = data.total
-      const shipping = data.shipping
-      const cart = data.cart
-      
-      res.render('checkout_4', { css: 'checkout', cart, shipping, total })
+      res.render('checkout_4', { css: 'checkout', data })
 
     } catch (err) {
       console.error(err)
@@ -124,20 +118,22 @@ module.exports = {
 
   async postOrder(req, res) {
     try {
+      // 取出 data 並 format
       const data = req.flash('passData')[0]
+      data.address = data.address.join(',')
 
       // 建立 Order
       const order = await Order.create({
         ...data,
         UserId: req.user.id,
         sn: 'ABCD',
-        amount: data.cart.total,
         payStatus: false,
         shipStatus: false
       })
 
       // 建立 OrderItem
       const cart = data.cart
+      console.log(cart.products[0])
       await Promise.all(
         cart.products.map(prod =>
           OrderItem.create({

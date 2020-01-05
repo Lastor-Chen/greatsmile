@@ -22,13 +22,13 @@
             </div>
             <div class="col-8 summary-content">
               <ul>
-                <li>姓&nbsp;明明</li>
-                <li>台灣</li>
-                <li>234</li>
-                <li>新北市</li>
-                <li>永和區</li>
-                <li>12街50巷</li>
-                <li>電話:0912345678</li>
+                <li>{{data.receiver}}</li>
+                <li>{{data.address.[0]}}</li>
+                <li>{{data.address.[1]}}</li>
+                <li>{{data.address.[2]}}</li>
+                <li>{{data.address.[3]}}</li>
+                <li>{{data.address.[4]}}</li>
+                <li>{{data.phone}}</li>
               </ul>
             </div>
           </section>
@@ -40,8 +40,7 @@
             </div>
             <div class="col-8 summary-content">
               <ul>
-                <li>宅配 -</li>
-                <li>- NTD {{shippingFee}}</li>
+                <li>{{data.deliveryMethod}} - NTD {{addDot data.shipping}}</li>
               </ul>
             </div>
           </section>
@@ -53,15 +52,15 @@
             </div>
             <div class="col-8 summary-content">
               <ul>
-                <li>信用卡付款</li>
-                <li class="my-3 font-weight-bold">帳單地址:</li>
-                <li>姓&nbsp;明明</li>
-                <li>台灣</li>
-                <li>234</li>
-                <li>新北市</li>
-                <li>永和區</li>
-                <li>12街50巷</li>
-                <li>電話:0912345678</li>
+                <li>{{data.payMethod}}</li>
+                <li class="my-3 font-weight-bold">帳單地址: (未實裝，現同收件地址)</li>
+                <li>{{data.receiver}}</li>
+                <li>{{data.address.[0]}}</li>
+                <li>{{data.address.[1]}}</li>
+                <li>{{data.address.[2]}}</li>
+                <li>{{data.address.[3]}}</li>
+                <li>{{data.address.[4]}}</li>
+                <li>{{data.phone}}</li>
               </ul>
             </div>
           </section>
@@ -92,15 +91,15 @@
         <div class="px-3 pb-3">
           <div class="d-flex justify-content-between border-bottom py-2 font-small">
             <span>小計:</span>
-            <span>NTD {{addDot cart.subtotal}}</span>
+            <span>NTD {{addDot data.cart.subtotal}}</span>
           </div>
           <div class="d-flex justify-content-between border-bottom py-2 font-small">
             <span>運費:</span>
-            <span>NTD {{addDot shipping}}</span>
+            <span>NTD {{addDot data.shipping}}</span>
           </div>
           <div class="d-flex justify-content-between font-weight-bold py-2">
             <span>合計:</span>
-            <span>NTD {{addDot total}}</span>
+            <span>NTD {{addDot data.amount}}</span>
           </div>
         </div>
       </section>
@@ -108,7 +107,7 @@
       <section class="panel">
         <h6 class="font-weight-bold border-bottom p-3">配送商品</h6>
         <div class="prod-list px-3">
-          {{#each cart.products}}
+          {{#each data.cart.products}}
             <div class="row">
               <div class="col-2 px-0">
                 <a href="/products/{{id}}">
