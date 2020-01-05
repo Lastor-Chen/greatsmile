@@ -1,5 +1,5 @@
 const db = require('../models')
-const { Cart, CartItem, Order, OrderItem, Delivery } = db
+const { Cart, CartItem, Product, Order, OrderItem, Delivery } = db
 
 module.exports = {
   async getCheckout(req, res) {
@@ -14,7 +14,8 @@ module.exports = {
             association: 'Images',
             where: { is_main: true }
           }],
-        }]
+        }],
+        order: [['products', CartItem, 'id', 'DESC']]
       })
 
       // 確認有無選購商品
