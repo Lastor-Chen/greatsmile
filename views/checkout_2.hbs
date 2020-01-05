@@ -13,7 +13,7 @@
           </ul>
         </nav>
         {{!-- 內容表單 --}}
-        <form id="shipForm" action="/orders/checkout-3" method="POST">
+        <form id="shipForm" action="/orders/checkout-2" method="POST">
           <section class="row m-0 p-4">
             <div class="col-4">
               <h6 class="mb-4 font-weight-bold">選擇寄件方式</h6>
@@ -24,6 +24,7 @@
                   name="DeliveryId"
                   value="1"
                   data-price="0"
+                  {{#ifEqual data.DeliveryId 1}}checked{{/ifEqual}}
                 >
                 <label class="form-check-label radio-label" for="radio1">店鋪取貨 - NTD 0</label>
               </div>
@@ -32,6 +33,7 @@
                   name="DeliveryId"
                   value="2"
                   data-price="80"
+                  {{#ifEqual data.DeliveryId 2}}checked{{/ifEqual}}
                 >
                 <label class="form-check-label radio-label" for="radio2">便利商店取貨 - NTD 80</label>
               </div>
@@ -40,6 +42,7 @@
                   name="DeliveryId"
                   value="3"
                   data-price="150"
+                  {{#ifEqual data.DeliveryId 3}}checked{{/ifEqual}}
                 >
                 <label class="form-check-label radio-label" for="radio3">宅配 - NTD 150</label>
               </div>
@@ -65,7 +68,7 @@
             <span>小計:</span>
             <p>
               <span>NTD </span>
-              <span id="subtotal" data-val="{{cart.subtotal}}">{{addDot cart.subtotal}}</span>
+              <span id="subtotal" data-val="{{data.cart.subtotal}}">{{addDot data.cart.subtotal}}</span>
             </p>
           </div>
           <div class="d-flex justify-content-between border-bottom py-2 font-small">
@@ -79,7 +82,7 @@
             <span>合計:</span>
             <p>
               <span>NTD </span>
-              <span id="total">{{addDot cart.subtotal}}</span>
+              <span id="total">{{addDot data.cart.subtotal}}</span>
             </p>
           </div>
         </div>
@@ -88,7 +91,7 @@
       <section class="panel">
         <h6 class="font-weight-bold border-bottom p-3">配送商品</h6>
         <div class="prod-list px-3">
-          {{#each cart.products}}
+          {{#each data.cart.products}}
             <div class="row">
               <div class="col-2 px-0">
                 <a href="/products/{{id}}">

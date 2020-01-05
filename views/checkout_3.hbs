@@ -13,22 +13,34 @@
           </ul>
         </nav>
         {{!-- 內容表單 --}}
-        <form action="/orders/checkout-4" method="POST">
+        <form action="/orders/checkout-3" method="POST">
           <section class="row m-0 p-4 border-bottom">
             <div class="col-4">
               <h6 class="mb-4 font-weight-bold">選擇付款方式</h6>
             </div>
             <div class="col-8">
               <div class="form-check mb-2">
-                <input id="radio1" class="form-check-input" type="radio" name="payMethod" value="信用卡付款">
+                <input type="radio" id="radio1" class="form-check-input"
+                  name="payMethod"
+                  value="信用卡付款"
+                  {{#ifEqual data.payMethod "信用卡付款"}}checked{{/ifEqual}}
+                >
                 <label class="form-check-label radio-label" for="radio1">信用卡付款</label>
               </div>
               <div class="form-check mb-2">
-                <input id="radio2" class="form-check-input" type="radio" name="payMethod" value="便利商店付款">
+                <input type="radio" id="radio2" class="form-check-input"
+                  name="payMethod"
+                  value="便利商店付款"
+                  {{#ifEqual data.payMethod "便利商店付款"}}checked{{/ifEqual}}
+                >
                 <label class="form-check-label radio-label" for="radio2">便利商店付款</label>
               </div>
               <div class="form-check mb-2">
-                <input id="radio3" class="form-check-input" type="radio" name="payMethod" value="便利商店取貨付款">
+                <input type="radio" id="radio3" class="form-check-input"
+                  name="payMethod"
+                  value="便利商店取貨付款"
+                  {{#ifEqual data.payMethod "便利商店取貨付款"}}checked{{/ifEqual}}
+                >
                 <label class="form-check-label radio-label" for="radio3">便利商店取貨付款</label>
               </div>
             </div>
@@ -90,15 +102,15 @@
         <div class="px-3 pb-3">
           <div class="d-flex justify-content-between border-bottom py-2 font-small">
             <span>小計:</span>
-            <span>NTD {{addDot cart.subtotal}}</span>
+            <span>NTD {{addDot data.cart.subtotal}}</span>
           </div>
           <div class="d-flex justify-content-between border-bottom py-2 font-small">
             <span>運費:</span>
-            <span>NTD {{addDot shipping}}</span>
+            <span>NTD {{addDot data.shipping}}</span>
           </div>
           <div class="d-flex justify-content-between font-weight-bold py-2">
             <span>合計:</span>
-            <span>NTD {{addDot total}}</span>
+            <span>NTD {{addDot data.total}}</span>
           </div>
         </div>
       </section>
@@ -106,7 +118,7 @@
       <section class="panel">
         <h6 class="font-weight-bold border-bottom p-3">配送商品</h6>
         <div class="prod-list px-3">
-          {{#each cart.products}}
+          {{#each data.cart.products}}
             <div class="row">
               <div class="col-2 px-0">
                 <a href="/products/{{id}}">
