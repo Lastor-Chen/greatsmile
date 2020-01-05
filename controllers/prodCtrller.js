@@ -41,6 +41,32 @@ module.exports = {
         } 
       }
 
+      // tag
+      const tagQuery = req.query.tag
+      const tagId = {
+        '預購中商品一覽': 1,
+        '附特典': 2,
+        '庫存販售商品': 3,
+      }
+
+      if (tagQuery) {
+        if (tagQuery == '即將截止預購') {
+          // 取得當地今日 23:99 ，再轉回時間格式
+          // 從今天往後取 7 天快截止的商品
+          const today = moment().add(7, 'days').endOf('day')
+          const todayDate = new Date(today)
+
+          where['$tags.id$'] = 1  // 預購中
+          where.deadline = {      
+            [Op.lte]: todayDate}
+
+        } else if (tagQuery == '所有商品') {
+          // 什麼都不加
+        } else {
+          where['$tags.id$'] = tagId[tagQuery]
+        }
+      }
+
       // 設定分頁偏移
       const page = +req.query.page || 1
       const offset = (page - 1) * pageLimit 
@@ -48,16 +74,17 @@ module.exports = {
       // db Query
       const result = await Product.findAndCountAll({
         include: [
-          // 設定 separate，使 '$Series.name$' 能工作
+          // 設定 separate，使 '$Series.name$' 能工作  (一對多)
           { model: Image, separate: true },
           { model: Gift, separate: true },
-          'Series'
+          'Series', 'tags'
         ],
         distinct: true, // 去重顯示正確數量
         where,
         order,
         offset,
-        limit: pageLimit
+        limit: pageLimit,
+        subQuery: false,  // 設定 subQuery，使 '$Series.name$' 能工作 (多對多)
       })
 
       // 製作頁面資料

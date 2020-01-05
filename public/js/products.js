@@ -22,3 +22,28 @@ $('#sort').on('change', function() {
 
   window.location = queryString
 })
+
+// Tag
+$('.nav-tag').on('click', e => {
+  let queryString = `?`
+ 
+  // 確認 search query
+  const searchQuery = $('#searchQuery').data('q')
+  if (searchQuery) {
+    queryString += `q=${searchQuery}&`
+  }
+
+  // 確認 category query
+  const categoryQuery = $('#categoryQuery').data('category')
+  if (categoryQuery) {
+    queryString += `category=${categoryQuery}&`
+  }
+
+  // 取得 tag
+  if (e.target.matches('.btn-sm')) {
+    const tagValue = $(e.target).data('tag')
+    queryString += `tag=${tagValue}`
+  }
+
+  window.location = queryString 
+})  
