@@ -54,7 +54,7 @@ module.exports = {
       console.log(data)
 
       // 無 passData，阻擋退回
-      if (!data) return res.redirect('/')
+      if (!data) return res.redirect('/cart')
 
       req.flash('passData', data)
       res.render('checkout_1', { css: 'checkout', data })
@@ -94,7 +94,7 @@ module.exports = {
       console.log(data)
 
       // 無 passData，阻擋退回
-      if (!data) return res.redirect('/')
+      if (!data) return res.redirect('/cart')
 
       req.flash('passData', data)
       res.render('checkout_2', { css: "checkout", js: 'checkout', data })
@@ -137,7 +137,7 @@ module.exports = {
       console.log(data)
 
       // 無 passData，阻擋退回
-      if (!data) return res.redirect('/')
+      if (!data) return res.redirect('/cart')
 
       req.flash('passData', data)
       res.render('checkout_3', { css: "checkout", js: "checkout", data })
@@ -172,7 +172,7 @@ module.exports = {
       console.log(data)
 
       // 無 passData，阻擋退回
-      if (!data) return res.redirect('/')
+      if (!data) return res.redirect('/cart')
 
       req.flash('passData', data)
       res.render('checkout_4', { css: 'checkout', data })
