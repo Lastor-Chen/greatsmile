@@ -2,16 +2,16 @@
   <div class="card-body pt-4">
     <div class="row col-12">
       <div class="col-6 mx-auto">
-        {{#if tag}}
-          <form class="form-inline d-flex justify-content-end" action="/admin/tags/{{tag.id}}?_method=PUT"
+        {{#if category}}
+          <form class="form-inline d-flex justify-content-end" action="/admin/categories/{{category.id}}?_method=PUT"
             method="POST">
             <div class="form-group mx-sm-3 mb-2 mt-1">
-              <input type="text" class="form-control" name="name" placeholder="輸入分類名稱..." value={{tag.name}} required>
+              <input type="text" class="form-control" name="name" placeholder="輸入分類名稱..." value={{category.name}} required>
             </div>
             <button type="submit" class="btn btn-primary mb-2 mt-1">更新分類</button>
           </form>
         {{else}}
-          <form class="form-inline d-flex justify-content-end" action="/admin/tags" method="POST">
+          <form class="form-inline d-flex justify-content-end" action="/admin/categories" method="POST">
             <div class="form-group mx-sm-3 mb-2 mt-1">
               <input type="text" class="form-control" name="name" placeholder="輸入新分類..." required>
             </div>
@@ -34,7 +34,7 @@
                 <td>{{this.name}}</td>
                 <td>
                   <button type="button" class="btn font-weight-normal">
-                    <a href="/admin/tags/{{this.id}} " class="text-decoration-none btn btn-outline-dark"><i
+                    <a href="/admin/categories/{{this.id}} " class="text-decoration-none btn btn-outline-dark"><i
                         class="fas fa-edit" title="編輯分類資料"></i></a>
                   </button>
                   <!-- Delete Button trigger modal -->
@@ -62,7 +62,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                        <form action="/admin/tags/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+                        <form action="/admin/categories/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
                           <button type="submit" class="btn btn-outline-danger font-weight-normal">確認刪除
                           </button>
                         </form>
