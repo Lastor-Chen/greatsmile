@@ -1,3 +1,7 @@
+.signCard {
+  min-height: 572px;
+}
+
 .description {
   font-size: 0.9rem;
 }
@@ -57,3 +61,4 @@
 .form-control {
   background-color: #faf5f1;
 }
+
