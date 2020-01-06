@@ -4,7 +4,6 @@ const { isAuth } = require('../middleware/auth')
 
 // route base '/users'
 router.get('/', (req, res) => res.send('users page'))
-router.get('/signup', userCtrller.getSignUp)
 router.post('/signup', userCtrller.signUp)
 router.get('/signin', userCtrller.getSignIn)
 router.get('/signin/checkout', userCtrller.getSignIn)
