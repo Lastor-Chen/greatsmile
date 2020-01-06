@@ -1,11 +1,15 @@
-
-.item-list {
-  list-style:none;
-  padding-inline-start: 10px;
-  padding-top: 10px;
-  line-height: 2rem;
+.description {
   font-size: 0.9rem;
 }
+
+.form-check-label {
+  font-size: 0.8rem;
+}
+
+.form-check-input {
+  font-size: 0.8rem;
+}
+
 
 .panel {
   background-color: #ffffff;
