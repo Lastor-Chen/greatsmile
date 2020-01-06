@@ -15,8 +15,10 @@ module.exports = {
       const input = { ...req.body }  // 深拷貝，保護原始資料
       // check input
       const error = await checkSignUp(input)
-      if (error) return res.render('signup', { error, input })
+      if (error) return res.render('signin', { error, input })
 
+      input.name = input.lastName + input.firstName
+      input.nickname = input.firstName
       input.password = bcrypt.hashSync(input.password, 10)
       input.isAdmin = false
       input.birthday = new Date
