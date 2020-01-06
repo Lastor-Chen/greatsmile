@@ -14,6 +14,9 @@
           <div class="d-flex align-items-start">
             <ul class="nav-tag">
               <li class="d-inline">
+                <a class="btn btn-sm {{#ifEqual tagQuery '所有商品'}}active{{/ifEqual}}" data-tag="所有商品">所有商品</a>
+              </li>
+              <li class="d-inline">
                 <a class="btn btn-sm {{#ifEqual tagQuery '預購中商品一覽'}}active{{/ifEqual}}" data-tag="預購中商品一覽">預購中商品一覽</a>
               </li>
               <li class="d-inline">
@@ -24,9 +27,6 @@
               </li>
               <li class="d-inline">
                 <a class="btn btn-sm {{#ifEqual tagQuery '即將截止預購'}}active{{/ifEqual}}" data-tag="即將截止預購">即將截止預購</a>
-              </li>
-              <li class="d-inline">
-                <a class="btn btn-sm {{#ifEqual tagQuery '所有商品'}}active{{/ifEqual}}" data-tag="所有商品">所有商品</a>
               </li>
             </ul>
           </div>

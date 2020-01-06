@@ -42,7 +42,7 @@ module.exports = {
       }
 
       // tag
-      const tagQuery = req.query.tag
+      const tagQuery = req.query.tag || '所有商品'
       const tagId = {
         '預購中商品一覽': 1,
         '附特典': 2,
