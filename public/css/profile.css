@@ -1,0 +1,119 @@
+
+.item-list {
+  list-style:none;
+  padding-inline-start: 10px;
+  padding-top: 10px;
+  line-height: 2rem;
+  font-size: 0.9rem;
+}
+
+.panel {
+  background-color: #ffffff;
+  border-radius: 20px;
+  margin: 0 15px;
+}
+
+.panel-item {
+  background-color: #f8f8f8ff;
+  border-radius: 20px;
+  margin: 0px;
+  height: 182px;
+  width: 100%;
+}
+
+.panel-heading {
+  padding: 10px 15px;
+  font-size: 22px;
+  font-weight: bold;
+  border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+.panel-item-heading {
+  padding: 10px 15px;
+  font-size: 15px;
+  font-weight: bold;
+  border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+.panel-heading div {
+  margin: 0 18px;
+}
+
+.side-heading {
+  padding: 10px 15px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.side-item-list {
+  list-style:none;
+  padding-inline-start: 10px;
+  padding-top: 10px;
+  line-height: 2rem;
+  font-size: 0.7rem;
+}
+
+.side-box-shadow {
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, .25);
+}
+
+.tag-gift {
+  background-color: #ffe14d;
+  color: #e53900;
+}
+
+.tag-preorder {
+  background-color: #34A853;
+  color: #ffffff;
+}
+
+.text-pick {
+  color: #ff9600;
+}
+
+.side-list-text {
+  font-size: 0.9rem;
+}
+
+.profile-href {
+  color: #258fb8;
+}
+
+.order-card {
+   cursor: pointer;
+   padding-left: 0;
+   padding-right: 0;
+   background-color: white;
+}
+
+.card{
+  width: 48rem;
+}
+
+.accordion-thead {
+  width: 16rem;
+  text-align: center;
+}
+
+.accordion-title {
+  width: 12rem;
+  padding-left: 5rem;
+  padding-right: 2rem;
+  text-align: right;
+}
+
+.accordion-data {
+  width: 30rem;
+}
+
+.border-less {
+  border-color: white;
+}
+
+.table th {
+  border-top: 0px;
+}
+
+.order-info {
+  font-size: 0.9rem;
+}

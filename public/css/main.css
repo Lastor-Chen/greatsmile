@@ -125,6 +125,7 @@ body {
   height: 70px;
 }
 
+
 /* alert.hbs */
 .alert-success {
   color: #339b01;
@@ -176,4 +177,12 @@ body {
   background-color: #ff5400;
   border-radius: 20px;
   color: #fff;
+}
+
+.userpage-item {
+  font-size: 12px;
+}
+
+.userpage-link{
+  color: #49443f;
 }

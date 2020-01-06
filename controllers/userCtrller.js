@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs')
 const passport = require('passport')
 const db = require('../models')
-const { User } = db
+const { User, Order, Product } = db
 
 const { checkSignUp } = require('../lib/checker.js')
 
@@ -49,5 +49,40 @@ module.exports = {
     req.flash('success', '登出成功！')
     req.logout()
     res.redirect('/')
+  },
+
+  getProfile: (req, res) => {
+    res.render('profile', { css: 'profile' })
+  },
+
+  getOrders: async (req, res) => {
+    try {
+      let orders = await Order.findAll({
+        where: { user_id: req.user.id },
+        order: [['id', 'DESC']],
+        include: {
+          model: Product, as: 'products',
+          include: ['Gifts', 'Images']
+        }
+      })
+
+      orders.forEach(order => {
+        order.createdTime = order.createdAt.toJSON().split('T')[0]
+        order.amountFormat = order.amount.toLocaleString()
+        order.products.forEach(product => {
+          product.mainImg = product.Images.find(img => img.isMain).url
+          product.orderPrice = product.OrderItem.price.toLocaleString()
+          product.subPrice = product.OrderItem.quantity * product.price
+        })
+      })
+
+
+      res.render('orders', { orders, css: 'profile' })
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+
+
   },
 }
