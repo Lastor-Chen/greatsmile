@@ -49,7 +49,7 @@ module.exports = {
       const categories = await Category.findAll({
         order: [['id', 'DESC']]
       })
-      console.log(category)
+
       res.render('admin/categories', { category, categories })
 
     } catch (err) {
