@@ -1,0 +1,15 @@
+{{#if signUpSuccess}}
+  <div class="alert alert-success fade show">
+    <span>{{signUpSuccess}}</span>
+    <button type="button" class="close" data-dismiss="alert">
+      <span>&times;</span>
+    </button>
+  </div>
+{{else if signUpError}}
+  <div class="alert alert-danger fade show">
+    <span>{{signUpError}}</span>
+    <button type="button" class="close" data-dismiss="alert">
+      <span>&times;</span>
+    </button>
+  </div>
+{{/if}}

@@ -10,10 +10,10 @@ module.exports = {
     try {
       const input = { ...req.body }  // 深拷貝，保護原始資料
       // check input
-      const error = await checkSignUp(input)
-      if (error) {
+      const signUpError = await checkSignUp(input)
+      if (signUpError) {
         let path = req.path
-        return res.render('signin', { error, input, path, css: 'signIn' })
+        return res.render('signin', { signUpError, input, path, css: 'signIn' })
       }
       
 
@@ -24,7 +24,7 @@ module.exports = {
       input.birthday = new Date
       await User.create(input)
 
-      req.flash('success', '已成功註冊帳號')
+      req.flash('signUpSuccess', '已成功註冊帳號')
       res.redirect('/users/signin')
 
     } catch (err) {
