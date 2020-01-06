@@ -4,7 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return Promise.all([
       queryInterface.bulkInsert('Tag_items',
-        Array.from({ length: 10 }, (val, index) => ({
+        Array.from({ length: 90 }, (val, index) => ({
           tag_Id: 1,
           product_id: index + 11
         }))
@@ -20,7 +20,7 @@ module.exports = {
           tag_Id: 3,
           product_id: index + 1
         }))
-      )
+      )   // 需手動把商品 product_id: 2, tag_Id: 3的 tagItem 刪除 (因庫存為 0)
     ])    
   },
 
