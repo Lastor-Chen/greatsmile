@@ -1,0 +1,55 @@
+<section class="col-md-6 mb-2 py-3 px-1">
+  <div class="row panel mx-1">
+    <div class="panel-heading col-md-12">
+      <div class="mt-3">建立一個帳戶</div>
+    </div>
+    <div class="col-md-12 px-5 mb-1 signCard">
+      <div class="col-md-12 pt-4 pl-0 mb-2">
+        <h6>建立一個帳戶</h6>
+        <p class="description pr-5 pl-0 col-6">要快速結帳，輕易存取先前的訂單，並能夠建立通訊錄和儲存設定，請在下方註冊。</p>
+      </div>
+      <form class="row" action="/users/signup" method="POST">
+        <div class="form-group col-6 pr-1">
+          <input type="text" class="form-control" name="lastName" placeholder="姓氏*" required>
+        </div>
+        <div class="form-group col-6 pl-1">
+          <input type="text" class="form-control" name="firstName" placeholder="名字*" required>
+        </div>
+        <div class="form-group col-12">
+          <input type="email" class="form-control" name="email" placeholder="電子郵件地址*" required>
+        </div>
+        <div class="form-group col-6 pr-1">
+          <input type="password" class="form-control" name="password" placeholder="密碼*" required>
+          <small class="form-text text-muted">最短長度 6 個字元</small>
+        </div>
+        <div class="form-group col-6 pl-1">
+          <input type="password" class="form-control" name="passwordCheck" placeholder="確認密碼*" required>
+        </div>
+        <div class="col-12">
+          <p class="description mb-1">性別</p>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="M" required>
+            <label class="form-check-label" for="inlineRadio1">男性</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="F" required>
+            <label class="form-check-label" for="inlineRadio2">女性</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" id="inlineRadio3" value="N" required>
+            <label class="form-check-label" for="inlineRadio3">其他</label>
+          </div>
+        </div>
+        <div class="col-6 mt-2">
+          <p class="description mb-1">生日</p>
+          <input type="date" class="form-control" name="birthday" required>
+          <small class="form-text text-danger">※性別與生日在註冊後將無法變更。</small>
+        </div>
+        <br>
+        <div class="col-12 text-center my-3">
+          <button type="submit" class="btn sign-btn">註冊</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

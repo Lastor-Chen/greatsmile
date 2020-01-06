@@ -6,10 +6,6 @@ const { User, Order, Product } = db
 const { checkSignUp } = require('../lib/checker.js')
 
 module.exports = {
-  getSignUp: (req, res) => {
-    res.render('signup')
-  },
-
   signUp: async (req, res) => {
     try {
       const input = { ...req.body }  // 深拷貝，保護原始資料
@@ -34,14 +30,8 @@ module.exports = {
   },
 
   getSignIn: (req, res) => {
-    if (req.path === '/signin/checkout') {
-
-      return res.render('signin', { css: 'signIn' })
-    } else {
-
-      return res.render('signin', { css: 'signIn'})
-    }
-
+    let path = req.path
+    return res.render('signin', { path, css: 'signIn' })
   },
 
   signIn: (req, res, next) => {
