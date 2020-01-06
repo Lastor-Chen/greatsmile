@@ -3,9 +3,9 @@ const seriesCtrller = require('../../controllers/admin/seriesCtrller')
 
 // route base '/admin/series
 router.get('/', seriesCtrller.getSeries)
-// router.post('/', seriesCtrller.postSeries)
-// router.get('/:categoriesid', seriesCtrller.getEditPage)
-// router.put('/:categoriesid', seriesCtrller.putSeries)
-// router.delete('/:categoriesid', seriesCtrller.deleteSeries)
+router.post('/', seriesCtrller.postSeries)
+router.get('/:seriesid', seriesCtrller.getEditPage)
+router.put('/:seriesid', seriesCtrller.putSeries)
+router.delete('/:seriesid', seriesCtrller.deleteSeries)
 
 module.exports = router
