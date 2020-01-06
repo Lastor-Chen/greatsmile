@@ -144,10 +144,13 @@ module.exports = {
       const order = await Order.create({
         ...data,
         UserId: req.user.id,
-        sn: 'ABCD',
         payStatus: false,
         shipStatus: false
       })
+
+      // 加入單號 SN
+      const sn = ("000000000" + order.id).slice(-10)
+      await order.update({ sn })
 
       // 建立 OrderItem
       const cart = data.cart
