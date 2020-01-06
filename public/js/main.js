@@ -1,9 +1,19 @@
-// back-top 按鈕，隨 scrollbar 出現/消失
 $(window).scroll(() => {
-  const scrollTop = $(window).scrollTop()
-  if (scrollTop > 500) return $('.back-top').fadeIn()
+  // navbar sticky
+  if ($(window).scrollTop() >= 224) {
+    $('#navbar').css('visibility', 'hidden')
+    $('#stickybar').css('visibility', 'visible')
+  } else {
+    $('#navbar').css('visibility', 'visible')
+    $('#stickybar').css('visibility', 'hidden')
+  }
 
-  $('.back-top').fadeOut()
+  // back-top 按鈕，隨 scrollbar 出現/消失
+  if ($(window).scrollTop() > 500) {
+    $('.back-top').fadeIn()
+  } else {
+    $('.back-top').fadeOut()
+  }
 })
 
 // scroll to top 特效
@@ -18,13 +28,3 @@ if ($('.cart-alert').length) {
   }, 5000)
 }
 
-// navbar sticky
-$(window).scroll(() => {
-  if ($(window).scrollTop() >= 224) {
-    $('#navbar').css('visibility', 'hidden')
-    $('#stickybar').css('visibility', 'visible')
-  } else {
-    $('#navbar').css('visibility', 'visible')
-    $('#stickybar').css('visibility', 'hidden')
-  }
-})
