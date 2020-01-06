@@ -11,7 +11,11 @@ module.exports = {
       const input = { ...req.body }  // 深拷貝，保護原始資料
       // check input
       const error = await checkSignUp(input)
-      if (error) return res.render('signin', { error, input })
+      if (error) {
+        let path = req.path
+        return res.render('signin', { error, input, path, css: 'signIn' })
+      }
+      
 
       input.name = input.lastName + input.firstName
       input.nickname = input.firstName
