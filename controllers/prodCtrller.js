@@ -86,8 +86,10 @@ module.exports = {
       if (req.path.includes('search')) { bread ='搜尋商品'}
 
       // 當為所有商品頁的 製品一覽 時為 true 
-      const isAllProducts = categoryQuery ? false : true
-      
+      // search 時，取消分類 active 特效
+      let isAllProducts = categoryQuery ? false : true
+      if (req.path.includes('search')) {isAllProducts = false}
+
       res.render('products', { 
         js: 'products',
         css: 'products',
