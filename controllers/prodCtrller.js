@@ -81,10 +81,12 @@ module.exports = {
       const queryString = genQueryString(req.query)
 
       const selectedSort = `${sort},${orderBy}`
-      const bread = req.path.includes('search') ? '搜尋商品' : (categoryQuery ? `${categoryQuery}` : '製品一覽')
+      let bread = '製品一覽'
+      if (categoryQuery) {bread = categoryQuery}
+      if (req.path.includes('search')) { bread ='搜尋商品'}
 
       // 當為所有商品頁的 製品一覽 時為 true 
-      const isAllProducts = (!categoryQuery && true) ? true : false
+      const isAllProducts = categoryQuery ? false : true
       
       res.render('products', { 
         js: 'products',
