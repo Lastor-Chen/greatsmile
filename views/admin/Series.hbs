@@ -1,1 +1,81 @@
-<h1>Series page!</h1>
+<main class="container">
+  <div class="card-body pt-4">
+    <div class="row col-12">
+      <div class="col-6 mx-auto">
+        {{#if pickedSeries}}
+          <form class="form-inline d-flex justify-content-end" action="/admin/series/{{pickedSeries.id}}?_method=PUT"
+            method="POST">
+            <div class="form-group mx-sm-3 mb-2 mt-1">
+              <input type="text" class="form-control" name="name" placeholder="輸入作品名稱..." value={{pickedSeries.name}}
+                required>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2 mt-1">更新作品</button>
+          </form>
+        {{else}}
+          <form class="form-inline d-flex justify-content-end" action="/admin/series" method="POST">
+            <div class="form-group mx-sm-3 mb-2 mt-1">
+              <input type="text" class="form-control" name="name" placeholder="輸入新作品..." required>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2 mt-1">新增作品</button>
+          </form>
+        {{/if}}
+        {{> alert}}
+        <table data-toggle="table" id="table">
+          <thead>
+            <tr>
+              <th data-valign="middle" class="text-center" data-sortable="true">#</th>
+              <th data-valign="middle" class="text-center" data-sortable="true">作品名稱</th>
+              <th data-valign="middle" class="text-center">作品操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each series}}
+              <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.name}}</td>
+                <td>
+                  <button type="button" class="btn font-weight-normal">
+                    <a href="/admin/series/{{this.id}} " class="text-decoration-none btn btn-outline-dark"><i
+                        class="fas fa-edit" title="編輯作品資料"></i></a>
+                  </button>
+                  <!-- Delete Button trigger modal -->
+                  <button type="button" class="btn btn-outline-dark font-weight-normal" data-toggle="modal"
+                    data-target="#delete_{{this.id}}" title="刪除此作品">
+                    <i class="far fa-trash-alt" aria-hidden="true"></i>
+                  </button>
+                </td>
+                {{!-- Delete modal --}}
+                <div class="modal fade" id="delete_{{this.id}}" tabindex="-1" role="dialog"
+                  aria-labelledby="delete_{{this.id}}Label" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="delete_{{this.id}}Label">刪除確認</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <h5 class="modal-title ml-3" id="ModalScrollable{{this.id}}Title">
+                          {{this.name}}</h5>
+                        </br>
+                        <h5 class="text-danger text-right">你真的要刪除這則作品嗎？</h5>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <form action="/admin/series/{{this.id}}?_method=DELETE" method="POST"
+                          style="display: inline;">
+                          <button type="submit" class="btn btn-outline-danger font-weight-normal">確認刪除
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
