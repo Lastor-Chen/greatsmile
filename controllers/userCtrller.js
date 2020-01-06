@@ -32,7 +32,14 @@ module.exports = {
   },
 
   getSignIn: (req, res) => {
-    return res.render('signin')
+    if (req.path === '/signin/checkout') {
+
+      return res.render('signin', { css: 'signIn' })
+    } else {
+
+      return res.render('signin', { css: 'signIn'})
+    }
+
   },
 
   signIn: (req, res, next) => {
