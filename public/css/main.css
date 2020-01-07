@@ -64,11 +64,18 @@ body {
 
 .category-bar .nav-link {
   color: #ffffff;
+  font-size: .9rem;
+  text-align: center;
   display: block;
   text-decoration: none;
 }
 
 .category-bar .nav-link:hover{
+  background-color:#eee;
+  color:#454545;
+}
+
+.category-bar .active {
   background-color:#eee;
   color:#454545;
 }
@@ -125,6 +132,7 @@ body {
   height: 70px;
 }
 
+
 /* alert.hbs */
 .alert-success {
   color: #339b01;
@@ -144,20 +152,11 @@ body {
   text-align: center;
 }
 
-/* navbar sticky效果 */
-.sticky {
-  position: fixed;
+#stickybar {
+  position: sticky;
   top: 0;
-  width: 100%;
-}
-
-.navbar {
-  z-index: 999;
-}
-
-/* 修正sticky效果運作時會吃掉最上方內容的情況 */
-.sticky + .content {
-  padding-top: 140px;
+  z-index: 900;
+  height: 0rem;
 }
 
 /* cart icon */
@@ -176,4 +175,12 @@ body {
   background-color: #ff5400;
   border-radius: 20px;
   color: #fff;
+}
+
+.userpage-item {
+  font-size: 12px;
+}
+
+.userpage-link{
+  color: #49443f;
 }

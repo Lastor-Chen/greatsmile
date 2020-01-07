@@ -18,10 +18,22 @@ module.exports = {
       const orderBy = req.query.order || 'DESC'
       const order = [[sort, orderBy]]
 
+      // Category 
+      const where = { status: 1 }
+      const categoryQuery = req.query.category
+      const categoryId = {
+        'Figure': 1,
+        '豆丁人': 2,
+        'Figma': 3,
+        '組裝模型(仮)': 4
+      }
+      if (categoryQuery) {
+        where.category_id = categoryId[categoryQuery]
+      }
+
       // search 商品名 or 作品名
       // 組合出 SQL， WHERE 'status' AND ('name' OR 'Series.name')
       const searchQuery = req.query.q
-      const where = { status: 1 }
       if (searchQuery) {
         where[Op.or] = {
           name: { [Op.like]: `%${searchQuery}%` },
@@ -69,12 +81,19 @@ module.exports = {
       const queryString = genQueryString(req.query)
 
       const selectedSort = `${sort},${orderBy}`
-      const bread = req.path.includes('search') ? '搜尋商品' : '製品一覽'
+      let bread = '製品一覽'
+      if (categoryQuery) {bread = categoryQuery}
+      if (req.path.includes('search')) { bread ='搜尋商品'}
+
+      // 當為所有商品頁的 製品一覽 時為 true 
+      // search 時，取消分類 active 特效
+      let isAllProducts = categoryQuery ? false : true
+      if (req.path.includes('search')) {isAllProducts = false}
 
       res.render('products', { 
         js: 'products',
         css: 'products',
-        products, selectedSort, searchQuery, bread, pagesArray, queryString, page, prev, next
+        products, selectedSort, searchQuery, bread, pagesArray, queryString, categoryQuery, page, prev, next, isAllProducts
       })
 
     } catch (err) {
@@ -88,7 +107,7 @@ module.exports = {
       const product = await Product.findOne({ 
         // 只取上架中商品
         where: { 'id': +req.params.id, 'status': true },
-        include: ['Gifts', 'Images', 'tags', 'Series'],
+        include: ['Gifts', 'Images', 'tags', 'Series', 'Category'],
         // 使 Images 第一張為 mainImg，之後依上傳順排序
         order: [
           ['Images', 'isMain', 'DESC'],
@@ -106,6 +125,7 @@ module.exports = {
       product.hasGift = (product.Gifts.length !== 0) ? true : false
       product.isOnSale = moment(new Date).isAfter(product.deadline)
       product.hasInv = (product.inventory !== 0)
+      product.category = product.Category.name
 
       res.render('product', { css: 'product', js: 'product', product })
 
