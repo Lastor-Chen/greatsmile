@@ -23,17 +23,15 @@
             <div class="col-8">
               <div class="col-10 px-0">
                 <div class="form-row row-cols-2">
-                  <div class="col mb-0">
+                  <div class="col">
                     <input class="form-control" type="text" name="lastName" placeholder="姓氏*" value="{{data.receiver.[0]}}" required>
                   </div>
-                  <div class="col mb-0">
+                  <div class="col mb-4">
                     <input class="form-control" type="text" name="firstName" placeholder="名字*" value="{{data.receiver.[1]}}" required>
-                  </div>
-                  <div class="col-12 mb-4">
-                    {{!-- <span class="font-small text-danger">收件地址請使用繁體中文</span> --}}
                   </div>
                   <div class="col">
                     <input class="form-control" type="text" name="postCode" placeholder="郵遞區號* (5碼)" value="{{data.address.[0]}}" required>
+                    <div class="invalid-feedback">請輸入3+2，5碼格式</div>
                   </div>
                   <div class="col"></div>
                   <div class="col">
@@ -45,14 +43,12 @@
                   <div class="col-12">
                     <input class="form-control" type="text" name="line1" placeholder="街道地址*" value="{{data.address.[3]}}" required>
                   </div>
-                  <div class="col-12 mb-0">
-                    <input class="form-control" type="text" name="line2" placeholder="大樓名, 房號等" value="{{data.address.[4]}}">
-                  </div>
                   <div class="col-12 mb-4">
-                    {{!-- <span class="font-small text-danger">※收件地址請使用繁體中文</span> --}}
+                    <input class="form-control" type="text" name="line2" placeholder="大樓名, 房號等" value="{{data.address.[4]}}">
                   </div>
                   <div class="col-12 mb-0">
                     <input class="form-control" type="text" name="phone" placeholder="手機號碼* (10碼)" value="{{data.phone}}" required>
+                    <div class="invalid-feedback">手機格式，如 0919-000-111，短橫線可省略</div>
                   </div>
                 </div>
                 <div class="form-check my-4">
