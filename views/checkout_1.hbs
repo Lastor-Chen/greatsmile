@@ -14,7 +14,7 @@
         </nav>
         {{> alert}}
         {{!-- 內容表單 --}}
-        <form class="mt-5" action="/orders/checkout_1" method="POST">
+        <form class="mt-5 needs-validation" action="/orders/checkout_1" method="POST" novalidate>
           <section class="row m-0 p-4">
             <div class="col-4">
               <h6 class="mb-4 font-weight-bold">選擇地址</h6>
@@ -24,35 +24,35 @@
               <div class="col-10 px-0">
                 <div class="form-row row-cols-2">
                   <div class="col mb-0">
-                    <input type="text" name="lastName" placeholder="姓氏*" value="{{data.receiver.[0]}}">
+                    <input class="form-control" type="text" name="lastName" placeholder="姓氏*" value="{{data.receiver.[0]}}" required>
                   </div>
                   <div class="col mb-0">
-                    <input type="text" name="firstName" placeholder="名字*" value="{{data.receiver.[1]}}">
+                    <input class="form-control" type="text" name="firstName" placeholder="名字*" value="{{data.receiver.[1]}}" required>
                   </div>
                   <div class="col-12 mb-4">
                     {{!-- <span class="font-small text-danger">收件地址請使用繁體中文</span> --}}
                   </div>
                   <div class="col">
-                    <input type="text" name="postCode" placeholder="郵遞區號* (5碼)" value="{{data.address.[0]}}">
+                    <input class="form-control" type="text" name="postCode" placeholder="郵遞區號* (5碼)" value="{{data.address.[0]}}" required>
                   </div>
                   <div class="col"></div>
                   <div class="col">
-                    <input type="text" name="area" placeholder="縣市*" value="{{data.address.[1]}}">
+                    <input class="form-control" type="text" name="area" placeholder="縣市*" value="{{data.address.[1]}}" required>
                   </div>
                   <div class="col">
-                    <input type="text" name="zone" placeholder="鄉鎮市區*" value="{{data.address.[2]}}">
+                    <input class="form-control" type="text" name="zone" placeholder="鄉鎮市區*" value="{{data.address.[2]}}" required>
                   </div>
                   <div class="col-12">
-                    <input type="text" name="line1" placeholder="街道地址*" value="{{data.address.[3]}}">
+                    <input class="form-control" type="text" name="line1" placeholder="街道地址*" value="{{data.address.[3]}}" required>
                   </div>
                   <div class="col-12 mb-0">
-                    <input type="text" name="line2" placeholder="大樓名, 房號等" value="{{data.address.[4]}}">
+                    <input class="form-control" type="text" name="line2" placeholder="大樓名, 房號等" value="{{data.address.[4]}}">
                   </div>
                   <div class="col-12 mb-4">
                     {{!-- <span class="font-small text-danger">※收件地址請使用繁體中文</span> --}}
                   </div>
                   <div class="col-12 mb-0">
-                    <input type="text" name="phone" placeholder="手機號碼* (10碼)" value="{{data.phone}}">
+                    <input class="form-control" type="text" name="phone" placeholder="手機號碼* (10碼)" value="{{data.phone}}" required>
                   </div>
                 </div>
                 <div class="form-check my-4">
