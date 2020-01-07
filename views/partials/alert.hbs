@@ -1,17 +1,17 @@
 {{#if success}}
-  <div class="alert alert-successfade show pt-2">
-    <div class="d-flex align-items-end justify-content-around">
-      <span class="pl-3">{{success}}</span>
-      <button type="button" class="close ml-4" data-dismiss="alert">
+  <div class="alert alert-success fade show pt-2">
+    <div class="d-flex align-items-end">
+      <div class="w-100">{{success}}</div>
+      <button type="button" class="close" data-dismiss="alert">
         <i class="fas fa-times fa-xs"></i>
       </button>
     </div>
   </div>
 {{else if error}}
   <div class="alert alert-danger fade show pt-2">
-    <div class="d-flex align-items-end justify-content-around">
-      <span class="pl-3">{{error}}</span>
-      <button type="button" class="close ml-4" data-dismiss="alert">
+    <div class="d-flex align-items-end">
+      <div class="w-100">{{error}}</div>
+      <button type="button" class="close" data-dismiss="alert">
         <i class="fas fa-times fa-xs"></i>
       </button>
     </div>
