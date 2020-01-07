@@ -64,11 +64,18 @@ body {
 
 .category-bar .nav-link {
   color: #ffffff;
+  font-size: .9rem;
+  text-align: center;
   display: block;
   text-decoration: none;
 }
 
 .category-bar .nav-link:hover{
+  background-color:#eee;
+  color:#454545;
+}
+
+.category-bar .active {
   background-color:#eee;
   color:#454545;
 }
