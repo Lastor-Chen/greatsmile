@@ -39,14 +39,16 @@
                 >
                 <label class="form-check-label radio-label" for="radio2">便利商店付款</label>
               </div>
-              <div class="form-check mb-2">
-                <input type="radio" id="radio3" class="form-check-input"
-                  name="payMethod"
-                  value="便利商店取貨付款"
-                  {{#ifEqual data.payMethod "便利商店取貨付款"}}checked{{/ifEqual}}
-                >
-                <label class="form-check-label radio-label" for="radio3">便利商店取貨付款</label>
-              </div>
+              {{#ifEqual data.deliveryMethod "便利商店取貨"}}
+                <div class="form-check mb-2">
+                  <input type="radio" id="radio3" class="form-check-input"
+                    name="payMethod"
+                    value="便利商店取貨付款"
+                    {{#ifEqual data.payMethod "便利商店取貨付款"}}checked{{/ifEqual}}
+                  >
+                  <label class="form-check-label radio-label" for="radio3">便利商店取貨付款</label>
+                </div>
+              {{/ifEqual}}
             </div>
           </section>
           <section class="row m-0 p-4 border-bottom">
