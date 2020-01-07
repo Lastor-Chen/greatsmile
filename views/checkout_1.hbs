@@ -16,7 +16,7 @@
           {{>alert}}
         </div>
         {{!-- 內容表單 --}}
-        <form class="mt-5 needs-validation" action="/orders/checkout_1" method="POST" novalidate>
+        <form class="needs-validation" action="/orders/checkout_1" method="POST" novalidate>
           <section class="row m-0 p-4">
             <div class="col-4">
               <h6 class="mb-4 font-weight-bold">選擇地址</h6>
@@ -32,7 +32,7 @@
                     <input class="form-control" type="text" name="firstName" placeholder="名字*" value="{{data.receiver.[1]}}" required>
                   </div>
                   <div class="col">
-                    <input class="form-control" type="text" name="postCode" placeholder="郵遞區號* (5碼)" value="{{data.address.[0]}}" required>
+                    <input class="form-control" type="text" name="postCode" placeholder="郵遞區號*" value="{{data.address.[0]}}" required>
                     <div class="invalid-feedback">請輸入3+2，5碼格式</div>
                   </div>
                   <div class="col"></div>
@@ -49,7 +49,7 @@
                     <input class="form-control" type="text" name="line2" placeholder="大樓名, 房號等" value="{{data.address.[4]}}">
                   </div>
                   <div class="col-12 mb-0">
-                    <input class="form-control" type="text" name="phone" placeholder="手機號碼* (10碼)" value="{{data.phone}}" required>
+                    <input class="form-control" type="text" name="phone" placeholder="手機號碼*" value="{{data.phone}}" required>
                     <div class="invalid-feedback">手機格式，如 0919-000-111，短橫線可省略</div>
                   </div>
                 </div>
