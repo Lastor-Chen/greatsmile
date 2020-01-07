@@ -47,7 +47,7 @@ module.exports = {
       const tag = await Tag.findByPk(id)
 
       const tags = await Tag.findAll({
-        order: [['id', 'DESC']]
+        order: [['id', 'ASC']]
       })
 
       res.render('admin/tags', { tag, tags })
