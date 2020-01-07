@@ -1,9 +1,17 @@
-// back-top 按鈕，隨 scrollbar 出現/消失
 $(window).scroll(() => {
-  const scrollTop = $(window).scrollTop()
-  if (scrollTop > 500) return $('.back-top').fadeIn()
+  // navbar sticky
+  if ($(window).scrollTop() >= 224) {
+    $('#stickybar').show()
+  } else {
+    $('#stickybar').hide()
+  }
 
-  $('.back-top').fadeOut()
+  // back-top 按鈕，隨 scrollbar 出現/消失
+  if ($(window).scrollTop() >= 500) {
+    $('.back-top').fadeIn()
+  } else {
+    $('.back-top').fadeOut()
+  }
 })
 
 // scroll to top 特效
@@ -18,14 +26,3 @@ if ($('.cart-alert').length) {
   }, 5000)
 }
 
-// sticky效果
-window.onscroll = function () { myFunction() };
-var navbar = document.getElementById("navbar");
-var sticky = navbar.offsetTop;
-function myFunction() {
-  if (window.pageYOffset >= sticky) {
-    navbar.classList.add("sticky")
-  } else {
-    navbar.classList.remove("sticky");
-  }
-}
