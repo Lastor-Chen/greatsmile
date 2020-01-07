@@ -100,8 +100,14 @@ module.exports = {
 
   async checkout_2(req, res) {
     try {
-      // 整理寄送方式
+      // 檢查 input
       const input = req.body
+      if (!input.DeliveryId) {
+        req.flash('error', '請選擇一種方式')
+        return res.redirect('back')
+      }
+
+      // 整理寄送方式
       input.DeliveryId = +input.DeliveryId
 
       const delivery = await Delivery.findByPk(input.DeliveryId)
@@ -127,10 +133,14 @@ module.exports = {
   checkout_3(req, res) {
     try {
       // 整理付款方式
-      const payMethod = req.body
+      const input = req.body
+      if (!input.payMethod) {
+        req.flash('error', '請選擇一種方式')
+        return res.redirect('back')
+      }
 
       // 付款方式注入 passData
-      const data = { ...req.flash('passData')[0], ...payMethod}
+      const data = { ...req.flash('passData')[0], ...input}
       req.flash('passData', data)
       console.log(data)
 

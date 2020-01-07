@@ -12,6 +12,7 @@
             <li class="px-4 py-3">4.最後檢視</li>
           </ul>
         </nav>
+        {{>alert}}
         {{!-- 內容表單 --}}
         <form action="/orders/checkout_3" method="POST">
           <section class="row m-0 p-4 border-bottom">
@@ -23,6 +24,7 @@
                 <input type="radio" id="radio1" class="form-check-input"
                   name="payMethod"
                   value="信用卡付款"
+                  required
                   {{#ifEqual data.payMethod "信用卡付款"}}checked{{/ifEqual}}
                 >
                 <label class="form-check-label radio-label" for="radio1">信用卡付款</label>
