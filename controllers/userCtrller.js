@@ -11,17 +11,16 @@ module.exports = {
       const input = { ...req.body }  // 深拷貝，保護原始資料
       // check input
       const signUpError = await checkSignUp(input)
+
       if (signUpError) {
-        let path = req.path
-        return res.render('signin', { signUpError, input, path, css: 'signIn' })
+        let path = '/signin'
+        return res.render('signin', { signUpError, input, path, css: 'signIn'  })
       }
       
-
       input.name = input.lastName + input.firstName
       input.nickname = input.firstName
       input.password = bcrypt.hashSync(input.password, 10)
       input.isAdmin = false
-      input.birthday = new Date
       await User.create(input)
 
       req.flash('signUpSuccess', '已成功註冊帳號')
@@ -44,7 +43,7 @@ module.exports = {
       successFlash: true,
       failureRedirect: '/users/signin',
       failureFlash: true,
-      badRequestMessage: '請輸入 Email 與 Passport'
+      badRequestMessage: '請輸入 Email 與 Password'
     })(req, res, next)
   },
 
