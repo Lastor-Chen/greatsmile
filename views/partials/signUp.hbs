@@ -6,7 +6,12 @@
     <div class="col-md-12 px-5 mb-1 signCard">
       <div class="col-md-12 pt-4 pl-0 mb-2">
         <h6>建立一個帳戶</h6>
-        <p class="description pr-5 pl-0 col-6">要快速結帳，輕易存取先前的訂單，並能夠建立通訊錄和儲存設定，請在下方註冊。</p>
+        <div class="row pl-0">
+          <p class="description pr-2 col-5">要快速結帳，輕易存取先前的訂單，並能夠建立通訊錄和儲存設定，請在下方註冊。</p>
+          <div class="col-7 pr-0">
+            {{> signUpAlert}}
+          </div>
+        </div>
       </div>
       <form class="row" action="/users/signup" method="POST">
         <div class="form-group col-6 pr-1">
@@ -47,7 +52,6 @@
         </div>
         <br>
         <div class="col-12 text-center my-3">
-          {{> signUpAlert}}
           <button type="submit" class="btn sign-btn">註冊</button>
         </div>
       </form>

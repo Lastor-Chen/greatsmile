@@ -1,15 +1,19 @@
 {{#if signUpSuccess}}
-  <div class="alert alert-success fade show">
-    <span>{{signUpSuccess}}</span>
-    <button type="button" class="close" data-dismiss="alert">
-      <span>&times;</span>
-    </button>
+  <div class="alert alert-successfade show pt-2">
+    <div class="d-flex align-items-end justify-content-around">
+      <span class="pl-3">{{signUpSuccess}}</span>
+      <button type="button" class="close ml-4" data-dismiss="alert">
+        <i class="fas fa-times fa-xs"></i>
+      </button>
+    </div>
   </div>
 {{else if signUpError}}
-  <div class="alert alert-danger fade show">
-    <span>{{signUpError}}</span>
-    <button type="button" class="close" data-dismiss="alert">
-      <span>&times;</span>
-    </button>
+  <div class="alert alert-danger fade show pt-2">
+    <div class="d-flex align-items-end justify-content-around">
+      <span class="pl-3">{{signUpError}}</span>
+      <button type="button" class="close ml-4" data-dismiss="alert">
+        <i class="fas fa-times fa-xs"></i>
+      </button>
+    </div>
   </div>
 {{/if}}
