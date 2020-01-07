@@ -2,6 +2,9 @@
   <div class="card-body pt-4">
     <div class="row col-12">
       <div class="col-6 mx-auto">
+        <div class="alertBlock mb-2">
+          {{> alert}}
+        </div>
         {{#if tag}}
           <form class="form-inline d-flex justify-content-end" action="/admin/tags/{{tag.id}}?_method=PUT"
             method="POST">
@@ -18,7 +21,6 @@
             <button type="submit" class="btn btn-primary mb-2 mt-1">新增標籤</button>
           </form>
         {{/if}}
-        {{> alert}}
         <table data-toggle="table" id="table">
           <thead>
             <tr>
@@ -34,8 +36,8 @@
                 <td>{{this.name}}</td>
                 <td>
                   <button type="button" class="btn font-weight-normal">
-                    <a href="/admin/tags/{{this.id}} " class="text-decoration-none btn btn-outline-dark"><i class="fas fa-edit"
-                        title="編輯標籤資料"></i></a>
+                    <a href="/admin/tags/{{this.id}} " class="text-decoration-none btn btn-outline-dark"><i
+                        class="fas fa-edit" title="編輯標籤資料"></i></a>
                   </button>
                   <!-- Delete Button trigger modal -->
                   <button type="button" class="btn btn-outline-dark font-weight-normal" data-toggle="modal"
