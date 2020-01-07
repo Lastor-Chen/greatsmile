@@ -2,7 +2,7 @@
   <div class="row">
     {{!-- 主內容 --}}
     <main class="col-8" role="main">
-      <nav class="panel">
+      <div class="panel">
         {{!-- 結帳步驟 step nav --}}
         <nav class="step border-bottom px-2">
           <ul class="nav justify-content-around">
@@ -12,8 +12,9 @@
             <li class="px-4 py-3">4.最後檢視</li>
           </ul>
         </nav>
+        {{> alert}}
         {{!-- 內容表單 --}}
-        <form action="/orders/checkout_1" method="POST">
+        <form class="mt-5" action="/orders/checkout_1" method="POST">
           <section class="row m-0 p-4">
             <div class="col-4">
               <h6 class="mb-4 font-weight-bold">選擇地址</h6>
@@ -29,10 +30,10 @@
                     <input type="text" name="firstName" placeholder="名字*" value="{{data.receiver.[1]}}">
                   </div>
                   <div class="col-12 mb-4">
-                    <span class="font-small text-danger">收件地址請使用繁體中文</span>
+                    {{!-- <span class="font-small text-danger">收件地址請使用繁體中文</span> --}}
                   </div>
                   <div class="col">
-                    <input type="text" name="postCode" placeholder="郵遞區號*" value="{{data.address.[0]}}">
+                    <input type="text" name="postCode" placeholder="郵遞區號* (5碼)" value="{{data.address.[0]}}">
                   </div>
                   <div class="col"></div>
                   <div class="col">
@@ -48,10 +49,10 @@
                     <input type="text" name="line2" placeholder="大樓名, 房號等" value="{{data.address.[4]}}">
                   </div>
                   <div class="col-12 mb-4">
-                    <span class="font-small text-danger">※收件地址請使用繁體中文</span>
+                    {{!-- <span class="font-small text-danger">※收件地址請使用繁體中文</span> --}}
                   </div>
                   <div class="col-12 mb-0">
-                    <input type="text" name="phone" placeholder="手機號碼*" value="{{data.phone}}">
+                    <input type="text" name="phone" placeholder="手機號碼* (10碼)" value="{{data.phone}}">
                   </div>
                 </div>
                 <div class="form-check my-4">
@@ -67,7 +68,7 @@
             <button class="btn order-btn">下一步</button>
           </div>
         </form>
-      </nav>
+      </div>
     </main>
     {{!-- 側邊攔 --}}
     <aside class="col-4">

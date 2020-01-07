@@ -1,6 +1,8 @@
 const db = require('../models')
 const { Cart, CartItem, Order, OrderItem, Delivery } = db
 
+const { checkCheckout1 } = require('../lib/checker.js')
+
 module.exports = {
   async setCheckout(req, res) {
     try {
@@ -80,6 +82,13 @@ module.exports = {
       const data = { ...req.flash('passData')[0], ...receiver }
       req.flash('passData', data)
       console.log(data)
+
+      // 檢查 input
+      const error = checkCheckout1(input)
+      if (error) {
+        req.flash('error', error)
+        return res.redirect('back')
+      }
 
       res.redirect('checkout_2')
 
