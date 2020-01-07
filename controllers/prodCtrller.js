@@ -81,16 +81,14 @@ module.exports = {
         ],
         distinct: true, // 去重顯示正確數量
         where,
-        order,
-        offset,
-        limit: pageLimit,
-        subQuery: false,  // 設定 subQuery，使 '$Series.name$' 能工作 (多對多)
+        order
       })
 
       // 製作頁面資料
       const today = new Date()
       const products = result.rows
-      products.forEach(product => {
+      const getProducts = products.slice(offset, offset + pageLimit )
+      getProducts.forEach(product => {
         product.mainImg = product.Images.find(img => img.isMain).url
         product.priceFormat = product.price.toLocaleString()
         product.isPreorder = moment(today).isBefore(product.deadline)
@@ -116,7 +114,7 @@ module.exports = {
       res.render('products', { 
         js: 'products',
         css: 'products',
-        products, selectedSort, searchQuery, bread, pagesArray, queryString, categoryQuery, tagQuery, page, prev, next, isAllProducts
+        getProducts, selectedSort, searchQuery, bread, pagesArray, queryString, categoryQuery, tagQuery, page, prev, next, isAllProducts
       })
 
     } catch (err) {

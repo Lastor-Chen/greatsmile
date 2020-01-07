@@ -6,7 +6,7 @@
         <a href="/">Home </a>&gt;
         <span>{{bread}}</span>
       </nav>
-      {{#if products.length}}
+      {{#if getProducts.length}}
         {{!-- 分頁 --}}
         {{>pagination}}
         {{!-- tag + select --}}
@@ -54,7 +54,7 @@
         </div>
         {{!-- 商品型錄 --}}
         <div class="row">
-          {{#each products}}
+          {{#each getProducts}}
             <div class="col-md-2-5 mb-3">
               <div class="card">
                 <div class="card-body">
