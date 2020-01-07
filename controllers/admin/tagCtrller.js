@@ -7,7 +7,7 @@ module.exports = {
     try {
 
       const tags = await Tag.findAll({
-        order: [['id', 'DESC']]
+        order: [['id', 'ASC']]
       })
 
       res.render('admin/tags', { tags })
