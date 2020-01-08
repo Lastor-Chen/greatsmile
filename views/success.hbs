@@ -1,1 +1,211 @@
-<h1>訂單成立頁</h1>
+<main class="container pt-2 pb-5">
+  {{!-- 訂單成立通知 --}}
+  <div class="row">
+    <div class="col-12 p-3">
+      <div class="panel mx-1 text-center font-format notice">
+        <div class="py-4">
+          <h4 class="pb-4">訂單處理中，謝謝您的光顧。</h4>
+          <p>訂單內容已發送至 user1@gmail.com，訂單編號為 {{order.id}}。</p>
+          <p class="pb-5">下訂日期 {{order.createdAt}}</p>
+          <a href="/products" class="btn px-4">繼續購物</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    {{!-- 主卡片 --}}
+    <section class="col-md-9 mb-5 p-3">
+      <div class="row panel mx-1">
+        <div class="panel-heading col-md-12">
+          <div>配送商品</div>
+        </div>
+        {{!-- 商品內容 --}}
+        <div class="panel-body col-md-12 py-3">
+          <div class="order-product">
+            {{!-- 標題 --}}
+            <div class="row">
+              <div class="col-md-7 item-title">商品{{cartProducts.length}}</div>
+              <div class="col-md-5 item-title">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span>商品價格</span>
+                  <span>數量</span>
+                  <span>合計價格</span>
+                </div>
+              </div>
+            </div>
+            <hr>
+            {{!-- 內文 --}}
+            {{#each orderProducts}}
+            <div class="row">
+              <div class="col-md-7 d-flex align-items-center h-100">
+                <div>
+                  <a href="/products/{{this.id}}" class="product-img">
+                    <img src="{{this.mainImg}}" class="img-fit">
+                  </a>
+                </div>
+                <div class="font-format pl-3">
+                  <a href="/products/{{this.id}}" class="product-name pb-2">
+                    {{this.name}}
+                  </a>
+                  {{!-- <div class="product-name pb-2">{{this.name}}</div> --}}
+                </div>
+              </div>
+              <div class="col-md-5 font-format">
+                <div class="d-flex justify-content-between align-items-center h-100 pb-2">
+                  <span>NTD {{this.priceFormat}}</span>
+                  <span>{{this.OrderItem.quantity}}</span>
+                  <span>NTD {{this.subPriceFormat}}</span>
+                </div>
+              </div>
+            </div>
+            <hr>
+            {{/each}}
+          </div>
+
+          {{!-- 總計區塊 --}}
+          <div class="order-amount">
+            <div class="row">
+              <div class="col-md-7 font-format"></div>
+              <div class="col-md-5 font-format">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span>小計</span>
+                  <span>NTD {{subtotalFormat}}</span>
+                </div>
+                <hr class="my-3">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span>運費</span>
+                  <span>NTD {{shippingFee}}</span>
+                </div>
+                <hr class="my-3">
+                <div class="d-flex justify-content-between align-items-center font-format-bold">
+                  <span>合計</span>
+                  <span>NTD {{totalPriceFormat}}</span>
+                </div>
+                <hr class="mt-3">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {{!-- 側邊欄 --}}
+    <aside class="col-md-3 mb-5 p-3">
+      {{!-- 配送資訊 --}}
+      <div class="row panel mx-1 mb-3 font-format side-box-shadow">
+        <div class="panel-body w-100 p-3">
+          <div class="side-heading">
+            <div>配送資訊</div>
+          </div>
+          <hr class="my-2">
+          <div>
+            <ul class="side-item-list mb-0">
+              <li>
+                <p>{{order.receiver}}</p>
+              </li>
+              <li>
+                <p>XXXXX</p>
+              </li>
+              <li>
+                <p>日本</p>
+              </li>
+              <li>
+                <p>1418577</p>
+              </li>
+              <li>
+                <p>東京都</p>
+              </li>
+              <li>
+                <p>品川區大崎</p>
+              </li>
+              <li>
+                <p>{{order.phone}}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {{!-- 配送方法 --}}
+      <div class="row panel mx-1 mb-3 font-format side-box-shadow">
+        <div class="panel-body w-100 p-3">
+          <div class="side-heading">
+            <div>配送方法</div>
+          </div>
+          <hr class="my-2">
+          <div>
+            <ul class="side-item-list mb-0">
+              <li>
+                <p>配送時間</p>
+              </li>
+              <li>
+                <p>12:00～14:00</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {{!-- 付款方式 --}}
+      <div class="row panel mx-1 font-format side-box-shadow">
+        <div class="panel-body w-100 p-3">
+          <div>
+            <div class="side-heading">
+              <div>付款方式</div>
+            </div>
+            <hr class="my-2">
+            <div>
+              <ul class="side-item-list mb-0">
+                <li>
+                  <p class="py-2">{{order.payMethod}}</p>
+                </li>
+                <li>
+                  <p>付款期限: 2020/01/14 23:59:59</p>
+                </li>
+                <li>
+                  <p>銀行代碼:</p>
+                </li>
+                <li>
+                  <p>訂單編號:1418577</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <div class="side-heading">
+              <div>帳單地址</div>
+            </div>
+            <hr class="my-2">
+            <div>
+              <ul class="side-item-list mb-0">
+                <li>
+                  <p>田中 綾</p>
+                </li>
+                <li>
+                  <p>XXXXX</p>
+                </li>
+                <li>
+                  <p>日本</p>
+                </li>
+                <li>
+                  <p>1418577</p>
+                </li>
+                <li>
+                  <p>東京都</p>
+                </li>
+                <li>
+                  <p>品川區大崎</p>
+                </li>
+                <li>
+                  <p>03123456</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>

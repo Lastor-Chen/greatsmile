@@ -198,7 +198,7 @@ module.exports = {
   async getSuccessOrder(req, res) {
     try {
 
-      res.render('success')
+      res.render('success', { css: 'success'})
 
     } catch (err) {
       console.error(err)
