@@ -1,7 +1,17 @@
+const nodemailer = require('nodemailer');
 const db = require('../models')
 const { Cart, CartItem, Order, OrderItem, Delivery } = db
 
 const { checkCheckout1 } = require('../lib/checker.js')
+
+// mailer 設定
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_KEY
+  }
+})
 
 module.exports = {
   async setCheckout(req, res) {
@@ -188,6 +198,19 @@ module.exports = {
 
       // 清除購物車 items
       await CartItem.destroy({ where: { CartId: cart.id } })
+
+      // send Email
+      const mailOptions = {
+        from: `大微笑商店 <${process.env.GMAIL_USER}>`,
+        to: req.user.email,
+        subject: `【GreatSmile Online Shop】訂單已建立 (單號${sn})`,
+        text: `${sn} 訂單已成立`
+      }
+
+      transporter.sendMail(mailOptions, (err, info) => {
+        if (err) return console.error(err)
+        console.log(`Email sent: ${info.response}`)
+      })
 
       res.redirect('/products')
 
