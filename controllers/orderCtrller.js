@@ -1,6 +1,8 @@
 const db = require('../models')
 const { Cart, CartItem, Order, OrderItem, Delivery } = db
 
+const { checkCheckout1 } = require('../lib/checker.js')
+
 module.exports = {
   async setCheckout(req, res) {
     try {
@@ -51,7 +53,6 @@ module.exports = {
   getCheckout(req, res) {
     try {
       const data = req.flash('passData')[0]
-      console.log(data)
 
       // 無 passData，阻擋退回
       if (!data) return res.redirect('/cart')
@@ -68,8 +69,16 @@ module.exports = {
 
   checkout_1(req, res) {
     try {
-      // 整理收件人資料
+      // 檢查 input
       const input = req.body
+      const error = checkCheckout1(input)
+      if (error) {
+        console.log(error)
+        req.flash('error', error)
+        return res.redirect('checkout_1')
+      }
+
+      // 整理收件人資料
       const receiver = {
         receiver: [input.lastName, input.firstName],
         address: [input.postCode, input.area, input.zone, input.line1, input.line2],
@@ -79,7 +88,6 @@ module.exports = {
       // 收件人資料注入 passData
       const data = { ...req.flash('passData')[0], ...receiver }
       req.flash('passData', data)
-      console.log(data)
 
       res.redirect('checkout_2')
 
@@ -91,8 +99,14 @@ module.exports = {
 
   async checkout_2(req, res) {
     try {
-      // 整理寄送方式
+      // 檢查 input
       const input = req.body
+      if (!input.DeliveryId) {
+        req.flash('error', '請選擇一種方式')
+        return res.redirect('checkout_2')
+      }
+
+      // 整理寄送方式
       input.DeliveryId = +input.DeliveryId
 
       const delivery = await Delivery.findByPk(input.DeliveryId)
@@ -105,7 +119,6 @@ module.exports = {
       // 計算運費
       data.amount = (data.cart.subtotal + input.shipping)
       req.flash('passData', data)
-      console.log(data)
 
       res.redirect('checkout_3')
 
@@ -118,12 +131,15 @@ module.exports = {
   checkout_3(req, res) {
     try {
       // 整理付款方式
-      const payMethod = req.body
+      const input = req.body
+      if (!input.payMethod) {
+        req.flash('error', '請選擇一種方式')
+        return res.redirect('checkout_3')
+      }
 
       // 付款方式注入 passData
-      const data = { ...req.flash('passData')[0], ...payMethod}
+      const data = { ...req.flash('passData')[0], ...input}
       req.flash('passData', data)
-      console.log(data)
 
       res.redirect('checkout_4')
 
@@ -137,6 +153,11 @@ module.exports = {
     try {
       // 取出 data 並 format
       const data = req.flash('passData')[0]
+      if (!data) {
+        req.flash('error', '錯誤訪問')
+        return res.redirect('/cart')
+      }
+
       data.address = data.address.join(',')
       data.receiver = data.receiver.join(',')
 

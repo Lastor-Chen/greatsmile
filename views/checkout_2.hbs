@@ -12,6 +12,9 @@
             <li class="px-4 py-3">4.最後檢視</li>
           </ul>
         </nav>
+        <div class="px-4 mt-2 dummy">
+          {{>alert}}
+        </div>
         {{!-- 內容表單 --}}
         <form id="shipForm" action="/orders/checkout_2" method="POST">
           <section class="row m-0 p-4">
@@ -24,6 +27,7 @@
                   name="DeliveryId"
                   value="1"
                   data-price="0"
+                  required
                   {{#ifEqual data.DeliveryId 1}}checked{{/ifEqual}}
                 >
                 <label class="form-check-label radio-label" for="radio1">店鋪取貨 - NTD 0</label>

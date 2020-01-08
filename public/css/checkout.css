@@ -30,6 +30,10 @@ ol, ul {
   font-weight: normal;
 }
 
+.dummy .alert {
+  margin-bottom: 0;
+}
+
 /* form */
 .font-small {
   font-size: .85rem;

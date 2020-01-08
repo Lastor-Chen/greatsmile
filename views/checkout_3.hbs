@@ -12,6 +12,9 @@
             <li class="px-4 py-3">4.最後檢視</li>
           </ul>
         </nav>
+        <div class="px-4 mt-2 dummy">
+          {{>alert}}
+        </div>
         {{!-- 內容表單 --}}
         <form action="/orders/checkout_3" method="POST">
           <section class="row m-0 p-4 border-bottom">
@@ -23,6 +26,7 @@
                 <input type="radio" id="radio1" class="form-check-input"
                   name="payMethod"
                   value="信用卡付款"
+                  required
                   {{#ifEqual data.payMethod "信用卡付款"}}checked{{/ifEqual}}
                 >
                 <label class="form-check-label radio-label" for="radio1">信用卡付款</label>
@@ -35,14 +39,16 @@
                 >
                 <label class="form-check-label radio-label" for="radio2">便利商店付款</label>
               </div>
-              <div class="form-check mb-2">
-                <input type="radio" id="radio3" class="form-check-input"
-                  name="payMethod"
-                  value="便利商店取貨付款"
-                  {{#ifEqual data.payMethod "便利商店取貨付款"}}checked{{/ifEqual}}
-                >
-                <label class="form-check-label radio-label" for="radio3">便利商店取貨付款</label>
-              </div>
+              {{#ifEqual data.deliveryMethod "便利商店取貨"}}
+                <div class="form-check mb-2">
+                  <input type="radio" id="radio3" class="form-check-input"
+                    name="payMethod"
+                    value="便利商店取貨付款"
+                    {{#ifEqual data.payMethod "便利商店取貨付款"}}checked{{/ifEqual}}
+                  >
+                  <label class="form-check-label radio-label" for="radio3">便利商店取貨付款</label>
+                </div>
+              {{/ifEqual}}
             </div>
           </section>
           <section class="row m-0 p-4 border-bottom">

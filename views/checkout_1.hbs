@@ -2,7 +2,7 @@
   <div class="row">
     {{!-- 主內容 --}}
     <main class="col-8" role="main">
-      <nav class="panel">
+      <div class="panel">
         {{!-- 結帳步驟 step nav --}}
         <nav class="step border-bottom px-2">
           <ul class="nav justify-content-around">
@@ -12,8 +12,11 @@
             <li class="px-4 py-3">4.最後檢視</li>
           </ul>
         </nav>
+        <div class="px-4 mt-2 dummy">
+          {{>alert}}
+        </div>
         {{!-- 內容表單 --}}
-        <form action="/orders/checkout_1" method="POST">
+        <form class="needs-validation" action="/orders/checkout_1" method="POST" novalidate>
           <section class="row m-0 p-4">
             <div class="col-4">
               <h6 class="mb-4 font-weight-bold">選擇地址</h6>
@@ -22,36 +25,32 @@
             <div class="col-8">
               <div class="col-10 px-0">
                 <div class="form-row row-cols-2">
-                  <div class="col mb-0">
-                    <input type="text" name="lastName" placeholder="姓氏*" value="{{data.receiver.[0]}}">
+                  <div class="col">
+                    <input class="form-control" type="text" name="lastName" placeholder="姓氏*" value="{{data.receiver.[0]}}" required>
                   </div>
-                  <div class="col mb-0">
-                    <input type="text" name="firstName" placeholder="名字*" value="{{data.receiver.[1]}}">
-                  </div>
-                  <div class="col-12 mb-4">
-                    <span class="font-small text-danger">收件地址請使用繁體中文</span>
+                  <div class="col mb-4">
+                    <input class="form-control" type="text" name="firstName" placeholder="名字*" value="{{data.receiver.[1]}}" required>
                   </div>
                   <div class="col">
-                    <input type="text" name="postCode" placeholder="郵遞區號*" value="{{data.address.[0]}}">
+                    <input class="form-control" type="text" name="postCode" placeholder="郵遞區號*" value="{{data.address.[0]}}" required>
+                    <div class="invalid-feedback">請輸入3+2，5碼格式</div>
                   </div>
                   <div class="col"></div>
                   <div class="col">
-                    <input type="text" name="area" placeholder="縣市*" value="{{data.address.[1]}}">
+                    <input class="form-control" type="text" name="area" placeholder="縣市*" value="{{data.address.[1]}}" required>
                   </div>
                   <div class="col">
-                    <input type="text" name="zone" placeholder="鄉鎮市區*" value="{{data.address.[2]}}">
+                    <input class="form-control" type="text" name="zone" placeholder="鄉鎮市區*" value="{{data.address.[2]}}" required>
                   </div>
                   <div class="col-12">
-                    <input type="text" name="line1" placeholder="街道地址*" value="{{data.address.[3]}}">
-                  </div>
-                  <div class="col-12 mb-0">
-                    <input type="text" name="line2" placeholder="大樓名, 房號等" value="{{data.address.[4]}}">
+                    <input class="form-control" type="text" name="line1" placeholder="街道地址*" value="{{data.address.[3]}}" required>
                   </div>
                   <div class="col-12 mb-4">
-                    <span class="font-small text-danger">※收件地址請使用繁體中文</span>
+                    <input class="form-control" type="text" name="line2" placeholder="大樓名, 房號等" value="{{data.address.[4]}}">
                   </div>
                   <div class="col-12 mb-0">
-                    <input type="text" name="phone" placeholder="手機號碼*" value="{{data.phone}}">
+                    <input class="form-control" type="text" name="phone" placeholder="手機號碼*" value="{{data.phone}}" required>
+                    <div class="invalid-feedback">手機格式，如 0919-000-111，短橫線可省略</div>
                   </div>
                 </div>
                 <div class="form-check my-4">
@@ -67,7 +66,7 @@
             <button class="btn order-btn">下一步</button>
           </div>
         </form>
-      </nav>
+      </div>
     </main>
     {{!-- 側邊攔 --}}
     <aside class="col-4">
