@@ -41,25 +41,6 @@ module.exports = {
     }
   },
 
-  getEditPage: async (req, res) => {
-    try {
-
-      const id = +req.params.seriesid
-
-      const series = await Series.findAll({
-        order: [['id', 'ASC']]
-      })
-
-      const pickedSeries = series.find(series => series.id === id)
-
-      res.render('admin/Series', { pickedSeries, series })
-
-    } catch (err) {
-      console.error(err)
-      res.status(500).json(err.toString())
-    }
-  },
-
   putSeries: async (req, res) => {
     try {
       const input = { ...req.body }

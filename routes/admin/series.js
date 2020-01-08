@@ -4,7 +4,6 @@ const seriesCtrller = require('../../controllers/admin/seriesCtrller')
 // route base '/admin/series
 router.get('/', seriesCtrller.getSeries)
 router.post('/', seriesCtrller.postSeries)
-router.get('/:seriesid', seriesCtrller.getEditPage)
 router.put('/:seriesid', seriesCtrller.putSeries)
 router.delete('/:seriesid', seriesCtrller.deleteSeries)
 
