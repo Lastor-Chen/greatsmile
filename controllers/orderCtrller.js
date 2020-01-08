@@ -1,38 +1,46 @@
 const db = require('../models')
-const Cart = db.Cart
+const { Cart, CartItem, Order, OrderItem, Delivery } = db
 
 module.exports = {
-  async addressPage(req, res) {
+  async setCheckout(req, res) {
     try {
+      // Query 資料庫
       const cartId = req.session.cartId
       const cart = await Cart.findByPk(cartId, {
-        include: [
-          { 
-            association: 'products',
-            attributes: ['id', 'name', 'price'],
-            include: [{
-              association: 'Images',
-              where: { is_main: true }
-            }],
-          }
-        ]
+        include: [{
+          association: 'products',
+          attributes: ['id', 'name', 'price'],
+          include: [{
+            association: 'Images',
+            where: { is_main: true }
+          }],
+        }],
+        order: [['products', CartItem, 'id', 'DESC']]
       })
 
       // 確認有無選購商品
-      if (!cart || !cart.products.length) {
-        return res.redirect('/cart')
-      } 
+      if (!cart || !cart.products.length) return res.redirect('/cart')
 
-      // 製作頁面資料
-      const products = cart.products
-      let totalPrice = 0
-      products.forEach(prod => {
+      // 計算商品價錢
+      let subtotal = 0
+      cart.products.forEach(prod => {
         prod.quantity = prod.CartItem.quantity
         prod.amount = (prod.price * prod.quantity)
-        totalPrice += prod.amount
-      })
+        subtotal += prod.amount
 
-      res.render('address', { css: 'delivery', cart, totalPrice })
+        // 製作 passData
+        prod.dataValues.quantity = prod.quantity
+        prod.dataValues.amount = prod.amount
+      })
+      cart.subtotal = subtotal
+
+      // 製作 passData
+      cart.dataValues.subtotal = subtotal
+      const data = { cart }
+      req.flash('passData')  // reset flash
+      req.flash('passData', data)
+
+      res.redirect('checkout_1')
 
     } catch (err) {
       console.error(err)
@@ -40,40 +48,17 @@ module.exports = {
     }
   },
 
-  async deliveryPage(req, res) {
+  getCheckout(req, res) {
     try {
-      const cartId = req.session.cartId
-      const cart = await Cart.findByPk(cartId, {
-        include: [
-          {
-            association: 'products',
-            attributes: ['id', 'name', 'price'],
-            include: [{
-              association: 'Images',
-              where: { is_main: true }
-            }],
-          }
-        ]
-      })
+      const data = req.flash('passData')[0]
+      console.log(data)
 
-      // 確認有無選購商品
-      if (!cart || !cart.products.length) {
-        return res.redirect('/cart')
-      }
+      // 無 passData，阻擋退回
+      if (!data) return res.redirect('/cart')
+      req.flash('passData', data)
 
-      // 製作頁面資料
-      const products = cart.products
-      let totalPrice = 0
-      products.forEach(prod => {
-        prod.quantity = prod.CartItem.quantity
-        prod.amount = (prod.price * prod.quantity)
-        totalPrice += prod.amount
-      })
-
-      // 預設運費
-      const totalPrice2 = totalPrice + 150
-
-      res.render('delivery', { css: "delivery", cart, totalPrice, totalPrice2 })
+      const view = req.path.slice(1)
+      res.render(view, { css: 'checkout', js: 'checkout', data })
 
     } catch (err) {
       console.error(err)
@@ -81,40 +66,22 @@ module.exports = {
     }
   },
 
-  async payPage(req, res) {
+  checkout_1(req, res) {
     try {
-      const cartId = req.session.cartId
-      const cart = await Cart.findByPk(cartId, {
-        include: [
-          {
-            association: 'products',
-            attributes: ['id', 'name', 'price'],
-            include: [{
-              association: 'Images',
-              where: { is_main: true }
-            }],
-          }
-        ]
-      })
-
-      // 確認有無選購商品
-      if (!cart || !cart.products.length) {
-        return res.redirect('/cart')
+      // 整理收件人資料
+      const input = req.body
+      const receiver = {
+        receiver: [input.lastName, input.firstName],
+        address: [input.postCode, input.area, input.zone, input.line1, input.line2],
+        phone: input.phone
       }
 
-      // 製作頁面資料
-      const products = cart.products
-      let totalPrice = 0
-      products.forEach(prod => {
-        prod.quantity = prod.CartItem.quantity
-        prod.amount = (prod.price * prod.quantity)
-        totalPrice += prod.amount
-      })
+      // 收件人資料注入 passData
+      const data = { ...req.flash('passData')[0], ...receiver }
+      req.flash('passData', data)
+      console.log(data)
 
-      // 預設運費
-      const totalPrice2 = totalPrice + 150
-
-      res.render('pay', { css: "delivery", js: "pay", cart, totalPrice, totalPrice2 })
+      res.redirect('checkout_2')
 
     } catch (err) {
       console.error(err)
@@ -122,41 +89,86 @@ module.exports = {
     }
   },
 
-  async viewPage(req, res) {
+  async checkout_2(req, res) {
     try {
-      const cartId = req.session.cartId
-      const cart = await Cart.findByPk(cartId, {
-        include: [
-          {
-            association: 'products',
-            attributes: ['id', 'name', 'price'],
-            include: [{
-              association: 'Images',
-              where: { is_main: true }
-            }],
-          }
-        ]
+      // 整理寄送方式
+      const input = req.body
+      input.DeliveryId = +input.DeliveryId
+
+      const delivery = await Delivery.findByPk(input.DeliveryId)
+      input.shipping = delivery.price
+      input.deliveryMethod = delivery.method
+
+      // 寄送方式注入 passData
+      const data = { ...req.flash('passData')[0], ...input }
+
+      // 計算運費
+      data.amount = (data.cart.subtotal + input.shipping)
+      req.flash('passData', data)
+      console.log(data)
+
+      res.redirect('checkout_3')
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  },
+
+  checkout_3(req, res) {
+    try {
+      // 整理付款方式
+      const payMethod = req.body
+
+      // 付款方式注入 passData
+      const data = { ...req.flash('passData')[0], ...payMethod}
+      req.flash('passData', data)
+      console.log(data)
+
+      res.redirect('checkout_4')
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  },
+
+  async postOrder(req, res) {
+    try {
+      // 取出 data 並 format
+      const data = req.flash('passData')[0]
+      data.address = data.address.join(',')
+      data.receiver = data.receiver.join(',')
+
+      // 建立 Order
+      const order = await Order.create({
+        ...data,
+        UserId: req.user.id,
+        payStatus: false,
+        shipStatus: false
       })
 
-      // 確認有無選購商品
-      if (!cart || !cart.products.length) {
-        return res.redirect('/cart')
-      }
+      // 加入單號 SN
+      const sn = ("000000000" + order.id).slice(-10)
+      await order.update({ sn })
 
-      // 製作頁面資料
-      const products = cart.products
-      let totalPrice = 0
-      const shippingFee = 150
-      products.forEach(prod => {
-        prod.quantity = prod.CartItem.quantity
-        prod.amount = (prod.price * prod.quantity)
-        totalPrice += prod.amount
-      })
+      // 建立 OrderItem
+      const cart = data.cart
+      await Promise.all(
+        cart.products.map(prod =>
+          OrderItem.create({
+            price: prod.price,
+            quantity: prod.quantity,
+            OrderId: order.id,
+            product_id: prod.id
+          })
+        )
+      )
 
-      // 預設運費
-      const totalPrice2 = totalPrice + shippingFee
+      // 清除購物車 items
+      await CartItem.destroy({ where: { CartId: cart.id } })
 
-      res.render('view', { css: 'view', cart, totalPrice, totalPrice2, shippingFee })
+      res.redirect('/products')
 
     } catch (err) {
       console.error(err)

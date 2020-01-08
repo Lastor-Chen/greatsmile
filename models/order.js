@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     UserId: DataTypes.INTEGER,
     sn: DataTypes.STRING,
     amount: DataTypes.INTEGER,
+    DeliveryId: DataTypes.INTEGER,
     payMethod: DataTypes.STRING,
     payStatus: DataTypes.BOOLEAN,
     shipStatus: DataTypes.BOOLEAN,
@@ -12,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.STRING
   }, {});
   Order.associate = function (models) {
+    Order.belongsTo(models.Delivery)
     Order.belongsToMany(models.Product, {
       through: models.OrderItem,
       foreignKey: 'order_id',

@@ -13,6 +13,7 @@ module.exports = {
         user_id: randomNum(1, 10),
         sn: faker.random.number(),
         amount: randomNum(2000, 30000),
+        delivery_id: randomNum(1, 3),
         pay_method: faker.commerce.productMaterial(),
         pay_status: randomNum(0, 1),
         ship_status: randomNum(0, 1),

@@ -5,13 +5,19 @@ function randomNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
+function getInventory(index) {
+  if (index === 1) return 0
+  if (index === 2) return 2
+  return randomNum(30, 50)
+}
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
      return queryInterface.bulkInsert('Products',
        Array.from({ length: 100 }, (val, index) => ({
          name: faker.commerce.productName(),
          price: faker.commerce.price(1000,8000),
-         inventory: index === 1 ? 0 : randomNum(30, 50),
+         inventory: getInventory(index),
          slogan: faker.lorem.words(),
          description: faker.lorem.lines(2),
          spec: faker.lorem.sentence(),
@@ -33,8 +39,22 @@ module.exports = {
   }
 };
 
-// inventory: id 2 商品無庫存
-// release_date: 1-20 項商品在10月份公開
-// deadline:     1-10 在11月截止預約, 11-20 可預約至明年 1 月(預約中)
-// sale_date:    1-5  在12月開始販售, 6-20 將在明年 2 月份販售,
-//               6-10 等待販售(下架狀態)
+/**
+ * inventory
+ *   id=2, 無庫存
+ *   id=3, 庫存2
+ * 
+ * status
+ *   6-10 等待販售(下架狀態)
+ * 
+ * release_date
+ *   1-20 項商品在10月份公開
+ * 
+ * deadline
+ *   1-10 在11月截止預約
+ *   11-20 可預約至明年 1 月(預約中)
+ * 
+ * sale_date:
+ *   1-5 在12月開始販售
+ *   6-20 將在明年 2 月份販售
+ */

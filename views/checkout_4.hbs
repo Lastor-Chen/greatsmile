@@ -1,0 +1,134 @@
+<div class="container py-5">
+  <div class="row">
+    {{!-- 主內容 --}}
+    <main class="col-8" role="main">
+      <div class="panel">
+        {{!-- 結帳步驟 step nav --}}
+        <nav class="step border-bottom px-2">
+          <ul class="nav justify-content-around">
+            <li class="px-4 py-3">1.收件地址</li>
+            <li class="px-4 py-3">2.寄件方式</li>
+            <li class="px-4 py-3">3.付款&帳單</li>
+            <li class="px-4 py-3 active">4.最後檢視</li>
+          </ul>
+        </nav>
+        {{!-- 內容表單 --}}
+        <form action="/orders" method="POST">
+          {{!-- 送貨地址 --}}
+          <section class="row m-0 p-4 border-bottom">
+            <div class="col-4">
+              <h6 class="mb-4 font-weight-bold">送貨地址</h6>
+              <a href="/orders/checkout_1" class="btn btn-edit">編輯</a>
+            </div>
+            <div class="col-8 summary-content">
+              <ul>
+                <li>{{data.receiver}}</li>
+                <li>{{data.address.[0]}}</li>
+                <li>{{data.address.[1]}}</li>
+                <li>{{data.address.[2]}}</li>
+                <li>{{data.address.[3]}}</li>
+                <li>{{data.address.[4]}}</li>
+                <li>{{data.phone}}</li>
+              </ul>
+            </div>
+          </section>
+          {{!-- 送貨選項 --}}
+          <section class="row m-0 p-4 border-bottom">
+            <div class="col-4">
+              <h6 class="mb-4 font-weight-bold">送貨選項</h6>
+              <a href="/orders/checkout_2" class="btn btn-edit">編輯</a>
+            </div>
+            <div class="col-8 summary-content">
+              <ul>
+                <li>{{data.deliveryMethod}} - NTD {{addDot data.shipping}}</li>
+              </ul>
+            </div>
+          </section>
+          {{!-- 付款詳細資訊 --}}
+          <section class="row m-0 p-4">
+            <div class="col-4">
+              <h6 class="mb-4 font-weight-bold">付款詳細資料</h6>
+              <a href="/orders/checkout_3" class="btn btn-edit">編輯</a>
+            </div>
+            <div class="col-8 summary-content">
+              <ul>
+                <li>{{data.payMethod}}</li>
+                <li class="my-3 font-weight-bold">帳單地址: (未實裝，現同收件地址)</li>
+                <li>{{data.receiver}}</li>
+                <li>{{data.address.[0]}}</li>
+                <li>{{data.address.[1]}}</li>
+                <li>{{data.address.[2]}}</li>
+                <li>{{data.address.[3]}}</li>
+                <li>{{data.address.[4]}}</li>
+                <li>{{data.phone}}</li>
+              </ul>
+            </div>
+          </section>
+          <div class="col-8 p-4 ml-auto">
+            <button class="btn order-btn">
+              <i class="fas fa-check"></i>
+              <span>確定結帳</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+    {{!-- 側邊攔 --}}
+    <aside class="col-4">
+      <section class="panel mb-4">
+        <div class="p-3">
+          <form action="/orders" method="POST">
+            <button class="btn order-btn-lg w-100">
+              <i class="fas fa-check"></i>
+              <span>確定結帳</span>
+            </button>
+          </form>
+        </div>
+      </section>
+      {{!-- 總金額 --}}
+      <section class="panel mb-4">
+        <h6 class="font-weight-bold border-bottom p-3">訂單合計</h6>
+        <div class="px-3 pb-3">
+          <div class="d-flex justify-content-between border-bottom py-2 font-small">
+            <span>小計:</span>
+            <span>NTD {{addDot data.cart.subtotal}}</span>
+          </div>
+          <div class="d-flex justify-content-between border-bottom py-2 font-small">
+            <span>運費:</span>
+            <span>NTD {{addDot data.shipping}}</span>
+          </div>
+          <div class="d-flex justify-content-between font-weight-bold py-2">
+            <span>合計:</span>
+            <span>NTD {{addDot data.amount}}</span>
+          </div>
+        </div>
+      </section>
+      {{!-- 產品 --}}
+      <section class="panel">
+        <h6 class="font-weight-bold border-bottom p-3">配送商品</h6>
+        <div class="prod-list px-3">
+          {{#each data.cart.products}}
+            <div class="row">
+              <div class="col-2 px-0">
+                <a href="/products/{{id}}">
+                  <img src="{{Images.0.url}}" alt="product-img">
+                </a>
+              </div>
+              <div class="col-10 pl-2 pr-0">
+                <a href="/products/{{id}}">
+                  <h6 class="mb-3">{{name}}</h6>
+                </a>
+                <div class="font-smaller">
+                  <p class="text-right">
+                    <span>NTD {{addDot price}} x {{addDot quantity}} =</span>
+                    <span class="font-weight-bold">NTD {{addDot amount}}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </section>
+    </aside>
+  </div>
+</div>

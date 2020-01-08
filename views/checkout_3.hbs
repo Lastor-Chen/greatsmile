@@ -13,29 +13,35 @@
           </ul>
         </nav>
         {{!-- 內容表單 --}}
-        <form action="/order/pay-method" method="GET">
+        <form action="/orders/checkout_3" method="POST">
           <section class="row m-0 p-4 border-bottom">
             <div class="col-4">
               <h6 class="mb-4 font-weight-bold">選擇付款方式</h6>
             </div>
             <div class="col-8">
               <div class="form-check mb-2">
-                <input id="radio1" class="form-check-input" type="radio" name="delivery_method" value="option1">
-                <label class="form-check-label radio-label" for="radio1">
-                  <span>信用卡付款</span>
-                </label>
+                <input type="radio" id="radio1" class="form-check-input"
+                  name="payMethod"
+                  value="信用卡付款"
+                  {{#ifEqual data.payMethod "信用卡付款"}}checked{{/ifEqual}}
+                >
+                <label class="form-check-label radio-label" for="radio1">信用卡付款</label>
               </div>
               <div class="form-check mb-2">
-                <input id="radio2" class="form-check-input" type="radio" name="delivery_method" value="option2">
-                <label class="form-check-label radio-label" for="radio2">
-                  <span>便利商店付款</span>
-                </label>
+                <input type="radio" id="radio2" class="form-check-input"
+                  name="payMethod"
+                  value="便利商店付款"
+                  {{#ifEqual data.payMethod "便利商店付款"}}checked{{/ifEqual}}
+                >
+                <label class="form-check-label radio-label" for="radio2">便利商店付款</label>
               </div>
               <div class="form-check mb-2">
-                <input id="radio3" class="form-check-input" type="radio" name="delivery_method" value="option3">
-                <label class="form-check-label radio-label" for="radio3">
-                  <span>便利商店取貨付款</span>
-                </label>
+                <input type="radio" id="radio3" class="form-check-input"
+                  name="payMethod"
+                  value="便利商店取貨付款"
+                  {{#ifEqual data.payMethod "便利商店取貨付款"}}checked{{/ifEqual}}
+                >
+                <label class="form-check-label radio-label" for="radio3">便利商店取貨付款</label>
               </div>
             </div>
           </section>
@@ -47,36 +53,36 @@
             <div class="col-8">
               <div class="form-check mb-4">
                 <label class="form-check-label">
-                  <input id="toggle-check" class="form-check-input" type="checkbox" name="" value="option1">
-                  <span>輸入其他帳單地址</span>
+                  <input id="toggle-check" class="form-check-input" type="checkbox">
+                  <span>輸入其他帳單地址 (未實裝)</span>
                 </label>
               </div>
               <div class="col-10 px-0 toggle-form" style="display: none;">
                 <div class="form-row row-cols-2">
                   <div class="col">
-                    <input type="text" name="lastName" placeholder="姓氏*">
+                    <input type="text" placeholder="姓氏*" disabled>
                   </div>
                   <div class="col">
-                    <input type="text" name="firstName" placeholder="名字*">
+                    <input type="text" placeholder="名字*" disabled>
                   </div>
                   <div class="col">
-                    <input type="text" name="postCode" placeholder="郵遞區號*">
+                    <input type="text" placeholder="郵遞區號*" disabled>
                   </div>
                   <div class="col"></div>
                   <div class="col">
-                    <input type="text" name="region" placeholder="縣市*">
+                    <input type="text" placeholder="縣市*" disabled>
                   </div>
                   <div class="col">
-                    <input type="text" name="townCity" placeholder="鄉鎮市區*">
+                    <input type="text" placeholder="鄉鎮市區*" disabled>
                   </div>
                   <div class="col-12">
-                    <input type="text" name="line1" placeholder="街道地址*">
+                    <input type="text" placeholder="街道地址*" disabled>
                   </div>
                   <div class="col-12">
-                    <input type="text" name="line2" placeholder="大樓名, 房號等">
+                    <input type="text" placeholder="大樓名, 房號等" disabled>
                   </div>
                   <div class="col-12 mb-0">
-                    <input type="text" name="phone" placeholder="手機號碼*">
+                    <input type="text" placeholder="手機號碼*" disabled>
                   </div>
                 </div>
               </div>
@@ -96,15 +102,15 @@
         <div class="px-3 pb-3">
           <div class="d-flex justify-content-between border-bottom py-2 font-small">
             <span>小計:</span>
-            <span>NTD {{addDot totalPrice}}</span>
+            <span>NTD {{addDot data.cart.subtotal}}</span>
           </div>
           <div class="d-flex justify-content-between border-bottom py-2 font-small">
             <span>運費:</span>
-            <span>NTD 150</span>
+            <span>NTD {{addDot data.shipping}}</span>
           </div>
           <div class="d-flex justify-content-between font-weight-bold py-2">
             <span>合計:</span>
-            <span>NTD {{addDot totalPrice2}}</span>
+            <span>NTD {{addDot data.amount}}</span>
           </div>
         </div>
       </section>
@@ -112,7 +118,7 @@
       <section class="panel">
         <h6 class="font-weight-bold border-bottom p-3">配送商品</h6>
         <div class="prod-list px-3">
-          {{#each cart.products}}
+          {{#each data.cart.products}}
             <div class="row">
               <div class="col-2 px-0">
                 <a href="/products/{{id}}">
@@ -124,10 +130,10 @@
                   <h6 class="mb-3">{{name}}</h6>
                 </a>
                 <div class="font-smaller">
-                  <div class="w-50 ml-auto text-left">
-                    <p>NTD {{addDot price}} x {{addDot quantity}} =</p>
-                    <p class="font-weight-bold">NTD {{addDot amount}}</p>
-                  </div>
+                  <p class="text-right">
+                    <span>NTD {{addDot price}} x {{addDot quantity}} =</span>
+                    <span class="font-weight-bold">NTD {{addDot amount}}</span>
+                  </p>
                 </div>
               </div>
             </div>

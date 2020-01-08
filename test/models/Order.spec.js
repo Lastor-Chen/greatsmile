@@ -21,6 +21,7 @@ describe('# Order Model', () => {
   assnTest(OrderModel, [
     ['hasMany', 'Payment'],
     ['belongsTo', 'User'],
+    ['belongsTo', 'Delivery'],
     ['belongsToMany', 'Product']
   ])
   actionTest(db.Order)

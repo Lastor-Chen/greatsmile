@@ -9,12 +9,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       user_id: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       sn: {
         type: Sequelize.STRING
       },
       amount: {
+        type: Sequelize.INTEGER
+      },
+      delivery_id: {
         type: Sequelize.INTEGER
       },
       pay_method: {

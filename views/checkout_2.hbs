@@ -1,0 +1,118 @@
+<div class="container py-5">
+  <div class="row">
+    {{!-- 主內容 --}}
+    <main class="col-8" role="main">
+      <section class="panel">
+        {{!-- 結帳步驟 step nav --}}
+        <nav class="step border-bottom px-2">
+          <ul class="nav justify-content-around">
+            <li class="px-4 py-3">1.收件地址</li>
+            <li class="px-4 py-3 active">2.寄件方式</li>
+            <li class="px-4 py-3">3.付款&帳單</li>
+            <li class="px-4 py-3">4.最後檢視</li>
+          </ul>
+        </nav>
+        {{!-- 內容表單 --}}
+        <form id="shipForm" action="/orders/checkout_2" method="POST">
+          <section class="row m-0 p-4">
+            <div class="col-4">
+              <h6 class="mb-4 font-weight-bold">選擇寄件方式</h6>
+            </div>
+            <div class="col-8">
+              <div class="form-check mb-2">
+                <input type="radio" id="radio1" class="form-check-input"
+                  name="DeliveryId"
+                  value="1"
+                  data-price="0"
+                  {{#ifEqual data.DeliveryId 1}}checked{{/ifEqual}}
+                >
+                <label class="form-check-label radio-label" for="radio1">店鋪取貨 - NTD 0</label>
+              </div>
+              <div class="form-check mb-2">
+                <input type="radio" id="radio2" class="form-check-input"
+                  name="DeliveryId"
+                  value="2"
+                  data-price="80"
+                  {{#ifEqual data.DeliveryId 2}}checked{{/ifEqual}}
+                >
+                <label class="form-check-label radio-label" for="radio2">便利商店取貨 - NTD 80</label>
+              </div>
+              <div class="form-check mb-2">
+                <input type="radio" id="radio3" class="form-check-input"
+                  name="DeliveryId"
+                  value="3"
+                  data-price="150"
+                  {{#ifEqual data.DeliveryId 3}}checked{{/ifEqual}}
+                >
+                <label class="form-check-label radio-label" for="radio3">宅配 - NTD 150</label>
+              </div>
+              <div class="text-danger mb-4">
+                <p>※顧客可能無法選擇所偏好的快遞公司。</p>
+                <p>※所有寄件後的稅金及費用由顧客承擔。</p>
+              </div>
+            </div>
+          </section>
+          <div class="col-8 p-4 ml-auto">
+            <button class="btn order-btn">下一步</button>
+          </div>
+        </form>
+      </section>
+    </main>
+    {{!-- 側邊攔 --}}
+    <aside class="col-4">
+      {{!-- 總金額 --}}
+      <section class="panel mb-4">
+        <h6 class="font-weight-bold border-bottom p-3">訂單合計</h6>
+        <div class="px-3 pb-3">
+          <div class="d-flex justify-content-between border-bottom py-2 font-small">
+            <span>小計:</span>
+            <p>
+              <span>NTD </span>
+              <span id="subtotal" data-val="{{data.cart.subtotal}}">{{addDot data.cart.subtotal}}</span>
+            </p>
+          </div>
+          <div class="d-flex justify-content-between border-bottom py-2 font-small">
+            <span>運費:</span>
+            <p>
+              <span>NTD </span>
+              <span id="shipping">0</span>
+            </p>
+          </div>
+          <div class="d-flex justify-content-between font-weight-bold py-2">
+            <span>合計:</span>
+            <p>
+              <span>NTD </span>
+              <span id="total">{{addDot data.cart.subtotal}}</span>
+            </p>
+          </div>
+        </div>
+      </section>
+      {{!-- 產品 --}}
+      <section class="panel">
+        <h6 class="font-weight-bold border-bottom p-3">配送商品</h6>
+        <div class="prod-list px-3">
+          {{#each data.cart.products}}
+            <div class="row">
+              <div class="col-2 px-0">
+                <a href="/products/{{id}}">
+                  <img src="{{Images.0.url}}" alt="product-img">
+                </a>
+              </div>
+              <div class="col-10 pl-2">
+                <a href="/products/{{id}}">
+                  <h6 class="mb-3">{{name}}</h6>
+                </a>
+                <div class="font-smaller">
+                  <p class="text-right">
+                    <span>NTD {{addDot price}} x {{addDot quantity}} =</span>
+                    <span class="font-weight-bold">NTD {{addDot amount}}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </section>
+    </aside>
+  </div>
+</div>

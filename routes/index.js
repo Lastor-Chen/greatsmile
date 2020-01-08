@@ -3,6 +3,7 @@
  * 依 RESTful 風設計，再細拆成 router
  */
 const { getCartItem } = require('../middleware/cart.js')
+const { isAuth } = require('../middleware/auth.js')
 
 module.exports = app => {
   app.use('/admin', require('./admin/index.js'))
@@ -10,7 +11,7 @@ module.exports = app => {
   app.use('/', getCartItem)  // 請勿更動順序
   app.use('/products', require('./products.js'))
   app.use('/cart', require('./cart.js'))
-  app.use('/order', require('./order.js'))
+  app.use('/orders', isAuth, require('./orders.js'))
   app.use('/users', require('./users.js'))
   app.use('/admin', require('./admin/index.js'))
 
