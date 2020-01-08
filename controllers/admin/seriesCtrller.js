@@ -6,7 +6,7 @@ module.exports = {
   getSeries: async (req, res) => {
     try {
       const series = await Series.findAll({
-        order: [['id', 'DESC']]
+        order: [['id', 'ASC']]
       })
 
       res.render('admin/series', { series })
@@ -27,7 +27,8 @@ module.exports = {
 
       } else {
 
-        await Series.create(input)
+        const maxId = await Series.max('id')
+        await Series.create({ id: maxId + 1, ...input })
 
         req.flash('success', '新增成功！')
         res.redirect('/admin/series')
@@ -43,12 +44,13 @@ module.exports = {
   getEditPage: async (req, res) => {
     try {
 
-      const id = req.params.seriesid
-      const pickedSeries = await Series.findByPk(id)
+      const id = +req.params.seriesid
 
       const series = await Series.findAll({
-        order: [['id', 'DESC']]
+        order: [['id', 'ASC']]
       })
+
+      const pickedSeries = series.find(series => series.id === id)
 
       res.render('admin/Series', { pickedSeries, series })
 
@@ -69,10 +71,8 @@ module.exports = {
 
       } else {
 
-        const id = req.params.seriesid
-        const series = await Series.findByPk(id)
-
-        await series.update(input)
+        const id = +req.params.seriesid
+        await Series.update(input, { where: { id } })
 
         req.flash('success', '更新成功！')
         res.redirect('/admin/series')
@@ -88,9 +88,8 @@ module.exports = {
   deleteSeries: async (req, res) => {
     try {
 
-      const id = req.params.seriesid
-      series = await Series.findByPk(id)
-      await series.destroy()
+      const id = +req.params.seriesid
+      await Series.destroy({ where: { id } })
 
       req.flash('success', '刪除成功！')
       res.redirect('/admin/series')
