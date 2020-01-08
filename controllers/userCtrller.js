@@ -13,19 +13,22 @@ module.exports = {
       const signUpError = await checkSignUp(input)
 
       if (signUpError) {
+        
         let path = '/signin'
         return res.render('signin', { signUpError, input, path, css: 'signIn'  })
+
+      } else {
+
+        input.name = input.lastName + input.firstName
+        input.nickname = input.firstName
+        input.password = bcrypt.hashSync(input.password, 10)
+        input.isAdmin = false
+        await User.create(input)
+
+        req.flash('signUpSuccess', '已成功註冊帳號')
+        return res.redirect('/users/signin')
       }
       
-      input.name = input.lastName + input.firstName
-      input.nickname = input.firstName
-      input.password = bcrypt.hashSync(input.password, 10)
-      input.isAdmin = false
-      await User.create(input)
-
-      req.flash('signUpSuccess', '已成功註冊帳號')
-      res.redirect('/users/signin')
-
     } catch (err) {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
