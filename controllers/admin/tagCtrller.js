@@ -27,7 +27,8 @@ module.exports = {
 
       } else {
 
-        await Tag.create(input)
+        const maxId = await Tag.max('id')
+        await Tag.create({ id: maxId + 1, ...input })
 
         req.flash('success', '新增成功！')
         res.redirect('/admin/tags')
@@ -51,10 +52,8 @@ module.exports = {
 
       } else {
 
-        const id = req.params.tagsid
-        const tag = await Tag.findByPk(id)
-
-        await tag.update(input)
+        const id = +req.params.tagsid
+        await Tag.update(input, { where: { id } })
 
         req.flash('success', '更新成功！')
         res.redirect('/admin/tags')
