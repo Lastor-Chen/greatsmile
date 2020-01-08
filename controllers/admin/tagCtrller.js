@@ -40,25 +40,6 @@ module.exports = {
     }
   },
 
-  getEditPage: async (req, res) => {
-    try {
-
-      const id = +req.params.tagsid
-
-      const tags = await Tag.findAll({
-        order: [['id', 'ASC']]
-      })
-
-      const tag = tags.find(tag => tag.id === id)
-
-      res.render('admin/tags', { tag, tags })
-
-    } catch (err) {
-      console.error(err)
-      res.status(500).json(err.toString())
-    }
-  },
-
   putTag: async (req, res) => {
     try {
       const input = { ...req.body }
