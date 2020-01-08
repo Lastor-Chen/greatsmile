@@ -41,25 +41,6 @@ module.exports = {
     }
   },
 
-  getEditPage: async (req, res) => {
-    try {
-
-      const id = +req.params.categoriesid
-
-      const categories = await Category.findAll({
-        order: [['id', 'ASC']]
-      })
-
-      const category = categories.find(category => category.id === id)
-
-      res.render('admin/categories', { category, categories })
-
-    } catch (err) {
-      console.error(err)
-      res.status(500).json(err.toString())
-    }
-  },
-
   putCategory: async (req, res) => {
     try {
       const input = { ...req.body }
