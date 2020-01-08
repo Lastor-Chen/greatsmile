@@ -70,8 +70,16 @@ module.exports = {
 
   checkout_1(req, res) {
     try {
-      // 整理收件人資料
+      // 檢查 input
       const input = req.body
+      const error = checkCheckout1(input)
+      if (error) {
+        console.log(error)
+        req.flash('error', error)
+        return res.redirect('checkout_1')
+      }
+
+      // 整理收件人資料
       const receiver = {
         receiver: [input.lastName, input.firstName],
         address: [input.postCode, input.area, input.zone, input.line1, input.line2],
@@ -82,13 +90,6 @@ module.exports = {
       const data = { ...req.flash('passData')[0], ...receiver }
       req.flash('passData', data)
       console.log(data)
-
-      // 檢查 input
-      const error = checkCheckout1(input)
-      if (error) {
-        req.flash('error', error)
-        return res.redirect('back')
-      }
 
       res.redirect('checkout_2')
 
@@ -104,7 +105,7 @@ module.exports = {
       const input = req.body
       if (!input.DeliveryId) {
         req.flash('error', '請選擇一種方式')
-        return res.redirect('back')
+        return res.redirect('checkout_2')
       }
 
       // 整理寄送方式
@@ -136,7 +137,7 @@ module.exports = {
       const input = req.body
       if (!input.payMethod) {
         req.flash('error', '請選擇一種方式')
-        return res.redirect('back')
+        return res.redirect('checkout_3')
       }
 
       // 付款方式注入 passData
