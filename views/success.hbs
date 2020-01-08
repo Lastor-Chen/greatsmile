@@ -140,7 +140,10 @@
             <div>
               <ul class="side-item-list mb-0">
                 <li class="py-2">{{order.payMethod}}</li>
+                {{#ifEqual order.payMethod '便利商店取貨付款'}}
+                {{else}}
                 <li>付款期限: {{paymentTerms}}</li>
+                {{/ifEqual}}
                 <li>訂單編號: {{order.sn}}</li>
               </ul>
             </div>
