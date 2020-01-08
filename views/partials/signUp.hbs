@@ -1,16 +1,17 @@
 <section class="col-md-6 mb-2 py-3 px-1">
   <div class="row panel mx-1">
     <div class="panel-heading col-md-12">
-      <div class="mt-3">建立一個帳戶</div>
+      <div class="mt-3">初次使用的客戶</div>
     </div>
+  
     <div class="col-md-12 px-5 mb-1 signCard">
-      <div class="col-md-12 pt-4 pl-0 mb-2">
-        <h6>建立一個帳戶</h6>
+      <div class="col-md-12 pt-4 px-0 mb-2">
+                    <div class="col-12 px-0">
+                      {{> signUpAlert}}
+                    </div>
+        <h6>註冊新會員</h6>
         <div class="row pl-0">
-          <p class="description pr-2 col-5">要快速結帳，輕易存取先前的訂單，並能夠建立通訊錄和儲存設定，請在下方註冊。</p>
-          <div class="col-7 pr-0">
-            {{> signUpAlert}}
-          </div>
+          <p class="description pr-2 col-12">註冊後可管理地址與各種設定，並確認訂單履歷。</p>
         </div>
       </div>
       <form class="row" action="/users/signup" method="POST">
