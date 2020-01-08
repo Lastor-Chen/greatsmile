@@ -5,8 +5,8 @@
       <div class="panel mx-1 text-center font-format notice">
         <div class="py-4">
           <h4 class="pb-4">訂單處理中，謝謝您的光顧。</h4>
-          <p>訂單內容已發送至 user1@gmail.com，訂單編號為 {{order.id}}。</p>
-          <p class="pb-5">下訂日期 {{order.createdAt}}</p>
+          <p>訂單內容已發送至 user1@gmail.com，訂單編號為 {{order.sn}}。</p>
+          <p class="pb-5">下訂日期 {{orderTime}}</p>
           <a href="/products" class="btn px-4">繼續購物</a>
         </div>
       </div>
@@ -101,7 +101,7 @@
           <hr class="my-2">
           <div>
             <ul class="side-item-list mb-0">
-              <li>{{order.receiver}}</li>
+              <li>{{receiver.[0]}} {{receiver.[1]}}</li>
               <li>{{address.[0]}}</li>
               <li>{{address.[1]}}</li>
               <li>{{address.[2]}}</li>
@@ -141,7 +141,7 @@
               <ul class="side-item-list mb-0">
                 <li class="py-2">{{order.payMethod}}</li>
                 <li>付款期限: {{paymentTerms}}</li>
-                <li>訂單編號: {{order.id}}</li>
+                <li>訂單編號: {{order.sn}}</li>
               </ul>
             </div>
           </div>

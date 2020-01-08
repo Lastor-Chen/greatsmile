@@ -219,12 +219,15 @@ module.exports = {
 
       const subtotalFormat = subtotal.toLocaleString()
       const shippingFee = order.Delivery.price
+      const receiver = order.receiver.split(",")
       const address = order.address.split(",")
 
+      // 下訂時間
+      const orderTime = moment(order.createdAt).format('YYYY/MM/DD HH:MM')
       // 付款期限 三天
       const paymentTerms = moment(order.createdAt).add(3, 'days').format('YYYY/MM/DD') + ' 23:59:59'
 
-      res.render('success', { css: 'success', order, orderProducts, subtotalFormat, shippingFee, address, paymentTerms })
+      res.render('success', { css: 'success', order, orderProducts, orderTime, subtotalFormat, shippingFee, receiver, address, paymentTerms })
 
     } catch (err) {
       console.error(err)
