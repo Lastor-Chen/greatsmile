@@ -28,3 +28,7 @@ main.container {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
 }
+
+input { 
+    text-align: center; 
+}

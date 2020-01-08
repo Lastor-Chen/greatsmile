@@ -5,78 +5,94 @@
         <div class="alertBlock mb-2">
           {{> alert}}
         </div>
-        {{#if category}}
-          <form class="form-inline d-flex justify-content-end" action="/admin/categories/{{category.id}}?_method=PUT"
-            method="POST">
-            <div class="form-group mx-sm-3 mb-2 mt-1">
-              <input type="text" class="form-control" name="name" placeholder="輸入分類名稱..." value={{category.name}}
-                required>
-            </div>
-            <button type="submit" class="btn btn-primary mb-2 mt-1">更新分類</button>
-          </form>
-        {{else}}
-          <form class="form-inline d-flex justify-content-end" action="/admin/categories" method="POST">
-            <div class="form-group mx-sm-3 mb-2 mt-1">
-              <input type="text" class="form-control" name="name" placeholder="輸入新分類..." required>
-            </div>
-            <button type="submit" class="btn btn-primary mb-2 mt-1">新增分類</button>
-          </form>
-        {{/if}}
-        <table data-toggle="table" id="table">
-          <thead>
-            <tr>
-              <th data-valign="middle" class="text-center" data-sortable="true">#</th>
-              <th data-valign="middle" class="text-center" data-sortable="true">分類名稱</th>
-              <th data-valign="middle" class="text-center">分類操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each categories}}
+        <form class="form-inline d-flex justify-content-end" action="/admin/categories" method="POST">
+          <div class="form-group mx-sm-3 mb-2 mt-1">
+            <input type="text" class="form-control" name="name" placeholder="輸入新分類..." required>
+          </div>
+          <button type="submit" class="btn btn-primary mb-2 mt-1">新增分類</button>
+        </form>
+        <div class="accordion" id="accordionEdit">
+          <table data-toggle="table" id="table">
+            <thead>
               <tr>
-                <td>{{this.id}}</td>
-                <td>{{this.name}}</td>
-                <td>
-                  <button type="button" class="btn font-weight-normal">
-                    <a href="/admin/categories/{{this.id}} " class="text-decoration-none btn btn-outline-dark"><i
-                        class="fas fa-edit" title="編輯分類資料"></i></a>
-                  </button>
-                  <!-- Delete Button trigger modal -->
-                  <button type="button" class="btn btn-outline-dark font-weight-normal" data-toggle="modal"
-                    data-target="#delete_{{this.id}}" title="刪除此分類">
-                    <i class="far fa-trash-alt" aria-hidden="true"></i>
-                  </button>
-                </td>
-                {{!-- Delete modal --}}
-                <div class="modal fade" id="delete_{{this.id}}" tabindex="-1" role="dialog"
-                  aria-labelledby="delete_{{this.id}}Label" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="delete_{{this.id}}Label">刪除確認</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <h5 class="modal-title ml-3" id="ModalScrollable{{this.id}}Title">
-                          {{this.name}}</h5>
-                        </br>
-                        <h5 class="text-danger text-right">你真的要刪除這則分類嗎？</h5>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                        <form action="/admin/categories/{{this.id}}?_method=DELETE" method="POST"
-                          style="display: inline;">
-                          <button type="submit" class="btn btn-outline-danger font-weight-normal">確認刪除
+                <th data-valign="middle" class="text-center" data-sortable="true" data-width="30">#</th>
+                <th data-valign="middle" class="text-center" data-sortable="true" data-width="200">分類名稱</th>
+                <th data-valign="middle" class="text-center" data-width="150">分類操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each categories}}
+                <tr>
+                  <td>{{this.id}}</td>
+                  <td>{{this.name}}</td>
+                  <td>
+                    <button class="text-decoration-none btn btn-outline-dark mx-1" type="button" data-toggle="collapse"
+                      data-target="#collapse_{{this.id}}">
+                      <i class="fas fa-edit" title="編輯分類資料"></i>
+                    </button>
+                    <!-- Delete Button trigger modal -->
+                    <button type="button" class="btn btn-outline-dark font-weight-normal mx-1" data-toggle="modal"
+                      data-target="#delete_{{this.id}}" title="刪除此分類">
+                      <i class="far fa-trash-alt" aria-hidden="true"></i>
+                    </button>
+                  </td>
+                  {{!-- Delete modal --}}
+                  <div class="modal fade" id="delete_{{this.id}}" tabindex="-1" role="dialog"
+                    aria-labelledby="delete_{{this.id}}Label" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="delete_{{this.id}}Label">刪除確認</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
                           </button>
-                        </form>
+                        </div>
+                        <div class="modal-body">
+                          <h5 class="modal-title ml-3" id="ModalScrollable{{this.id}}Title">
+                            {{this.name}}</h5>
+                          </br>
+                          <h5 class="text-danger text-right">你真的要刪除這則分類嗎？</h5>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                          <form action="/admin/categories/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+                            <button type="submit" class="btn btn-outline-danger font-weight-normal">確認刪除
+                            </button>
+                          </form>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-            {{/each}}
-          </tbody>
-        </table>
+                </tr>
+                {{!-- 更新用收合表單 --}}
+                <tr>
+                  <td class="p-0 text-center">
+                    <div class="collapse" id="collapse_{{this.id}}" data-parent="#accordionEdit">
+                      <i class="fas fa-pen"></i>
+                    </div>
+                  </td>
+                  <td class="p-0">
+                    <div class="collapse" id="collapse_{{this.id}}" data-parent="#accordionEdit">
+                      <form class="" action="/admin/categories/{{this.id}}?_method=PUT" method="POST" id="edit_{{this.id}}">
+                        <div class="form-group mx-sm-3 mb-2 mt-1">
+                          <input type="text" class="form-control" name="name" placeholder="輸入分類名稱..."
+                            value={{this.name}} required>
+                        </div>
+                      </form>
+                    </div>
+                  </td>
+                  <td class="p-0">
+                    <div class="collapse text-center" id="collapse_{{this.id}}" data-parent="#accordionEdit">
+                      <button type="submit" class="btn btn-outline-dark mb-2 mt-1 px-4" form="edit_{{this.id}}">
+                        <i class="fas fa-level-down-alt fa-rotate-90"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
