@@ -31,7 +31,7 @@ module.exports = {
 
         req.flash('success', '新增成功！')
         res.redirect('/admin/tags')
-        
+
       }
 
     } catch (err) {
@@ -43,12 +43,13 @@ module.exports = {
   getEditPage: async (req, res) => {
     try {
 
-      const id = req.params.tagsid
-      const tag = await Tag.findByPk(id)
+      const id = +req.params.tagsid
 
       const tags = await Tag.findAll({
         order: [['id', 'ASC']]
       })
+
+      const tag = tags.find(tag => tag.id === id)
 
       res.render('admin/tags', { tag, tags })
 
@@ -63,7 +64,7 @@ module.exports = {
       const input = { ...req.body }
 
       if (input.name.trim() === '') {
-        
+
         req.flash('error', '標籤名稱不能為空白')
         res.redirect('back')
 
@@ -88,9 +89,8 @@ module.exports = {
   deleteTag: async (req, res) => {
     try {
 
-      const id = req.params.tagsid
-      tag = await Tag.findByPk(id)
-      await tag.destroy()
+      const id = +req.params.tagsid
+      await Tag.destroy({ where: { id } })
 
       req.flash('success', '刪除成功！')
       res.redirect('/admin/tags')
