@@ -157,6 +157,11 @@ module.exports = {
     try {
       // 取出 data 並 format
       const data = req.flash('passData')[0]
+      if (!data) {
+        req.flash('error', '錯誤訪問')
+        return res.redirect('/cart')
+      }
+
       data.address = data.address.join(',')
       data.receiver = data.receiver.join(',')
 
