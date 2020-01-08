@@ -29,3 +29,7 @@ main.container {
   flex: 1 1 auto;
   padding: 0rem;
 }
+
+input { 
+    text-align: center; 
+}
