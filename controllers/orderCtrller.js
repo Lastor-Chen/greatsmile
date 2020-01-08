@@ -2,6 +2,11 @@ const db = require('../models')
 const { Cart, CartItem, Order, OrderItem, Delivery } = db
 
 const { checkCheckout1 } = require('../lib/checker.js')
+const { genDataChain, aesEncrypt, aesDecrypt, shaHash } = require('../lib/tools.js')
+
+// 藍新金流設定
+const HashKey = process.env.HASH_KEY
+const HashIV = process.env.HASH_IV
 
 module.exports = {
   async setCheckout(req, res) {
