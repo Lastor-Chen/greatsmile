@@ -1,6 +1,6 @@
 function checkPostCode(elem) {
-  const postCode = $(elem).val()
-  if (isNaN(postCode) || postCode.length !== 5) {
+  const isPostCode = /^\d{5}$/.test($(elem).val())
+  if (!isPostCode) {
     elem.setCustomValidity('格式錯誤')
     $(elem).addClass('is-invalid')
   } else {
@@ -11,8 +11,8 @@ function checkPostCode(elem) {
 }
 
 function checkPhone(elem) {
-  const phone = $(elem).val()
-  if (!/^09\d{2}(-?\d{3}){2}$/.test(phone)) {
+  const isPhone = /^09\d{2}(-?\d{3}){2}$/.test($(elem).val())
+  if (!isPhone) {
     elem.setCustomValidity('格式錯誤')
     $(elem).addClass('is-invalid')
   } else {
