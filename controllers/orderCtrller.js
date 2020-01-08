@@ -53,7 +53,6 @@ module.exports = {
   getCheckout(req, res) {
     try {
       const data = req.flash('passData')[0]
-      console.log(data)
 
       // 無 passData，阻擋退回
       if (!data) return res.redirect('/cart')
@@ -89,7 +88,6 @@ module.exports = {
       // 收件人資料注入 passData
       const data = { ...req.flash('passData')[0], ...receiver }
       req.flash('passData', data)
-      console.log(data)
 
       res.redirect('checkout_2')
 
@@ -121,7 +119,6 @@ module.exports = {
       // 計算運費
       data.amount = (data.cart.subtotal + input.shipping)
       req.flash('passData', data)
-      console.log(data)
 
       res.redirect('checkout_3')
 
@@ -143,7 +140,6 @@ module.exports = {
       // 付款方式注入 passData
       const data = { ...req.flash('passData')[0], ...input}
       req.flash('passData', data)
-      console.log(data)
 
       res.redirect('checkout_4')
 
