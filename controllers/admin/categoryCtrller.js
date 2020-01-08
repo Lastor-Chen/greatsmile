@@ -7,7 +7,7 @@ module.exports = {
     try {
 
       const categories = await Category.findAll({
-        order: [['id', 'DESC']]
+        order: [['id', 'ASC']]
       })
 
       res.render('admin/categories', { categories })
@@ -27,7 +27,8 @@ module.exports = {
 
       } else {
 
-        await Category.create(input)
+        const maxId = await Category.max('id')
+        await Category.create({ id: maxId + 1, ...input })
 
         req.flash('success', '新增成功！')
         res.redirect('/admin/categories')
@@ -43,12 +44,13 @@ module.exports = {
   getEditPage: async (req, res) => {
     try {
 
-      const id = req.params.categoriesid
-      const category = await Category.findByPk(id)
+      const id = +req.params.categoriesid
 
       const categories = await Category.findAll({
-        order: [['id', 'DESC']]
+        order: [['id', 'ASC']]
       })
+
+      const category = categories.find(category => category.id === id)
 
       res.render('admin/categories', { category, categories })
 
@@ -69,10 +71,8 @@ module.exports = {
 
       } else {
 
-        const id = req.params.categoriesid
-        const category = await Category.findByPk(id)
-
-        await category.update(input)
+        const id = +req.params.categoriesid
+        await Category.update(input, { where: { id } })
 
         req.flash('success', '更新成功！')
         res.redirect('/admin/categories')
@@ -88,9 +88,8 @@ module.exports = {
   deleteCategory: async (req, res) => {
     try {
 
-      const id = req.params.categoriesid
-      category = await Category.findByPk(id)
-      await category.destroy()
+      const id = +req.params.categoriesid
+      await Category.destroy({ where: { id } })
 
       req.flash('success', '刪除成功！')
       res.redirect('/admin/categories')
