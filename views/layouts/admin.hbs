@@ -38,9 +38,12 @@
         <li class="nav-item">
           <a class="nav-link {{#ifEqual path '/users'}}active{{/ifEqual}}" href="/admin/users">會員</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link {{#ifEqual path '/tags'}}active{{/ifEqual}}" href="/admin/tags">標籤</a>
+        </li>
         <br>
       </ul>
-      <a class="btn btn-outline-secondary ml-3" href="/signout">登出</a>
+      <a class="btn btn-outline-secondary ml-3" href="/users/signout">登出</a>
     </div>
   </nav>
   {{{body}}}
