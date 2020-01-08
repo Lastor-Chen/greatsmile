@@ -1,5 +1,5 @@
 const db = require('../models')
-const { Cart, CartItem, Order, OrderItem, Delivery, Product } = db
+const { Cart, CartItem, Order, OrderItem, Delivery, Product, User } = db
 
 const moment = require('moment')
 moment.locale('zh-tw')
@@ -190,7 +190,7 @@ module.exports = {
       // 清除購物車 items
       await CartItem.destroy({ where: { CartId: cart.id } })
 
-      res.redirect('/products')
+      res.redirect('/orders/success')
 
     } catch (err) {
       console.error(err)
@@ -200,14 +200,15 @@ module.exports = {
 
   async getSuccessOrder(req, res) {
     try {
-
-      const order = await Order.findByPk(req.params.id, {
+      const user = await User.findByPk(req.user.id, {
         include: [
-          { model: Product, as: 'products',
-            include: 'Images'
-          }, Delivery]
+          { model: Order, include: [
+            { model: Product, as: 'products', include: 'Images'}, Delivery]
+        }],
+        order: [['Orders', 'id', 'DESC']]
       })
 
+      const order = user.Orders[0]
       let subtotal = 0
       const orderProducts = order.products
       orderProducts.forEach(product => {
@@ -227,7 +228,7 @@ module.exports = {
       // 付款期限 三天
       const paymentTerms = moment(order.createdAt).add(3, 'days').format('YYYY/MM/DD') + ' 23:59:59'
 
-      res.render('success', { css: 'success', order, orderProducts, orderTime, subtotalFormat, shippingFee, receiver, address, paymentTerms })
+      res.render('success', { css: 'success', user, order, orderProducts, orderTime, subtotalFormat, shippingFee, receiver, address, paymentTerms })
 
     } catch (err) {
       console.error(err)
