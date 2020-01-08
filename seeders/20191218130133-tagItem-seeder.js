@@ -20,8 +20,8 @@ module.exports = {
           tag_Id: 3,
           product_id: index + 1
         }))
-      )   // 需手動把商品 product_id: 2, tag_Id: 3的 tagItem 刪除 (因庫存為 0)
-    ])    
+      )
+    ])
   },
 
   down: (queryInterface, Sequelize) => {
@@ -31,3 +31,11 @@ module.exports = {
     ])
   }
 };
+
+/**
+ * 共 100 筆
+ * product_id   tag
+ *   1-5         2 (特典)
+ *   1-5         3 (販售中)
+ *   ~11         1 (預約中)
+ */
