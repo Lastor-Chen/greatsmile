@@ -4,7 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return Promise.all([
       queryInterface.bulkInsert('Tag_items',
-        Array.from({ length: 10 }, (val, index) => ({
+        Array.from({ length: 90 }, (val, index) => ({
           tag_Id: 1,
           product_id: index + 11
         }))
@@ -21,7 +21,7 @@ module.exports = {
           product_id: index + 1
         }))
       )
-    ])    
+    ])
   },
 
   down: (queryInterface, Sequelize) => {
@@ -31,3 +31,11 @@ module.exports = {
     ])
   }
 };
+
+/**
+ * 共 100 筆
+ * product_id   tag
+ *   1-5         2 (特典)
+ *   1-5         3 (販售中)
+ *   ~11         1 (預約中)
+ */

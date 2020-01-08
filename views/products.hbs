@@ -6,51 +6,55 @@
         <a href="/">Home </a>&gt;
         <span>{{bread}}</span>
       </nav>
-      {{#if products.length}}
+      {{!-- tag + select --}}
+      <div class="row d-flex justify-content-between">
+        <div class="d-flex align-items-start">
+          <ul class="nav-tag">
+            <li class="d-inline">
+              <a class="btn btn-sm {{#ifEqual tagQuery '所有商品'}}active{{/ifEqual}}" data-tag="所有商品">所有商品</a>
+            </li>
+            <li class="d-inline">
+              <a class="btn btn-sm {{#ifEqual tagQuery '預購中商品一覽'}}active{{/ifEqual}}" data-tag="預購中商品一覽">預購中商品一覽</a>
+            </li>
+            <li class="d-inline">
+              <a class="btn btn-sm {{#ifEqual tagQuery '附特典'}}active{{/ifEqual}}" data-tag="附特典">附特典</a>
+            </li>
+            <li class="d-inline">
+              <a class="btn btn-sm {{#ifEqual tagQuery '庫存販售商品'}}active{{/ifEqual}}" data-tag="庫存販售商品">庫存販售商品</a>
+            </li>
+            <li class="d-inline">
+              <a class="btn btn-sm {{#ifEqual tagQuery '即將截止預購'}}active{{/ifEqual}}" data-tag="即將截止預購">即將截止預購</a>
+            </li>
+          </ul>
+        </div>
+        <div class="d-flex align-items-start">
+          <div class="form-group d-inline-block">
+            <div id="searchQuery" data-q="{{searchQuery}}" hidden></div>
+            <div id="categoryQuery" data-category="{{categoryQuery}}" hidden></div>
+            <div id="tagQuery" data-tag="{{tagQuery}}" hidden></div>
+            <select id="sort" class="form-control">
+              <option value="releaseDate,DESC" {{#ifEqual selectedSort 'releaseDate,DESC'}}selected{{/ifEqual}}>最新公開
+              </option>
+              <option value="saleDate,DESC" {{#ifEqual selectedSort 'saleDate,DESC'}}selected{{/ifEqual}}>最新發售
+              </option>
+              <option value="price,ASC" {{#ifEqual selectedSort 'price,ASC'}}selected{{/ifEqual}}>價格低</option>
+              <option value="price,DESC" {{#ifEqual selectedSort 'price,DESC'}}selected{{/ifEqual}}>價格高</option>
+            </select>
+          </div>
+          <a href="#" class="btn btn-display">
+            <i class="fas fa-list"></i>
+          </a>
+          <a href="#" class="btn btn-display">
+            <i class="fas fa-th-large"></i>
+          </a>
+        </div>
+      </div>
+      {{#if getProducts.length}}
         {{!-- 分頁 --}}
         {{>pagination}}
-        {{!-- tag + select --}}
-        <div class="row d-flex justify-content-between">
-          <div class="d-flex align-items-start">
-            <ul class="nav-tag">
-              <li class="d-inline">
-                <a href="#" class="btn btn-sm">預購中</a>
-              </li>
-              <li class="d-inline">
-                <a href="#" class="btn btn-sm">特典</a>
-              </li>
-              <li class="d-inline">
-                <a href="#" class="btn btn-sm">庫存販售商品</a>
-              </li>
-              <li class="d-inline">
-                <a href="#" class="btn btn-sm active">所有商品</a>
-              </li>
-            </ul>
-          </div>
-          <div class="d-flex align-items-start">
-            <div class="form-group d-inline-block">
-              <div id="searchQuery" data-q="{{searchQuery}}" hidden></div>
-              <div id="categoryQuery" data-category="{{categoryQuery}}" hidden></div>
-              <select id="sort" class="form-control">
-                <option value="releaseDate,DESC" {{#ifEqual selectedSort 'releaseDate,DESC'}}selected{{/ifEqual}}>最新公開
-                </option>
-                <option value="saleDate,DESC" {{#ifEqual selectedSort 'saleDate,DESC'}}selected{{/ifEqual}}>最新發售
-                </option>
-                <option value="price,ASC" {{#ifEqual selectedSort 'price,ASC'}}selected{{/ifEqual}}>價格低</option>
-                <option value="price,DESC" {{#ifEqual selectedSort 'price,DESC'}}selected{{/ifEqual}}>價格高</option>
-              </select>
-            </div>
-            <a href="#" class="btn btn-display">
-              <i class="fas fa-list"></i>
-            </a>
-            <a href="#" class="btn btn-display">
-              <i class="fas fa-th-large"></i>
-            </a>
-          </div>
-        </div>
         {{!-- 商品型錄 --}}
         <div class="row">
-          {{#each products}}
+          {{#each getProducts}}
             <div class="col-md-2-5 mb-3">
               <div class="card">
                 <div class="card-body">
@@ -94,7 +98,7 @@
         {{!-- 分頁 --}}
         {{>pagination}}
       {{else}}
-        <h6 class="font-weight-bold">沒有與搜尋結果相符合的商品。</h6>
+        <h6 class="font-weight-bold">沒有與搜尋內容相符合的商品。</h6>
       {{/if}}
     </main>
   </div>
