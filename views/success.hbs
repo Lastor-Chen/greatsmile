@@ -25,7 +25,7 @@
           <div class="order-product">
             {{!-- 標題 --}}
             <div class="row">
-              <div class="col-md-7 item-title">商品{{cartProducts.length}}</div>
+              <div class="col-md-7 item-title">商品</div>
               <div class="col-md-5 item-title">
                 <div class="d-flex justify-content-between align-items-center">
                   <span>商品價格</span>
@@ -80,7 +80,7 @@
                 <hr class="my-3">
                 <div class="d-flex justify-content-between align-items-center font-format-bold">
                   <span>合計</span>
-                  <span>NTD {{totalPriceFormat}}</span>
+                  <span>NTD {{order.amount}}</span>
                 </div>
                 <hr class="mt-3">
               </div>
@@ -101,27 +101,13 @@
           <hr class="my-2">
           <div>
             <ul class="side-item-list mb-0">
-              <li>
-                <p>{{order.receiver}}</p>
-              </li>
-              <li>
-                <p>XXXXX</p>
-              </li>
-              <li>
-                <p>日本</p>
-              </li>
-              <li>
-                <p>1418577</p>
-              </li>
-              <li>
-                <p>東京都</p>
-              </li>
-              <li>
-                <p>品川區大崎</p>
-              </li>
-              <li>
-                <p>{{order.phone}}</p>
-              </li>
+              <li>{{order.receiver}}</li>
+              <li>{{address.[0]}}</li>
+              <li>{{address.[1]}}</li>
+              <li>{{address.[2]}}</li>
+              <li>{{address.[3]}}</li>
+              <li>{{address.[4]}}</li>
+              <li>{{order.phone}}</li>
             </ul>
           </div>
         </div>
@@ -136,12 +122,8 @@
           <hr class="my-2">
           <div>
             <ul class="side-item-list mb-0">
-              <li>
-                <p>配送時間</p>
-              </li>
-              <li>
-                <p>12:00～14:00</p>
-              </li>
+              <li>配送時間</li>
+              <li>12:00～14:00</li>
             </ul>
           </div>
         </div>
@@ -157,22 +139,14 @@
             <hr class="my-2">
             <div>
               <ul class="side-item-list mb-0">
-                <li>
-                  <p class="py-2">{{order.payMethod}}</p>
-                </li>
-                <li>
-                  <p>付款期限: 2020/01/14 23:59:59</p>
-                </li>
-                <li>
-                  <p>銀行代碼:</p>
-                </li>
-                <li>
-                  <p>訂單編號:1418577</p>
-                </li>
+                <li class="py-2">{{order.payMethod}}</li>
+                <li>付款期限: {{paymentTerms}}</li>
+                <li>訂單編號: {{order.id}}</li>
               </ul>
             </div>
           </div>
 
+          {{!-- 帳單地址未實裝 資料取配送地址 --}}
           <div class="pt-2">
             <div class="side-heading">
               <div>帳單地址</div>
@@ -180,27 +154,13 @@
             <hr class="my-2">
             <div>
               <ul class="side-item-list mb-0">
-                <li>
-                  <p>田中 綾</p>
-                </li>
-                <li>
-                  <p>XXXXX</p>
-                </li>
-                <li>
-                  <p>日本</p>
-                </li>
-                <li>
-                  <p>1418577</p>
-                </li>
-                <li>
-                  <p>東京都</p>
-                </li>
-                <li>
-                  <p>品川區大崎</p>
-                </li>
-                <li>
-                  <p>03123456</p>
-                </li>
+                <li>{{order.receiver}}</li>
+                <li>{{address.[0]}}</li>
+                <li>{{address.[1]}}</li>
+                <li>{{address.[2]}}</li>
+                <li>{{address.[3]}}</li>
+                <li>{{address.[4]}}</li>
+                <li>{{order.phone}}</li>
               </ul>
             </div>
           </div>

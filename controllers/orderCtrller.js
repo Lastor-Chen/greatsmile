@@ -1,5 +1,8 @@
 const db = require('../models')
-const { Cart, CartItem, Order, OrderItem, Delivery } = db
+const { Cart, CartItem, Order, OrderItem, Delivery, Product } = db
+
+const moment = require('moment')
+moment.locale('zh-tw')
 
 const { checkCheckout1 } = require('../lib/checker.js')
 
@@ -198,7 +201,30 @@ module.exports = {
   async getSuccessOrder(req, res) {
     try {
 
-      res.render('success', { css: 'success'})
+      const order = await Order.findByPk(req.params.id, {
+        include: [
+          { model: Product, as: 'products',
+            include: 'Images'
+          }, Delivery]
+      })
+
+      let subtotal = 0
+      const orderProducts = order.products
+      orderProducts.forEach(product => {
+        product.mainImg = product.Images.find(img => img.isMain).url
+        product.priceFormat = product.OrderItem.price.toLocaleString()
+        product.subPriceFormat = (product.OrderItem.price * product.OrderItem.quantity).toLocaleString()
+        subtotal += (product.OrderItem.price * product.OrderItem.quantity)
+      })
+
+      const subtotalFormat = subtotal.toLocaleString()
+      const shippingFee = order.Delivery.price
+      const address = order.address.split(",")
+
+      // 付款期限 三天
+      const paymentTerms = moment(order.createdAt).add(3, 'days').format('YYYY/MM/DD') + ' 23:59:59'
+
+      res.render('success', { css: 'success', order, orderProducts, subtotalFormat, shippingFee, address, paymentTerms })
 
     } catch (err) {
       console.error(err)
