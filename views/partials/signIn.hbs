@@ -5,8 +5,13 @@
     </div>
     <div class="col-md-12 px-5 mb-1 signCard">
       <div class="col-md-12 pt-4 pl-0 mb-2">
+        <div class="col-12 px-0">
+          {{> signInAlert}}
+        </div>
         <h6>登入</h6>
-        <p class="description pr-5 pl-0 col-7">已經有帳號？在下方登入。</p>
+        <div class="row pl-0">
+          <p class="description pr-2 col-12">已經有帳號？在下方登入。</p>
+        </div>
       </div>
       <form class="row" action="/users/signin" method="POST">
         <div class="form-group col-12">
@@ -19,7 +24,6 @@
         </div>
         <br>
         <div class="col-12 text-center my-3">
-          {{> signInAlert}}
           <button type="submit" class="btn sign-btn">登入</button>
         </div>
       </form>
