@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     DeliveryId: DataTypes.INTEGER,
     payMethod: DataTypes.STRING,
     payStatus: DataTypes.BOOLEAN,
+    orderNo: DataTypes.STRING,
     shipStatus: DataTypes.BOOLEAN,
     receiver: DataTypes.STRING,
     address: DataTypes.STRING,

@@ -10,6 +10,7 @@ const props = [
   'amount',
   'payMethod',
   'payStatus',
+  'orderNo',
   'shipStatus',
   'receiver',
   'address',

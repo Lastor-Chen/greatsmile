@@ -27,6 +27,9 @@ module.exports = {
       pay_status: {
         type: Sequelize.BOOLEAN
       },
+      order_no: {
+        type: Sequelize.STRING
+      },
       ship_status: {
         type: Sequelize.BOOLEAN
       },
