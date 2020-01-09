@@ -6,8 +6,8 @@ const User = db.User
 
 passport.use(new LocalStrategy(
   {
-    usernameField: 'email',
-    passwordField: 'password'
+    usernameField: 'emailForSignIn',
+    passwordField: 'passwordForSignIn'
   },
 
   (email, password, done) => {

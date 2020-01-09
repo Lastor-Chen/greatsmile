@@ -13,13 +13,13 @@
           <p class="description pr-2 col-12">已經有帳號？在下方登入。</p>
         </div>
       </div>
-      <form class="row" action="/users/signin" method="POST">
+      <form class="row needs-validation" action="/users/signin" method="POST" novalidate>
       <input type="text" name="from" value={{path}} hidden>
         <div class="form-group col-12">
-          <input type="text" name="email" class="form-control" placeholder="電子郵件地址*" autocomplete="on" required>
+          <input type="text" name="emailForSignIn" class="form-control" placeholder="電子郵件地址*" autocomplete="on" required>
         </div>
         <div class="form-group col-12">
-          <input type="password" name="password" class="form-control" placeholder="密碼*" autocomplete="on"
+          <input type="password" name="passwordForSignIn" class="form-control" placeholder="密碼*" autocomplete="on"
             required>
           <a href="#"><small class="form-text text-muted mt-2">忘記密碼？(尚未實裝)</small></a>
         </div>
