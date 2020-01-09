@@ -221,14 +221,16 @@ module.exports = {
       })
 
       //新增TagItem資訊
-      const tagArray = input.tag
-      tagArray.forEach(tagId => {
-        const tagItem = {
-          tag_id: Number(tagId),
-          product_id: id
-        }
-        TagItem.create(tagItem)
-      })
+      if (input.tag) {
+        const tagArray = input.tag
+        tagArray.forEach(tagId => {
+          const tagItem = {
+            tag_id: +tagId,
+            product_id: id
+          }
+          TagItem.create(tagItem)
+        })
+      }
 
       //新增Image
       const { files } = req
