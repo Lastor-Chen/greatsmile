@@ -1,3 +1,4 @@
+const moment = require('moment')
 const db = require('../models')
 const { Cart, CartItem, Order, OrderItem, Delivery } = db
 
@@ -220,7 +221,14 @@ module.exports = {
 
       // 製作串金流資料
       const prodNames = order.products.map(prod => prod.name).join(', ')
-      const tradeInfo = getTradeInfo(order.sn, order.amount, prodNames, req.user.email)
+
+      // 設定藍新訂單號，日期 + 2碼流水號，自動遞增
+      const dateNow = moment().format('YYYYMMDD')
+      let orderNo = order.orderNo || (dateNow + '00')
+      orderNo = (+orderNo) + 1
+      await order.update({ orderNo })
+
+      const tradeInfo = getTradeInfo(orderNo, order.amount, prodNames, req.user.email)
 
       res.render('payment', { order, tradeInfo })
 
@@ -237,10 +245,10 @@ module.exports = {
       // 解密資料
       const tradeInfo = JSON.parse(aesDecrypt(req.body.TradeInfo, HashKey, HashIV))
       console.log(tradeInfo)
-      const sn = tradeInfo.Result.MerchantOrderNo
+      const orderNo = tradeInfo.Result.MerchantOrderNo
 
       if (tradeInfo.Status === 'SUCCESS') {
-        await Order.update({ payStatus: true }, { where: { sn } })
+        await Order.update({ payStatus: true }, { where: { orderNo } })
       }
 
       res.redirect('/users/orders')
