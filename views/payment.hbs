@@ -1,2 +1,14 @@
 <h3>訂單編號: {{order.sn}}</h3>
 <p>金額: {{order.amount}}</p>
+
+<form name='newebpay' action='{{tradeInfo.PayGateWay}}' method="POST">
+  MerchantID:
+  <input type="text" name="MerchantID" value="{{tradeInfo.MerchantID}}"><br>
+  TradeInfo:
+  <input type="text" name="TradeInfo" value="{{tradeInfo.TradeInfo}}"><br>
+  TradeSha:
+  <input type="text" name="TradeSha" value="{{tradeInfo.TradeSha}}"><br>
+  Version:
+  <input type="text" name="Version" value="{{tradeInfo.Version}}"><br>
+  <button type="submit" class="btn btn-primary">Payment</button>
+</form>

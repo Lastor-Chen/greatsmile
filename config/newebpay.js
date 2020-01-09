@@ -7,9 +7,9 @@ const MerchantID = process.env.MERCHANT_ID
 const HashKey = process.env.HASH_KEY
 const HashIV = process.env.HASH_IV
 const PayGateWay = "https://ccore.newebpay.com/MPG/mpg_gateway"
-const ReturnURL = `${host}/newebpay/callback?from=ReturnURL`
-const NotifyURL = `${host}/newebpay/callback?from=NotifyURL`
-const ClientBackURL = `${host}/orders`
+const ReturnURL = `${host}/orders/newebpay/callback?from=ReturnURL`
+const NotifyURL = `${host}/orders/newebpay/callback?from=NotifyURL`
+const ClientBackURL = `${host}/users/orders`
 
 function getTradeInfo(amount, desc, email) {
   data = {
@@ -19,7 +19,8 @@ function getTradeInfo(amount, desc, email) {
     'Version': 1.5,                   // 串接程式版本
     'MerchantOrderNo': Date.now(),    // 商店訂單編號
     'LoginType': 0,                   // 智付通會員
-    'OrderComment': 'OrderComment',   // 商店備註
+    'OrderComment': 
+      '此為測試金流，請勿輸入您的真實信用卡內容。測試用卡號 4000-2211-1111-1111，其餘可亂填',   // 商店備註
     'Amt': amount,                    // 訂單金額
     'ItemDesc': desc,                 // 產品名稱
     'Email': email,                   // 付款人電子信箱
@@ -28,8 +29,7 @@ function getTradeInfo(amount, desc, email) {
     'ClientBackURL': ClientBackURL    // 支付取消返回商店網址
   }
 
-  console.log('data')
-  console.log(data)
+  console.log('data', data)
 
   const TradeInfo = aesEncrypt(data, HashKey, HashIV)
   const TradeSha = shaHash(TradeInfo, HashKey, HashIV)
@@ -43,8 +43,7 @@ function getTradeInfo(amount, desc, email) {
     'MerchantOrderNo': data.MerchantOrderNo,
   }
 
-  console.log('tradeInfo')
-  console.log(tradeInfo)
+  console.log('tradeInfo', tradeInfo)
 
   return tradeInfo
 }

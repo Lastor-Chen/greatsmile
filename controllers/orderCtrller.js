@@ -203,9 +203,16 @@ module.exports = {
       console.log('===== getPayment =====')
       console.log(req.params.id)
 
-      const order = await Order.findByPk(req.params.id)
-      getTradeInfo(100, '商品', 'email')
-      res.render('payment', { order })
+      const order = await Order.findByPk(req.params.id, {
+        include: [{ 
+          association: 'products',
+          attributes: ['name'] 
+        }]
+      })
+      const prodNames = order.products.map(prod => prod.name).join(', ')
+
+      const tradeInfo = getTradeInfo(order.amount, prodNames, req.user.email)
+      res.render('payment', { order, tradeInfo })
 
     } catch (err) {
       console.error(err)
