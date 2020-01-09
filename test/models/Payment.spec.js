@@ -7,6 +7,7 @@ const { propTest, assnTest, actionTest } = require('./lib/testTools.js')
 const props = [
   'OrderId',
   'status',
+  'code',
   'msg',
   'tradeNo',
   'orderNo',

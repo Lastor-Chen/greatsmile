@@ -260,7 +260,8 @@ module.exports = {
         where: { orderNo: tradeInfo.Result.MerchantOrderNo },
         defaults: {
           OrderId: order.id,
-          status: tradeInfo.Status,
+          status: tradeInfo.Status === 'SUCCESS' ? true : false,
+          code: tradeInfo.Status,
           msg: tradeInfo.Message,
           tradeNo: tradeInfo.Result.TradeNo,
           payTime: payTime
