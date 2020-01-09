@@ -15,7 +15,6 @@ module.exports = {
 
       if (signUpError) {
         
-        
         return res.render('signin', { signUpError, input, path, css: 'signIn'  })
 
       } else {
