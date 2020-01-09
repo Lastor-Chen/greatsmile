@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.STRING
   }, {});
   Order.associate = function (models) {
+    Order.hasMany(models.Payment)
     Order.belongsTo(models.Delivery)
     Order.belongsToMany(models.Product, {
       through: models.OrderItem,
