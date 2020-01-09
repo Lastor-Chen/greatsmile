@@ -37,7 +37,7 @@ module.exports = {
 
   getSignIn: (req, res) => {
     let path = req.path
-    return res.render('signin', { path, css: 'signIn' })
+    return res.render('signin', { path, css: 'signIn',js: 'signIn' })
   },
 
   signIn: (req, res, next) => {
