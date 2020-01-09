@@ -189,6 +189,7 @@ module.exports = {
 
       // 成立訊息注入 passData
       req.flash('passData', {established: true})
+
       // 清除購物車 items
       await CartItem.destroy({ where: { CartId: cart.id } })
 
@@ -228,7 +229,6 @@ module.exports = {
 
       const data = { ...req.flash('passData')[0] }
       req.flash('passData', data)
-      console.log(data)
 
       // 確認此筆訂單成立
       if (!data.established) return res.redirect('/cart')
