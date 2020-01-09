@@ -8,7 +8,7 @@ const HashIV = process.env.HASH_IV
 const PayGateWay = "https://ccore.newebpay.com/MPG/mpg_gateway"
 const ReturnURL = `${host}/newebpay/callback?from=ReturnURL`
 const NotifyURL = `${host}/newebpay/callback?from=NotifyURL`
-const ClientBackURL = `${host}/users/orders`
+const ClientBackURL = `${host}/orders`
 
 function getTradeInfo(orderNo, amount, desc, email) {
   data = {
@@ -28,8 +28,6 @@ function getTradeInfo(orderNo, amount, desc, email) {
     'ClientBackURL': ClientBackURL    // 支付取消返回商店網址
   }
 
-  console.log('data', data)
-
   const TradeInfo = aesEncrypt(data, HashKey, HashIV)
   const TradeSha = shaHash(TradeInfo, HashKey, HashIV)
 
@@ -41,8 +39,6 @@ function getTradeInfo(orderNo, amount, desc, email) {
     'PayGateWay': PayGateWay,
     'MerchantOrderNo': data.MerchantOrderNo,
   }
-
-  console.log('tradeInfo', tradeInfo)
 
   return tradeInfo
 }

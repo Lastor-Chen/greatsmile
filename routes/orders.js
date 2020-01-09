@@ -2,6 +2,7 @@ const router = require('express').Router()
 const orderCtrller = require('../controllers/orderCtrller.js')
 
 // route base '/orders'
+router.get('/', orderCtrller.getOrders)
 router.get('/checkout', orderCtrller.setCheckout)      // 結帳入口
 
 router.get('/checkout_1', orderCtrller.getCheckout)    // 地址頁

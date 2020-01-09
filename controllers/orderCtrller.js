@@ -11,6 +11,35 @@ const HashKey = process.env.HASH_KEY
 const HashIV = process.env.HASH_IV
 
 module.exports = {
+  async getOrders(req, res) {
+    try {
+      const orders = await Order.findAll({
+        where: { user_id: req.user.id },
+        order: [['id', 'DESC']],
+        include: {
+          association: 'products',
+          include: ['Gifts', 'Images']
+        }
+      })
+
+      orders.forEach(order => {
+        order.createdTime = order.createdAt.toJSON().split('T')[0]
+        order.amountFormat = order.amount.toLocaleString()
+        order.products.forEach(product => {
+          product.mainImg = product.Images.find(img => img.isMain).url
+          product.orderPrice = product.OrderItem.price.toLocaleString()
+          product.subPrice = product.OrderItem.quantity * product.price
+        })
+      })
+
+      res.render('orders', { orders, css: 'profile' })
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  },
+
   async setCheckout(req, res) {
     try {
       // Query 資料庫
@@ -219,7 +248,7 @@ module.exports = {
         }]
       })
 
-      if (!order) return res.redirect('/users/orders')
+      if (!order) return res.redirect('/orders')
 
       // 製作串金流資料
       const prodNames = order.products.map(prod => prod.name).join(', ')
@@ -242,7 +271,7 @@ module.exports = {
 
   async newebpayCb(req, res) {
     try {
-      if (!req.body.TradeInfo) return res.redirect('/users/orders')
+      if (!req.body.TradeInfo) return res.redirect('/orders')
 
       // 解密、整理資料
       const tradeInfo = JSON.parse(aesDecrypt(req.body.TradeInfo, HashKey, HashIV))
@@ -272,7 +301,7 @@ module.exports = {
         await order.update({ payStatus: true })
       }
 
-      res.redirect('/users/orders')
+      res.redirect('/orders')
 
     } catch (err) {
       console.error(err)
