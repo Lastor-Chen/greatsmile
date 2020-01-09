@@ -261,7 +261,7 @@ module.exports = {
 
       const tradeInfo = getTradeInfo(orderNo, order.amount, prodNames, req.user.email)
 
-      res.render('payment', { order, tradeInfo })
+      res.render('payment', { tradeInfo, layout: false })
 
     } catch (err) {
       console.error(err)

@@ -56,9 +56,10 @@
                           <td class="accordion-title">付款狀態</td>
                           <td class="accordion-data">
                             {{#if this.payStatus}}
-                              已付款
+                              <span class="text-success font-weight-bold">已付款</span>
                             {{else}}
-                              未付款
+                              <span class="mr-3 text-danger font-weight-bold">未付款</span>
+                              <a href="/orders/{{this.id}}/payment" class="btn cart-btn">立即付款</a>
                             {{/if}}
                           </td>
                         </tr>

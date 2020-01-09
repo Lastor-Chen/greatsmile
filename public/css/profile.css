@@ -117,3 +117,12 @@
 .order-info {
   font-size: 0.9rem;
 }
+
+/* button */
+.cart-btn {
+  display: inline-block;
+  background: #ff5400;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 10px;
+}

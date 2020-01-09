@@ -1,14 +1,13 @@
-<h3>訂單編號: {{order.sn}}</h3>
-<p>金額: {{order.amount}}</p>
+<h2 style="text-align: center;">跳轉中...</h2>
 
-<form name='newebpay' action='{{tradeInfo.PayGateWay}}' method="POST">
-  MerchantID:
-  <input type="text" name="MerchantID" value="{{tradeInfo.MerchantID}}"><br>
-  TradeInfo:
-  <input type="text" name="TradeInfo" value="{{tradeInfo.TradeInfo}}"><br>
-  TradeSha:
-  <input type="text" name="TradeSha" value="{{tradeInfo.TradeSha}}"><br>
-  Version:
-  <input type="text" name="Version" value="{{tradeInfo.Version}}"><br>
-  <button type="submit" class="btn btn-primary">Payment</button>
+<form id="newebpay" name="newebpay" action='{{tradeInfo.PayGateWay}}' method="POST" hidden>
+  <input type="text" name="MerchantID" value="{{tradeInfo.MerchantID}}">
+  <input type="text" name="TradeInfo" value="{{tradeInfo.TradeInfo}}">
+  <input type="text" name="TradeSha" value="{{tradeInfo.TradeSha}}">
+  <input type="text" name="Version" value="{{tradeInfo.Version}}">
 </form>
+
+<script>
+  const form = document.querySelector('#newebpay')
+  form.submit()
+</script>
