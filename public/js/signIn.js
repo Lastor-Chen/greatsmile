@@ -36,7 +36,7 @@ function checkPassword(elem) {
 }
 
 //套用 Bootstrap Form 驗證
-$('.needs-validation').submit(e => {
+$('#signUpForm').submit(e => {
   e.preventDefault()
 
   // setup 自定義驗證
@@ -50,7 +50,16 @@ $('.needs-validation').submit(e => {
   form.submit()
 })
 
-$('.needs-validation').change(e => {
+$('#signInForm').submit(e => {
+  e.preventDefault()
+
+  const form = e.target
+  if (!form.checkValidity()) return $(form).addClass('was-validated')
+
+  form.submit()
+})
+
+$('#signUpForm').change(e => {
   if (e.target.matches('input[name=lastName]')) {
     checkName(e.target)
   }
