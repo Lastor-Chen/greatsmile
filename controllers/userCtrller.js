@@ -25,8 +25,9 @@ module.exports = {
         input.isAdmin = false
         await User.create(input)
 
-        req.flash('signUpSuccess', '已成功註冊帳號')
-        return res.redirect('/users/signin')
+        let path = '/signin'
+        const signUpSuccess = '已成功註冊帳號！'
+        return res.render('signin', { signUpSuccess, path, css: 'signIn' })
       }
       
     } catch (err) {
