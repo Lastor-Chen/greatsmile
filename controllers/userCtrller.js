@@ -11,10 +11,11 @@ module.exports = {
       const input = { ...req.body }  // 深拷貝，保護原始資料
       // check input
       const signUpError = await checkSignUp(input)
+      let path = req.body.from
 
       if (signUpError) {
         
-        let path = '/signin'
+        
         return res.render('signin', { signUpError, input, path, css: 'signIn'  })
 
       } else {
@@ -25,7 +26,6 @@ module.exports = {
         input.isAdmin = false
         await User.create(input)
 
-        let path = '/signin'
         const signUpSuccess = '已成功註冊帳號！'
         return res.render('signin', { signUpSuccess, path, css: 'signIn' })
       }
@@ -45,7 +45,7 @@ module.exports = {
     passport.authenticate('local', {
       successRedirect: '/admin',
       successFlash: true,
-      failureRedirect: '/users/signin',
+      failureRedirect: `/users${req.body.from}`,
       failureFlash: true,
       badRequestMessage: '請輸入 Email 與 Password'
     })(req, res, next)

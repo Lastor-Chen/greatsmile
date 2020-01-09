@@ -14,13 +14,14 @@
         </div>
       </div>
       <form class="row" action="/users/signin" method="POST">
+      <input type="text" name="from" value={{path}} hidden>
         <div class="form-group col-12">
           <input type="text" name="email" class="form-control" placeholder="電子郵件地址*" autocomplete="email" required>
         </div>
         <div class="form-group col-12">
           <input type="password" name="password" class="form-control" placeholder="密碼*" autocomplete="current-password"
             required>
-          <a href="#"><small class="form-text text-muted mt-2">忘記密碼？</small></a>
+          <a href="#"><small class="form-text text-muted mt-2">忘記密碼？(尚未實裝)</small></a>
         </div>
         <br>
         <div class="col-12 text-center my-3">
