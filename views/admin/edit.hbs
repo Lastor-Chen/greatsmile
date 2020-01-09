@@ -1,5 +1,6 @@
 <main class="container">
-  <form class="pt-4" action="/admin/products/{{product.id}}?_method=PUT" method="POST" enctype="multipart/form-data" id="editForm">
+  <form class="pt-4" action="/admin/products/{{product.id}}?_method=PUT" method="POST" enctype="multipart/form-data"
+    id="editForm">
     <div class="card my-3">
       <div class="card-body">
         <h4>基本資訊</h4>
@@ -132,16 +133,26 @@
         </div>
         <div class="px-5">
           <div class="form-group row">
-            <label for="image" class="col-2 col-form-label text-right">選擇主圖片</label>
-            <div class="form-check form-check-inline mr-0 pl-2 col-10 d-flex flex-wrap">
-              {{#each images}}
-                <div class="text-center mr-1">
-                  <input id="{{this.id}}" class="input-hidden" type="radio" name="mainImg" value="{{this.id}}">
-                  <label for="{{this.id}}" class="d-block">
-                    <img src={{this.url}} class="img-thumbnail mx-1" style="width: 100px">
-                  </label>
-                </div>
-              {{/each}}
+            <label for="image" class="col-2 col-form-label text-right">圖片管理</label>
+            <div class="col-10 pl-0">
+              <div class="form-check form-check-inline mr-0 pl-2 col-10 d-flex flex-wrap">
+                {{#each images}}
+                  <div class="text-center mr-1">
+                    <input id="{{this.id}}" class="input-hidden" type="radio" name="mainImg" value="{{this.id}}">
+                    <label for="{{this.id}}" class="d-block">
+                      <img src={{this.url}} class="img-thumbnail mx-1" style="width: 100px">
+                    </label>
+                  </div>
+                  <form action="/admin/images/{{this.id}}?_method=DELETE" method="POST" id="delImage_{{this.id}}" hidden>
+                  </form>
+                  <button type="submit" class="btn btn-danger btn-sm font-weight-normal delete-btn" form="delImage_{{this.id}}">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                {{/each}}
+              </div>
+              <div class="pl-2 ml-1">
+                <small class="form-text text-muted">選擇圖片以變更主圖片，或點選圖示刪除圖片</small>
+              </div>
             </div>
           </div>
         </div>
@@ -182,7 +193,6 @@
       </div>
     </div>
     <div class="col-12 text-right">
-     
       </br>
       </br>
     </div>
