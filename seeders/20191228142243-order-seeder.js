@@ -15,7 +15,7 @@ module.exports = {
         amount: randomNum(2000, 30000),
         delivery_id: randomNum(1, 3),
         pay_method: faker.commerce.productMaterial(),
-        pay_status: randomNum(0, 1),
+        pay_status: 0,
         ship_status: randomNum(0, 1),
         receiver: faker.name.findName(),
         address: faker.address.zipCode() + ' ' + faker.address.city() + ' ' + faker.address.streetAddress() + faker.address.secondaryAddress(),
