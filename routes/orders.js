@@ -16,4 +16,7 @@ router.post('/checkout_3', orderCtrller.checkout_3)    // post 付款
 router.get('/checkout_4', orderCtrller.getCheckout)    // 確認頁
 router.post('/', orderCtrller.postOrder)               // post 成立訂單
 
+router.get('/:id/payment', orderCtrller.getPayment)
+router.post('/newebpay/callback', orderCtrller.newebpayCb)
+
 module.exports = router

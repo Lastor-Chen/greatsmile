@@ -2,11 +2,7 @@ const db = require('../models')
 const { Cart, CartItem, Order, OrderItem, Delivery } = db
 
 const { checkCheckout1 } = require('../lib/checker.js')
-const { genDataChain, aesEncrypt, aesDecrypt, shaHash } = require('../lib/tools.js')
-
-// 藍新金流設定
-const HashKey = process.env.HASH_KEY
-const HashIV = process.env.HASH_IV
+const getTradeInfo = require('../config/newebpay.js')
 
 module.exports = {
   async setCheckout(req, res) {
@@ -200,5 +196,28 @@ module.exports = {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
     }
-  }
+  },
+
+  async getPayment(req, res) {
+    try {
+      console.log('===== getPayment =====')
+      console.log(req.params.id)
+
+      const order = await Order.findByPk(req.params.id)
+      getTradeInfo(100, '商品', 'email')
+      res.render('payment', { order })
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  },
+
+  newebpayCb(req, res) {
+    console.log('===== spgatewayCallback =====')
+    console.log(req.body)
+    console.log('==========')
+
+    return res.redirect('back')
+  },
 }
