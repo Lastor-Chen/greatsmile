@@ -198,6 +198,22 @@ module.exports = {
     }
   },
 
+  async getSuccess(req, res) {
+    try {
+      const user = await User.findByPk(req.user.id, {
+        include: 'Orders',
+        attributes: ['id'],
+        order: [['Orders', 'id', 'DESC']]
+      })
+
+      res.redirect(`/orders/success/${user.Orders[0].sn}`)
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  },
+
   async getSuccessOrder(req, res) {
     try {
       const user = await User.findByPk(req.user.id, {
@@ -209,6 +225,9 @@ module.exports = {
       })
 
       const order = user.Orders[0]
+      // 只能查看此筆訂單成立頁面
+      if (req.params.order_sn !== order.sn) return res.redirect('/cart')
+      
       let subtotal = 0
       const orderProducts = order.products
       orderProducts.forEach(product => {
