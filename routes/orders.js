@@ -16,6 +16,7 @@ router.post('/checkout_3', orderCtrller.checkout_3)    // post 付款
 router.get('/checkout_4', orderCtrller.getCheckout)    // 確認頁
 router.post('/', orderCtrller.postOrder)               // post 成立訂單
 
-router.get('/success', orderCtrller.getSuccessOrder)   // 訂單成立頁
+router.get('/success', orderCtrller.getSuccess)        // 訂單成立入口
+router.get('/success/:order_sn', orderCtrller.getSuccessOrder)   // 訂單成立頁
 
 module.exports = router
