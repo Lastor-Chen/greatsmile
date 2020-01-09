@@ -143,15 +143,18 @@
                       <img src={{this.url}} class="img-thumbnail mx-1" style="width: 100px">
                     </label>
                   </div>
-                  <form action="/admin/images/{{this.id}}?_method=DELETE" method="POST" id="delImage_{{this.id}}" hidden>
-                  </form>
-                  <button type="submit" class="btn btn-danger btn-sm font-weight-normal delete-btn" form="delImage_{{this.id}}">
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
+                  {{#if this.isMain}}
+                  {{else}}
+                    <form action="/admin/images/{{this.id}}?_method=DELETE" method="POST" id="delImage_{{this.id}}" hidden>
+                    </form>
+                    <button type="submit" class="btn btn-danger btn-sm font-weight-normal delete-btn" form="delImage_{{this.id}}">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  {{/if}}
                 {{/each}}
               </div>
               <div class="pl-2 ml-1">
-                <small class="form-text text-muted">選擇圖片以變更主圖片，或點選圖示刪除圖片</small>
+                <small class="form-text text-muted">選擇圖片以變更主圖片，或點選圖示刪除圖片，主圖片無法進行刪除</small>
               </div>
             </div>
           </div>
