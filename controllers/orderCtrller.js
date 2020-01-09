@@ -1,11 +1,12 @@
 const moment = require('moment')
 const db = require('../models')
-const { Cart, CartItem, Order, OrderItem, Delivery } = db
+const { Cart, CartItem, Order, OrderItem, Delivery, Payment } = db
 
 const { checkCheckout1 } = require('../lib/checker.js')
 const { aesDecrypt } = require('../lib/tools.js')
 const getTradeInfo = require('../config/newebpay.js')
 
+// 藍新金流
 const HashKey = process.env.HASH_KEY
 const HashIV = process.env.HASH_IV
 
@@ -209,7 +210,8 @@ module.exports = {
       const order = await Order.findOne({
         where: { 
           id: +req.params.id,
-          UserId: req.user.id
+          UserId: req.user.id,
+          pay_status: false,
         },
         include: [{ 
           association: 'products',
@@ -242,13 +244,31 @@ module.exports = {
     try {
       if (!req.body.TradeInfo) return res.redirect('/users/orders')
 
-      // 解密資料
+      // 解密、整理資料
       const tradeInfo = JSON.parse(aesDecrypt(req.body.TradeInfo, HashKey, HashIV))
       console.log(tradeInfo)
+
       const orderNo = tradeInfo.Result.MerchantOrderNo
+      let payTime = tradeInfo.Result.PayTime
+      payTime = payTime.slice(0, 10) + 'T' + payTime.slice(10)
+
+      // 更新資料庫
+      const order = await Order.findOne({ where: { orderNo } })
+
+      // 藍新會戳路由4次，防止重複建立
+      await Payment.findOrCreate({
+        where: { orderNo: tradeInfo.Result.MerchantOrderNo },
+        defaults: {
+          OrderId: order.id,
+          status: tradeInfo.Status,
+          msg: tradeInfo.Message,
+          tradeNo: tradeInfo.Result.TradeNo,
+          payTime: payTime
+        }
+      })
 
       if (tradeInfo.Status === 'SUCCESS') {
-        await Order.update({ payStatus: true }, { where: { orderNo } })
+        await order.update({ payStatus: true })
       }
 
       res.redirect('/users/orders')
