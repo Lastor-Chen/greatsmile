@@ -51,4 +51,9 @@ input[type=radio]:checked + label>img {
   bottom: 47px;
   font-size: 0.6rem;
   size: 0.6rem;
+  opacity:0.5;
+}
+
+.delete-btn:hover {
+  opacity: 1;
 }
