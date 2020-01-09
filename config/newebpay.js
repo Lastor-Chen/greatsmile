@@ -1,4 +1,3 @@
-require('dotenv').config()
 const { aesEncrypt, shaHash } = require('../lib/tools.js')
 
 // 藍新金流設定
@@ -7,17 +6,17 @@ const MerchantID = process.env.MERCHANT_ID
 const HashKey = process.env.HASH_KEY
 const HashIV = process.env.HASH_IV
 const PayGateWay = "https://ccore.newebpay.com/MPG/mpg_gateway"
-const ReturnURL = `${host}/orders/newebpay/callback?from=ReturnURL`
-const NotifyURL = `${host}/orders/newebpay/callback?from=NotifyURL`
+const ReturnURL = `${host}/newebpay/callback?from=ReturnURL`
+const NotifyURL = `${host}/newebpay/callback?from=NotifyURL`
 const ClientBackURL = `${host}/users/orders`
 
-function getTradeInfo(amount, desc, email) {
+function getTradeInfo(sn, amount, desc, email) {
   data = {
     'MerchantID': MerchantID,         // 商店代號
     'RespondType': 'JSON',            // 回傳格式
     'TimeStamp': Date.now(),          // 時間戳記
     'Version': 1.5,                   // 串接程式版本
-    'MerchantOrderNo': Date.now(),    // 商店訂單編號
+    'MerchantOrderNo': sn,    // 商店訂單編號
     'LoginType': 0,                   // 智付通會員
     'OrderComment': 
       '此為測試金流，請勿輸入您的真實信用卡內容。測試用卡號 4000-2211-1111-1111，其餘可亂填',   // 商店備註

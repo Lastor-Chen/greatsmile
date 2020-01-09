@@ -2,7 +2,11 @@ const db = require('../models')
 const { Cart, CartItem, Order, OrderItem, Delivery } = db
 
 const { checkCheckout1 } = require('../lib/checker.js')
+const { aesDecrypt } = require('../lib/tools.js')
 const getTradeInfo = require('../config/newebpay.js')
+
+const HashKey = process.env.HASH_KEY
+const HashIV = process.env.HASH_IV
 
 module.exports = {
   async setCheckout(req, res) {
@@ -200,18 +204,24 @@ module.exports = {
 
   async getPayment(req, res) {
     try {
-      console.log('===== getPayment =====')
-      console.log(req.params.id)
-
-      const order = await Order.findByPk(req.params.id, {
+      // 查詢訂單
+      const order = await Order.findOne({
+        where: { 
+          id: +req.params.id,
+          UserId: req.user.id
+        },
         include: [{ 
           association: 'products',
           attributes: ['name'] 
         }]
       })
-      const prodNames = order.products.map(prod => prod.name).join(', ')
 
-      const tradeInfo = getTradeInfo(order.amount, prodNames, req.user.email)
+      if (!order) return res.redirect('/users/orders')
+
+      // 製作串金流資料
+      const prodNames = order.products.map(prod => prod.name).join(', ')
+      const tradeInfo = getTradeInfo(order.sn, order.amount, prodNames, req.user.email)
+
       res.render('payment', { order, tradeInfo })
 
     } catch (err) {
@@ -220,11 +230,24 @@ module.exports = {
     }
   },
 
-  newebpayCb(req, res) {
-    console.log('===== spgatewayCallback =====')
-    console.log(req.body)
-    console.log('==========')
+  async newebpayCb(req, res) {
+    try {
+      if (!req.body.TradeInfo) return res.redirect('/users/orders')
 
-    return res.redirect('back')
+      // 解密資料
+      const tradeInfo = JSON.parse(aesDecrypt(req.body.TradeInfo, HashKey, HashIV))
+      console.log(tradeInfo)
+      const sn = tradeInfo.Result.MerchantOrderNo
+
+      if (tradeInfo.Status === 'SUCCESS') {
+        await Order.update({ payStatus: true }, { where: { sn } })
+      }
+
+      res.redirect('/users/orders')
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
   },
 }
