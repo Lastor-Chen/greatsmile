@@ -1,5 +1,5 @@
 <main class="container">
-  <form class="pt-4" action="/admin/products/{{product.id}}?_method=PUT" method="POST" enctype="multipart/form-data">
+  <form class="pt-4" action="/admin/products/{{product.id}}?_method=PUT" method="POST" enctype="multipart/form-data" id="editForm">
     <div class="card my-3">
       <div class="card-body">
         <h4>基本資訊</h4>
@@ -182,9 +182,17 @@
       </div>
     </div>
     <div class="col-12 text-right">
-      <button class="btn btn-primary" type="submit">更新商品</button>
+     
       </br>
       </br>
     </div>
   </form>
 </main>
+<nav class="navbar fixed-bottom  navbar-dark bg-dark">
+  <div class="container d-flex flex-row-reverse">
+    <div>
+      <button class="btn btn-outline-light mr-2 py-1">取消</button>
+      <button class="btn btn-primary mr-5 py-1" type="submit" form="editForm">更新商品</button>
+    </div>
+  </div>
+</nav>
