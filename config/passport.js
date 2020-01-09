@@ -14,7 +14,7 @@ passport.use(new LocalStrategy(
     User.findOne({ where: { email } })
       .then(user => {
         if (!user) return done(null, false, { message: '帳號或密碼輸入錯誤' })
-        if (!bcrypt.compareSync(password, user.password)) return done(null, false, { message: '帳號或密碼輸入錯誤！' })
+        if (!bcrypt.compareSync(password, user.password)) return done(null, false, { message: '帳號或密碼輸入錯誤' })
 
         done(null, user, { message: '登入成功' })
       })
