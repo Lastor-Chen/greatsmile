@@ -51,7 +51,6 @@ module.exports = {
   },
 
   signOut: (req, res) => {
-    req.flash('success', '登出成功！')
     req.logout()
     res.redirect('/')
   },
