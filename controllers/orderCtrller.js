@@ -224,7 +224,7 @@ module.exports = {
       const address = order.address.split(",")
 
       // 下訂時間
-      const orderTime = moment(order.createdAt).format('YYYY/MM/DD HH:MM')
+      const orderTime = moment(order.createdAt).format('YYYY/MM/DD HH:mm')
       // 付款期限 三天
       const paymentTerms = moment(order.createdAt).add(3, 'days').format('YYYY/MM/DD') + ' 23:59:59'
 
