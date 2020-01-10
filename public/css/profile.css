@@ -126,3 +126,23 @@
   font-weight: bold;
   border-radius: 10px;
 }
+
+.cell-image {
+  width: 10%!important;
+}
+
+.cell-name {
+  width: 40%!important;
+}
+
+.cell-quantity {
+  width: 15%!important;
+}
+
+.cell-price {
+  width: 20%!important;
+}
+
+.cell-subPrice {
+  width: 15%!important;
+}
