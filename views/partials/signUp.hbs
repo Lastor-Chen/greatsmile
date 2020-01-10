@@ -14,7 +14,9 @@
         </div>
       </div>
       <form class="row needs-validation" action="/users/signup" method="POST" id="signUpForm" novalidate>
-        <input type="text" name="from" value={{path}} hidden>
+        {{#if isCheckout}}
+          <input type="text" name="from" value="/checkout" hidden>
+        {{/if}}
         <div class="form-group col-6 pr-1">
           <input type="text" class="form-control" name="lastName" placeholder="姓氏*"
             {{#if input.lastName}}value={{input.lastName}} {{/if}} required>

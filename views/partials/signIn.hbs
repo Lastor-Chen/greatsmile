@@ -14,7 +14,9 @@
         </div>
       </div>
       <form class="row needs-validation" action="/users/signin" method="POST" id="signInForm" novalidate>
-      <input type="text" name="from" value={{path}} hidden>
+        {{#if isCheckout}}
+          <input type="text" name="from" value="/checkout" hidden>
+        {{/if}}
         <div class="form-group col-12">
           <input type="text" name="emailForSignIn" class="form-control" placeholder="電子郵件地址*" autocomplete="email" required>
         </div>

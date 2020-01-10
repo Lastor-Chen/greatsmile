@@ -8,15 +8,16 @@ const { checkSignUp } = require('../lib/checker.js')
 module.exports = {
   signUp: async (req, res) => {
     try {
-      const input = { ...req.body }  // 深拷貝，保護原始資料
       // check input
+      const input = { ...req.body }  // 深拷貝，保護原始資料
       const signUpError = await checkSignUp(input)
-      let path = req.body.from
-      console.log(req.path)
+
+      // 判斷來源頁面
+      const isCheckout = req.body.from ? true : false
 
       if (signUpError) {
         
-        return res.render('sign', { signUpError, input, path, css: 'signIn'  })
+        return res.render('sign', { signUpError, input, isCheckout, css: 'signIn', js: 'signIn' })
 
       } else {
 
@@ -27,7 +28,7 @@ module.exports = {
         await User.create(input)
 
         const signUpSuccess = '已成功註冊帳號！'
-        return res.render('sign', { signUpSuccess, path, css: 'signIn' })
+        return res.render('sign', { signUpSuccess, isCheckout, css: 'signIn' })
       }
       
     } catch (err) {
@@ -37,16 +38,19 @@ module.exports = {
   },
 
   getSignIn: (req, res) => {
-    let path = req.path
-    return res.render('sign', { path, css: 'signIn',js: 'signIn' })
+    // 判斷來源頁面
+    const isCheckout = req.path.includes('checkout')
+    res.render('sign', { isCheckout, css: 'signIn', js: 'signIn'})
   },
 
   signIn: (req, res, next) => {
-    console.log(req.path)
+    // 判斷來源頁面
+    const from = req.body.from || ''
+
     passport.authenticate('local', {
       successRedirect: '/admin',
       successFlash: true,
-      failureRedirect: `/users${req.body.from}`,
+      failureRedirect: `/users/signin${from}`,
       failureFlash: true,
       badRequestMessage: '請輸入 Email 與 Password'
     })(req, res, next)
