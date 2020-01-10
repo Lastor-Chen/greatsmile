@@ -17,7 +17,7 @@ module.exports = {
 
       if (signUpError) {
         
-        return res.render('sign', { signUpError, input, isCheckout, css: 'signIn', js: 'signIn' })
+        return res.render('sign', { signUpError, input, isCheckout, css: 'sign', js: 'sign' })
 
       } else {
 
@@ -28,7 +28,7 @@ module.exports = {
         await User.create(input)
 
         const signUpSuccess = '已成功註冊帳號！'
-        return res.render('sign', { signUpSuccess, isCheckout, css: 'signIn' })
+        return res.render('sign', { signUpSuccess, isCheckout, css: 'sign', js: 'sign' })
       }
       
     } catch (err) {
@@ -40,7 +40,7 @@ module.exports = {
   getSignIn: (req, res) => {
     // 判斷來源頁面
     const isCheckout = req.path.includes('checkout')
-    res.render('sign', { isCheckout, css: 'signIn', js: 'signIn'})
+    res.render('sign', { isCheckout, css: 'sign', js: 'sign'})
   },
 
   signIn: (req, res, next) => {
