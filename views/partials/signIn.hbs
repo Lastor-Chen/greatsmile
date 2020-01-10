@@ -16,11 +16,10 @@
       <form class="row needs-validation" action="/users/signin" method="POST" id="signInForm" novalidate>
       <input type="text" name="from" value={{path}} hidden>
         <div class="form-group col-12">
-          <input type="text" name="emailForSignIn" class="form-control" placeholder="電子郵件地址*" autocomplete="on" required>
+          <input type="text" name="emailForSignIn" class="form-control" placeholder="電子郵件地址*" autocomplete="email" required>
         </div>
         <div class="form-group col-12">
-          <input type="password" name="passwordForSignIn" class="form-control" placeholder="密碼*" autocomplete="on"
-            required>
+          <input type="password" name="passwordForSignIn" class="form-control" placeholder="密碼*" autocomplete="current-password" required>
           <a href="#"><small class="form-text text-muted mt-2">忘記密碼？(尚未實裝)</small></a>
         </div>
         <br>
