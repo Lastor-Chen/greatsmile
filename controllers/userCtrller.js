@@ -12,10 +12,11 @@ module.exports = {
       // check input
       const signUpError = await checkSignUp(input)
       let path = req.body.from
+      console.log(req.path)
 
       if (signUpError) {
         
-        return res.render('signin', { signUpError, input, path, css: 'signIn'  })
+        return res.render('sign', { signUpError, input, path, css: 'signIn'  })
 
       } else {
 
@@ -26,7 +27,7 @@ module.exports = {
         await User.create(input)
 
         const signUpSuccess = '已成功註冊帳號！'
-        return res.render('signin', { signUpSuccess, path, css: 'signIn' })
+        return res.render('sign', { signUpSuccess, path, css: 'signIn' })
       }
       
     } catch (err) {
@@ -37,10 +38,11 @@ module.exports = {
 
   getSignIn: (req, res) => {
     let path = req.path
-    return res.render('signin', { path, css: 'signIn',js: 'signIn' })
+    return res.render('sign', { path, css: 'signIn',js: 'signIn' })
   },
 
   signIn: (req, res, next) => {
+    console.log(req.path)
     passport.authenticate('local', {
       successRedirect: '/admin',
       successFlash: true,
