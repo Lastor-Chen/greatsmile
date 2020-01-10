@@ -73,6 +73,10 @@
                             {{/if}}
                           </td>
                         </tr>
+                        <tr>
+                          <td class="accordion-title">寄件方式</td>
+                          <td class="accordion-data">{{this.Delivery.method}} - NTD {{this.Delivery.price}} </td>
+                        </tr>
                       </tbody>
                     </table>
                     <hr>
@@ -92,12 +96,60 @@
                                   <div class="row ml-3">
                                     <div>NTD {{this.orderPrice}}</div>
                                     <div class="ml-3">x {{this.OrderItem.quantity}}</div>
+                                    <div class="ml-3">= {{addDot this.subPrice}}</div>
                                   </div>
                                 </div>
                               </div>
                             </td>
                           </tr>
                         {{/each}}
+                        <tr>
+                          <td class="accordion-title"></td>
+                          <td class="accordion-data">
+                            <div class="row col-12 mb-2">
+                              <div class="col-6 px-0">
+                                <hr class="mt-1">
+                                <div class="row ml-3 pr-0 d-flex justify-content-between">
+                                  <div class="pl-5 ml-5">小計 </div>
+                                  <div class="ml-2 pr-2">{{addDot this.sumPrice }}</div>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="accordion-title"></td>
+                          <td class="accordion-data">
+                            <div class="row col-12 mb-2">
+                              <div class="col-6 px-0">
+                                <div class="row ml-3 pr-0 d-flex justify-content-between">
+                                  <div class="pl-5 ml-5">運費 </div>
+                                  <div class="ml-2 pr-2">{{addDot this.Delivery.price }}</div>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="accordion-title"></td>
+                          <td class="accordion-data">
+                            <div class="row col-12 mb-2">
+                              <div class="col-6 px-0">
+                                <hr class="mt-1">
+                                <div class="row ml-3 pr-0 d-flex justify-content-between">
+                                  <div class="pl-5 ml-5 font-weight-bold">總金額 </div>
+                                  <div class="ml-2 pr-2 font-weight-bold">{{addDot this.amount }}</div>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
