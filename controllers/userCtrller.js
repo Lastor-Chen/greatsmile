@@ -6,7 +6,7 @@ const { User, Order, Product } = db
 const { checkSignUp } = require('../lib/checker.js')
 
 module.exports = {
-  signUp: async (req, res) => {
+  signUp: async (req, res, next) => {
     try {
       // check input
       const input = { ...req.body }  // 深拷貝，保護原始資料
@@ -16,21 +16,23 @@ module.exports = {
       const isCheckout = req.body.from ? true : false
 
       if (signUpError) {
-        
         return res.render('sign', { signUpError, input, isCheckout, css: 'sign', js: 'sign' })
-
-      } else {
-
-        input.name = input.lastName + input.firstName
-        input.nickname = input.firstName
-        input.password = bcrypt.hashSync(input.password, 10)
-        input.isAdmin = false
-        await User.create(input)
-
-        const signUpSuccess = '已成功註冊帳號！'
-        return res.render('sign', { signUpSuccess, isCheckout, css: 'sign', js: 'sign' })
       }
-      
+
+      // 整理 input 資料
+      input.name = input.lastName + input.firstName
+      input.nickname = input.firstName
+      input.password = bcrypt.hashSync(input.password, 10)
+      input.isAdmin = false
+      await User.create(input)
+
+      // 自動登入
+      passport.authenticate('local', {
+        successRedirect: '/admin',
+        failureRedirect: `/users/signin`,
+        failureFlash: true,
+      })(req, res, next)
+
     } catch (err) {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
