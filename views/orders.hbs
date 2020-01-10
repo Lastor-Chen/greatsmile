@@ -92,7 +92,11 @@
                                     style="height:50px">
                                 </a>
                                 <div>
-                                  <div class="ml-3">{{this.name}}</div>
+                                  <div class="ml-3">{{this.name}} 
+                                    {{#if this.Gifts}}
+                                    <label title="含特典"><i class="fas fa-gift"></i></label>
+                                    {{/if}}
+                                  </div>
                                   <div class="row ml-3">
                                     <div>NTD {{addDot this.OrderItem.price}}</div>
                                     <div class="ml-3">x {{this.OrderItem.quantity}}</div>
