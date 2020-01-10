@@ -252,14 +252,10 @@ module.exports = {
 
       // 製作串金流資料
       const prodNames = order.products.map(prod => prod.name).join(', ')
+      const tradeInfo = getTradeInfo(order.amount, prodNames, req.user.email)
 
-      // 設定藍新訂單號，日期 + 2碼流水號，自動遞增
-      const dateNow = moment().format('YYYYMMDD')
-      let orderNo = order.orderNo || (dateNow + '00')
-      orderNo = (+orderNo) + 1
-      await order.update({ orderNo })
-
-      const tradeInfo = getTradeInfo(orderNo, order.amount, prodNames, req.user.email)
+      // 儲存識別用 orderNo
+      await order.update({ orderNo: tradeInfo.MerchantOrderNo })
 
       res.render('payment', { tradeInfo, layout: false })
 
@@ -276,6 +272,9 @@ module.exports = {
       // 解密、整理資料
       const tradeInfo = JSON.parse(aesDecrypt(req.body.TradeInfo, HashKey, HashIV))
       console.log(tradeInfo)
+
+      // 防止不同用戶 "同時" 進行支付，此時不對資料庫操作
+      if (tradeInfo.Message === '已存在相同的商店訂單編號') return res.redirect('/orders')
 
       const orderNo = tradeInfo.Result.MerchantOrderNo
       let payTime = tradeInfo.Result.PayTime
