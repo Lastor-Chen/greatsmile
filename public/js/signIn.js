@@ -27,7 +27,6 @@ function checkPassword(elem) {
   if (!isPassword) {
     elem.setCustomValidity('格式錯誤')
     $(elem).addClass('is-invalid')
-    console.log(isPassword)
   } else {
     elem.setCustomValidity('')
     $(elem).removeClass('is-invalid')
