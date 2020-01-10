@@ -38,7 +38,6 @@ app.use((req, res, next) => {
   console.log('\n' + `${req.method} ${req.path}`)
   res.locals.success = req.flash('success')
   res.locals.error = req.flash('error')
-  res.locals.signInError = res.locals.error
   res.locals.user = req.user
   res.locals.isAuthenticated = req.isAuthenticated()
   next()

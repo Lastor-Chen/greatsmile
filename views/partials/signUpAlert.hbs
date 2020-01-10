@@ -1,13 +1,5 @@
-{{#if signUpSuccess}}
-  <div class="alert alert-success fade show pt-2">
-    <div class="d-flex justify-content-around pt-1">
-      <span>{{signUpSuccess}}</span>
-    </div>
-  </div>
-{{else if signUpError}}
-  <div class="alert alert-danger fade show pt-2">
-    <div class="d-flex justify-content-around pt-1">
-      <span>{{signUpError}}</span>
-    </div>
+{{#if signUpError}}
+  <div class="alert alert-danger">
+    <strong>{{signUpError}}</strong>
   </div>
 {{/if}}
