@@ -1,5 +1,16 @@
 {{#if success}}
-  <div class="alert alert-success fade show pt-2">
+  <div class="alert alert-success">
+    <strong>{{success}}</strong>
+  </div>
+{{else if error}}
+  <div class="alert alert-danger">
+    <strong>{{error}}</strong>
+  </div>
+{{/if}}
+
+{{!-- 備份，確認沒問題再移除 --}}
+{{!--
+  <div class="alert alert-success pt-2">
     <div class="d-flex align-items-end">
       <div class="w-100">{{success}}</div>
       <button type="button" class="close" data-dismiss="alert">
@@ -7,13 +18,4 @@
       </button>
     </div>
   </div>
-{{else if error}}
-  <div class="alert alert-danger fade show">
-    <div class="d-flex align-items-end">
-      <div class="w-100">{{error}}</div>
-      <button type="button" class="close" data-dismiss="alert">
-        <i class="fas fa-times fa-xs"></i>
-      </button>
-    </div>
-  </div>
-{{/if}}
+--}}

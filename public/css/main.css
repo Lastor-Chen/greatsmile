@@ -152,12 +152,21 @@ body {
   text-align: center;
 }
 
+
 #stickybar {
   position: sticky;
   top: 0;
   z-index: 900;
   height: 0rem;
 }
+
+.signout-href {
+  color: #000000;
+  font-size: 0.9rem;
+}
+
+
+
 
 /* cart icon */
 .fa-shopping-cart {
@@ -184,3 +193,4 @@ body {
 .userpage-link{
   color: #49443f;
 }
+

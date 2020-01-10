@@ -1,0 +1,64 @@
+.signCard {
+  min-height: 572px;
+}
+
+.description {
+  font-size: 0.9rem;
+}
+
+.form-check-label {
+  font-size: 0.8rem;
+}
+
+.form-check-input {
+  font-size: 0.8rem;
+}
+
+
+.panel {
+  background-color: #ffffff;
+  border-radius: 20px;
+  margin: 0 15px;
+}
+
+.panel-item {
+  background-color: #f8f8f8ff;
+  border-radius: 20px;
+  margin: 0px;
+  height: 182px;
+  width: 100%;
+}
+
+.panel-heading {
+  padding: 10px 15px;
+  font-size: 22px;
+  font-weight: bold;
+  border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+.panel-item-heading {
+  padding: 10px 15px;
+  font-size: 15px;
+  font-weight: bold;
+  border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+.panel-heading div {
+  margin: 0 18px;
+}
+
+.sign-btn {
+  display: inline-block;
+  background: #ff5400;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 10px;
+  height: 69px;
+  line-height: 50px;
+  width: 150px;
+}
+
+.form-control {
+  background-color: #faf5f1;
+}
+

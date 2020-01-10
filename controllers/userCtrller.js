@@ -6,24 +6,32 @@ const { User, Order, Product } = db
 const { checkSignUp } = require('../lib/checker.js')
 
 module.exports = {
-  getSignUp: (req, res) => {
-    res.render('signup')
-  },
-
-  signUp: async (req, res) => {
+  signUp: async (req, res, next) => {
     try {
-      const input = { ...req.body }  // 深拷貝，保護原始資料
       // check input
-      const error = await checkSignUp(input)
-      if (error) return res.render('signup', { error, input })
+      const input = { ...req.body }  // 深拷貝，保護原始資料
+      const signUpError = await checkSignUp(input)
 
+      // 判斷來源頁面
+      const isCheckout = req.body.from ? true : false
+
+      if (signUpError) {
+        return res.render('sign', { signUpError, input, isCheckout, css: 'sign', js: 'sign' })
+      }
+
+      // 整理 input 資料
+      input.name = input.lastName + input.firstName
+      input.nickname = input.firstName
       input.password = bcrypt.hashSync(input.password, 10)
       input.isAdmin = false
-      input.birthday = new Date
       await User.create(input)
 
-      req.flash('success', '已成功註冊帳號')
-      res.redirect('/users/signin')
+      // 自動登入
+      passport.authenticate('local', {
+        successRedirect: '/admin',
+        failureRedirect: `/users/signin`,
+        failureFlash: true,
+      })(req, res, next)
 
     } catch (err) {
       console.error(err)
@@ -32,21 +40,25 @@ module.exports = {
   },
 
   getSignIn: (req, res) => {
-    return res.render('signin')
+    // 判斷來源頁面
+    const isCheckout = req.path.includes('checkout')
+    res.render('sign', { isCheckout, css: 'sign', js: 'sign'})
   },
 
   signIn: (req, res, next) => {
+    // 判斷來源頁面
+    const from = req.body.from || ''
+
     passport.authenticate('local', {
       successRedirect: '/admin',
       successFlash: true,
-      failureRedirect: '/users/signin',
+      failureRedirect: `/users/signin${from}`,
       failureFlash: true,
-      badRequestMessage: '請輸入 Email 與 Passport'
+      badRequestMessage: '請輸入 Email 與 Password'
     })(req, res, next)
   },
 
   signOut: (req, res) => {
-    req.flash('success', '登出成功！')
     req.logout()
     res.redirect('/')
   },

@@ -1,0 +1,34 @@
+<section class="col-md-6 mb-2 py-3 px-1">
+  <div class="row panel mx-1">
+    <div class="panel-heading col-md-12">
+      <div class="mt-3">已註冊的客戶</div>
+    </div>
+    <div class="col-md-12 px-5 mb-1 signCard">
+      <div class="col-md-12 pt-4 px-0 mb-4">
+        <div class="col-12 px-0">
+          {{> alert}}
+        </div>
+        <h6>登入</h6>
+        <div class="row pl-0">
+          <p class="description pr-2 col-12">已經有帳號？在下方登入。</p>
+        </div>
+      </div>
+      <form class="row needs-validation" action="/users/signin" method="POST" id="signInForm" novalidate>
+        {{#if isCheckout}}
+          <input type="text" name="from" value="/checkout" hidden>
+        {{/if}}
+        <div class="form-group col-12">
+          <input type="text" name="email" class="form-control" placeholder="電子郵件地址*" autocomplete="email" required>
+        </div>
+        <div class="form-group col-12">
+          <input type="password" name="password" class="form-control" placeholder="密碼*" autocomplete="current-password" required>
+          <a href="#"><small class="form-text text-muted mt-2">忘記密碼？(尚未實裝)</small></a>
+        </div>
+        <br>
+        <div class="col-12 text-center my-3">
+          <button type="submit" class="btn sign-btn" form="signInForm">登入</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
