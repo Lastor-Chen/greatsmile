@@ -39,9 +39,9 @@ $('#signUpForm').submit(e => {
   e.preventDefault()
 
   // setup 自定義驗證
-  checkEmail($('input[name=email]')[0])
-  checkName($('input[name=lastName]')[0])
-  checkPassword($('input[name=password]')[0])
+  checkEmail($('#signUpForm input[name=email]')[0])
+  checkName($('#signUpForm input[name=lastName]')[0])
+  checkPassword($('#signUpForm input[name=password]')[0])
 
   const form = e.target
   if (!form.checkValidity()) return $(form).addClass('was-validated')
