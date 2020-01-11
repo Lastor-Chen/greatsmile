@@ -1,0 +1,13 @@
+<h2 style="text-align: center;">跳轉中...</h2>
+
+<form id="newebpay" name="newebpay" action='{{tradeInfo.PayGateWay}}' method="POST" hidden>
+  <input type="text" name="MerchantID" value="{{tradeInfo.MerchantID}}">
+  <input type="text" name="TradeInfo" value="{{tradeInfo.TradeInfo}}">
+  <input type="text" name="TradeSha" value="{{tradeInfo.TradeSha}}">
+  <input type="text" name="Version" value="{{tradeInfo.Version}}">
+</form>
+
+<script>
+  const form = document.querySelector('#newebpay')
+  form.submit()
+</script>

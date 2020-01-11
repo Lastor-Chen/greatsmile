@@ -7,12 +7,14 @@ module.exports = (sequelize, DataTypes) => {
     DeliveryId: DataTypes.INTEGER,
     payMethod: DataTypes.STRING,
     payStatus: DataTypes.BOOLEAN,
+    orderNo: DataTypes.STRING,
     shipStatus: DataTypes.BOOLEAN,
     receiver: DataTypes.STRING,
     address: DataTypes.STRING,
     phone: DataTypes.STRING
   }, {});
   Order.associate = function (models) {
+    Order.hasMany(models.Payment)
     Order.belongsTo(models.Delivery)
     Order.belongsToMany(models.Product, {
       through: models.OrderItem,

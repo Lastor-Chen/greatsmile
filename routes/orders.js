@@ -2,6 +2,7 @@ const router = require('express').Router()
 const orderCtrller = require('../controllers/orderCtrller.js')
 
 // route base '/orders'
+router.get('/', orderCtrller.getOrders)
 router.get('/checkout', orderCtrller.setCheckout)      // 結帳入口
 
 router.get('/checkout_1', orderCtrller.getCheckout)    // 地址頁
@@ -15,7 +16,8 @@ router.post('/checkout_3', orderCtrller.checkout_3)    // post 付款
 
 router.get('/checkout_4', orderCtrller.getCheckout)    // 確認頁
 router.post('/', orderCtrller.postOrder)               // post 成立訂單
-
 router.get('/success', orderCtrller.getSuccessOrder)   // 訂單成立頁
+
+router.get('/:id/payment', orderCtrller.getPayment)    // 串金金流API
 
 module.exports = router

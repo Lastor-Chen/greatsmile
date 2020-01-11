@@ -1,11 +1,17 @@
 const nodemailer = require('nodemailer');
 const db = require('../models')
-const { Cart, CartItem, Order, OrderItem, Delivery, Product, User } = db
+const { Cart, CartItem, Order, OrderItem, Delivery, Payment, Product, User } = db
 
 const moment = require('moment')
 moment.locale('zh-tw')
 
 const { checkCheckout1 } = require('../lib/checker.js')
+const { aesDecrypt } = require('../lib/tools.js')
+const getTradeInfo = require('../config/newebpay.js')
+
+// 藍新金流
+const HashKey = process.env.HASH_KEY
+const HashIV = process.env.HASH_IV
 
 // mailer 設定
 const transporter = nodemailer.createTransport({
@@ -17,6 +23,35 @@ const transporter = nodemailer.createTransport({
 })
 
 module.exports = {
+  async getOrders(req, res) {
+    try {
+      const orders = await Order.findAll({
+        where: { user_id: req.user.id },
+        order: [['id', 'DESC']],
+        include: {
+          association: 'products',
+          include: ['Gifts', 'Images']
+        }
+      })
+
+      orders.forEach(order => {
+        order.createdTime = order.createdAt.toJSON().split('T')[0]
+        order.amountFormat = order.amount.toLocaleString()
+        order.products.forEach(product => {
+          product.mainImg = product.Images.find(img => img.isMain).url
+          product.orderPrice = product.OrderItem.price.toLocaleString()
+          product.subPrice = product.OrderItem.quantity * product.price
+        })
+      })
+
+      res.render('orders', { orders, css: 'profile' })
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  },
+
   async setCheckout(req, res) {
     try {
       // Query 資料庫
@@ -255,6 +290,81 @@ module.exports = {
 
       res.render('success', { css: 'success', user, order, orderProducts, orderTime, subtotalFormat, shippingFee, receiver, address, paymentTerms })
 
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  },
+
+  async getPayment(req, res) {
+    try {
+      // 查詢訂單
+      const order = await Order.findOne({
+        where: { 
+          id: +req.params.id,
+          UserId: req.user.id,
+          pay_status: false,
+        },
+        include: [{ 
+          association: 'products',
+          attributes: ['name'] 
+        }]
+      })
+
+      if (!order) return res.redirect('/orders')
+
+      // 製作串金流資料
+      const prodNames = order.products.map(prod => prod.name).join(', ')
+      const tradeInfo = getTradeInfo(order.amount, prodNames, req.user.email)
+
+      // 儲存識別用 orderNo
+      await order.update({ orderNo: tradeInfo.MerchantOrderNo })
+
+      res.render('payment', { tradeInfo, layout: false })
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  },
+
+  async newebpayCb(req, res) {
+    try {
+      if (!req.body.TradeInfo) return res.redirect('/orders')
+
+      // 解密、整理資料
+      const tradeInfo = JSON.parse(aesDecrypt(req.body.TradeInfo, HashKey, HashIV))
+      console.log(tradeInfo)
+
+      // 防止不同用戶 "同時" 進行支付，此時不對資料庫操作
+      if (tradeInfo.Message === '已存在相同的商店訂單編號') return res.redirect('/orders')
+
+      const orderNo = tradeInfo.Result.MerchantOrderNo
+      let payTime = tradeInfo.Result.PayTime
+      payTime = payTime.slice(0, 10) + 'T' + payTime.slice(10)
+
+      // 更新資料庫
+      const order = await Order.findOne({ where: { orderNo } })
+
+      // 藍新會戳路由4次，防止重複建立
+      await Payment.findOrCreate({
+        where: { orderNo: tradeInfo.Result.MerchantOrderNo },
+        defaults: {
+          OrderId: order.id,
+          status: tradeInfo.Status === 'SUCCESS' ? true : false,
+          code: tradeInfo.Status,
+          msg: tradeInfo.Message,
+          tradeNo: tradeInfo.Result.TradeNo,
+          payTime: payTime
+        }
+      })
+
+      if (tradeInfo.Status === 'SUCCESS') {
+        await order.update({ payStatus: true })
+      }
+
+      res.redirect('/orders')
+      
     } catch (err) {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
