@@ -109,25 +109,31 @@
                   <h4>#{{this.id}} {{this.name}}</h4>
                   <hr>
                   <div class="row">
-                    <div class="col-6 ">
+                    <div class="col-12">
                       <p>商品標語： {{this.slogan}}</p>
                       <p>商品內文：{{this.description}}</p>
                     </div>
                     <div class="col-6">
-                      <div>
-                        <p>售價： {{this.price}}</p>
-                        <p>庫存： {{this.inventory}}</p>
-                        <p>規格： {{this.spec}}</p>
-                        <p>版權： {{this.copyright}}</p>
-                        <p>廠商： {{this.maker}}</p>
-                        {{#if this.status}}
-                          <p>狀態： 上架中</p>
-                        {{else}}
-                          <p>狀態： 未上架</p>
-                        {{/if}}
-                        <p>分類： {{this.Category.name}}</p>
-                        <p>作品： {{this.Series.name}}</p>
-                      </div>
+                      {{#if this.status}}
+                        <p>狀態： 上架中</p>
+                      {{else}}
+                        <p>狀態： 未上架</p>
+                      {{/if}}
+                      <p>售價： {{this.price}}</p>
+                      <p>庫存： {{this.inventory}}</p>
+                      <p>廠商： {{this.maker}}</p>
+                      <p>版權： {{this.copyright}}</p>
+                      <p>規格： {{this.spec}}</p>
+                    </div>
+                    <div class="col-6 ">
+                      <p>分類： {{this.Category.name}}</p>
+                      <p>作品別： {{this.Series.name}}</p>
+                      <p>
+                        <span>標籤：</span>
+                        {{#each this.tags}}
+                          <span>#{{this.name}}</span>
+                        {{/each}}
+                      </p>
                     </div>
                   </div>
                   <hr>
