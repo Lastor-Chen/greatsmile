@@ -204,11 +204,9 @@ module.exports = {
     }
   },
 
-  async getSuccessFoo(req, res) {
+  async getSuccess(req, res) {
     try {
       const data = req.flash('passData')[0]
-      req.flash('passData', data)
-      console.log(data)
       if (!data) return res.redirect('/orders')
 
       // 付款期限三天 (臨時)
@@ -220,86 +218,5 @@ module.exports = {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
     }
-    
-    // Query
-    // const order = await Order.findOne({
-    //   where: { user_id: req.user.id, sn },
-    //   include: [{
-    //     association: 'products',
-    //     attributes: ['id', 'name', 'price'],
-    //     include: [{
-    //       association: 'Images',
-    //       where: { is_main: true }
-    //     }],
-    //   }],
-    //   order: [['products', CartItem, 'id', 'DESC']]
-    // })
   },
-
-  async getSuccess(req, res) {
-    try {
-      const user = await User.findByPk(req.user.id, {
-        include: [
-          { model: Order, include: [
-            { model: Product, as: 'products', include: 'Images'}, Delivery]
-        }],
-        order: [['Orders', 'id', 'DESC']]
-      })
-
-      const data = { ...req.flash('passData')[0] }
-      req.flash('passData', data)
-
-      // 確認此筆訂單成立
-      if (!data.established) return res.redirect('/cart')
-
-      const order = user.Orders[0]
-      // 只能查看此筆訂單成立頁面
-      if (req.params.order_sn !== order.sn) return res.redirect('/cart')
-      
-      let subtotal = 0
-      const orderProducts = order.products
-      orderProducts.forEach(product => {
-        product.mainImg = product.Images.find(img => img.isMain).url
-        product.priceFormat = product.OrderItem.price.toLocaleString()
-        product.subPriceFormat = (product.OrderItem.price * product.OrderItem.quantity).toLocaleString()
-        subtotal += (product.OrderItem.price * product.OrderItem.quantity)
-      })
-
-      const subtotalFormat = subtotal.toLocaleString()
-      const shippingFee = order.Delivery.price
-      const receiver = order.receiver.split(",")
-      const address = order.address.split(",")
-
-      // 下訂時間
-      const orderTime = moment(order.createdAt).format('YYYY/MM/DD HH:mm')
-      // 付款期限 三天
-      const paymentTerms = moment(order.createdAt).add(3, 'days').format('YYYY/MM/DD') + ' 23:59:59'
-
-      res.render('success', { css: 'success', user, order, orderProducts, orderTime, subtotalFormat, shippingFee, receiver, address, paymentTerms })
-
-    } catch (err) {
-      console.error(err)
-      res.status(500).json({ status: 'serverError', message: err.toString() })
-    }
-  } 
 }
-
-/*
-const paaData = { 
-  cart:
-   { id: 11,
-     createdAt: '2020-01-11T04:11:58.000Z',
-     updatedAt: '2020-01-11T04:11:58.000Z',
-     products: [ [Object], [Object] ],
-     subtotal: 7059 },
-  receiver: [ '田中', '綾' ],
-  address: [ '22133', '新北市', '汐止區', '伯爵街12巷22弄7號4樓', '' ],
-  phone: '0919-555-777',
-  DeliveryId: 3,
-  shipping: 150,
-  deliveryMethod: '宅配',
-  amount: 7209,
-  payMethod: '信用卡付款',
-  sn: '0000000036'
-}
-*/
