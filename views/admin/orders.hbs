@@ -20,7 +20,7 @@
             <td>{{this.id}}</td>
             <td>{{this.sn}}</td>
             <td>{{this.createdTime}}</td>
-            <td>{{this.amount}}</td>
+            <td class="text-right">{{addDot this.amount}}</td>
             <td>{{this.payMethod}}</td>
             <td>
               {{#if this.payStatus}}
@@ -105,7 +105,7 @@
                           </div>
                           <div class="col-5 text-center ml-4 pr-0">
                             <div class="d-flex justify-content-between">
-                              <span class="mr-5">NTD {{this.OrderItem.price}}</span>
+                              <span class="mr-5">{{addDot this.OrderItem.price}}</span>
                               <span>
                                 <div class="d-flex align-items-center">
                                   <span class="pr-4">
@@ -116,7 +116,7 @@
                               <span>
                                 <div class="d-flex align-items-center">
                                   <span class="pl-3">
-                                    NTD {{this.subPrice}}
+                                    {{addDot this.subPrice}}
                                   </span>
                                 </div>
                               </span>
@@ -129,7 +129,7 @@
                         <div class="col-9"></div>
                         <div class="col-3 d-flex justify-content-between align-items-center pr-0">
                           <span>總價：</span>
-                          <span class="font-weight-bold pr-1">NTD {{this.amount}}</span>
+                          <span class="font-weight-bold pr-1">{{addDot this.amount}}</span>
                         </div>
                       </div>
                     </div>
