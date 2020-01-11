@@ -26,7 +26,7 @@
                       <tr>
                         <td class="accordion-thead">{{this.sn}}</td>
                         <td class="accordion-thead">{{this.createdTime}}</td>
-                        <td class="accordion-thead">NTD {{this.amountFormat}}</td>
+                        <td class="accordion-thead">NTD {{addDot this.amount}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -73,31 +73,77 @@
                             {{/if}}
                           </td>
                         </tr>
+                        <tr>
+                          <td class="accordion-title">寄件方式</td>
+                          <td class="accordion-data">{{this.Delivery.method}}</td>
+                        </tr>
                       </tbody>
                     </table>
                     <hr>
-                    <table class="order-info">
+                    <table class="mx-auto order-info">
                       <tbody>
                         {{#each this.products}}
-                          <tr>
-                            <td class="accordion-title"></td>
-                            <td class="accordion-data">
-                              <div class="row col-12 mb-2">
-                                <a href="/products/{{this.id}}" class="product-img">
-                                  <img src="{{this.mainImg}}" class="rounded mx-auto d-block" alt="productImage"
-                                    style="height:50px">
-                                </a>
-                                <div>
-                                  <div class="ml-3">{{this.name}}</div>
-                                  <div class="row ml-3">
-                                    <div>NTD {{this.orderPrice}}</div>
-                                    <div class="ml-3">x {{this.OrderItem.quantity}}</div>
-                                  </div>
+                          <tr class="mb-2">
+                            <td class="cell-img">
+                              <a href="/products/{{this.id}}" class="product-img">
+                                <img src="{{this.mainImg}}" class="rounded mx-2 float-right my-1" alt="productImage"
+                                  style="height:50px">
+                              </a>
+                            </td>
+                            <td class="cell-name">
+                              <a href="/products/{{this.id}}" class="text-body text-decoration-none">
+                                <div class="text-left ml-2">
+                                  {{this.name}}
+                                  {{#if this.Gifts}}
+                                    <label title="含特典"><i class="fas fa-gift"></i></label>
+                                  {{/if}}
                                 </div>
-                              </div>
+                              </a>
+                            </td>
+                            <td class="cell-quantity">
+                              <div class="text-right">x {{this.OrderItem.quantity}}</div>
+                            </td>
+                            <td class="cell-price">
+                              <div class="text-right">NTD {{addDot this.OrderItem.price}} =</div>
+                            </td>
+                            <td class="cell-subPrice">
+                              <div class="text-right">{{addDot this.subPrice}}</div>
                             </td>
                           </tr>
                         {{/each}}
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="cell-price">
+                            <div class="text-right">小計</div>
+                          </td>
+                          <td class="cell-subPrice">
+                            <div class="text-right">{{addDot this.sumPrice}}</div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="cell-price">
+                            <div class="text-right">運費</div>
+                          </td>
+                          <td class="cell-subPrice">
+                            <div class="text-right">{{addDot this.Delivery.price}}</div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="cell-price">
+                            <div class="text-right">總金額</div>
+                          </td>
+                          <td class="cell-subPrice">
+                            <div class="text-right">{{addDot this.amount}}</div>
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>

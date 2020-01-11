@@ -28,22 +28,21 @@ module.exports = {
       const orders = await Order.findAll({
         where: { user_id: req.user.id },
         order: [['id', 'DESC']],
-        include: {
+        include: [{
           association: 'products',
           include: ['Gifts', 'Images']
-        }
+        }, 
+        'Delivery']
       })
 
       orders.forEach(order => {
         order.createdTime = order.createdAt.toJSON().split('T')[0]
-        order.amountFormat = order.amount.toLocaleString()
+        order.sumPrice = order.amount - order.Delivery.price
         order.products.forEach(product => {
           product.mainImg = product.Images.find(img => img.isMain).url
-          product.orderPrice = product.OrderItem.price.toLocaleString()
-          product.subPrice = product.OrderItem.quantity * product.price
+          product.subPrice = product.OrderItem.quantity * product.OrderItem.price
         })
       })
-
       res.render('orders', { orders, css: 'profile' })
 
     } catch (err) {
