@@ -9,8 +9,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .panel-heading {
   padding: 10px 15px;
-  font-size: 22px;
+  font-size: 1.4rem;
   border-bottom: 1px solid rgb(221, 221, 221);
+  font-weight: bold;
 }
 
 .panel-heading div {
@@ -67,14 +68,14 @@ aside .panel {
 
 .side-heading {
   padding: 0px 10px;
-  font-size: 15px;
+  font-size: 1rem;
   font-weight: bold;
 }
 
 .side-item-list {
   list-style:none;
   padding-inline-start: 10px;
-  font-size: 0.7rem;
+  font-size: 0.85rem;
 }
 
 /* notice */
@@ -84,7 +85,7 @@ aside .panel {
 }
 
 .notice p {
-  font-size: .9rem;
+  font-size: 1rem;
 }
 
 .notice a {
