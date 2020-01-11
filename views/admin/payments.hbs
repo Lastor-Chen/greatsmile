@@ -1,5 +1,36 @@
 <main class="container">
   <div class="card-body pt-4">
-    <p>payments</p>
+    <div class="row my-3">
+      <form action="/admin/payments" method="POST" class="col-md-6">
+        <div class="input-group mb-3 mx-auto ">
+          <input type="text" class="form-control" name="sn" placeholder="請輸入訂單編號(SN)">
+          <div class="input-group-append">
+            <button class="btn btn-secondary" type="submit" id="button-addon2">訂單查詢</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <table data-toggle="table" data-pagination="true" id="table">
+      <thead>
+        <tr>
+          <th data-valign="middle" class="text-center" data-sortable="true">#</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">SN</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">付款狀態</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">付款時間</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">藍新交易序號</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">識別碼</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{payment.id}}</td>
+          <td>{{payment.sn}}</td>
+          <td>{{payment.createdTime}}</td>
+          <td>{{payment.amount}}</td>
+          <td>{{payment.payMethod}}</td>
+        </tr>  
+      </tbody>
+    </table>
   </div>
 </main>
