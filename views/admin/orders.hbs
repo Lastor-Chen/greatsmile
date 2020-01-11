@@ -24,14 +24,18 @@
             <td class="text-right">{{addDot this.amount}}</td>
             <td>{{this.payMethod}}</td>
             <td>
-              {{#if this.payStatus}}
+              {{#if this.isCanceled}}
+               <i class="fas fa-ban"></i> 
+              {{else if this.payStatus}}
                 <i class="fas fa-check text-success"></i>
               {{else}}
                 <i class="fas fa-times text-danger"></i>
               {{/if}}
             </td>
             <td>
-              {{#if this.shipStatus}}
+              {{#if this.isCanceled}}
+                <i class="fas fa-ban"></i>
+              {{else if this.shipStatus}}
                 <i class="fas fa-check text-success"></i>
               {{else}}
                 <i class="fas fa-times text-danger"></i>
@@ -42,15 +46,19 @@
               {{!--detail Button trigger modal --}}
               <button type="button" class="btn btn-outline-dark mr-1" data-toggle="modal"
                 data-target=".orderModal{{this.id}}"><i class="fas fa-search-plus" title="出貨詳情"></i></button>
-              <!-- Delete Button trigger modal -->
-              {{!-- <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#delete_{{this.id}}"
-                title="取消此訂單">
-                <i class="far fa-trash-alt" aria-hidden="true"></i>
-              </button> --}}
-              <form action="/admin/orders/{{this.id}}/cancel?_method=PUT" method="POST" style="display: inline;">
-                <button type="submit" class="btn btn-outline-danger font-weight-normal">X
-                </button>
-              </form>
+              {{#if this.isCanceled}}
+                <form  style="display: inline;">
+                  <button type="submit" class="btn btn-secondary font-weight-normal" title="取消此筆訂單" disabled>
+                    <i class="fas fa-ban"></i>
+                  </button>
+                </form>
+              {{else}}
+                <form action="/admin/orders/{{this.id}}/cancel?_method=PUT" method="POST" style="display: inline;">
+                  <button type="submit" class="btn btn-outline-danger font-weight-normal" title="取消此筆訂單">
+                    <i class="fas fa-ban"></i>
+                  </button>
+                </form>
+              {{/if}}
             </td>
             {{!--detail product modal --}}
             <div class="modal fade orderModal{{this.id}}" tabindex="-1" role="dialog">

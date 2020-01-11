@@ -18,6 +18,11 @@ module.exports = {
 
       orders.forEach(order => {
         order.createdTime = order.createdAt.toJSON().split('T')[0]
+        if (order.payStatus === -1 && order.shipStatus === -1) {
+          order.isCanceled = true
+        } else {
+          order.isCanceled = false
+        }
         order.products.forEach(product => {
           product.mainImg = product.Images.find(img => img.isMain).url
           product.subPrice = product.OrderItem.quantity * product.OrderItem.price
