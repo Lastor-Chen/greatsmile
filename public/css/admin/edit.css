@@ -1,0 +1,17 @@
+.del-img-form {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.delete-btn {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  font-size: 0.6rem;
+  opacity: 0.5;
+}
+
+.delete-btn:hover {
+  opacity: 1;
+}

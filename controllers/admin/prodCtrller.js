@@ -192,6 +192,7 @@ module.exports = {
       })
 
       res.render('admin/edit', {
+        css: 'edit',
         product,
         categories,
         series,

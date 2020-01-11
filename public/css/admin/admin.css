@@ -43,17 +43,3 @@ main.container {
 input[type=radio]:checked + label>img {
   border: 2px solid #007cfe;
 }
-
-.delete-btn {
-  position: relative;
-  z-index: 9;
-  right: 42px;
-  bottom: 47px;
-  font-size: 0.6rem;
-  size: 0.6rem;
-  opacity:0.5;
-}
-
-.delete-btn:hover {
-  opacity: 1;
-}

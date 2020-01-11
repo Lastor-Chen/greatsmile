@@ -142,20 +142,21 @@
             <div class="col-10 pl-0">
               <div class="form-check form-check-inline mr-0 pl-2 col-10 d-flex flex-wrap">
                 {{#each images}}
-                  <div class="text-center mr-1">
+                  <div class="text-center mr-1 position-relative">
                     <input id="{{this.id}}" class="input-hidden" type="radio" name="mainImg" value="{{this.id}}" form="editForm">
                     <label for="{{this.id}}" class="d-block">
                       <img src={{this.url}} class="img-thumbnail mx-1" style="width: 100px">
                     </label>
+                    {{#if this.isMain}}
+                      {{!-- no render --}}
+                    {{else}}
+                      <form class="del-img-form" action="/admin/images/{{this.id}}?_method=DELETE" method="POST">
+                        <button type="submit" class="btn btn-danger btn-sm font-weight-normal delete-btn">
+                          <i class="fas fa-trash-alt"></i>
+                        </button>
+                      </form>
+                    {{/if}}
                   </div>
-                  {{#if this.isMain}}
-                  {{else}}
-                    <form action="/admin/images/{{this.id}}?_method=DELETE" method="POST" id="delImage_{{this.id}}" hidden>
-                    </form>
-                    <button type="submit" class="btn btn-danger btn-sm font-weight-normal delete-btn" form="delImage_{{this.id}}">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
-                  {{/if}}
                 {{/each}}
               </div>
               <div class="pl-2 ml-1">
