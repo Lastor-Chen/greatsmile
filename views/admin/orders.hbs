@@ -1,6 +1,6 @@
 <main class="container">
   <div class="card-body pt-4">
-                      {{> alert}}
+    {{> alert}}
     <table data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true" id="table">
       <thead>
         <tr>
@@ -43,10 +43,14 @@
               <button type="button" class="btn btn-outline-dark mr-1" data-toggle="modal"
                 data-target=".orderModal{{this.id}}"><i class="fas fa-search-plus" title="出貨詳情"></i></button>
               <!-- Delete Button trigger modal -->
-              <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#delete_{{this.id}}"
-                title="刪除此會員">
+              {{!-- <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#delete_{{this.id}}"
+                title="取消此訂單">
                 <i class="far fa-trash-alt" aria-hidden="true"></i>
-              </button>
+              </button> --}}
+              <form action="/admin/orders/{{this.id}}/cancel?_method=PUT" method="POST" style="display: inline;">
+                <button type="submit" class="btn btn-outline-danger font-weight-normal">X
+                </button>
+              </form>
             </td>
             {{!--detail product modal --}}
             <div class="modal fade orderModal{{this.id}}" tabindex="-1" role="dialog">

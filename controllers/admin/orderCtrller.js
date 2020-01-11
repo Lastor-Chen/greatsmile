@@ -54,5 +54,25 @@ module.exports = {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
     }
+  },
+
+  cancelOrder: async (req, res) => {
+    try {
+
+      const id = req.params.ordersid
+      const order = await Order.findByPk(id)
+
+      order.payStatus = -1
+      order.shipStatus = -1
+
+      await order.save()
+      
+      req.flash('success', '已取消該筆訂單')
+      res.redirect('/admin/orders')
+      
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
   }
 }
