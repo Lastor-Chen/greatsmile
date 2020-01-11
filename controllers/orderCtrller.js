@@ -28,7 +28,7 @@ module.exports = {
         order.sumPrice = order.amount - order.Delivery.price
         order.products.forEach(product => {
           product.mainImg = product.Images.find(img => img.isMain).url
-          product.subPrice = product.OrderItem.quantity * product.price
+          product.subPrice = product.OrderItem.quantity * product.OrderItem.price
         })
       })
       res.render('orders', { orders, css: 'profile' })
