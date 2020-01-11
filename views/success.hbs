@@ -140,13 +140,19 @@
             <hr class="my-2">
             <div>
               <ul class="side-item-list mb-0">
-                <li class="py-2">{{data.payMethod}}</li>
+                <li class="mb-2">{{data.payMethod}}</li>
                 {{#ifEqual data.payMethod '便利商店取貨付款'}}
                   {{!-- put null --}}
                 {{else}}
-                  <li>付款期限: {{paymentTerms}}</li>
+                  <li class="mb-2">
+                    <div>付款期限:</div>
+                    <div>　{{paymentTerms}}</div> 
+                  </li>
                 {{/ifEqual}}
-                <li>訂單編號: {{data.sn}}</li>
+                <li>
+                  <div>訂單編號:</div>
+                  <div>　{{data.sn}}</div>
+                </li>
               </ul>
             </div>
           </div>
