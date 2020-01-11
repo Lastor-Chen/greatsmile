@@ -116,9 +116,14 @@
               </div>
               <div class="col-10 pl-2 pr-0">
                 <a href="/products/{{id}}">
-                  <h6 class="mb-3">{{name}}</h6>
+                  <h6 class="d-inline-block">{{name}}</h6>
                 </a>
-                <div class="font-smaller">
+                {{#if this.Gifts.length}}
+                  <div>
+                    <span class="product-tag tag-gift">附特典</span>
+                  </div>
+                {{/if}}
+                <div class="font-smaller mt-4">
                   <p class="text-right">
                     <span>NTD {{addDot price}} x {{addDot quantity}} =</span>
                     <span class="font-weight-bold">NTD {{addDot amount}}</span>
