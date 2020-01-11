@@ -1,5 +1,5 @@
 const db = require('../../models')
-const { Order, User, Product } = db
+const { Order, User, Product, Delivery } = db
 
 
 module.exports = {
@@ -9,6 +9,7 @@ module.exports = {
         order: [['id', 'DESC']],
         include: [
           { model: User },
+          { model: Delivery},
           {
             model: Product, as: 'products',
             include: ['Gifts', 'Images']

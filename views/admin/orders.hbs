@@ -9,6 +9,7 @@
           <th data-valign="middle" class="text-center" data-sortable="true">成立時間</th>
           <th data-valign="middle" class="text-center" data-sortable="true">總金額</th>
           <th data-valign="middle" class="text-center" data-sortable="true">付款方式</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">出貨方式</th>
           <th data-valign="middle" class="text-center" data-sortable="true">付款狀態</th>
           <th data-valign="middle" class="text-center" data-sortable="true">出貨狀態</th>
           <th data-valign="middle" class="text-center" data-sortable="true">收件人</th>
@@ -23,6 +24,7 @@
             <td>{{this.createdTime}}</td>
             <td class="text-right">{{addDot this.amount}}</td>
             <td>{{this.payMethod}}</td>
+            <td>{{this.Delivery.method}}</td>
             <td>
               {{#if this.isCanceled}}
                <i class="fas fa-ban"></i> 
