@@ -3,7 +3,7 @@ const { Payment } = db
 
 
 module.exports = {
-  getpayments: async (req, res) => {
+  getPayments: async (req, res) => {
     try {
       
       res.render('admin/payments')
