@@ -62,7 +62,7 @@ module.exports = {
       req.flash('passData', data)
 
       const view = req.path.slice(1)
-      res.render(view, { css: 'checkout', js: 'checkout', data })
+      res.render(view, { css: 'checkout', js: 'checkout', data, view })
 
     } catch (err) {
       console.error(err)

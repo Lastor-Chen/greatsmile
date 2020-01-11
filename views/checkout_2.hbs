@@ -3,15 +3,7 @@
     {{!-- 主內容 --}}
     <main class="col-8" role="main">
       <section class="panel">
-        {{!-- 結帳步驟 step nav --}}
-        <nav class="step border-bottom px-2">
-          <ul class="nav justify-content-around">
-            <li class="px-4 py-3">1.收件地址</li>
-            <li class="px-4 py-3 active">2.寄件方式</li>
-            <li class="px-4 py-3">3.付款&帳單</li>
-            <li class="px-4 py-3">4.最後檢視</li>
-          </ul>
-        </nav>
+        {{> checkout/step}}
         <div class="px-4 mt-2 dummy">
           {{>alert}}
         </div>
