@@ -1,5 +1,5 @@
 const db = require('../models')
-const { Cart, CartItem, Order, OrderItem, Delivery, Product, User } = db
+const { Cart, CartItem, Order, OrderItem, Delivery } = db
 
 const moment = require('moment')
 moment.locale('zh-tw')
@@ -56,7 +56,6 @@ module.exports = {
   getCheckout(req, res) {
     try {
       const data = req.flash('passData')[0]
-      console.log(data)
 
       // 無 passData，阻擋退回
       if (!data) return res.redirect('/cart')
@@ -84,7 +83,6 @@ module.exports = {
       // 收件人資料注入 passData
       const data = { ...req.flash('passData')[0], ...receiver }
       req.flash('passData', data)
-      console.log(data)
 
       // 檢查 input
       const error = checkCheckout1(input)
@@ -123,7 +121,6 @@ module.exports = {
       // 計算運費
       data.amount = (data.cart.subtotal + input.shipping)
       req.flash('passData', data)
-      console.log(data)
 
       res.redirect('checkout_3')
 
@@ -145,7 +142,6 @@ module.exports = {
       // 付款方式注入 passData
       const data = { ...req.flash('passData')[0], ...input}
       req.flash('passData', data)
-      console.log(data)
 
       res.redirect('checkout_4')
 
@@ -207,8 +203,6 @@ module.exports = {
   async getSuccess(req, res) {
     try {
       const data = req.flash('passData')[0]
-      req.flash('passData', data)
-      console.log(data)
       if (!data) return res.redirect('/orders')
 
       const orderDate = moment(data.createdAt).format('YYYY/MM/DD HH:mm')
