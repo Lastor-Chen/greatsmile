@@ -158,7 +158,8 @@ module.exports = {
   async postOrder(req, res) {
     try {
       // 取出 data 並 format
-      const data = req.flash('passData')[0]
+      const passData = req.flash('passData')[0]
+      const data = { ...passData }
       data.address = data.address.join(',')
       data.receiver = data.receiver.join(',')
 
@@ -187,11 +188,13 @@ module.exports = {
         )
       )
 
-      // 成立訊息注入 passData
-      req.flash('passData', {established: true})
-
       // 清除購物車 items
       await CartItem.destroy({ where: { CartId: cart.id } })
+
+      // 傳遞訊息給 success 頁
+      passData.sn = sn
+      passData.createdAt = moment(order.createdAt).format('YYYY/MM/DD HH:mm')
+      req.flash('passData', passData)
 
       res.redirect('/orders/success')
 
@@ -201,23 +204,36 @@ module.exports = {
     }
   },
 
-  async getSuccess(req, res) {
+  async getSuccessFoo(req, res) {
     try {
-      const user = await User.findByPk(req.user.id, {
-        include: 'Orders',
-        attributes: ['id'],
-        order: [['Orders', 'id', 'DESC']]
-      })
+      const data = req.flash('passData')[0]
+      req.flash('passData', data)
+      console.log(data)
+      if (!data) return res.redirect('/orders')
 
-      res.redirect(`/orders/success/${user.Orders[0].sn}`)
+      res.render('success', { css: 'success', data })
 
     } catch (err) {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
     }
+    
+    // Query
+    // const order = await Order.findOne({
+    //   where: { user_id: req.user.id, sn },
+    //   include: [{
+    //     association: 'products',
+    //     attributes: ['id', 'name', 'price'],
+    //     include: [{
+    //       association: 'Images',
+    //       where: { is_main: true }
+    //     }],
+    //   }],
+    //   order: [['products', CartItem, 'id', 'DESC']]
+    // })
   },
 
-  async getSuccessOrder(req, res) {
+  async getSuccess(req, res) {
     try {
       const user = await User.findByPk(req.user.id, {
         include: [
@@ -264,3 +280,23 @@ module.exports = {
     }
   } 
 }
+
+/*
+const paaData = { 
+  cart:
+   { id: 11,
+     createdAt: '2020-01-11T04:11:58.000Z',
+     updatedAt: '2020-01-11T04:11:58.000Z',
+     products: [ [Object], [Object] ],
+     subtotal: 7059 },
+  receiver: [ '田中', '綾' ],
+  address: [ '22133', '新北市', '汐止區', '伯爵街12巷22弄7號4樓', '' ],
+  phone: '0919-555-777',
+  DeliveryId: 3,
+  shipping: 150,
+  deliveryMethod: '宅配',
+  amount: 7209,
+  payMethod: '信用卡付款',
+  sn: '0000000036'
+}
+*/

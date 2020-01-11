@@ -5,8 +5,8 @@
       <div class="panel mx-1 text-center font-format notice">
         <div class="py-4">
           <h4 class="pb-4">訂單處理中，謝謝您的光顧。</h4>
-          <p>訂單內容已發送至 {{user.email}}，訂單編號為 {{order.sn}}。</p>
-          <p class="pb-5">下訂日期 {{orderTime}}</p>
+          <p>訂單內容已發送至 {{user.email}}，訂單編號為 {{data.sn}}。</p>
+          <p class="pb-5">下訂日期 {{data.createdAt}}</p>
           <a href="/products" class="btn px-4">繼續購物</a>
         </div>
       </div>
@@ -36,26 +36,23 @@
             </div>
             <hr>
             {{!-- 內文 --}}
-            {{#each orderProducts}}
+            {{#each data.cart.products}}
             <div class="row">
               <div class="col-md-7 d-flex align-items-center h-100">
                 <div>
                   <a href="/products/{{this.id}}" class="product-img">
-                    <img src="{{this.mainImg}}" class="img-fit">
+                    <img src="{{this.Images.0.url}}" class="img-fit">
                   </a>
                 </div>
                 <div class="font-format pl-3">
-                  <a href="/products/{{this.id}}" class="product-name pb-2">
-                    {{this.name}}
-                  </a>
-                  {{!-- <div class="product-name pb-2">{{this.name}}</div> --}}
+                  <a href="/products/{{this.id}}" class="product-name pb-2">{{this.name}}</a>
                 </div>
               </div>
               <div class="col-md-5 font-format">
                 <div class="d-flex justify-content-between align-items-center h-100 pb-2">
-                  <span>NTD {{this.priceFormat}}</span>
-                  <span>{{this.OrderItem.quantity}}</span>
-                  <span>NTD {{this.subPriceFormat}}</span>
+                  <span>NTD {{addDot price}}</span>
+                  <span>{{addDot quantity}}</span>
+                  <span>NTD {{addDot amount}}</span>
                 </div>
               </div>
             </div>
@@ -70,17 +67,17 @@
               <div class="col-md-5 font-format">
                 <div class="d-flex justify-content-between align-items-center">
                   <span>小計</span>
-                  <span>NTD {{subtotalFormat}}</span>
+                  <span>NTD {{addDot data.cart.subtotal}}</span>
                 </div>
                 <hr class="my-3">
                 <div class="d-flex justify-content-between align-items-center">
                   <span>運費</span>
-                  <span>NTD {{shippingFee}}</span>
+                  <span>NTD {{addDot data.shipping}}</span>
                 </div>
                 <hr class="my-3">
                 <div class="d-flex justify-content-between align-items-center font-format-bold">
                   <span>合計</span>
-                  <span>NTD {{order.amount}}</span>
+                  <span>NTD {{addDot data.amount}}</span>
                 </div>
                 <hr class="mt-3">
               </div>
@@ -101,13 +98,13 @@
           <hr class="my-2">
           <div>
             <ul class="side-item-list mb-0">
-              <li>{{receiver.[0]}} {{receiver.[1]}}</li>
-              <li>{{address.[0]}}</li>
-              <li>{{address.[1]}}</li>
-              <li>{{address.[2]}}</li>
-              <li>{{address.[3]}}</li>
-              <li>{{address.[4]}}</li>
-              <li>{{order.phone}}</li>
+              <li>{{data.receiver.[0]}} {{data.receiver.[1]}}</li>
+              <li>{{data.address.[0]}}</li>
+              <li>{{data.address.[1]}}</li>
+              <li>{{data.address.[2]}}</li>
+              <li>{{data.address.[3]}}</li>
+              <li>{{data.address.[4]}}</li>
+              <li>{{data.phone}}</li>
             </ul>
           </div>
         </div>
@@ -117,13 +114,12 @@
       <div class="row panel mx-1 mb-3 font-format side-box-shadow">
         <div class="panel-body w-100 p-3">
           <div class="side-heading">
-            <div>配送方法</div>
+            <div>寄件方式</div>
           </div>
           <hr class="my-2">
           <div>
             <ul class="side-item-list mb-0">
-              <li>配送時間</li>
-              <li>12:00～14:00</li>
+              <li>{{data.deliveryMethod}} - NTD {{addDot data.shipping}}</li>
             </ul>
           </div>
         </div>
@@ -139,12 +135,13 @@
             <hr class="my-2">
             <div>
               <ul class="side-item-list mb-0">
-                <li class="py-2">{{order.payMethod}}</li>
-                {{#ifEqual order.payMethod '便利商店取貨付款'}}
+                <li class="py-2">{{data.payMethod}}</li>
+                {{#ifEqual data.payMethod '便利商店取貨付款'}}
+                  {{!-- put null --}}
                 {{else}}
-                <li>付款期限: {{paymentTerms}}</li>
+                  <li>付款期限: !!paymentTerms!!</li>
                 {{/ifEqual}}
-                <li>訂單編號: {{order.sn}}</li>
+                <li>訂單編號: {{data.sn}}</li>
               </ul>
             </div>
           </div>
@@ -157,13 +154,13 @@
             <hr class="my-2">
             <div>
               <ul class="side-item-list mb-0">
-                <li>{{order.receiver}}</li>
-                <li>{{address.[0]}}</li>
-                <li>{{address.[1]}}</li>
-                <li>{{address.[2]}}</li>
-                <li>{{address.[3]}}</li>
-                <li>{{address.[4]}}</li>
-                <li>{{order.phone}}</li>
+                <li>{{data.receiver.[0]}} {{data.receiver.[1]}}</li>
+                <li>{{data.address.[0]}}</li>
+                <li>{{data.address.[1]}}</li>
+                <li>{{data.address.[2]}}</li>
+                <li>{{data.address.[3]}}</li>
+                <li>{{data.address.[4]}}</li>
+                <li>{{data.phone}}</li>
               </ul>
             </div>
           </div>

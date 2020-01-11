@@ -22,7 +22,7 @@
             </div>
             <div class="col-8 summary-content">
               <ul>
-                <li>{{data.receiver}}</li>
+                <li>{{data.receiver.[0]}} {{data.receiver.[1]}}</li>
                 <li>{{data.address.[0]}}</li>
                 <li>{{data.address.[1]}}</li>
                 <li>{{data.address.[2]}}</li>
@@ -32,10 +32,10 @@
               </ul>
             </div>
           </section>
-          {{!-- 送貨選項 --}}
+          {{!-- 寄件方法 --}}
           <section class="row m-0 p-4 border-bottom">
             <div class="col-4">
-              <h6 class="mb-4 font-weight-bold">送貨選項</h6>
+              <h6 class="mb-4 font-weight-bold">寄件方法</h6>
               <a href="/orders/checkout_2" class="btn btn-edit">編輯</a>
             </div>
             <div class="col-8 summary-content">
@@ -54,7 +54,7 @@
               <ul>
                 <li>{{data.payMethod}}</li>
                 <li class="my-3 font-weight-bold">帳單地址: (未實裝，現同收件地址)</li>
-                <li>{{data.receiver}}</li>
+                <li>{{data.receiver.[0]}} {{data.receiver.[1]}}</li>
                 <li>{{data.address.[0]}}</li>
                 <li>{{data.address.[1]}}</li>
                 <li>{{data.address.[2]}}</li>
