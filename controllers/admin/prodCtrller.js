@@ -9,9 +9,8 @@ module.exports = {
     try {
       const products = await Product.findAll({
         order: [['id', 'DESC']],
-        include: [Category, Series, Image]
+        include: [Category, Series, Image, 'tags']
       })
-
 
       //判斷日期用
       const today = new Date()

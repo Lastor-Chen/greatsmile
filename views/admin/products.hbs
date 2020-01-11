@@ -127,6 +127,11 @@
                         {{/if}}
                         <p>分類： {{this.Category.name}}</p>
                         <p>作品： {{this.Series.name}}</p>
+                        <p>Tag：
+                          {{#each this.tags}}
+                            #{{this.name}}
+                          {{/each}}
+                        </p>
                       </div>
                     </div>
                   </div>
