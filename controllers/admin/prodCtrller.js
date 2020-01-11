@@ -114,14 +114,16 @@ module.exports = {
       const newProduct = await Product.create(input)
 
       //寫入TagItem
-      const tagArray = input.tag
-      tagArray.forEach(tagId => {
-        const tagItem = {
-          tag_id: Number(tagId),
-          product_id: newProduct.id
-        }
-        TagItem.create(tagItem)
-      })
+      if (input.tag) {
+        const tagArray = input.tag
+        tagArray.forEach(tagId => {
+          const tagItem = {
+            tag_id: Number(tagId),
+            product_id: newProduct.id
+          }
+          TagItem.create(tagItem)
+        })
+       }
 
       //寫入Image
       const { files } = req
@@ -189,6 +191,7 @@ module.exports = {
       })
 
       res.render('admin/edit', {
+        css: 'edit',
         product,
         categories,
         series,
@@ -220,14 +223,16 @@ module.exports = {
       })
 
       //新增TagItem資訊
-      const tagArray = input.tag
-      tagArray.forEach(tagId => {
-        const tagItem = {
-          tag_id: Number(tagId),
-          product_id: id
-        }
-        TagItem.create(tagItem)
-      })
+      if (input.tag) {
+        const tagArray = input.tag
+        tagArray.forEach(tagId => {
+          const tagItem = {
+            tag_id: +tagId,
+            product_id: id
+          }
+          TagItem.create(tagItem)
+        })
+      }
 
       //新增Image
       const { files } = req
@@ -264,6 +269,20 @@ module.exports = {
     } catch (err) {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  },
+
+  deleteImage: async (req, res) => {
+    try {
+
+      const image = await Image.findByPk(req.params.id)
+      const redirectUrl = `/admin/products/${image.ProductId}/edit`
+      await image.destroy()
+      res.redirect(redirectUrl)
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json(err.toString())
     }
   },
 }

@@ -27,8 +27,19 @@ main.container {
 .card-body {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
+
 }
 
-input { 
+.input-center { 
   text-align: center; 
+}
+
+
+.input-hidden {
+  position: absolute;
+  left: -9999px;
+}
+
+input[type=radio]:checked + label>img {
+  border: 2px solid #007cfe;
 }

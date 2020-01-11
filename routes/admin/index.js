@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const { isAdminAuth } = require('../../middleware/auth')
+const prodCtrller = require('../../controllers/admin/prodCtrller')
 
 // 判斷 admin 權限，set admin layout
 router.use('/', isAdminAuth, (req, res, next) => {
@@ -10,6 +11,7 @@ router.use('/', isAdminAuth, (req, res, next) => {
 
 // route base '/admin'
 router.get('/', (req, res) => res.redirect('/admin/products'))
+router.delete('/images/:id', prodCtrller.deleteImage)
 
 router.use('/products', require('./products.js'))
 router.use('/users', require('./users.js'))

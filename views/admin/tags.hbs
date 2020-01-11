@@ -7,7 +7,7 @@
         </div>
         <form class="form-inline d-flex justify-content-end" action="/admin/tags" method="POST">
           <div class="form-group mx-sm-3 mb-2 mt-1">
-            <input type="text" class="form-control" name="name" placeholder="輸入新標籤..." required>
+            <input type="text" class="form-control input-center" name="name" placeholder="輸入新標籤..." required>
           </div>
           <button type="submit" class="btn btn-primary mb-2 mt-1">新增標籤</button>
         </form>
@@ -76,7 +76,7 @@
                       <form class="" action="/admin/tags/{{this.id}}?_method=PUT"
                         method="POST" id="edit_{{this.id}}">
                         <div class="form-group mx-sm-3 mb-2 mt-1">
-                          <input type="text" class="form-control" name="name" placeholder="輸入標籤名稱..."
+                          <input type="text" class="form-control input-center" name="name" placeholder="輸入標籤名稱..."
                             value={{this.name}} required>
                         </div>
                       </form>
