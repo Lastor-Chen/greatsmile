@@ -153,8 +153,9 @@ module.exports = {
 
   async postOrder(req, res) {
     try {
-      // 取出 data 並 format
       const passData = req.flash('passData')[0]
+
+      // 取出 data 並 format
       const data = { ...passData }
       data.address = data.address.join(',')
       data.receiver = data.receiver.join(',')
@@ -187,10 +188,11 @@ module.exports = {
       // 清除購物車 items
       await CartItem.destroy({ where: { CartId: cart.id } })
 
-      // 傳遞訊息給 success 頁
+      // 傳遞資料給 success 頁
       passData.sn = sn
       passData.createdAt = order.createdAt
       req.flash('passData', passData)
+      req.flash('isCreated', true)
 
       res.redirect('/orders/success')
 
@@ -202,9 +204,12 @@ module.exports = {
 
   async getSuccess(req, res) {
     try {
-      const data = req.flash('passData')[0]
-      if (!data) return res.redirect('/orders')
+      // 阻擋非經由 postOrder 進入的請求
+      const isCreated = req.flash('isCreated')[0]
+      if (!isCreated) return res.redirect('/orders')
 
+      // 取出、整理購物 data
+      const data = req.flash('passData')[0]
       const orderDate = moment(data.createdAt).format('YYYY/MM/DD HH:mm')
 
       // 付款期限三天 (臨時)
