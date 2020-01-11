@@ -93,12 +93,16 @@
                       <div class="col-10 mr-4">
                         <p class="mb-0">收件地址：{{this.address}}</p>
                       </div>
+                      {{#if this.shipStatus}}
+                      {{else}}
                       <div class="float-right">
                         <button class="btn btn-outline-dark mb-2 ml-2 px-3" type="button" data-toggle="collapse"
                           data-target="#collapse_{{this.id}}">
                           <i class="fas fa-edit" title="編輯收件資訊"></i>
                         </button>
                       </div>
+                      {{/if}}
+                      {{!-- 收合用編輯表單 --}}
                       <div class="collapse col-12" id="collapse_{{this.id}}">
                         <form action="/admin/orders/{{this.id}}?_method=PUT" method="POST" id="putOrder_{{this.id}}">
                           <div class="form-group row">

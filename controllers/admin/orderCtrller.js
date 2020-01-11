@@ -48,11 +48,19 @@ module.exports = {
       } else {
 
         const id = +req.params.ordersid
-        await Order.update(input, { where: { id } })
+        const order = await Order.findByPk(id)
+        if (order.shipStatus !== false) {
 
-        req.flash('success', '更新成功！')
-        res.redirect('back')
+          req.flash('error', '該筆訂單已無法修改寄送資訊')
+          res.redirect('back')
 
+        } else {
+
+          await order.update(input)
+          req.flash('success', '更新成功！')
+          res.redirect('back')
+
+        }
       }
 
     } catch (err) {
