@@ -79,49 +79,27 @@
             <span>運費:</span>
             <p>
               <span>NTD </span>
-              <span id="shipping">0</span>
+              {{#if data.shipping}}
+                <span id="shipping">{{data.shipping}}</span>
+              {{else}}
+                <span id="shipping">0</span>
+              {{/if}}
             </p>
           </div>
           <div class="d-flex justify-content-between font-weight-bold py-2">
             <span>合計:</span>
             <p>
               <span>NTD </span>
-              <span id="total">{{addDot data.cart.subtotal}}</span>
+              {{#if data.amount}}
+                <span id="total">{{addDot data.amount}}</span>
+              {{else}}
+                <span id="total">{{addDot data.cart.subtotal}}</span>
+              {{/if}}
             </p>
           </div>
         </div>
       </section>
-      {{!-- 產品 --}}
-      <section class="panel">
-        <h6 class="font-weight-bold border-bottom p-3">配送商品</h6>
-        <div class="prod-list px-3">
-          {{#each data.cart.products}}
-            <div class="row">
-              <div class="col-2 px-0">
-                <a href="/products/{{id}}">
-                  <img src="{{Images.0.url}}" alt="product-img">
-                </a>
-              </div>
-              <div class="col-10 pl-2">
-                <a href="/products/{{id}}">
-                  <h6 class="d-inline-block">{{name}}</h6>
-                </a>
-                {{#if this.Gifts.length}}
-                  <div>
-                    <span class="product-tag tag-gift">附特典</span>
-                  </div>
-                {{/if}}
-                <div class="font-smaller mt-4">
-                  <p class="text-right">
-                    <span>NTD {{addDot price}} x {{addDot quantity}} =</span>
-                    <span class="font-weight-bold">NTD {{addDot amount}}</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          {{/each}}
-        </div>
-      </section>
+      {{> checkout/products}}
     </aside>
   </div>
 </div>

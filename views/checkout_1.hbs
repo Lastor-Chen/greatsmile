@@ -70,51 +70,8 @@
     </main>
     {{!-- 側邊攔 --}}
     <aside class="col-4">
-      {{!-- 總金額 --}}
-      <section class="panel mb-4">
-        <h6 class="font-weight-bold border-bottom p-3">訂單合計</h6>
-        <div class="px-3 pb-3">
-          <div class="d-flex justify-content-between border-bottom py-2 font-small">
-            <span>小計:</span>
-            <span>NTD {{addDot data.cart.subtotal}}</span>
-          </div>
-          <div class="d-flex justify-content-between font-weight-bold py-2">
-            <span>合計:</span>
-            <span>NTD {{addDot data.cart.subtotal}}</span>
-          </div>
-        </div>
-      </section>
-      {{!-- 產品 --}}
-      <section class="panel">
-        <h6 class="font-weight-bold border-bottom p-3">配送商品</h6>
-        <div class="prod-list px-3">
-          {{#each data.cart.products}}
-            <div class="row">
-              <div class="col-2 px-0">
-                <a href="/products/{{id}}">
-                  <img src="{{Images.0.url}}" alt="product-img">
-                </a>
-              </div>
-              <div class="col-10 pl-2">
-                <a href="/products/{{id}}">
-                  <h6 class="d-inline-block">{{name}}</h6>
-                </a>
-                {{#if this.Gifts.length}}
-                  <div>
-                    <span class="product-tag tag-gift">附特典</span>
-                  </div>
-                {{/if}}
-                <div class="font-smaller mt-4">
-                  <p class="text-right">
-                    <span>NTD {{addDot price}} x {{addDot quantity}} =</span>
-                    <span class="font-weight-bold">NTD {{addDot amount}}</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          {{/each}}
-        </div>
-      </section>
+      {{> checkout/amount}}
+      {{> checkout/products}}
     </aside>
   </div>
 </div>
