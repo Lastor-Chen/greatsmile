@@ -193,7 +193,7 @@ module.exports = {
 
       // 傳遞訊息給 success 頁
       passData.sn = sn
-      passData.createdAt = moment(order.createdAt).format('YYYY/MM/DD HH:mm')
+      passData.createdAt = order.createdAt
       req.flash('passData', passData)
 
       res.redirect('/orders/success')
@@ -211,10 +211,12 @@ module.exports = {
       console.log(data)
       if (!data) return res.redirect('/orders')
 
+      const orderDate = moment(data.createdAt).format('YYYY/MM/DD HH:mm')
+
       // 付款期限三天 (臨時)
       const paymentTerms = moment(data.createdAt).add(3, 'days').format('YYYY/MM/DD') + ' 23:59:59'
 
-      res.render('success', { css: 'success', data, paymentTerms })
+      res.render('success', { css: 'success', data, orderDate, paymentTerms })
 
     } catch (err) {
       console.error(err)
