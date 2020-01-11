@@ -18,4 +18,6 @@ router.put('/:id', upload.array('image', 10), prodCtrller.putProduct)
 
 router.delete('/:id', prodCtrller.deleteProduct)
 
+router.delete('/images/:id', prodCtrller.deleteImage)
+
 module.exports = router
