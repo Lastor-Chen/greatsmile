@@ -77,8 +77,47 @@
                       <div class="col-6">
                         <p>聯絡電話：{{this.phone}}</p>
                       </div>
-                      <div class="col-12">
+                      <div class="col-10 mr-4">
                         <p class="mb-0">收件地址：{{this.address}}</p>
+                      </div>
+                      <div class="float-right">
+                        <button class="btn btn-outline-dark mb-2 ml-2 px-3" type="button" data-toggle="collapse"
+                          data-target="#collapse_{{this.id}}">
+                          <i class="fas fa-edit" title="編輯收件資訊"></i>
+                        </button>
+                      </div>
+                      <div class="collapse col-12" id="collapse_{{this.id}}">
+                        <form action="/admin/orders/{{this.id}}?_method=PUT" method="POST" id="putOrder_{{this.id}}">
+                          <div class="form-group row">
+                            <div class="col-6 row">
+                              <label for="newReceiver" class="col-4 pr-1 col-form-label">新收件人：</label>
+                              <div class="col-8 pl-0">
+                                <input type="text" class="form-control" id="newReceiver" name="receiver"
+                                  placeholder="輸入新收件人" value={{this.receiver}}>
+                              </div>
+                            </div>
+                            <div class="col-5 row ml-3">
+                              <label for="newPhone" class="col-5 pr-1 col-form-label">新聯絡電話：</label>
+                              <div class="col-7 pl-0">
+                                <input type="text" class="form-control" id="newPhone" name="phone" placeholder="輸入新聯絡電話"
+                                  value={{this.phone}}>
+                              </div>
+                            </div>
+                            <div class="float-right">
+                              <button type="submit" class="btn btn-outline-dark mb-2 pr-4 pl-3" 
+                                form="putOrder_{{this.id}}">
+                                <i class="fas fa-level-down-alt fa-rotate-90"></i>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="col-12 row pl-0">
+                            <label for="newAddress" class="col-2 pr-1 col-form-label">新收件地址：</label>
+                            <div class="col-9 px-0">
+                              <input type="text" class="form-control" id="newAddress" name="address"
+                                placeholder="輸入新收件地址" value={{this.address}}>
+                            </div>
+                          </div>
+                        </form>
                       </div>
                     </div>
                     <hr>
