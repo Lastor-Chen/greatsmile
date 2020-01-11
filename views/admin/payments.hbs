@@ -1,9 +1,9 @@
 <main class="container">
   <div class="card-body pt-4">
     <div class="row my-3">
-      <form action="/admin/payments" method="POST" class="col-md-6">
+      <form action="/admin/payments" method="GET" class="col-md-6">
         <div class="input-group mb-3 mx-auto ">
-          <input type="text" class="form-control" name="sn" placeholder="請輸入訂單編號(SN)">
+          <input type="text" class="form-control" name="sn" placeholder="請輸入訂單編號(SN)" value="{{inputSn}}">
           <div class="input-group-append">
             <button class="btn btn-secondary" type="submit" id="button-addon2">訂單查詢</button>
           </div>
@@ -17,18 +17,19 @@
           <th data-valign="middle" class="text-center" data-sortable="true">#</th>
           <th data-valign="middle" class="text-center" data-sortable="true">SN</th>
           <th data-valign="middle" class="text-center" data-sortable="true">付款狀態</th>
-          <th data-valign="middle" class="text-center" data-sortable="true">付款時間</th>
           <th data-valign="middle" class="text-center" data-sortable="true">藍新交易序號</th>
           <th data-valign="middle" class="text-center" data-sortable="true">識別碼</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">付款時間</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>{{payment.id}}</td>
-          <td>{{payment.sn}}</td>
-          <td>{{payment.createdTime}}</td>
-          <td>{{payment.amount}}</td>
-          <td>{{payment.payMethod}}</td>
+          <td>{{payment.SN}}</td>
+          <td>{{payment.msg}}</td>
+          <td>{{payment.tradeNo}}</td>
+          <td>{{payment.orderNo}}</td>
+          <td>{{payment.payTime}}</td>
         </tr>  
       </tbody>
     </table>
