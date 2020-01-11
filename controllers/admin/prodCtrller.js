@@ -115,14 +115,16 @@ module.exports = {
       const newProduct = await Product.create(input)
 
       //寫入TagItem
-      const tagArray = input.tag
-      tagArray.forEach(tagId => {
-        const tagItem = {
-          tag_id: Number(tagId),
-          product_id: newProduct.id
-        }
-        TagItem.create(tagItem)
-      })
+      if (input.tag) {
+        const tagArray = input.tag
+        tagArray.forEach(tagId => {
+          const tagItem = {
+            tag_id: Number(tagId),
+            product_id: newProduct.id
+          }
+          TagItem.create(tagItem)
+        })
+       }
 
       //寫入Image
       const { files } = req
