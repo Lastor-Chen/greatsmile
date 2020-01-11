@@ -15,6 +15,7 @@ module.exports = {
 
       const payment = await Payment.findOne({ where })
       if (!payment) {
+        req.flash('error', '找不到此訂單交易紀錄')
         res.redirect('back')
       }
 
