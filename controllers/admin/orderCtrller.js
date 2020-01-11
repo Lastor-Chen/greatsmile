@@ -30,4 +30,29 @@ module.exports = {
       res.status(500).json({ status: 'serverError', message: err.toString() })
     }
   },
+
+  putOrderInfo: async (req, res) => {
+    try {
+      const input = { ...req.body }
+
+      if (input.receiver.trim() === '' || input.phone.trim() === '' || input.address.trim() === '') {
+
+        req.flash('error', '欄位不得為空白')
+        res.redirect('back')
+
+      } else {
+
+        const id = +req.params.ordersid
+        await Order.update(input, { where: { id } })
+
+        req.flash('success', '更新成功！')
+        res.redirect('back')
+
+      }
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  }
 }
