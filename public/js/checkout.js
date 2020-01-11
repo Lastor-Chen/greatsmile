@@ -22,6 +22,8 @@ function checkPhone(elem) {
   }
 }
 
+// ===========================
+
 // checkout-1，套用 Bootstrap Form 驗證
 $('.needs-validation').submit(e => {
   e.preventDefault()

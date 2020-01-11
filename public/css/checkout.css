@@ -153,3 +153,15 @@ aside .panel {
   color: #2a6496;;
   text-decoration: none;
 }
+
+.product-tag {
+  font-size: .8rem;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 3px 6px;
+}
+
+.tag-gift {
+  background-color: #ffe14d;
+  color: #e53900;
+}

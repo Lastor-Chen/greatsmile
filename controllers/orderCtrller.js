@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 const db = require('../models')
-const { Cart, CartItem, Order, OrderItem, Delivery, Payment, Product, User } = db
+const { Cart, CartItem, Order, OrderItem, Delivery, Payment } = db
 
 const moment = require('moment')
 moment.locale('zh-tw')
@@ -60,10 +60,10 @@ module.exports = {
         include: [{
           association: 'products',
           attributes: ['id', 'name', 'price'],
-          include: [{
-            association: 'Images',
-            where: { is_main: true }
-          }],
+          include: [
+            { association: 'Images', where: { is_main: true } },
+            'Gifts'
+          ],
         }],
         order: [['products', CartItem, 'id', 'DESC']]
       })
@@ -107,7 +107,7 @@ module.exports = {
       req.flash('passData', data)
 
       const view = req.path.slice(1)
-      res.render(view, { css: 'checkout', js: 'checkout', data })
+      res.render(view, { css: 'checkout', js: 'checkout', data, view })
 
     } catch (err) {
       console.error(err)
@@ -199,13 +199,14 @@ module.exports = {
 
   async postOrder(req, res) {
     try {
-      // 取出 data 並 format
-      const data = req.flash('passData')[0]
-      if (!data) {
+      const passData = req.flash('passData')[0]
+      if (!passData) {
         req.flash('error', '錯誤訪問')
         return res.redirect('/cart')
       }
 
+      // 取出 data 並 format
+      const data = { ...passData }
       data.address = data.address.join(',')
       data.receiver = data.receiver.join(',')
 
@@ -249,6 +250,12 @@ module.exports = {
         if (err) return console.error(err)
         console.log(`Email sent: ${info.response}`)
       })
+      
+      // 傳遞資料給 success 頁
+      passData.sn = sn
+      passData.createdAt = order.createdAt
+      req.flash('passData', passData)
+      req.flash('isCreated', true)
 
       res.redirect('/orders/success')
 
@@ -258,37 +265,20 @@ module.exports = {
     }
   },
 
-  async getSuccessOrder(req, res) {
+  async getSuccess(req, res) {
     try {
-      const user = await User.findByPk(req.user.id, {
-        include: [
-          { model: Order, include: [
-            { model: Product, as: 'products', include: 'Images'}, Delivery]
-        }],
-        order: [['Orders', 'id', 'DESC']]
-      })
+      // 阻擋非經由 postOrder 進入的請求
+      const isCreated = req.flash('isCreated')[0]
+      if (!isCreated) return res.redirect('/orders')
 
-      const order = user.Orders[0]
-      let subtotal = 0
-      const orderProducts = order.products
-      orderProducts.forEach(product => {
-        product.mainImg = product.Images.find(img => img.isMain).url
-        product.priceFormat = product.OrderItem.price.toLocaleString()
-        product.subPriceFormat = (product.OrderItem.price * product.OrderItem.quantity).toLocaleString()
-        subtotal += (product.OrderItem.price * product.OrderItem.quantity)
-      })
+      // 取出、整理購物 data
+      const data = req.flash('passData')[0]
+      const orderDate = moment(data.createdAt).format('YYYY/MM/DD HH:mm')
 
-      const subtotalFormat = subtotal.toLocaleString()
-      const shippingFee = order.Delivery.price
-      const receiver = order.receiver.split(",")
-      const address = order.address.split(",")
+      // 付款期限三天 (臨時)
+      const paymentTerms = moment(data.createdAt).add(3, 'days').format('YYYY/MM/DD') + ' 23:59:59'
 
-      // 下訂時間
-      const orderTime = moment(order.createdAt).format('YYYY/MM/DD HH:mm')
-      // 付款期限 三天
-      const paymentTerms = moment(order.createdAt).add(3, 'days').format('YYYY/MM/DD') + ' 23:59:59'
-
-      res.render('success', { css: 'success', user, order, orderProducts, orderTime, subtotalFormat, shippingFee, receiver, address, paymentTerms })
+      res.render('success', { css: 'success', data, orderDate, paymentTerms })
 
     } catch (err) {
       console.error(err)
@@ -369,5 +359,5 @@ module.exports = {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
     }
-  } 
+  },
 }
