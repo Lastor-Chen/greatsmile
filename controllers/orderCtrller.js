@@ -15,10 +15,10 @@ module.exports = {
         include: [{
           association: 'products',
           attributes: ['id', 'name', 'price'],
-          include: [{
-            association: 'Images',
-            where: { is_main: true }
-          }],
+          include: [
+            { association: 'Images', where: { is_main: true } },
+            'Gifts'
+          ],
         }],
         order: [['products', CartItem, 'id', 'DESC']]
       })
@@ -207,6 +207,8 @@ module.exports = {
   async getSuccess(req, res) {
     try {
       const data = req.flash('passData')[0]
+      req.flash('passData', data)
+      console.log(data)
       if (!data) return res.redirect('/orders')
 
       // 付款期限三天 (臨時)

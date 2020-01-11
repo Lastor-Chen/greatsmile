@@ -46,13 +46,18 @@
                 </div>
                 <div class="font-format pl-3">
                   <a href="/products/{{this.id}}" class="product-name pb-2">{{this.name}}</a>
+                  {{#if this.Gifts.length}}
+                    <div class="mt-2">
+                      <span class="product-tag tag-gift">附特典</span>
+                    </div>
+                  {{/if}}
                 </div>
               </div>
               <div class="col-md-5 font-format">
                 <div class="d-flex justify-content-between align-items-center h-100 pb-2">
-                  <span>NTD {{addDot price}}</span>
-                  <span>{{addDot quantity}}</span>
-                  <span>NTD {{addDot amount}}</span>
+                  <span>NTD {{addDot this.price}}</span>
+                  <span>{{addDot this.quantity}}</span>
+                  <span>NTD {{addDot this.amount}}</span>
                 </div>
               </div>
             </div>
