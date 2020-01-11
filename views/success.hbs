@@ -139,7 +139,7 @@
                 {{#ifEqual data.payMethod '便利商店取貨付款'}}
                   {{!-- put null --}}
                 {{else}}
-                  <li>付款期限: !!paymentTerms!!</li>
+                  <li>付款期限: {{paymentTerms}}</li>
                 {{/ifEqual}}
                 <li>訂單編號: {{data.sn}}</li>
               </ul>

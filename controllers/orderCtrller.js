@@ -211,7 +211,10 @@ module.exports = {
       console.log(data)
       if (!data) return res.redirect('/orders')
 
-      res.render('success', { css: 'success', data })
+      // 付款期限三天 (臨時)
+      const paymentTerms = moment(data.createdAt).add(3, 'days').format('YYYY/MM/DD') + ' 23:59:59'
+
+      res.render('success', { css: 'success', data, paymentTerms })
 
     } catch (err) {
       console.error(err)
