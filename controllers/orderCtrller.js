@@ -1,6 +1,9 @@
 const nodemailer = require('nodemailer');
 const db = require('../models')
-const { Cart, CartItem, Order, OrderItem, Delivery } = db
+const { Cart, CartItem, Order, OrderItem, Delivery, Product, User } = db
+
+const moment = require('moment')
+moment.locale('zh-tw')
 
 const { checkCheckout1 } = require('../lib/checker.js')
 
@@ -212,11 +215,49 @@ module.exports = {
         console.log(`Email sent: ${info.response}`)
       })
 
-      res.redirect('/products')
+      res.redirect('/orders/success')
 
     } catch (err) {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
     }
-  }
+  },
+
+  async getSuccessOrder(req, res) {
+    try {
+      const user = await User.findByPk(req.user.id, {
+        include: [
+          { model: Order, include: [
+            { model: Product, as: 'products', include: 'Images'}, Delivery]
+        }],
+        order: [['Orders', 'id', 'DESC']]
+      })
+
+      const order = user.Orders[0]
+      let subtotal = 0
+      const orderProducts = order.products
+      orderProducts.forEach(product => {
+        product.mainImg = product.Images.find(img => img.isMain).url
+        product.priceFormat = product.OrderItem.price.toLocaleString()
+        product.subPriceFormat = (product.OrderItem.price * product.OrderItem.quantity).toLocaleString()
+        subtotal += (product.OrderItem.price * product.OrderItem.quantity)
+      })
+
+      const subtotalFormat = subtotal.toLocaleString()
+      const shippingFee = order.Delivery.price
+      const receiver = order.receiver.split(",")
+      const address = order.address.split(",")
+
+      // 下訂時間
+      const orderTime = moment(order.createdAt).format('YYYY/MM/DD HH:mm')
+      // 付款期限 三天
+      const paymentTerms = moment(order.createdAt).add(3, 'days').format('YYYY/MM/DD') + ' 23:59:59'
+
+      res.render('success', { css: 'success', user, order, orderProducts, orderTime, subtotalFormat, shippingFee, receiver, address, paymentTerms })
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  } 
 }
