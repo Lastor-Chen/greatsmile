@@ -145,7 +145,7 @@
                   </div>
                   {{#if this.isMain}}
                   {{else}}
-                    <form action="/admin/products/images/{{this.id}}?_method=DELETE" method="POST" id="delImage_{{this.id}}" hidden>
+                    <form action="/admin/images/{{this.id}}?_method=DELETE" method="POST" id="delImage_{{this.id}}" hidden>
                     </form>
                     <button type="submit" class="btn btn-danger btn-sm font-weight-normal delete-btn" form="delImage_{{this.id}}">
                       <i class="fas fa-trash-alt"></i>
