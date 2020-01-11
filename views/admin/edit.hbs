@@ -174,9 +174,9 @@
           <div class="form-group row">
             <label for="series" class="col-sm-2 col-form-label text-right">隸屬作品</label>
             <div class="col-sm-7">
-              <select class="form-control" name="seriesId" id="series" form="editForm">
+              <select class="form-control" name="SeriesId" id="series" form="editForm">
                 {{#each series}}
-                  <option value={{this.id}} {{#ifEqual this.id ../product.SeriesId}} selected {{/ifEqual}}>{{this.name}}
+                  <option value={{this.id}} {{#ifEqual this.id ../product.SeriesId}}selected{{/ifEqual}}>{{this.name}}
                   </option>
                 {{/each}}
               </select>
