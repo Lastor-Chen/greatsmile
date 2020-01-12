@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   Product.associate = function (models) {
     Product.hasMany(models.Image, { onDelete: 'cascade', hooks: true })
     Product.hasMany(models.Gift)
-    Product.hasMany(models.CartItem)
+    Product.hasMany(models.CartItem, { onDelete: 'cascade', hooks: true })
     Product.belongsTo(models.Series)
     Product.belongsTo(models.Category)
     Product.belongsToMany(models.Tag, {
