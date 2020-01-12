@@ -1,6 +1,8 @@
 const db = require('../../models')
 const Payment = db.Payment
 
+const moment = require('moment')
+moment.locale('zh-tw')
 
 module.exports = {
   getPayments: async (req, res) => {
@@ -19,8 +21,9 @@ module.exports = {
         return res.redirect('/admin/payments')
       }
 
-      // SN格式
+      // SN、時間格式
       payment.SN = ("000000000" + inputSn).slice(-10)
+      payment.payDate = moment(payment.pay_time).format('YYYY/MM/DD HH:mm')
 
       res.render('admin/payments', { payment, inputSn })
 
