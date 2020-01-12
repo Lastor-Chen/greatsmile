@@ -97,7 +97,7 @@ module.exports = {
   deleteProduct: async (req, res) => {
     try {
       const product = await Product.findByPk(req.params.id)
-      product.destroy()
+      await product.destroy()
       res.redirect('/admin/products')
     } catch (err) {
       console.error(err)
@@ -116,12 +116,12 @@ module.exports = {
       //寫入TagItem
       if (input.tag) {
         const tagArray = input.tag
-        tagArray.forEach(tagId => {
+        tagArray.forEach(async tagId => {
           const tagItem = {
             tag_id: Number(tagId),
             product_id: newProduct.id
           }
-          TagItem.create(tagItem)
+          await TagItem.create(tagItem)
         })
        }
 
@@ -133,7 +133,7 @@ module.exports = {
           ProductId: newProduct.id,
           isMain: true
         }
-        Image.create(mainImg)
+        await Image.create(mainImg)
 
         //移除第一筆後全寫入
         files.shift()
@@ -143,7 +143,7 @@ module.exports = {
             ProductId: newProduct.id,
             isMain: false
           }
-          Image.create(img)
+          await Image.create(img)
         }
       }
       res.redirect('/admin/products')
@@ -225,12 +225,12 @@ module.exports = {
       //新增TagItem資訊
       if (input.tag) {
         const tagArray = input.tag
-        tagArray.forEach(tagId => {
+        tagArray.forEach(async tagId => {
           const tagItem = {
             tag_id: +tagId,
             product_id: id
           }
-          TagItem.create(tagItem)
+          await TagItem.create(tagItem)
         })
       }
 
@@ -243,7 +243,7 @@ module.exports = {
             ProductId: id,
             isMain: false
           }
-          Image.create(img)
+          await Image.create(img)
         }
       }
 
