@@ -12,12 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       product_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'products',
-          key: 'id'
-        },
-        onDelete: 'CASCADE'
+        type: Sequelize.INTEGER
       },
       is_main: {
         type: Sequelize.BOOLEAN,

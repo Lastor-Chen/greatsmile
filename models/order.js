@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Order.associate = function (models) {
     Order.hasMany(models.Payment)
+    Order.hasMany(models.OrderItem, { onDelete: 'cascade', hooks: true })
     Order.belongsTo(models.Delivery)
     Order.belongsToMany(models.Product, {
       through: models.OrderItem,
