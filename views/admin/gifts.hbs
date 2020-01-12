@@ -5,7 +5,8 @@
         <div class="alertBlock mb-2">
           {{> alert}}
         </div>
-        <form class="form-inline d-flex justify-content-end" action="/admin/gifts" method="POST">
+        <form class="form-inline d-flex justify-content-end" action="/admin/gifts" method="POST" enctype="multipart/form-data">
+            <input type="file" class="form-control-file float-left" id="image" name="image">      
           <div class="form-group mx-sm-3 mb-2 mt-1">
             <input type="text" class="form-control input-center" name="name" placeholder="輸入新特典..." required>
           </div>

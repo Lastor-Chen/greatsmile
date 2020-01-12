@@ -1,5 +1,7 @@
 const db = require('../../models')
 const { Gift } = db
+const imgur = require('imgur')
+const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 
 
 module.exports = {
@@ -26,6 +28,7 @@ module.exports = {
   postGift: async (req, res) => {
     try {
       const input = { ...req.body }
+      console.log(req)
       if (input.name.trim() === '') {
 
         req.flash('error', '特典名稱不能為空白')
@@ -33,11 +36,18 @@ module.exports = {
 
       } else {
 
-        const maxId = await Gift.max('id')
-        await Gift.create({ id: maxId + 1, ...input })
 
-        req.flash('success', '新增成功！')
-        res.redirect('/admin/gifts')
+      //寫入Image
+      const { file } = req
+      if (file) {
+        input.image = (await imgur.uploadFile(file.path)).data.link
+      }
+
+      const maxId = await Gift.max('id')
+      await Gift.create({ id: maxId + 1, ...input })
+
+      req.flash('success', '新增成功！')
+      res.redirect('/admin/gifts')
 
       }
 
