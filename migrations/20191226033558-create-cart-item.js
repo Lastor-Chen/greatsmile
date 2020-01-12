@@ -9,7 +9,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       cart_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'carts',
+          key: 'id'
+        },
+        onDelete: 'CASCADE'
       },
       product_id: {
         type: Sequelize.INTEGER
