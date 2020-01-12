@@ -19,5 +19,6 @@ router.use('/orders', require('./orders.js'))
 router.use('/tags', require('./tags.js'))
 router.use('/categories', require('./categories.js'))
 router.use('/series', require('./series.js'))
+router.use('/gifts' , require('./gifts.js'))
 
 module.exports = router
