@@ -56,11 +56,11 @@
                           <h5 class="modal-title ml-3" id="ModalScrollable{{this.id}}Title">
                             {{this.name}}</h5>
                           </br>
-                          <h5 class="text-danger text-right">你真的要刪除這則特典嗎？</h5>
+                          <h5 class="text-danger text-right">你真的要刪除這項特典嗎？</h5>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                          <form action="/admin/tags/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+                          <form action="/admin/gifts/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
                             <button type="submit" class="btn btn-outline-danger font-weight-normal">確認刪除
                             </button>
                           </form>

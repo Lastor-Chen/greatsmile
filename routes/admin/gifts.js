@@ -5,6 +5,6 @@ const giftCtrller = require('../../controllers/admin/giftCtrller')
 router.get('/', giftCtrller.getGifts)
 router.post('/', giftCtrller.postGift)
 router.put('/:giftsid', giftCtrller.putGift)
-// router.delete('/:giftsid', giftCtrller.deleteGifts)
+router.delete('/:giftsid', giftCtrller.deleteGift)
 
 module.exports = router

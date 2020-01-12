@@ -72,19 +72,19 @@ module.exports = {
     }
   },
 
-  // deleteTag: async (req, res) => {
-  //   try {
+  deleteGift: async (req, res) => {
+    try {
 
-  //     const id = +req.params.giftsid
-  //     await Tag.destroy({ where: { id } })
+      const id = +req.params.giftsid
+      await Gift.destroy({ where: { id } })
 
-  //     req.flash('success', '刪除成功！')
-  //     res.redirect('/admin/gifts')
+      req.flash('success', '刪除成功！')
+      res.redirect('/admin/gifts')
 
-  //   } catch (err) {
-  //     console.error(err)
-  //     res.status(500).json(err.toString())
-  //   }
-  // },
+    } catch (err) {
+      console.error(err)
+      res.status(500).json(err.toString())
+    }
+  },
 
 }
