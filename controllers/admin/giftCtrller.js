@@ -23,7 +23,7 @@ module.exports = {
     }
   },
 
-  postGifts: async (req, res) => {
+  postGift: async (req, res) => {
     try {
       const input = { ...req.body }
       if (input.name.trim() === '') {
@@ -47,30 +47,30 @@ module.exports = {
     }
   },
 
-  // putTag: async (req, res) => {
-  //   try {
-  //     const input = { ...req.body }
+  putGift: async (req, res) => {
+    try {
+      const input = { ...req.body }
 
-  //     if (input.name.trim() === '') {
+      if (input.name.trim() === '') {
 
-  //       req.flash('error', '特典名稱不能為空白')
-  //       res.redirect('back')
+        req.flash('error', '特典名稱不能為空白')
+        res.redirect('back')
 
-  //     } else {
+      } else {
 
-  //       const id = +req.params.giftsid
-  //       await Tag.update(input, { where: { id } })
+        const id = +req.params.giftsid
+        await Gift.update(input, { where: { id } })
 
-  //       req.flash('success', '更新成功！')
-  //       res.redirect('/admin/gifts')
+        req.flash('success', '更新成功！')
+        res.redirect('/admin/gifts')
 
-  //     }
+      }
 
-  //   } catch (err) {
-  //     console.error(err)
-  //     res.status(500).json(err.toString())
-  //   }
-  // },
+    } catch (err) {
+      console.error(err)
+      res.status(500).json(err.toString())
+    }
+  },
 
   // deleteTag: async (req, res) => {
   //   try {
