@@ -5,7 +5,7 @@
         <div class="alertBlock mb-2">
           {{> alert}}
         </div>
-        <form class="form-inline d-flex justify-content-end" action="/admin/tags" method="POST">
+        <form class="form-inline d-flex justify-content-end" action="/admin/gifts" method="POST">
           <div class="form-group mx-sm-3 mb-2 mt-1">
             <input type="text" class="form-control input-center" name="name" placeholder="輸入新特典..." required>
           </div>
@@ -76,12 +76,11 @@
                       <i class="fas fa-pen"></i>
                     </div>
                   </td>
-                  <td>
-
+                  <td class="p-0">
                   </td>
                   <td class="p-0">
                     <div class="collapse" id="collapse_{{this.id}}" data-parent="#accordionEdit">
-                      <form class="" action="/admin/tags/{{this.id}}?_method=PUT" method="POST" id="edit_{{this.id}}">
+                      <form class="" action="/admin/gifts/{{this.id}}?_method=PUT" method="POST" id="edit_{{this.id}}">
                         <div class="form-group mx-sm-3 mb-2 mt-1">
                           <input type="text" class="form-control input-center" name="name" placeholder="輸入特典名稱..."
                             value='{{this.name}}' required>
