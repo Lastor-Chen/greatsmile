@@ -4,7 +4,7 @@ const faker = require('faker')
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Users',
+    return queryInterface.bulkInsert('users',
       Array.from({ length: 10 }, (val, index) => ({
         email: index === 0 ? 'root@example.com' : `user${index}@example.com`,
         password: bcrypt.hashSync('12345678', 10),
@@ -21,6 +21,6 @@ module.exports = {
 
   down: (queryInterface, Sequelize) => {
     const option = { truncate: true, restartIdentity: true }
-    return queryInterface.bulkDelete('Users', null, option)
+    return queryInterface.bulkDelete('users', null, option)
   }
 };

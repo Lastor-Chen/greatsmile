@@ -8,7 +8,7 @@ module.exports = {
       ['宅配', 150]
     ]
 
-    return queryInterface.bulkInsert('Deliveries',
+    return queryInterface.bulkInsert('deliveries',
       methods.map(item => ({
         method: item[0],
         price: item[1]
@@ -18,6 +18,6 @@ module.exports = {
 
   down: (queryInterface, Sequelize) => {
     const option = { truncate: true, restartIdentity: true }
-    return queryInterface.bulkDelete('Deliveries', null, option)
+    return queryInterface.bulkDelete('deliveries', null, option)
   }
 };

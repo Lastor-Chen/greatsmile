@@ -8,6 +8,6 @@ module.exports = {
 
   down: (queryInterface, Sequelize) => {
     const option = { truncate: true, restartIdentity: true }
-    return queryInterface.bulkDelete('Carts', null, option)
+    return queryInterface.bulkDelete('carts', null, option)
   }
 };
