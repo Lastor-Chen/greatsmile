@@ -27,7 +27,7 @@
             <td>{{this.Delivery.method}}</td>
             <td>
               {{#if this.isCanceled}}
-               <i class="fas fa-ban"></i> 
+               <i class="fas fa-trash-alt"></i> 
               {{else if this.payStatus}}
                 <i class="fas fa-check text-success"></i>
               {{else}}
@@ -36,7 +36,7 @@
             </td>
             <td>
               {{#if this.isCanceled}}
-                <i class="fas fa-ban"></i>
+                <i class="fas fa-trash-alt"></i>
               {{else if this.shipStatus}}
                 <i class="fas fa-check text-success"></i>
               {{else}}
@@ -51,13 +51,13 @@
               {{#if this.isCanceled}}
                 <form  style="display: inline;">
                   <button type="submit" class="btn btn-secondary font-weight-normal" title="取消此筆訂單" disabled>
-                    <i class="fas fa-ban"></i>
+                    <i class="fas fa-trash-alt"></i>
                   </button>
                 </form>
               {{else}}
                 <form action="/admin/orders/{{this.id}}/cancel?_method=PUT" method="POST" style="display: inline;">
                   <button type="submit" class="btn btn-outline-danger font-weight-normal" title="取消此筆訂單">
-                    <i class="fas fa-ban"></i>
+                    <i class="fas fa-trash-alt"></i>
                   </button>
                 </form>
               {{/if}}
