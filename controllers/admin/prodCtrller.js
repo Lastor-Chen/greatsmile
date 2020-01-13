@@ -113,6 +113,15 @@ module.exports = {
       input.SeriesId = +input.SeriesId
       input.CategoryId = +input.CategoryId
 
+      const error = checkProduct(input)
+
+      if (error) {
+        req.flash('error', error)
+        console.log('err',error)
+        req.flash('input', input)
+        console.log('errinput',input)
+        return res.redirect('/admin/products/new')
+      }
       const newProduct = await Product.create(input)
 
       //寫入TagItem
