@@ -7,6 +7,12 @@
   max-width: 1250px;
 }
 
+.input-required::after {
+    color: red;
+    font-size: 18px;
+    content: " *";
+}
+
 main.container {
   padding-top: 56px;
 }
