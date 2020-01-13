@@ -8,7 +8,7 @@
           <div class="form-group row">
             <label for="name" class="col-sm-2 col-form-label text-right input-required">商品名稱</label>
             <div class="col-sm-7">
-              <input type="text" name="name" class="form-control" id="name" value="{{product.name}}">
+              <input type="text" name="name" class="form-control" id="name" value="{{product.name}}" required>
             </div>
           </div>
         </div>
@@ -16,7 +16,7 @@
           <div class="form-group row">
             <label for="slogan" class="col-sm-2 col-form-label text-right  input-required">商品標語</label>
             <div class="col-sm-7">
-              <input type="text" name="slogan" class="form-control" id="slogan" value="{{product.slogan}}">
+              <input type="text" name="slogan" class="form-control" id="slogan" value="{{product.slogan}}" required>
             </div>
           </div>
         </div>
@@ -24,7 +24,7 @@
           <div class="form-group row">
             <label for="description" class="col-sm-2 col-form-label text-right input-required">商品內文</label>
             <div class="col-sm-7">
-              <textarea class="form-control" name="description" id="description" rows="3">{{product.description}}</textarea>
+              <textarea class="form-control" name="description" id="description" rows="3" required>{{product.description}}</textarea>
             </div>
           </div>
         </div>
@@ -62,7 +62,7 @@
           <div class="form-group row">
             <label for="price" class="col-sm-2 col-form-label text-right input-required">商品售價</label>
             <div class="col-sm-7">
-              <input type="number" name="price" class="form-control" id="price" value="{{product.price}}">
+              <input type="number" name="price" class="form-control" id="price" value="{{product.price}}" required>
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@
           <div class="form-group row">
             <label for="inventory" class="col-sm-2 col-form-label text-right input-required">商品庫存</label>
             <div class="col-sm-7">
-              <input type="number" name="inventory" class="form-control" id="inventory" value="{{product.inventory}}">
+              <input type="number" name="inventory" class="form-control" id="inventory" value="{{product.inventory}}" required>
             </div>
           </div>
         </div>
@@ -78,7 +78,7 @@
           <div class="form-group row">
             <label for="spec" class="col-sm-2 col-form-label text-right input-required">商品規格</label>
             <div class="col-sm-7">
-              <input type="text" name="spec" class="form-control" id="spec" value="{{product.spec}}">
+              <input type="text" name="spec" class="form-control" id="spec" value="{{product.spec}}" required>
             </div>
           </div>
         </div>
@@ -86,7 +86,7 @@
           <div class="form-group row">
             <label for="releaseDate" class="col-sm-2 col-form-label text-right input-required">公開日期</label>
             <div class="col-sm-7">
-              <input type="date" name="releaseDate" class="form-control" id="releaseDate" value="{{product.releaseDate}}">
+              <input type="date" name="releaseDate" class="form-control" id="releaseDate" value="{{product.releaseDate}}" required>
             </div>
           </div>
         </div>
@@ -94,7 +94,7 @@
           <div class="form-group row">
             <label for="deadline" class="col-sm-2 col-form-label text-right input-required">預購截止日期</label>
             <div class="col-sm-7">
-              <input type="date" name="deadline" class="form-control" id="deadline" value="{{product.deadline}}">
+              <input type="date" name="deadline" class="form-control" id="deadline" value="{{product.deadline}}" required>
             </div>
           </div>
         </div>
@@ -102,7 +102,7 @@
           <div class="form-group row">
             <label for="saleDate" class="col-sm-2 col-form-label text-right input-required">發售日期</label>
             <div class="col-sm-7">
-              <input type="date" name="saleDate" class="form-control" id="saleDate" value="{{product.saleDate}}">
+              <input type="date" name="saleDate" class="form-control" id="saleDate" value="{{product.saleDate}}" required>
             </div>
           </div>
         </div>
@@ -122,7 +122,7 @@
             <label for="image" class="col-sm-2 col-form-label text-right input-required">商品圖片</label>
             <div>
               <div class="custom-file col-sm-7 d-flex align-items-center">
-                <input type="file" name="image" multiple="multiple" id="image">
+                <input type="file" name="image" multiple="multiple" id="image" required>
               </div>
               <small id="emailHelp" class="form-text text-muted ml-3">
                 <span>＊ 預設第一張為商品「主圖片」，規格大小為 570x670 px</span>
@@ -151,7 +151,7 @@
           <div class="form-group row">
             <label for="copyright" class="col-sm-2 col-form-label text-right input-required">版權所屬</label>
             <div class="col-sm-7">
-              <input type="text" name="copyright" class="form-control" id="copyright" value="{{product.copyright}}">
+              <input type="text" name="copyright" class="form-control" id="copyright" value="{{product.copyright}}" required>
             </div>
           </div>
         </div>
@@ -159,7 +159,7 @@
           <div class="form-group row">
             <label for="maker" class="col-sm-2 col-form-label text-right input-required">製造商</label>
             <div class="col-sm-7">
-              <input type="text" name="maker" class="form-control" id="maker" value="{{product.maker}}">
+              <input type="text" name="maker" class="form-control" id="maker" value="{{product.maker}}" required>
             </div>
           </div>
         </div>
