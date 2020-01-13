@@ -1,5 +1,5 @@
-<nav class="navbar navbar-light p-0" id="navbar">
-  <div class="w-100 bg-white">
+<header id="navbar" class="navbar navbar-light p-0">
+  <div class="top-bar">
     <div class="container py-3">
       <a href="/" class="navbar-brand">LOGO</a>
       <div>
@@ -21,33 +21,33 @@
       </div>
     </div>
   </div>
-  <div class="container-fluid category-bar">
-    <ul class="nav mx-auto">
-      <li class="nav-item px-3">
-        <a class="nav-link py-4 {{#if isAllProducts}}active{{/if}}" 
-        href="/products">製品一覽</a>
-      </li>
-      <li class="nav-item px-3">
-        <a class="nav-link py-4 {{#ifEqual categoryQuery 'Figure'}}active{{/ifEqual}}" 
-        href="/products?category=Figure">Figure</a>
-      </li>
-      <li class="nav-item px-3">
-        <a class="nav-link py-4 {{#ifEqual categoryQuery '豆丁人'}}active{{/ifEqual}}" 
-        href="/products?category=豆丁人">豆丁人</a>
-      </li>
-      <li class="nav-item px-3">
-        <a class="nav-link py-4 {{#ifEqual categoryQuery 'Figma'}}active{{/ifEqual}}" 
-        href="/products?category=Figma">Figma</a>
-      </li>
-      <li class="nav-item px-3">
-        <a class="nav-link py-4 {{#ifEqual categoryQuery '組裝模型(仮)'}}active{{/ifEqual}}" 
-        href="/products?category=組裝模型(仮)">組裝模型(仮)</a>
-      </li>
-    </ul>
-  </div>
-  <div class="container-fluid py-2 search-bar">
-    <div class="row mx-auto">
-      <div class="col-md-12 ">
+  <nav class="category-bar">
+    <div class="container">
+      <ul class="nav mx-auto">
+        <li class="nav-item px-3">
+          <a class="nav-link py-4 {{#if isAllProducts}}active{{/if}}" href="/products">製品一覽</a>
+        </li>
+        <li class="nav-item px-3">
+          <a class="nav-link py-4 {{#ifEqual categoryQuery 'Figure'}}active{{/ifEqual}}"
+            href="/products?category=Figure">Figure</a>
+        </li>
+        <li class="nav-item px-3">
+          <a class="nav-link py-4 {{#ifEqual categoryQuery '豆丁人'}}active{{/ifEqual}}" href="/products?category=豆丁人">豆丁人</a>
+        </li>
+        <li class="nav-item px-3">
+          <a class="nav-link py-4 {{#ifEqual categoryQuery 'Figma'}}active{{/ifEqual}}"
+            href="/products?category=Figma">Figma</a>
+        </li>
+        <li class="nav-item px-3">
+          <a class="nav-link py-4 {{#ifEqual categoryQuery '組裝模型(仮)'}}active{{/ifEqual}}"
+            href="/products?category=組裝模型(仮)">組裝模型(仮)</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="search-bar">
+    <div class="py-2 container">
+      <div class="w-50 mx-auto">
         <form action="/search" method="GET">
           <div class="input-group">
             <input type="text" name="q" class="form-control search-input" placeholder="搜尋商品" value="{{searchQuery}}">
@@ -61,37 +61,43 @@
       </div>
     </div>
   </div>
-</nav>
-<nav class="navbar navbar-light p-0" id="stickybar" style="display: none;">
-  <div class="container-fluid category-bar">
-    <ul class="nav mx-auto align-items-center">
-      <li class="nav-item">
-        <a class="nav-link py-3 {{#if isAllProducts}}active{{/if}}" href="/products">製品一覽</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link py-3 {{#ifEqual categoryQuery 'Figure'}}active{{/ifEqual}}" href="/products?category=Figure">Figure</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link py-3 {{#ifEqual categoryQuery '豆丁人'}}active{{/ifEqual}}" href="/products?category=豆丁人">豆丁人</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link py-3 {{#ifEqual categoryQuery 'Figma'}}active{{/ifEqual}}" href="/products?category=Figma">Figma</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link py-3 {{#ifEqual categoryQuery '組裝模型(仮)'}}active{{/ifEqual}}" href="/products?category=組裝模型(仮)">組裝模型(仮)</a>
-      </li>
-      <li class="nav-item">
-        <form class="px-3" action="/search" method="GET">
-          <div class="input-group">
-            <input type="text" name="q" class="form-control search-input" placeholder="搜尋商品" value="{{searchQuery}}">
-            <div class="input-group-append">
-              <button class="btn btn-orange">
-                <i class="fas fa-search px-2"></i>
-              </button>
+</header>
+{{!-- sticky --}}
+<nav id="stickybar" class="navbar navbar-light p-0" style="display: none;">
+  <div class="category-bar">
+    <div class="container">
+      <ul class="nav mx-auto align-items-center">
+        <li class="nav-item">
+          <a class="nav-link py-3 {{#if isAllProducts}}active{{/if}}" href="/products">製品一覽</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link py-3 {{#ifEqual categoryQuery 'Figure'}}active{{/ifEqual}}"
+            href="/products?category=Figure">Figure</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link py-3 {{#ifEqual categoryQuery '豆丁人'}}active{{/ifEqual}}" href="/products?category=豆丁人">豆丁人</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link py-3 {{#ifEqual categoryQuery 'Figma'}}active{{/ifEqual}}"
+            href="/products?category=Figma">Figma</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link py-3 {{#ifEqual categoryQuery '組裝模型(仮)'}}active{{/ifEqual}}"
+            href="/products?category=組裝模型(仮)">組裝模型(仮)</a>
+        </li>
+        <li class="nav-item">
+          <form class="px-3" action="/search" method="GET">
+            <div class="input-group">
+              <input type="text" name="q" class="form-control search-input" placeholder="搜尋商品" value="{{searchQuery}}">
+              <div class="input-group-append">
+                <button class="btn btn-orange">
+                  <i class="fas fa-search px-2"></i>
+                </button>
+              </div>
             </div>
-          </div>
-        </form>
-      </li>
-    </ul>
+          </form>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
