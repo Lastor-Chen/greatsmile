@@ -4,6 +4,8 @@ const moment = require('moment')
 const imgur = require('imgur')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 
+const {checkProduct} = require('../../lib/checker.js')
+
 module.exports = {
   getProducts: async (req, res) => {
     try {
@@ -156,11 +158,10 @@ module.exports = {
   getEditPage: async (req, res) => {
     try {
       const id = req.params.id
-      const product = await Product.findByPk(id)
+      let product = await Product.findByPk(id)
       const releaseDate = product.releaseDate.toJSON().split('T')[0]
       const saleDate = product.saleDate.toJSON().split('T')[0]
       const deadline = product.deadline.toJSON().split('T')[0]
-
       const [categories, series, tag] = await Promise.all([
         Category.findAll({
           order: [['id', 'ASC']],
@@ -190,6 +191,12 @@ module.exports = {
         order: [['id', 'ASC']]
       })
 
+      const input = req.flash('input')
+      if (input.length > 0) {      
+        product = input[0]
+        product.id = +id
+      }
+
       res.render('admin/edit', {
         css: 'edit',
         product,
@@ -212,6 +219,13 @@ module.exports = {
     try {
       const id = req.params.id
       const input = { ...req.body }
+      const error = checkProduct(input)
+      
+      if (error) {
+        req.flash('error', error)
+        req.flash('input', input)
+        return res.redirect(`/admin/products/${id}/edit`)
+      }
 
       //修改商品資訊
       let product = await Product.findByPk(id)

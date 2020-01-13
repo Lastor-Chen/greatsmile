@@ -6,6 +6,7 @@
     enctype="multipart/form-data"
   ></form>
   <section class="pt-4">
+    {{> alert}}
     <div class="card my-3">
       <div class="card-body">
         <h4>基本資訊</h4>
@@ -13,7 +14,7 @@
           <div class="form-group row">
             <label for="name" class="col-sm-2 col-form-label text-right">商品名稱</label>
             <div class="col-sm-7">
-              <input type="text" name="name" class="form-control" id="name" value='{{product.name}}' form="editForm">
+              <input type="text" name="name" class="form-control" id="name" value="{{product.name}}" form="editForm">
             </div>
           </div>
         </div>
@@ -21,7 +22,7 @@
           <div class="form-group row">
             <label for="slogan" class="col-sm-2 col-form-label text-right">商品標語</label>
             <div class="col-sm-7">
-              <input type="text" name="slogan" class="form-control" id="slogan" value='{{product.slogan}}' form="editForm">
+              <input type="text" name="slogan" class="form-control" id="slogan" value="{{product.slogan}}" form="editForm">
             </div>
           </div>
         </div>
@@ -39,7 +40,7 @@
             <div class="col-sm-7">
               <select class="form-control" name="CategoryId" id="category" form="editForm">
                 {{#each categories}}
-                  <option value={{this.id}} {{#ifEqual this.id ../product.CategoryId}} selected {{/ifEqual}}>
+                  <option value="{{this.id}}" {{#ifEqual this.id ../product.CategoryId}} selected {{/ifEqual}}>
                     {{this.name}}
                   </option>
                 {{/each}}
@@ -71,7 +72,7 @@
           <div class="form-group row">
             <label for="price" class="col-sm-2 col-form-label text-right">商品售價</label>
             <div class="col-sm-7">
-              <input type="number" name="price" class="form-control" id="price" value={{product.price}} form="editForm">
+              <input type="number" name="price" class="form-control" id="price" value="{{product.price}}" form="editForm">
             </div>
           </div>
         </div>
@@ -79,7 +80,7 @@
           <div class="form-group row">
             <label for="inventory" class="col-sm-2 col-form-label text-right">商品數量</label>
             <div class="col-sm-7">
-              <input type="number" name="inventory" class="form-control" id="inventory" value={{product.inventory}} form="editForm">
+              <input type="number" name="inventory" class="form-control" id="inventory" value="{{product.inventory}}" form="editForm">
             </div>
           </div>
         </div>
@@ -87,7 +88,7 @@
           <div class="form-group row">
             <label for="spec" class="col-sm-2 col-form-label text-right">商品規格</label>
             <div class="col-sm-7">
-              <input type="text" name="spec" class="form-control" id="spec" value='{{product.spec}}' form="editForm">
+              <input type="text" name="spec" class="form-control" id="spec" value="{{product.spec}}" form="editForm">
             </div>
           </div>
         </div>
@@ -95,7 +96,7 @@
           <div class="form-group row">
             <label for="releaseDate" class="col-sm-2 col-form-label text-right">公開日期</label>
             <div class="col-sm-7">
-              <input type="date" name="releaseDate" class="form-control" id="releaseDate" value={{releaseDate}} form="editForm">
+              <input type="date" name="releaseDate" class="form-control" id="releaseDate" value="{{releaseDate}}" form="editForm">
             </div>
           </div>
         </div>
@@ -103,7 +104,7 @@
           <div class="form-group row">
             <label for="deadline" class="col-sm-2 col-form-label text-right">預購截止日期</label>
             <div class="col-sm-7">
-              <input type="date" name="deadline" class="form-control" id="deadline" value={{deadline}} form="editForm">
+              <input type="date" name="deadline" class="form-control" id="deadline" value="{{deadline}}" form="editForm">
             </div>
           </div>
         </div>
@@ -111,7 +112,7 @@
           <div class="form-group row">
             <label for="saleDate" class="col-sm-2 col-form-label text-right">發售日期</label>
             <div class="col-sm-7">
-              <input type="date" name="saleDate" class="form-control" id="saleDate" value={{saleDate}} form="editForm">
+              <input type="date" name="saleDate" class="form-control" id="saleDate" value="{{saleDate}}" form="editForm">
             </div>
           </div>
         </div>
@@ -176,7 +177,7 @@
             <div class="col-sm-7">
               <select class="form-control" name="SeriesId" id="series" form="editForm">
                 {{#each series}}
-                  <option value={{this.id}} {{#ifEqual this.id ../product.SeriesId}}selected{{/ifEqual}}>{{this.name}}
+                  <option value="{{this.id}}" {{#ifEqual this.id ../product.SeriesId}}selected{{/ifEqual}}>{{this.name}}
                   </option>
                 {{/each}}
               </select>
@@ -187,7 +188,7 @@
           <div class="form-group row">
             <label for="copyright" class="col-sm-2 col-form-label text-right">版權</label>
             <div class="col-sm-7">
-              <input type="text" name="copyright" class="form-control" id="copyright" value='{{product.copyright}}' form="editForm">
+              <input type="text" name="copyright" class="form-control" id="copyright" value="{{product.copyright}}" form="editForm">
             </div>
           </div>
         </div>
@@ -195,7 +196,7 @@
           <div class="form-group row">
             <label for="maker" class="col-sm-2 col-form-label text-right">廠商</label>
             <div class="col-sm-7">
-              <input type="text" name="maker" class="form-control" id="maker" value='{{product.maker}}' form="editForm">
+              <input type="text" name="maker" class="form-control" id="maker" value="{{product.maker}}" form="editForm">
             </div>
           </div>
         </div>
