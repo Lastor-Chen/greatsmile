@@ -84,12 +84,12 @@
                     </div>
                   </td>
                   <td class="p-0 text-center">
-                    <div class="collapse" id="collapse_{{this.id}}" data-parent="#accordionEdit">
-                      {{!-- <img class="rounded mx-auto d-block editImg" src="" style="height:40px"> --}}
-                      <label for="imageEdit_{{this.id}}" class="mb-0">
+                    <div class="collapse row" id="collapse_{{this.id}}" data-parent="#accordionEdit">
+                      <input hidden type="file" class="inputImg" id="imageEdit_{{this.id}}" name="image" form="edit_{{this.id}}">
+                      <img class="rounded ml-3 d-block editImg" src="" style="height:40px">
+                      <label for="imageEdit_{{this.id}}" class="mx-auto my-auto">
                         <i class="fas fa-upload btn btn-light my-1 py-2"></i>
                       </label>
-                      <input hidden type="file" class="inputImg" id="imageEdit_{{this.id}}" name="image"  form="edit_{{this.id}}">
                     </div>
                   </td>
                   <td class="p-0">
