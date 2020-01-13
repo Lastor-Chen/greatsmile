@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   OrderItem.associate = function (models) {
     OrderItem.belongsTo(models.Product)
+    OrderItem.belongsTo(models.Order)
   };
   return OrderItem;
 };

@@ -13,7 +13,7 @@ function getInventory(index) {
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-     return queryInterface.bulkInsert('Products',
+     return queryInterface.bulkInsert('products',
        Array.from({ length: 100 }, (val, index) => ({
          name: faker.commerce.productName(),
          price: faker.commerce.price(1000,8000),
@@ -35,7 +35,7 @@ module.exports = {
     
   down:  (queryInterface, Sequelize) => {
     const option = { truncate: true, restartIdentity: true }
-    return queryInterface.bulkDelete('Products', null, option)
+    return queryInterface.bulkDelete('products', null, option)
   }
 };
 

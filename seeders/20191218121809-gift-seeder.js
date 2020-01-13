@@ -3,7 +3,7 @@ const faker = require('faker')
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Gifts',
+    return queryInterface.bulkInsert('gifts',
       Array.from({ length: 5 }, (val, index) => ({
         name: faker.commerce.productName(),
         image: faker.image.image(),
@@ -14,7 +14,7 @@ module.exports = {
 
   down: (queryInterface, Sequelize) => {
     const option = { truncate: true, restartIdentity: true }
-    return queryInterface.bulkDelete('Gifts', null, option)
+    return queryInterface.bulkDelete('gifts', null, option)
   }
 };
 

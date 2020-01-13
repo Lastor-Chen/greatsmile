@@ -15,12 +15,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       order_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'orders',
-          key: 'id'
-        },
-        onDelete: 'CASCADE'
+        type: Sequelize.INTEGER
       },
       product_id: {
         type: Sequelize.INTEGER
