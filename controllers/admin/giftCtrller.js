@@ -28,7 +28,6 @@ module.exports = {
   postGift: async (req, res) => {
     try {
       const input = { ...req.body }
-      console.log(req)
       if (input.name.trim() === '') {
 
         req.flash('error', '特典名稱不能為空白')
@@ -68,7 +67,7 @@ module.exports = {
       } else {
 
         const { file } = req
-      console.log(req.body)
+      
         if (file) {
           input.image = (await imgur.uploadFile(file.path)).data.link
         }
