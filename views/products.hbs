@@ -53,13 +53,13 @@
         {{!-- 分頁 --}}
         {{>pagination}}
         {{!-- 商品型錄 --}}
-        <div class="row">
+        <div class="row row-cols-5">
           {{#each getProducts}}
-            <div class="col-md-2-5 mb-3">
+            <div class="col px-2 mb-3">
               <div class="card">
                 <div class="card-body">
                   <div class="card-img-top card-bg mb-3">
-                    <img src="{{this.mainImg}}" class="card-img-top img-fit">
+                    <img src="{{this.mainImg}}" class="w-100">
                   </div>
                   {{#if hasInv}}
                     {{#if isPreorder}}
@@ -73,8 +73,8 @@
                   {{#if isGift}}
                     <span class="tag tag-gift">特典</span>
                   {{/if}}
-                  <h5 class="card-title mt-3">{{this.name}}</h5>
-                  <p class="card-text pt-3 d-flex justify-content-end">NTD {{this.priceFormat}}</p>
+                  <h5 class="card-title my-2 mb-4">{{this.name}}</h5>
+                  <p class="card-text d-flex justify-content-end">NTD {{this.priceFormat}}</p>
                 </div>
                 <div class="hover ">
                   <div class="icon-group">
