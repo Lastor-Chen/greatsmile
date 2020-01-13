@@ -60,13 +60,18 @@ module.exports = {
   putGift: async (req, res) => {
     try {
       const input = { ...req.body }
-
       if (input.name.trim() === '') {
 
         req.flash('error', '特典名稱不能為空白')
         res.redirect('back')
 
       } else {
+
+        const { file } = req
+      console.log(req.body)
+        if (file) {
+          input.image = (await imgur.uploadFile(file.path)).data.link
+        }
 
         const id = +req.params.giftsid
         await Gift.update(input, { where: { id } })

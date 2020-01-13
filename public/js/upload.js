@@ -1,14 +1,15 @@
 $("#image").change(function () {
-  readURL(this);
+  readImgUrl(this);
 })
 
 
-function readURL(input) {
+function readImgUrl(input) {
   if (input.files && input.files[0]) {
-    let reader = new FileReader();
+    console.log(input.files)
+    let reader = new FileReader()
     reader.onload = function (e) {
-      $("#preview_img").attr('src', e.target.result);
+      $("#preview_img").attr('src', e.target.result)
     }
-    reader.readAsDataURL(input.files[0]);
+    reader.readAsDataURL(input.files[0])
   }
 }
