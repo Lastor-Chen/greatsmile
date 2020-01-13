@@ -6,8 +6,14 @@
           {{> alert}}
         </div>
         <form class="form-inline d-flex justify-content-end" action="/admin/gifts" method="POST" enctype="multipart/form-data">
-            <input type="file" class="form-control-file float-left" id="image" name="image">      
-          <div class="form-group mx-sm-3 mb-2 mt-1">
+          <div class="d-flex align-items-center justify-content-center">
+            <img class="rounded mx-auto d-block" id="preview_img" src="" style="height:40px">
+            <label for="image">
+                <i class="fas fa-upload btn btn-light ml-2 mb-1 py-2"></i>
+            </label>
+            <input hidden type="file" id="image" name="image" >
+          </div>
+          <div class="form-group mx-sm-2 mb-2 mt-1 ml-sm-1">
             <input type="text" class="form-control input-center" name="name" placeholder="輸入新特典..." required>
           </div>
           <button type="submit" class="btn btn-primary mb-2 mt-1">新增特典</button>

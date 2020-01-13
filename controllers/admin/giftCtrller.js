@@ -18,7 +18,7 @@ module.exports = {
         }
       });
 
-      res.render('admin/gifts', { gifts })
+      res.render('admin/gifts', { gifts , js:'upload'})
     } catch (err) {
       console.error(err)
       res.status(500).json(err.toString())
