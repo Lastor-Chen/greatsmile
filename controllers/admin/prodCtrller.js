@@ -60,7 +60,13 @@ module.exports = {
         })
       ])
 
-      res.render('admin/new', { categories, series, tag })
+      const input = req.flash('input')
+      let product = {}
+      if (input.length > 0) {
+        product = input[0]
+      }
+
+      res.render('admin/new', { categories, series, tag, product })
 
     } catch (err) {
       console.error(err)
@@ -112,16 +118,22 @@ module.exports = {
       const input = { ...req.body }
       input.SeriesId = +input.SeriesId
       input.CategoryId = +input.CategoryId
+      const { files } = req
 
+      // 檢查是否有未填的內容
       const error = checkProduct(input)
-
       if (error) {
         req.flash('error', error)
-        console.log('err',error)
         req.flash('input', input)
-        console.log('errinput',input)
         return res.redirect('/admin/products/new')
       }
+      // 檢查至少有一張圖片
+      if (!files[0]){
+        req.flash('error', '至少上傳一張圖片')
+        req.flash('input', input)
+        return res.redirect('/admin/products/new')
+      }
+
       const newProduct = await Product.create(input)
 
       //寫入TagItem
@@ -137,7 +149,6 @@ module.exports = {
        }
 
       //寫入Image
-      const { files } = req
       if (files) {
         const mainImg = {
           url: (await imgur.uploadFile(files[0].path)).data.link,
