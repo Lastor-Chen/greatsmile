@@ -92,8 +92,8 @@
     {{!-- 說明區塊 --}}
     <hr>
     <div class="row py-4">
-      <div class="col-md-2 font-weight-bold">商品介紹</div>
-      <div class="col-md-10">
+      <div class="col-2 font-weight-bold">商品介紹</div>
+      <div class="col-10">
         <p class="slogan">{{product.slogan}}</p>
         <p>{{product.description}}</p>
         <p class="mt-5">&copy; {{product.copyright}}</p>
@@ -102,8 +102,8 @@
     <hr>
     {{!-- 受理期間 --}}
     <div class="row py-4">
-      <div class="col-md-2 font-weight-bold">受理期間</div>
-      <div class="col-md-10">
+      <div class="col-2 font-weight-bold">受理期間</div>
+      <div class="col-10">
         {{#if product.isOnSale}}
           <s>【受注生產】{{product.releaseDateFormat}} 12:00 開始 {{product.deadlineFormat}} 21:00 結束。</s>
           <p>※ 無庫存時販售終止</p>
@@ -116,14 +116,14 @@
     {{!-- 特典 --}}
     {{#if product.hasGift}}
     <div class="row py-4">
-      <div class="col-md-2">
+      <div class="col-2">
         <span class="tag-icon icon2">附特典</span>
       </div>
-      <div class="col-md-6">
+      <div class="col-6">
         <p>【GREATSMILE ONLINE SHOP予約特典】</p>
         <p>「{{product.name}}」をご購入頂いた方に、「{{product.Gifts.0.name}}」をプレゼント！</p>
       </div>
-      <div class="col-md-4">
+      <div class="col-4">
         <div class="gift-img">
           <img class="w-100" src="{{product.Gifts.0.image}}" alt="gift-img">
         </div>
@@ -133,8 +133,8 @@
     {{/if}}
     {{!-- 價格、購物車 --}}
     <div class="row py-4">
-      <div class="col-md-2 font-weight-bold">價格</div>
-      <div class="col-md-6">
+      <div class="col-2 font-weight-bold">價格</div>
+      <div class="col-6">
         <small>NTD {{product.priceFormat}}</small>
         <div class="mt-2">
           <form id="addCart2" action="/cart" method="POST">
@@ -167,7 +167,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4 buy-info">
+      <div class="col-4 buy-info">
         <p>※ おひとり様3つまでの販売となります。上限数を超えるご注文に関しましては、キャンセルさせていただきます。</p>
         <p>※ ご注文後のキャンセルにつきましては、一切お受け致しておりません。</p>
       </div>
@@ -175,8 +175,8 @@
     <hr>
     {{!-- 規格 --}}
     <div class="row py-4">
-      <div class="col-md-2 font-weight-bold">規格</div>
-      <div class="col-md-10">
+      <div class="col-2 font-weight-bold">規格</div>
+      <div class="col-10">
         <ul class="list-group">
           <li class="list-group-item">
             <span class="mr-5">商品名</span>
