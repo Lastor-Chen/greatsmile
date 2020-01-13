@@ -6,7 +6,7 @@ module.exports = {
     return queryInterface.bulkInsert('gifts',
       Array.from({ length: 5 }, (val, index) => ({
         name: faker.commerce.productName(),
-        image: faker.image.image(),
+        image: `https://picsum.photos/seed/gift${index + 1}/360/400`,
         product_id: index + 1
       }))
     )
