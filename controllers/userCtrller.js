@@ -27,11 +27,7 @@ module.exports = {
       await User.create(input)
 
       // 自動登入
-      passport.authenticate('local', {
-        successRedirect: '/admin',
-        failureRedirect: `/users/signin`,
-        failureFlash: true,
-      })(req, res, next)
+      next()
 
     } catch (err) {
       console.error(err)
@@ -50,7 +46,7 @@ module.exports = {
     const from = req.body.from || ''
 
     passport.authenticate('local', {
-      successRedirect: '/admin',
+      successRedirect: from ? '/orders/checkout' : '/admin',
       successFlash: true,
       failureRedirect: `/users/signin${from}`,
       failureFlash: true,
