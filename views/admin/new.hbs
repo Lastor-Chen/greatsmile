@@ -1,5 +1,5 @@
 <main class="container">
-  <form class="pt-4" action="/admin/products" method="POST" enctype="multipart/form-data">
+  <form class="pt-4" action="/admin/products" method="POST" enctype="multipart/form-data" id="newProuuct">
     <div class="card my-3">
       <div class="card-body">
         <h4>基本資訊</h4>
@@ -126,7 +126,7 @@
                 </label>
                 <input type="file" name="image" multiple="multiple" id="image" hidden>
               </div>
-              <div id="images" class="d-flex justify-content-around align-items-center pl-2"></div>
+              <div id="images" class="d-flex align-items-center pl-2"></div>
               <small id="emailHelp" class="form-text text-muted ml-3">
                 <span>＊ 預設第一張為商品「主圖片」，規格大小為 570x670 px</span>
               </small>
