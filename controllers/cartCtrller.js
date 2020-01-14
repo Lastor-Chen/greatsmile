@@ -166,33 +166,35 @@ module.exports = {
       const CartId = req.session.cartId || null
       const UserId = req.user.id
 
-      const cart = await Cart.findOne({
-        where: { [Op.or]: { id: CartId, UserId } }
-      })
-      console.log('cart', cart && cart.dataValues)
+      // const cart = await Cart.findOne({
+      //   where: { [Op.or]: { id: CartId, UserId } }
+      // })
+      const [userCart, visitCart] = await Promise.all([
+        Cart.findOne({ where: { UserId } }),
+        Cart.findOne({ where: { id: CartId } })
+      ])
 
       // 無持有購物車
-      if (!cart) return res.redirect('/admin')
+      if (!userCart && !visitCart) return res.redirect('/admin')
 
       // user 有車
-      if (cart.UserId) {
+      if (userCart) {
         // 訪客無車
         if (!CartId) {
           console.log('U有車, !CartId')
-          req.session.cartId = cart.id
+          req.session.cartId = userCart.id
         }
 
         // 訪客有車
         if (CartId) {
           console.log('U有車, CartId')
-          console.log(cart.id)
           // 訪客購物車 items 併入 user 購物車
           const items = await CartItem.findAll({ where: { CartId } })
 
           items.forEach(async item => {
             try {
               const [cartItem, wasCreated] = await CartItem.findOrCreate({
-                where: { CartId: cart.id, product_id: item.product_id },
+                where: { CartId: userCart.id, product_id: item.product_id },
                 defaults: { quantity: item.quantity }
               })
 
@@ -209,18 +211,17 @@ module.exports = {
           })
 
           // 換車
-          req.session.cartId = cart.id
+          req.session.cartId = userCart.id
 
           // 移除訪客購物車
-          // const cart = await Cart.findByPk(CartId)
-          // await Cart.destroy({ where: { id: CartId } })
+          await visitCart.destroy()
         }
       }
 
       // user 無車
-      if (!cart.UserId) {
+      if (!userCart) {
         console.log('U無車')
-        await cart.update({ UserId })
+        await visitCart.update({ UserId })
       }
 
       return res.redirect('/admin')
