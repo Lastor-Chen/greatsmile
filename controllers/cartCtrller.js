@@ -159,4 +159,24 @@ module.exports = {
       res.status(500).json({ status: 'serverError', message: err.toString() })
     }
   },
+
+  setCart: async (req, res) => {
+    try {
+      // 當前購物車，綁給 user
+      const cartId = req.session.cartId
+      if (cartId) {
+        const cart = await Cart.findByPk(cartId)
+        await cart.update({ UserId: req.user.id })
+      }
+
+      // 如已有購物車，合併
+      // const cartItems = await CartItem.findAll({ where: { CartId: cartId } })
+
+      res.redirect('/admin')
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  },
 }
