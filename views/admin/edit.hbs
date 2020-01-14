@@ -136,7 +136,7 @@
                 </label>
                 <input type="file" name="image" multiple="multiple" id="image" form="editForm" hidden>
               </div>
-              <div id="images" class="d-flex justify-content-around align-items-center"></div>
+              <div id="images" class="d-flex justify-content-around align-items-center pl-2"></div>
             </div>
           </div>
         </div>
@@ -146,7 +146,7 @@
             <div class="col-10 pl-0">
               <div class="form-check form-check-inline mr-0 pl-2 col-10 d-flex flex-wrap">
                 {{#each images}}
-                  <div class="text-center mr-1 position-relative">
+                  <div class="text-center mx-1 position-relative">
                     <input id="{{this.id}}" class="input-hidden" type="radio" name="mainImg" value="{{this.id}}" form="editForm">
                     <label for="{{this.id}}" class="d-block">
                       <img src={{this.url}} class="img-thumbnail mx-1" style="width: 100px">
