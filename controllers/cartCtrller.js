@@ -1,6 +1,5 @@
 const db = require('../models')
-const Product = db.Product
-const { Cart, CartItem} = db
+const { Product, Cart, CartItem} = db
 
 const Op = require('sequelize').Op
 const moment = require('moment')
@@ -166,9 +165,6 @@ module.exports = {
       const CartId = req.session.cartId || null
       const UserId = req.user.id
 
-      // const cart = await Cart.findOne({
-      //   where: { [Op.or]: { id: CartId, UserId } }
-      // })
       const [userCart, visitCart] = await Promise.all([
         Cart.findOne({ where: { UserId } }),
         Cart.findOne({ where: { id: CartId } })
@@ -189,7 +185,10 @@ module.exports = {
         if (CartId) {
           console.log('U有車, CartId')
           // 訪客購物車 items 併入 user 購物車
-          const items = await CartItem.findAll({ where: { CartId } })
+          const items = await CartItem.findAll({ 
+            where: { CartId },
+            include: { model: Product, attributes: ['inventory'] }
+          })
 
           items.forEach(async item => {
             try {
@@ -200,11 +199,15 @@ module.exports = {
 
               // 有相同商品
               if (!wasCreated) {
-                const sum = cartItem.quantity + item.quantity
+                // 限購 3 件
+                let quantity = cartItem.quantity + item.quantity
+                if (quantity > 3) { quantity = 3 }
 
-                await cartItem.update({
-                  quantity: sum > 3 ? 3 : sum
-                })
+                // 確認庫存
+                const inventory = item.Product.inventory
+                if (quantity > inventory) { quantity = inventory }
+
+                await cartItem.update({ quantity })
               }
 
             } catch (err) { console.error(err) }
