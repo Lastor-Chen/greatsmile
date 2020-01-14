@@ -162,49 +162,52 @@ module.exports = {
 
   setCart: async (req, res) => {
     try {
+      /**
+       * 登入時合併購物車，有四種情況：
+       * 該 User 原本有車 > 訪客沒車
+       *                 > 訪客有車
+       * 該 User 原本沒車 > 訪客沒車
+       *                 > 訪客有車
+       */
       const CartId = req.session.cartId || null
       const UserId = req.user.id
 
+      // 找出 User 車、visitor 車
       const [userCart, visitCart] = await Promise.all([
         Cart.findOne({ where: { UserId } }),
-        Cart.findOne({ where: { id: CartId } })
+        Cart.findOne({
+          where: { id: CartId },
+          include: { association : 'products', attributes: ['id', 'inventory'] }
+        })
       ])
 
       // 無持有購物車
       if (!userCart && !visitCart) return res.redirect('/admin')
 
-      // user 有車
+      // User 原本沒車
+      if (!userCart) { await visitCart.update({ UserId }) }
+
+      // User 原本有車
       if (userCart) {
-        // 訪客無車
-        if (!CartId) {
-          console.log('U有車, !CartId')
-          req.session.cartId = userCart.id
-        }
-
-        // 訪客有車
-        if (CartId) {
-          console.log('U有車, CartId')
-          // 訪客購物車 items 併入 user 購物車
-          const items = await CartItem.findAll({ 
-            where: { CartId },
-            include: { model: Product, attributes: ['inventory'] }
-          })
-
-          items.forEach(async item => {
+        // 訪客登入有帶車
+        if (visitCart) {
+          // 商品併入 user 購物車
+          visitCart.products.forEach(async prod => {
             try {
+              // 無相同商品時，Create
               const [cartItem, wasCreated] = await CartItem.findOrCreate({
-                where: { CartId: userCart.id, product_id: item.product_id },
-                defaults: { quantity: item.quantity }
+                where: { CartId: userCart.id, product_id: prod.id },
+                defaults: { quantity: prod.CartItem.quantity }
               })
 
-              // 有相同商品
+              // 有相同商品時，update quantity
               if (!wasCreated) {
                 // 限購 3 件
-                let quantity = cartItem.quantity + item.quantity
+                let quantity = cartItem.quantity + prod.CartItem.quantity
                 if (quantity > 3) { quantity = 3 }
 
                 // 確認庫存
-                const inventory = item.Product.inventory
+                const inventory = prod.inventory
                 if (quantity > inventory) { quantity = inventory }
 
                 await cartItem.update({ quantity })
@@ -213,21 +216,15 @@ module.exports = {
             } catch (err) { console.error(err) }
           })
 
-          // 換車
-          req.session.cartId = userCart.id
-
           // 移除訪客購物車
           await visitCart.destroy()
         }
+
+        // 換成 user 車
+        req.session.cartId = userCart.id
       }
 
-      // user 無車
-      if (!userCart) {
-        console.log('U無車')
-        await visitCart.update({ UserId })
-      }
-
-      return res.redirect('/admin')
+      res.redirect('/admin')
 
     } catch (err) {
       console.error(err)
