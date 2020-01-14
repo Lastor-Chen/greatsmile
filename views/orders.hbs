@@ -16,12 +16,12 @@
           </thead>
         </table>
         {{#if orders}}
-          <div id="accordion" class="mb-4">
+          <div id="accordion" class="mb-4 mx-4 w-100">
             {{#each orders}}
-              <div class="card mx-4 mt-2">
+              <div class="card mt-2 w-100">
                 <div class="card-header order-card" class="btn btn-link btn-block" data-toggle="collapse"
                   data-target="#collapseOne_{{this.id}}">
-                  <table>
+                  <table class="col-12">
                     <tbody>
                       <tr>
                         <td class="accordion-thead">{{this.sn}}</td>
@@ -34,7 +34,7 @@
                 <div id="collapseOne_{{this.id}}" class="collapse" aria-labelledby="headingOne"
                   data-parent="#accordion">
                   <div class="card-body">
-                    <table class="order-info">
+                    <table class="order-info mx-auto">
                       <tbody>
                         <tr>
                           <td class="accordion-title">收件人</td>
