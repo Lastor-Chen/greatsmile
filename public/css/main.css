@@ -153,6 +153,10 @@ body {
   text-align: center;
 }
 
+.alert-success .alert-msg {
+  white-space: pre-line;
+}
+
 .alert-danger {
   color: #ff4d39;
   font-size: 12px;

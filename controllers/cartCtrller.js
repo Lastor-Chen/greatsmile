@@ -31,7 +31,14 @@ module.exports = {
       }
       const totalPriceFormat = totalPrice.toLocaleString()
 
-      res.render('cart', { cart, cartProducts, totalPriceFormat, css: 'cart', js: 'cart'})
+      // 取得登入時 setCart 傳遞之 message
+      const msg = req.flash('msg')
+
+      res.render('cart', {
+        cart, cartProducts, totalPriceFormat, 
+        success: msg,
+        css: 'cart', js: 'cart'
+      })
 
     } catch (err) {
       console.error(err)
@@ -174,9 +181,10 @@ module.exports = {
 
       // 找出 User 車、visitor 車
       const [userCart, visitCart] = await Promise.all([
-        Cart.findOne({ where: { UserId } }),
-        Cart.findOne({
-          where: { id: CartId },
+        Cart.findOne({ where: { UserId },
+          include: { association: 'products', attributes: ['name'] }
+        }),
+        Cart.findOne({ where: { id: CartId },
           include: { association : 'products', attributes: ['id', 'inventory'] }
         })
       ])
@@ -212,7 +220,6 @@ module.exports = {
 
                 await cartItem.update({ quantity })
               }
-
             } catch (err) { console.error(err) }
           })
 
@@ -222,6 +229,16 @@ module.exports = {
 
         // 換成 user 車
         req.session.cartId = userCart.id
+
+        // 提示訊息
+        if (userCart.products.length) {
+          let msg = '上回登入時選購的商品，已併入購物車'
+          userCart.products.forEach(prod => {
+            msg += `\n${prod.name}`
+          })
+
+          req.flash('msg', msg)
+        }
       }
 
       res.redirect('/admin')
