@@ -15,17 +15,19 @@ module.exports = {
         where.order_id = inputSn
       }
 
-      const payment = await Payment.findOne({ where })
-      if (!payment) {
+      const payments = await Payment.findAll({ where })
+      if (!payments) {
         req.flash('error', '找不到此訂單交易紀錄')
         return res.redirect('/admin/payments')
       }
 
       // SN、時間格式
-      payment.SN = ("000000000" + inputSn).slice(-10)
-      payment.payDate = moment(payment.payTime).format('YYYY/MM/DD HH:mm')
+      payments.forEach(payment => {
+        payment.SN = ("000000000" + inputSn).slice(-10)
+        payment.payDate = moment(payment.payTime).format('YYYY/MM/DD HH:mm')
+      });
 
-      res.render('admin/payments', { payment, inputSn })
+      res.render('admin/payments', { payments, inputSn })
 
     } catch (err) {
       console.error(err)

@@ -26,14 +26,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>{{payment.id}}</td>
-          <td>{{payment.SN}}</td>
-          <td>{{payment.msg}}</td>
-          <td>{{payment.tradeNo}}</td>
-          <td>{{payment.orderNo}}</td>
-          <td>{{payment.payDate}}</td>
-        </tr>  
+        {{#each payments}}
+          <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.SN}}</td>
+            <td>{{this.msg}}</td>
+            <td>{{this.tradeNo}}</td>
+            <td>{{this.orderNo}}</td>
+            <td>{{this.payDate}}</td>
+          </tr>
+        {{/each}}  
       </tbody>
     </table>
   </div>
