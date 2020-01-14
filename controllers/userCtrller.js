@@ -70,7 +70,11 @@ module.exports = {
     // })(req, res, next)
   },
 
-  signOut: (req, res) => {
+  signOut: async (req, res) => {
+    // 歸還購物車
+    delete req.session.cartId
+    await req.session.save()
+
     req.logout()
     res.redirect('/')
   },

@@ -1,8 +1,8 @@
 const db = require('../models')
 const Product = db.Product
-const Cart = db.Cart
-const CartItem = db.CartItem
+const { Cart, CartItem} = db
 
+const Op = require('sequelize').Op
 const moment = require('moment')
 moment.locale('zh-tw')
 
@@ -51,6 +51,7 @@ module.exports = {
 
       // 確認 client 是否已有 Cart，若無就給一個
       const [cart] = await Cart.findOrCreate({ where: { id: cartId } })
+      if (!cart.UserId && req.user) { await cart.update({ UserId: req.user.id }) }
 
       // 發 session 紀錄用戶是哪台 cart
       req.session.cartId = cart.id
@@ -162,17 +163,44 @@ module.exports = {
 
   setCart: async (req, res) => {
     try {
-      // 當前購物車，綁給 user
-      const cartId = req.session.cartId
-      if (cartId) {
-        const cart = await Cart.findByPk(cartId)
-        await cart.update({ UserId: req.user.id })
+      
+      const CartId = req.session.cartId || null
+      const UserId = req.user.id
+
+      const cart = await Cart.findOne({
+        where: { [Op.or]: { id: CartId, UserId } }
+      })
+      console.log('cart', cart && cart.dataValues)
+
+      // 無持有購物車
+      if (!cart) return res.redirect('/admin')
+
+      // user 有車
+      if (cart.UserId) {
+        // 訪客無車
+        if (!CartId) { req.session.cartId = cart.id }
+
+        // 訪客有車
+        if (CartId) {
+          const items = await CartItem.findAll({ where: { CartId } })
+          console.log(items)
+
+          // items.forEach(item => {
+          //   await CartItem.create({ 
+          //     id: CartId,
+          //     product_id: item.ProductId,
+          //     quantity: item.quantity
+          //   })
+          // })
+        }
       }
 
-      // 如已有購物車，合併
-      // const cartItems = await CartItem.findAll({ where: { CartId: cartId } })
+      // user 無車
+      if (!cart.UserId) {
+        await cart.update({ UserId })
+      }
 
-      res.redirect('/admin')
+      return res.redirect('/admin')
 
     } catch (err) {
       console.error(err)
