@@ -23,7 +23,7 @@ module.exports = {
 
       // SN、時間格式
       payment.SN = ("000000000" + inputSn).slice(-10)
-      payment.payDate = moment(payment.pay_time).format('YYYY/MM/DD HH:mm')
+      payment.payDate = moment(payment.payTime).format('YYYY/MM/DD HH:mm')
 
       res.render('admin/payments', { payment, inputSn })
 
