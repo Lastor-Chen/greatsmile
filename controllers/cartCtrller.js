@@ -163,7 +163,6 @@ module.exports = {
 
   setCart: async (req, res) => {
     try {
-      
       const CartId = req.session.cartId || null
       const UserId = req.user.id
 
@@ -178,25 +177,49 @@ module.exports = {
       // user 有車
       if (cart.UserId) {
         // 訪客無車
-        if (!CartId) { req.session.cartId = cart.id }
+        if (!CartId) {
+          console.log('U有車, !CartId')
+          req.session.cartId = cart.id
+        }
 
         // 訪客有車
         if (CartId) {
+          console.log('U有車, CartId')
+          console.log(cart.id)
+          // 訪客購物車 items 併入 user 購物車
           const items = await CartItem.findAll({ where: { CartId } })
-          console.log(items)
 
-          // items.forEach(item => {
-          //   await CartItem.create({ 
-          //     id: CartId,
-          //     product_id: item.ProductId,
-          //     quantity: item.quantity
-          //   })
-          // })
+          items.forEach(async item => {
+            try {
+              const [cartItem, wasCreated] = await CartItem.findOrCreate({
+                where: { CartId: cart.id, product_id: item.product_id },
+                defaults: { quantity: item.quantity }
+              })
+
+              // 有相同商品
+              if (!wasCreated) {
+                const sum = cartItem.quantity + item.quantity
+
+                await cartItem.update({
+                  quantity: sum > 3 ? 3 : sum
+                })
+              }
+
+            } catch (err) { console.error(err) }
+          })
+
+          // 換車
+          req.session.cartId = cart.id
+
+          // 移除訪客購物車
+          // const cart = await Cart.findByPk(CartId)
+          // await Cart.destroy({ where: { id: CartId } })
         }
       }
 
       // user 無車
       if (!cart.UserId) {
+        console.log('U無車')
         await cart.update({ UserId })
       }
 
