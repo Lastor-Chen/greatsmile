@@ -131,7 +131,10 @@
             <label for="image" class="col-sm-2 col-form-label text-right">新增商品圖片</label>
             <div>
               <div class="custom-file col-sm-7 d-flex align-items-center">
-                <input type="file" name="image" multiple="multiple" id="image" form="editForm">
+                <label for="image">
+                  <i class="fas fa-upload btn btn-light mt-2 py-2"></i>
+                </label>
+                <input type="file" name="image" multiple="multiple" id="image" form="editForm" hidden>
               </div>
             </div>
           </div>
