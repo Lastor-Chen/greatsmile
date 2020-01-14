@@ -129,14 +129,17 @@
         <div class="px-5">
           <div class="form-group row">
             <label for="image" class="col-sm-2 col-form-label text-right">新增商品圖片</label>
-            <div>
+            <div class="col-10 pl-0">
               <div class="custom-file col-sm-7 d-flex align-items-center">
                 <label for="image">
                   <i class="fas fa-upload btn btn-light mt-2 py-2"></i>
                 </label>
-                <input type="file" name="image" multiple="multiple" id="image" form="editForm" hidden>
+                <input type="file" name="image" multiple="multiple" id="image" hidden>
               </div>
-              <div id="images" class="d-flex justify-content-around align-items-center pl-2"></div>
+              <div id="images" class="form-check form-check-inline mr-0 pl-2 col-10 d-flex flex-wrap"></div>
+              <small id="emailHelp" class="form-text text-muted ml-3">
+                <span>＊ 預設第一張為商品「主圖片」，規格大小為 570x670 px</span>
+              </small>
             </div>
           </div>
         </div>
