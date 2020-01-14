@@ -7,7 +7,7 @@ moment.locale('zh-tw')
 module.exports = {
   getPayments: async (req, res) => {
     try {
-      const inputSn = +req.query.sn      
+      let inputSn = +req.query.sn      
       let where = {}
       if (!inputSn) {
         return res.render('admin/payments') // 首次進入不需 Query
@@ -26,8 +26,8 @@ module.exports = {
         payment.SN = ("000000000" + inputSn).slice(-10)
         payment.payDate = moment(payment.payTime).format('YYYY/MM/DD HH:mm')
       });
-
-      res.render('admin/payments', { payments, inputSn })
+      showSn = ("000000000" + inputSn).slice(-10)
+      res.render('admin/payments', { payments, showSn })
 
     } catch (err) {
       console.error(err)
