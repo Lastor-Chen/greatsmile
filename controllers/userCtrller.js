@@ -55,19 +55,12 @@ module.exports = {
         req.flash('error', info.message)
         return res.redirect(`/users/signin${from}`)
       }
+
       req.logIn(user, err => {
         if (err) return console.error(err)
-        next(from)
+        next()
       })
     })(req, res, next)
-
-    // passport.authenticate('local', {
-    //   successRedirect: from ? '/orders/checkout' : '/admin',
-    //   successFlash: true,
-    //   failureRedirect: `/users/signin${from}`,
-    //   failureFlash: true,
-    //   badRequestMessage: '請輸入 Email 與 Password'
-    // })(req, res, next)
   },
 
   signOut: async (req, res) => {

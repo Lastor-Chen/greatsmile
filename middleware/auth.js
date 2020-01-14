@@ -14,7 +14,7 @@ module.exports = {
     if (!req.isAuthenticated()) return res.redirect('/users/signin')
 
     // 確認用戶權限
-    if (!req.user.isAdmin) return res.redirect('/users/profile')
+    if (!req.user.isAdmin) return res.redirect('/cart')
     next()
   }
 }
