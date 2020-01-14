@@ -58,7 +58,7 @@ module.exports = {
         })
       ])
 
-      res.render('admin/new', { categories, series, tag })
+      res.render('admin/new', { categories, series, tag, js:'admin/product'})
 
     } catch (err) {
       console.error(err)
