@@ -152,7 +152,10 @@ module.exports = {
       product.hasInv = (product.inventory !== 0)
       product.category = product.Category.name
 
-      res.render('product', { css: 'product', js: 'product', product })
+      res.render('product', { 
+        css: 'product', js: 'product', product,
+        useSlick: true, useLightbox: true
+      })
 
     } catch (err) {
       console.error(err)

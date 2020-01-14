@@ -1,5 +1,5 @@
 <div class="container py-5">
-  <div class="row">
+  <div class="row mb-5">
     {{!-- 購物車內容 --}}
     <main class="col-9" role="main">
       <div class="panel mx-1">
@@ -13,8 +13,8 @@
           <div class="cart-product">
             {{!-- 標題 --}}
             <div class="row">
-              <div class="col-md-7 item-title">商品{{cartProducts.length}}</div>
-              <div class="col-md-5 item-title">
+              <div class="col-7 item-title">商品{{cartProducts.length}}</div>
+              <div class="col-5 item-title">
                 <div class="d-flex justify-content-between align-items-center">
                   <span>商品價格</span>
                   <span>數量</span>
@@ -26,7 +26,7 @@
             {{!-- 內文 --}}
             {{#each cartProducts}}
               <div class="row">
-                <div class="col-md-7 d-flex align-items-start">
+                <div class="col-7 d-flex align-items-start">
                   <div>
                     <a href="/products/{{this.id}}" class="product-img">
                       <img src="{{this.mainImg}}" class="img-fit">
@@ -55,7 +55,7 @@
                     </form>
                   </div>
                 </div>
-                <div class="col-md-5 font-format">
+                <div class="col-5 font-format">
                   <div class="d-flex justify-content-between align-items-center note-flag">
                     <span>NTD {{this.priceFormat}}</span>
                     <span>
@@ -77,10 +77,10 @@
           {{!-- 總計區塊 --}}
           <div class="cart-amount">
             <div class="row">
-              <div class="col-md-7 font-format">
+              <div class="col-7 font-format">
                 <div>購物車 ID : {{cart.id}}</div>
               </div>
-              <div class="col-md-5 font-format">
+              <div class="col-5 font-format">
                 <div class="d-flex justify-content-between align-items-center">
                   <span>小計</span>
                   <span>NTD {{totalPriceFormat}}</span>

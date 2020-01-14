@@ -72,21 +72,9 @@ section {
   content: "\f054";
 }
 
-@media screen and (max-width: 1199.98px) {
-  .gallery-main {
-    width: 400px;
-    height: 506px;
-  }
-}
-
-@media screen and (max-width: 767.98px) {
-  .gallery-main {
-    width: 350px;
-    height: 442px;
-  }
-
+@media screen and (max-width: 991.98px) {
   .gallery-nav {
-    width: 100%;
+    width: 50%;
   }
 }
 

@@ -9,6 +9,17 @@ body {
   min-height: 100vh;
 }
 
+.container {
+  min-width: 1250px;
+  width: 1250px;
+}
+
+.top-bar {
+  width: 100%;
+  min-width: 1250px;
+  background-color: #fff;
+}
+
 .btn-top-bar {
   background-color: #ff9600;
   border: 1px solid #ff9600;
@@ -40,6 +51,8 @@ body {
 
 .category-bar, footer {
   background-color: #806d66;
+  width: 100%;
+  min-width: 1250px;
 }
 
 .footer-item {
@@ -55,11 +68,6 @@ body {
 }
 .footer-link:hover {
   color:#ffffff;
-}
-
-.category-bar .navbar {
-  padding-right: 0;
-  padding-left: 0;
 }
 
 .category-bar .nav-link {
@@ -82,6 +90,8 @@ body {
 
 .search-bar {
   background-color: #b7a69f;
+  width: 100%;
+  min-width: 1250px;
 }
 
 .footer-muted{
