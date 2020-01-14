@@ -10,15 +10,17 @@ passport.use(new LocalStrategy(
     passwordField: 'password'
   },
 
-  (email, password, done) => {
-    User.findOne({ where: { email } })
-      .then(user => {
-        if (!user) return done(null, false, { message: '帳號或密碼輸入錯誤' })
-        if (!bcrypt.compareSync(password, user.password)) return done(null, false, { message: '帳號或密碼輸入錯誤' })
+  async (email, password, done) => {
+    try {
+      const user = await User.findOne({ where: { email } })
+      if (!user) return done(null, false, { message: '帳號或密碼輸入錯誤' })
 
-        done(null, user)
-      })
-      .catch(err => console.error(err))
+      const isSuccess = bcrypt.compareSync(password, user.password)
+      if (!isSuccess) return done(null, false, { message: '帳號或密碼輸入錯誤' })
+
+      done(null, user, { message: 'success' })
+
+    } catch (err) { console.error(err) }
   }
 ))
 
@@ -27,10 +29,9 @@ passport.serializeUser((user, done) => {
   done(null, user.id)
 })
 passport.deserializeUser((id, done) => {
-  User.findByPk(id, {
-    include: [{ all: true, nested: false }]
-  })
+  User.findByPk(id)
     .then(user => done(null, user))
+    .catch(err => console.error(err))
 })
 
 module.exports = passport
