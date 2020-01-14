@@ -200,7 +200,8 @@ module.exports = {
         saleDate,
         deadline,
         tagItem,
-        images
+        images,
+        js: 'admin/product'
       })
     } catch (err) {
       console.error(err)

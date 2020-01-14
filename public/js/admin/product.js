@@ -23,7 +23,7 @@ function readImgUrl(input) {
       let reader = new FileReader();
       reader.onload = function (e) {
         let img = `
-        <div class="mx-2">
+        <div class="mx-1">
           <label class="d-block">
             <img src=${e.target.result} class="img-thumbnail mx-1" style="width: 100px">
           </label>
