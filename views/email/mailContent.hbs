@@ -1,4 +1,4 @@
-<h1>嗨，{{user.name}}</h1>
+{{!-- <h1>嗨，{{user.name}}</h1>
 <p>{{sn}} 訂單已成立</p>
 <p>以下是您的出貨資訊：</p>
 <p>收件人：{{data.receiver}}</p>
@@ -20,4 +20,209 @@
 {{/each}}
 <p>運費：{{data.shipping}}</p>
 <hr>
-<h3>總價：{{data.amount}}</h3>
+<h3>總價：{{data.amount}}</h3> --}}
+{{!-- <body style="margin: 0; padding: 0;">
+  <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+    <tr>
+      <td align="center" bgcolor="#70bbd9" style="padding: 40px 0 30px 0;">
+        <img src="https://lh3.googleusercontent.com/J1y_PQhFwVy1I61J0u0DH_Umt7n8F1URliJ1SXXYXt-dCpYs0Ft5NZSHbNFt7RfILYcB1q6kIIrTBJL3AA3lyDY96xpV5wcQkFhjJlFu6vqVG_N6PnF9_GvNPjdTLjiA-lNXkgwufZQ=w1200" alt="Creating Email Magic" width="300" height="230" style="display: block;" />
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td>
+              <h3>嗨，{{user.name}}!
+                <br>
+                感謝你的訂購！
+              </h3>
+              <p>您的訂單({{sn}})已成立，我們將於收到款項後的三個工作天內為您出貨，您也可隨時前往個人專頁進行本次的訂單查詢。</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 20px 0 30px 0;">
+              <h4>訂單資訊如下</h4>
+              
+              <p>收件人：{{data.receiver}}</p>
+              <p>收件地址：{{data.address}}</p>
+              <p>聯絡電話：{{data.phone}}</p>
+              <p>寄送方式：{{data.deliveryMethod}}</p>
+              <p>付款方式：{{data.payMethod}}</p>
+              <p>付款金額：{{data.amount}}</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Row 3
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#ee4c50">
+        Row 3
+      </td>
+    </tr>
+  </table>
+</body> --}}
+
+<body>
+
+  <body style="margin: 0; padding: 0;">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+      <tr>
+        <td align="center">
+          <img
+            src="https://lh3.googleusercontent.com/J1y_PQhFwVy1I61J0u0DH_Umt7n8F1URliJ1SXXYXt-dCpYs0Ft5NZSHbNFt7RfILYcB1q6kIIrTBJL3AA3lyDY96xpV5wcQkFhjJlFu6vqVG_N6PnF9_GvNPjdTLjiA-lNXkgwufZQ=w1200"
+            alt="GreatSmileCompany" height="230" style="display: block;" />
+        </td>
+      </tr>
+      <tr>
+        <td bgcolor="#ffffff" style="padding: 0px 30px 40px 30px;">
+          <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+              <td>
+                <h3>嗨，{{user.name}}!
+                  <br>
+                  感謝你的訂購！
+                </h3>
+                <p>您的訂單({{sn}})已成立，我們將於收到款項後的三個工作天內為您出貨，您也可隨時前往個人專頁進行本次的訂單查詢。</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 20px 20px 30px 20px;">
+                <h4>訂單資訊</h4>
+                <hr>
+                <table>
+                  <tr>
+                    <td>
+                      <h6>收件人：</h6>
+                    </td>
+                    <td>
+                      <p>{{data.receiver}}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h6>收件地址：</h6>
+                    </td>
+                    <td>
+                      <p>{{data.address}}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h6>聯絡電話：</h6>
+                    </td>
+                    <td>
+                      <p>{{data.phone}}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h6>寄送方式：</h6>
+                    </td>
+                    <td>
+                      <p>{{data.deliveryMethod}}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h6>付款方式：</h6>
+                    </td>
+                    <td>
+                      <p>{{data.payMethod}}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h6>付款金額：</h6>
+                    </td>
+                    <td>
+                      <p>{{data.amount}}</p>
+                    </td>
+                  </tr>
+                </table>
+                <hr>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 0px 20px 30px 20px;">
+                <h4>出貨資訊</h4>
+                <hr>
+                <table>
+                  <tr>
+                    <td style="padding: 10px 10px 10px 10px;">
+                      <h6> </h6>
+                    </td>
+                    <td style="padding: 10px 10px 10px 10px;">
+                      <h6>名稱</h6>
+                    </td>
+                    <td style="padding: 10px 10px 10px 10px;">
+                      <h6>售價</h6>
+                    </td>
+                    <td style="padding: 10px 0px 10px 0px;text-align: center;">
+                      <h6>數量</h6>
+                    </td>
+                    <td style="padding: 10px 10px 10px 10px;text-align: end;">
+                      <h6>小計</h6>
+                    </td>
+                  </tr>
+                  {{#each data.cart.products}}
+                    <tr>
+                      <td style="padding: 10px 10px 10px 10px;">
+                        {{#each this.Images}}
+                          <img src="{{this.url}}" height="100" style="display: block; border-radius:2em" />
+                        {{/each}}
+                      </td>
+                      <td style="padding: 10px 10px 10px 10px;">
+                        <p>{{this.name}}</p>
+                      </td>
+                      <td style="padding: 10px 10px 10px 10px;">
+                        <p>{{this.price}}</p>
+                      </td>
+                      <td style="padding: 10px 10px 10px 10px;text-align: center;">
+                        <p>{{this.quantity}}</p>
+                      </td>
+                      <td style="padding: 10px 10px 10px 10px;text-align: end;">
+                        <p>{{this.amount}}</p>
+                      </td>
+                    </tr>
+                  {{/each}}
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <h6>運費</h6>
+                    </td>
+                    <td style="padding: 10px 10px 10px 10px;text-align: end;">
+                      <p>{{data.shipping}}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <h6>總價</h6>
+                    </td>
+                    <td style="padding: 10px 10px 10px 10px;text-align: end;">
+                      <p>{{data.amount}}</p>
+                    </td>
+                  </tr>
+                </table>
+                <hr>
+                <small style="padding: 10px 10px 10px 10px;text-align: end;">＊本信件為系統自動發送，請勿回信</small>
+              </td>
+            </tr>
+      </tr>
+      {{!-- <tr>
+        <td bgcolor="#ee4c50">
+          Row 3
+        </td>
+      </tr> --}}
+    </table>
+  </body>
