@@ -251,6 +251,7 @@ module.exports = {
       })
       
       // 傳遞資料給 success 頁
+      passData.id = order.id
       passData.sn = sn
       passData.createdAt = order.createdAt
       req.flash('passData', passData)
