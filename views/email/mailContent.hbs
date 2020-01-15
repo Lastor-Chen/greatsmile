@@ -1,2 +1,23 @@
-<h1>嗨{{name}}</h1>
-<p>{{sn}} 訂單已成立歐</p>
+<h1>嗨，{{user.name}}</h1>
+<p>{{sn}} 訂單已成立</p>
+<p>以下是您的出貨資訊：</p>
+<p>收件人：{{data.receiver}}</p>
+<p>收件地址：{{data.address}}</p>
+<p>聯絡電話：{{data.phone}}</p>
+<p>寄送方式：{{data.deliveryMethod}}</p>
+<p>付款方式：{{data.payMethod}}</p>
+<p>付款金額：{{data.amount}}</p>
+<hr>
+<h2>出貨資訊</h2>
+{{#each data.cart.products}}
+  {{#each this.Images}}
+    <img src="{{this.url}}" alt="{{this.name}}">
+  {{/each}}
+  <p>數量：{{this.quantity}}</p>
+  <p>售價：{{this.price}}</p>
+  <p>小計：{{this.amount}}</p>
+<hr>
+{{/each}}
+<p>運費：{{data.shipping}}</p>
+<hr>
+<h3>總價：{{data.amount}}</h3>

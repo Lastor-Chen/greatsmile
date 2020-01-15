@@ -261,7 +261,7 @@ module.exports = {
       // 清除購物車 items
       await CartItem.destroy({ where: { CartId: cart.id } })
 
-      // console.log(data)
+      // console.log(data.cart.products[0].Images[0].url)
       // return res.send('stop')
       var mail = {
         from: `大微笑商店 <${process.env.GMAIL_USER}>`,
@@ -269,10 +269,10 @@ module.exports = {
         subject: `【GreatSmile Online Shop】訂單已建立 (單號${sn})`,
         template: 'mailContent',
         context: {
-          data
+          data,
+          user: req.user
         }
       }
-      transporter.sendMail(mail);
 
       transporter.sendMail(mail, (err, info) => {
         if (err) return console.error(err)
