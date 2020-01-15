@@ -7,15 +7,12 @@ moment.locale('zh-tw')
 module.exports = {
   getPayments: async (req, res) => {
     try {
-      let inputSn = +req.query.sn      
-      let where = {}
-      if (!inputSn) {
-        return res.render('admin/payments') // 首次進入不需 Query
-      } else {
-        where.order_id = inputSn
-      }
+      const inputSn = +req.query.sn
 
-      const payments = await Payment.findAll({ where })
+      // 首次進入不需 Query
+      if (!inputSn) return res.render('admin/payments')
+
+      const payments = await Payment.findAll({ where: { OrderId: inputSn } })
       const showSn = req.query.sn
       
       // 確認是否有此筆訂單
