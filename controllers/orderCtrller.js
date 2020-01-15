@@ -269,6 +269,7 @@ module.exports = {
         subject: `【GreatSmile Online Shop】訂單已建立 (單號${sn})`,
         template: 'mailContent',
         context: {
+          sn,
           data,
           user: req.user
         }
