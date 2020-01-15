@@ -170,7 +170,10 @@ module.exports = {
           Image.create(img)
         }
       }
-      res.redirect('/admin/products')
+
+      const id = newProduct.id
+      res.redirect(`/admin/products/${id}/edit`)
+
     } catch (err) {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
@@ -300,7 +303,8 @@ module.exports = {
         const mainImg = await Image.findByPk(mainImgId)
         await mainImg.update({ isMain: true })
       }
-      res.redirect('/admin/products')
+      res.redirect(`/admin/products/${id}/edit`)
+      
     } catch (err) {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
