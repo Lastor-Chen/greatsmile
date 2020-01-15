@@ -81,7 +81,7 @@
                       <p style="font-weight:bold;">付款金額：</p>
                     </td>
                     <td>
-                      <p>{{data.amount}} NTD</p>
+                      <p>{{addDot data.amount}} NTD</p>
                     </td>
                   </tr>
                 </table>
@@ -127,13 +127,13 @@
                         <p>{{this.name}}</p>
                       </td>
                       <td style="padding: 10px 10px 10px 10px;">
-                        <p>{{this.price}}</p>
+                        <p>{{addDot this.price}}</p>
                       </td>
                       <td style="padding: 10px 10px 10px 10px;text-align: center;">
                         <p>{{this.quantity}}</p>
                       </td>
                       <td style="padding: 10px 10px 10px 10px;text-align: end;">
-                        <p>{{this.amount}}</p>
+                        <p>{{addDot this.amount}}</p>
                       </td>
                     </tr>
                   {{/each}}
@@ -145,7 +145,7 @@
                       <h6>運費</h6>
                     </td>
                     <td style="padding: 10px 10px 10px 10px;text-align: end;">
-                      <p>{{data.shipping}}</p>
+                      <p>{{addDot data.shipping}}</p>
                     </td>
                   </tr>
                   <tr>
@@ -156,7 +156,7 @@
                       <h6>總價</h6>
                     </td>
                     <td style="padding: 10px 10px 10px 10px;text-align: end;">
-                      <p>{{data.amount}}</p>
+                      <p>{{addDot data.amount}}</p>
                     </td>
                   </tr>
                 </table>

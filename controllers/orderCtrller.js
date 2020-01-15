@@ -14,7 +14,7 @@ const HashKey = process.env.HASH_KEY
 const HashIV = process.env.HASH_IV
 
 // mailer 設定
-var hbs = require('nodemailer-express-handlebars')
+const hbs = require('nodemailer-express-handlebars')
 
 
 const transporter = nodemailer.createTransport({
@@ -25,13 +25,6 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-// const options = {
-//   extName: '.hbs', 
-//   viewPath: __dirname + '/views/email/',
-//   layoutsDir: __dirname + '/view/email',
-//   defaultLayout: 'template',
-//   partialsDir: __dirname + '/views/email/partials/'
-// }
 
 const options = {
   viewEngine: {
@@ -39,10 +32,11 @@ const options = {
     partialsDir: '/views/email/',
     layoutsDir: '/view/email',
     defaultLayout: '',
+    helpers: require('../lib/hbs_helpers.js')
   },
   viewPath: './views/email/',
   extName: '.hbs',
-};
+}
 
 transporter.use('compile', hbs(options))
 
