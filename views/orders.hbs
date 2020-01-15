@@ -24,11 +24,11 @@
                   <table>
                     <tbody>
                       <tr>
-                        <td class="accordion-thead">{{this.sn}}
-                          {{#if this.payStatus}}
-                          {{else}}
-                          <small class="text-danger font-weight-bold d-block">(未付款)</small>
-                          {{/if}}
+                        <td class="accordion-thead">
+                          <span>{{this.sn}}</span>
+                          {{#unless this.payStatus}}
+                            <small class="text-danger font-weight-bold d-block">(未付款)</small>
+                          {{/unless}}
                         </td>
                         <td class="accordion-thead">{{this.createdTime}}</td>
                         <td class="accordion-thead">NTD {{addDot this.amount}}</td>
