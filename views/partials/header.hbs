@@ -61,21 +61,12 @@
         <li class="nav-item">
           <a class="nav-link py-3 {{#if isAllProducts}}active{{/if}}" href="/products">製品一覽</a>
         </li>
+        {{#each categoryBar}}
         <li class="nav-item">
-          <a class="nav-link py-3 {{#ifEqual categoryQuery 'Figure'}}active{{/ifEqual}}"
-            href="/products?category=Figure">Figure</a>
+          <a class="nav-link py-3 {{#ifEqual ../categoryQuery this.name}}active{{/ifEqual}}"
+            href="/products?category={{this.name}}">{{this.name}}</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link py-3 {{#ifEqual categoryQuery '豆丁人'}}active{{/ifEqual}}" href="/products?category=豆丁人">豆丁人</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link py-3 {{#ifEqual categoryQuery 'Figma'}}active{{/ifEqual}}"
-            href="/products?category=Figma">Figma</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link py-3 {{#ifEqual categoryQuery '組裝模型(仮)'}}active{{/ifEqual}}"
-            href="/products?category=組裝模型(仮)">組裝模型(仮)</a>
-        </li>
+        {{/each}}
         <li class="nav-item">
           <form class="px-3" action="/search" method="GET">
             <div class="input-group">
