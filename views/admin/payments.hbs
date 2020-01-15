@@ -1,0 +1,46 @@
+<main class="container">
+  <div class="card-body pt-4">
+    <div class="row my-3">
+      <form action="/admin/payments" method="GET" class="col-md-3 mb-3">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" name="sn" placeholder="請輸入訂單編號(SN)" value="{{showSn}}">
+          <div class="input-group-append">
+            <button class="btn btn-secondary" type="submit" id="button-addon2">訂單查詢</button>
+          </div>
+        </div>
+      </form>
+      <div class="col-md-9">
+        {{#if error}}
+          {{> alert}}
+        {{/if}}
+      </div>
+    </div>
+
+    <table data-toggle="table" data-pagination="true" id="table">
+      <thead>
+        <tr>
+          <th data-valign="middle" class="text-center" data-sortable="true">#</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">SN</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">付款狀態</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">狀態代碼</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">藍新交易序號</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">商店交易序號</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">付款時間</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each payments}}
+          <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.SN}}</td>
+            <td>{{this.msg}}</td>
+            <td>{{this.code}}</td>
+            <td>{{this.tradeNo}}</td>
+            <td>{{this.orderNo}}</td>
+            <td>{{this.payDate}}</td>
+          </tr>
+        {{/each}}  
+      </tbody>
+    </table>
+  </div>
+</main>
