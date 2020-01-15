@@ -133,6 +133,9 @@ module.exports = {
 
   getProduct: async (req, res) => {
     try {
+      // 取得 navbar 分類
+      const categoryBar = await getCategoryBar(req)
+      
       const product = await Product.findOne({ 
         // 只取上架中商品
         where: { 'id': +req.params.id, 'status': true },
@@ -157,7 +160,7 @@ module.exports = {
       product.category = product.Category.name
 
       res.render('product', { 
-        css: 'product', js: 'product', product,
+        css: 'product', js: 'product', product, categoryBar,
         useSlick: true, useLightbox: true
       })
 
