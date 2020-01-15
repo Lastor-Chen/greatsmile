@@ -172,6 +172,7 @@ module.exports = {
       }
 
       const id = newProduct.id
+      req.flash('success', '成功建立商品！')
       res.redirect(`/admin/products/${id}/edit`)
 
     } catch (err) {
@@ -303,8 +304,10 @@ module.exports = {
         const mainImg = await Image.findByPk(mainImgId)
         await mainImg.update({ isMain: true })
       }
-      res.redirect(`/admin/products/${id}/edit`)
       
+      req.flash('success', '成功更新資料！')
+      res.redirect(`/admin/products/${id}/edit`)
+
     } catch (err) {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
