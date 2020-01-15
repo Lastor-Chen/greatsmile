@@ -14,6 +14,9 @@ const HashKey = process.env.HASH_KEY
 const HashIV = process.env.HASH_IV
 
 // mailer 設定
+var hbs = require('nodemailer-express-handlebars')
+
+
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -21,6 +24,27 @@ const transporter = nodemailer.createTransport({
     pass: process.env.GMAIL_KEY
   }
 })
+
+// const options = {
+//   extName: '.hbs', 
+//   viewPath: __dirname + '/views/email/',
+//   layoutsDir: __dirname + '/view/email',
+//   defaultLayout: 'template',
+//   partialsDir: __dirname + '/views/email/partials/'
+// }
+
+const options = {
+  viewEngine: {
+    extName: '.hbs',
+    partialsDir: '/views/email/',
+    layoutsDir: '/view/email',
+    defaultLayout: '',
+  },
+  viewPath: './views/email/',
+  extName: '.hbs',
+};
+
+transporter.use('compile', hbs(options))
 
 module.exports = {
   async getOrders(req, res) {
@@ -237,15 +261,20 @@ module.exports = {
       // 清除購物車 items
       await CartItem.destroy({ where: { CartId: cart.id } })
 
-      // send Email
-      const mailOptions = {
+      // console.log(data)
+      // return res.send('stop')
+      var mail = {
         from: `大微笑商店 <${process.env.GMAIL_USER}>`,
         to: req.user.email,
         subject: `【GreatSmile Online Shop】訂單已建立 (單號${sn})`,
-        text: `${sn} 訂單已成立`
+        template: 'mailContent',
+        context: {
+          data
+        }
       }
+      transporter.sendMail(mail);
 
-      transporter.sendMail(mailOptions, (err, info) => {
+      transporter.sendMail(mail, (err, info) => {
         if (err) return console.error(err)
         console.log(`Email sent: ${info.response}`)
       })
