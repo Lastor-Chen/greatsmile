@@ -155,7 +155,7 @@ module.exports = {
           ProductId: newProduct.id,
           isMain: true
         }
-        Image.create(mainImg)
+        await Image.create(mainImg)
 
         //移除第一筆後全寫入
         files.shift()
@@ -295,9 +295,7 @@ module.exports = {
         }
 
         const mainImg = await Image.findByPk(mainImgId)
-        await mainImg.update({
-          isMain: true
-        }).then(function () { })
+        await mainImg.update({ isMain: true })
       }
       res.redirect('/admin/products')
     } catch (err) {
