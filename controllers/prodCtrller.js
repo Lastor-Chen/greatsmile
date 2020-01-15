@@ -9,10 +9,14 @@ moment.locale('zh-tw')
 
 const pageLimit = 30
 const { genQueryString } = require('../lib/tools.js')
+const { getCategoryBar} = require('../lib/category.js')
 
 module.exports = {
   getProducts: async (req, res) => {
     try {
+      // 取得 navbar 分類
+      const categoryBar = await getCategoryBar(req)
+
       // 排序條件，預設為 ['releaseDate', 'DESC']
       const sort = req.query.sort || 'releaseDate'
       const orderBy = req.query.order || 'DESC'
@@ -118,7 +122,7 @@ module.exports = {
       res.render('products', { 
         js: 'products',
         css: 'products',
-        getProducts, selectedSort, searchQuery, bread, pagesArray, queryString, categoryQuery, tagQuery, page, prev, next, isAllProducts
+        getProducts, selectedSort, searchQuery, bread, pagesArray, queryString, categoryQuery, tagQuery, page, prev, next, isAllProducts, categoryBar
       })
 
     } catch (err) {
