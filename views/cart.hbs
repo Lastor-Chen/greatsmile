@@ -46,28 +46,39 @@
                       {{/if}}
               
                     </div>
+
+                  </div>
+                </div>
+                <div class="col-md-5 font-format px-0">
+                  <div class="d-flex justify-content-between align-items-center note-flag">
+                    <div class="col-4">
+                      <span>NTD {{this.priceFormat}}</span>
+                    </div>
+                    <div class="col-4">
+                      <span>
+                        <div class="d-flex align-items-center item-quantity">
+                          <button type="submit" class="btn btn-sm btn-outline-secondary btn-sub">-</button>
+                          <input type="number" min="0" max="3" class="productQty" form="updateFrom{{this.CartItem.id}}" name="productQty"
+                            value="{{this.CartItem.quantity}}">
+                          <button type="submit" class="btn btn-sm btn-outline-secondary btn-add">+</button>
+                        </div>
+                        </span>
+                    </div>
+                    <div class="col-4 text-right">
+                      <span>NTD {{this.subPriceFormat}}</span>
+                    </div>
+                  </div>
+                  <p class="note text-center"></p> {{!-- 提醒訊息 --}}
+                  <div class="text-center">
                     <form action="/cart/cartItem/{{this.CartItem.id}}/delete?_method=DELETE" method="POST" class="d-inline-block">
                       <button type="submit" class="btn product-btn px-0 pt-1">刪除</button>
                     </form>
                     <span> | </span>
-                    <form action="/cart/cartItem/{{this.CartItem.id}}/update?_method=PUT" method="POST" id="updateFrom{{this.CartItem.id}}" class="d-inline-block">
+                    <form action="/cart/cartItem/{{this.CartItem.id}}/update?_method=PUT" method="POST" id="updateFrom{{this.CartItem.id}}"
+                      class="d-inline-block">
                       <button type="submit" class="btn product-btn px-0 pt-1">更新</button>
                     </form>
                   </div>
-                </div>
-                <div class="col-5 font-format">
-                  <div class="d-flex justify-content-between align-items-center note-flag">
-                    <span>NTD {{this.priceFormat}}</span>
-                    <span>
-                      <div class="d-flex align-items-center item-quantity">
-                        <button type="submit" class="btn btn-sm btn-outline-secondary btn-sub">-</button>
-                        <input type="number" min="0" max="3" class="productQty" form="updateFrom{{this.CartItem.id}}" name="productQty" value="{{this.CartItem.quantity}}">
-                        <button type="submit" class="btn btn-sm btn-outline-secondary btn-add">+</button>
-                      </div>
-                    </span>
-                    <span>NTD {{this.subPriceFormat}}</span>
-                  </div>
-                  <p class="note text-center pt-2"></p> {{!-- 提醒訊息 --}}
                 </div>
               </div>
               <hr>
