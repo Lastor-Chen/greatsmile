@@ -86,10 +86,8 @@
                   <td class="p-0 text-center">
                     <div class="collapse row" id="collapse_{{this.id}}" data-parent="#accordionEdit">
                       <input hidden type="file" class="inputImg" id="imageEdit_{{this.id}}" name="image" form="edit_{{this.id}}">
-                      <img class="rounded ml-3 d-block editImg" src="" style="height:40px">
-                      <label for="imageEdit_{{this.id}}" class="mx-auto my-auto">
-                        <i class="fas fa-upload btn btn-light my-1 py-2"></i>
-                      </label>
+                      <img class="rounded mx-auto d-block editImg" src="" style="height:50px">
+
                     </div>
                   </td>
                   <td class="p-0">
@@ -104,7 +102,10 @@
                   </td>
                   <td class="p-0">
                     <div class="collapse text-center" id="collapse_{{this.id}}" data-parent="#accordionEdit">
-                      <button type="submit" class="btn btn-outline-dark mb-2 mt-1 px-4" form="edit_{{this.id}}">
+                      <label for="imageEdit_{{this.id}}" class="mx-auto my-auto">
+                        <i class="fas fa-upload btn btn-light mb-1 py-2"></i>
+                      </label>
+                      <button type="submit" class="btn btn-outline-dark mb-2 mt-1 px-3 ml-2" form="edit_{{this.id}}">
                         <i class="fas fa-level-down-alt fa-rotate-90"></i>
                       </button>
                     </div>
