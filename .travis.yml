@@ -17,3 +17,13 @@ before_install:
 # 在執行測試之前的指令
 before_script:
   - sequelize db:migrate
+
+# 自動化佈署
+deploy:
+  provider: heroku
+  api_key:
+    secure: $HEROKU_KEY
+  app:
+    master: greatsmile
+  on:
+    repo: Lastor-Chen/greatsmile
