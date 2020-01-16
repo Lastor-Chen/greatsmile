@@ -25,12 +25,13 @@ module.exports = {
       // Category 
       const where = { status: 1 }
       const categoryQuery = req.query.category
-      const categoryId = {
-        'Figure': 1,
-        '豆丁人': 2,
-        'Figma': 3,
-        '組裝模型(仮)': 4
-      }
+      const categoryId = {}
+      categoryBar.forEach(item=>{
+        const key = item.name
+        const val = item.id
+        categoryId[key] = val
+      })
+
       if (categoryQuery) {
         where.category_id = categoryId[categoryQuery]
       }
