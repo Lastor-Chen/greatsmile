@@ -359,6 +359,8 @@ module.exports = {
       const image = await Image.findByPk(req.params.id)
       const redirectUrl = `/admin/products/${image.ProductId}/edit`
       await image.destroy()
+
+      req.flash('success', '圖片刪除成功！')
       res.redirect(redirectUrl)
 
     } catch (err) {
