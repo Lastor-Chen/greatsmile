@@ -1,8 +1,10 @@
 const db = require('../../models')
 const { Product, Category, Series, Image, Tag, TagItem } = db
 const moment = require('moment')
+
 const imgur = require('imgur')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
+imgur.setClientId(IMGUR_CLIENT_ID)
 
 const {checkProduct} = require('../../lib/checker.js')
 
@@ -151,7 +153,6 @@ module.exports = {
 
       //寫入Image
       if (files) {
-        imgur.setClientId(IMGUR_CLIENT_ID)
         const mainImg = {
           url: (await imgur.uploadFile(files[0].path)).data.link,
           ProductId: newProduct.id,
@@ -162,7 +163,6 @@ module.exports = {
         //移除第一筆後全寫入
         files.shift()
         for (const file of files) {
-          imgur.setClientId(IMGUR_CLIENT_ID)
           const img = {
             url: (await imgur.uploadFile(file.path)).data.link,
             ProductId: newProduct.id,
@@ -279,7 +279,6 @@ module.exports = {
       const { files } = req
       if (files) {
         for (const file of files) {
-          imgur.setClientId(IMGUR_CLIENT_ID)
           const img = {
             url: (await imgur.uploadFile(file.path)).data.link,
             ProductId: id,
