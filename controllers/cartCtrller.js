@@ -1,8 +1,7 @@
 const db = require('../models')
-const Product = db.Product
-const Cart = db.Cart
-const CartItem = db.CartItem
+const { Product, Cart, CartItem} = db
 
+const Op = require('sequelize').Op
 const moment = require('moment')
 moment.locale('zh-tw')
 
@@ -32,7 +31,14 @@ module.exports = {
       }
       const totalPriceFormat = totalPrice.toLocaleString()
 
-      res.render('cart', { cart, cartProducts, totalPriceFormat, css: 'cart', js: 'cart'})
+      // 取得登入時 setCart 傳遞之 message
+      const msg = req.flash('msg')
+
+      res.render('cart', {
+        cart, cartProducts, totalPriceFormat, 
+        success: msg,
+        css: 'cart', js: 'cart'
+      })
 
     } catch (err) {
       console.error(err)
@@ -51,6 +57,7 @@ module.exports = {
 
       // 確認 client 是否已有 Cart，若無就給一個
       const [cart] = await Cart.findOrCreate({ where: { id: cartId } })
+      if (!cart.UserId && req.user) { await cart.update({ UserId: req.user.id }) }
 
       // 發 session 紀錄用戶是哪台 cart
       req.session.cartId = cart.id
@@ -155,6 +162,88 @@ module.exports = {
       return res.redirect('back')
 
     } catch(err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  },
+
+  setCart: async (req, res) => {
+    try {
+      /**
+       * 登入時合併購物車，有四種情況：
+       * 該 User 原本有車 > 訪客沒車
+       *                 > 訪客有車
+       * 該 User 原本沒車 > 訪客沒車
+       *                 > 訪客有車
+       */
+      const CartId = req.session.cartId || null
+      const UserId = req.user.id
+
+      // 找出 User 車、visitor 車
+      const [userCart, visitCart] = await Promise.all([
+        Cart.findOne({ where: { UserId },
+          include: { association: 'products', attributes: ['name'] }
+        }),
+        Cart.findOne({ where: { id: CartId },
+          include: { association : 'products', attributes: ['id', 'inventory'] }
+        })
+      ])
+
+      // 無持有購物車
+      if (!userCart && !visitCart) return res.redirect('/admin')
+
+      // User 原本沒車
+      if (!userCart) { await visitCart.update({ UserId }) }
+
+      // User 原本有車
+      if (userCart) {
+        // 訪客登入有帶車
+        if (visitCart) {
+          // 商品併入 user 購物車
+          visitCart.products.forEach(async prod => {
+            try {
+              // 無相同商品時，Create
+              const [cartItem, wasCreated] = await CartItem.findOrCreate({
+                where: { CartId: userCart.id, product_id: prod.id },
+                defaults: { quantity: prod.CartItem.quantity }
+              })
+
+              // 有相同商品時，update quantity
+              if (!wasCreated) {
+                // 限購 3 件
+                let quantity = cartItem.quantity + prod.CartItem.quantity
+                if (quantity > 3) { quantity = 3 }
+
+                // 確認庫存
+                const inventory = prod.inventory
+                if (quantity > inventory) { quantity = inventory }
+
+                await cartItem.update({ quantity })
+              }
+            } catch (err) { console.error(err) }
+          })
+
+          // 移除訪客購物車
+          await visitCart.destroy()
+        }
+
+        // 換成 user 車
+        req.session.cartId = userCart.id
+
+        // 提示訊息
+        if (userCart.products.length) {
+          let msg = '上回登入時選購的商品，已併入購物車'
+          userCart.products.forEach(prod => {
+            msg += `\n${prod.name}`
+          })
+
+          req.flash('msg', msg)
+        }
+      }
+
+      res.redirect('/admin')
+
+    } catch (err) {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
     }

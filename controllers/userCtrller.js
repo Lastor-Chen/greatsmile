@@ -45,16 +45,29 @@ module.exports = {
     // 判斷來源頁面
     const from = req.body.from || ''
 
-    passport.authenticate('local', {
-      successRedirect: from ? '/orders/checkout' : '/admin',
-      successFlash: true,
-      failureRedirect: `/users/signin${from}`,
-      failureFlash: true,
-      badRequestMessage: '請輸入 Email 與 Password'
+    const option = {
+      badRequestMessage: '請輸入 Email 與 Password',
+    }
+
+    passport.authenticate('local', option, async (err, user, info) => {
+      if (err) return console.error(err)
+      if (!user) {
+        req.flash('error', info.message)
+        return res.redirect(`/users/signin${from}`)
+      }
+
+      req.logIn(user, err => {
+        if (err) return console.error(err)
+        next()
+      })
     })(req, res, next)
   },
 
-  signOut: (req, res) => {
+  signOut: async (req, res) => {
+    // 歸還購物車
+    delete req.session.cartId
+    await req.session.save()
+
     req.logout()
     res.redirect('/')
   },
