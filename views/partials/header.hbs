@@ -28,10 +28,10 @@
           <a class="nav-link py-4 {{#if isAllProducts}}active{{/if}}" href="/products">製品一覽</a>
         </li>
         {{#each categoryBar}}
-        <li class="nav-item px-3">
-          <a class="nav-link py-4 {{#ifEqual ../categoryQuery this.name}}active{{/ifEqual}}"
-            href="/products?category={{this.name}}">{{this.name}}</a>
-        </li>
+          <li class="nav-item px-3">
+            <a class="nav-link py-4 {{#ifEqual ../categoryQuery this.name}}active{{/ifEqual}}"
+              href="/products?category={{this.name}}">{{this.name}}</a>
+          </li>
         {{/each}}
       </ul>
     </div>

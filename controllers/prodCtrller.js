@@ -9,7 +9,7 @@ moment.locale('zh-tw')
 
 const pageLimit = 30
 const { genQueryString } = require('../lib/tools.js')
-const { getCategoryBar} = require('../lib/category.js')
+const { getCategoryBar } = require('../lib/category.js')
 
 module.exports = {
   getProducts: async (req, res) => {
@@ -26,7 +26,7 @@ module.exports = {
       const where = { status: 1 }
       const categoryQuery = req.query.category
       const categoryId = {}
-      categoryBar.forEach(item=>{
+      categoryBar.forEach(item => {
         const key = item.name
         const val = item.id
         categoryId[key] = val
