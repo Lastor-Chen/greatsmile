@@ -1,6 +1,11 @@
 <main class="container">
   <div class="card-body pt-4">
     {{> alert}}
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <a class="btn btn-secondary {{#ifEqual mode "uncancel"}} active{{/ifEqual}}" href="orders?mode=uncancel">未取消訂單</a>
+      <a class="btn btn-secondary {{#ifEqual mode "cancel"}} active{{/ifEqual}}" href="orders?mode=cancel">已取消訂單</a>
+      <a class="btn btn-secondary {{#ifEqual mode "all"}} active{{/ifEqual}}" href="orders">全部訂單</a>
+    </div>
     <table data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true" id="table">
       <thead>
         <tr>
