@@ -19,8 +19,7 @@ const props = [
 describe('# User Model', () => {
   propTest(UserModel, 'User', props)
   assnTest(UserModel, [
-    ['hasMany', 'Order'],
-    ['hasMany', 'Post']
+    ['hasMany', 'Order']
   ])
   actionTest(db.User)
 })
