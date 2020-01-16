@@ -5,34 +5,46 @@
         <div class="alertBlock mb-2">
           {{> alert}}
         </div>
-        <form class="form-inline d-flex justify-content-end" action="/admin/series" method="POST">
-          <div class="form-group mx-sm-3 mb-2 mt-1">
-            <input type="text" class="form-control" name="name" placeholder="輸入新作品別..." required>
+        <form class="form-inline d-flex justify-content-end" action="/admin/gifts" method="POST" enctype="multipart/form-data" id="newGift">
+          <div class="d-flex align-items-center justify-content-center">
+            <img class="rounded mx-auto d-block" id="preview_img" name="preview_img" src="" style="height:40px">
+            <label for="image">
+                <i class="fas fa-upload btn btn-light ml-2 mb-1 py-2"></i>
+            </label>
+            <input hidden type="file" id="image" name="image" form="newGift">
           </div>
-          <button type="submit" class="btn btn-primary mb-2 mt-1">新增作品別</button>
+          <div class="form-group mx-sm-2 mb-2 mt-1 ml-sm-1">
+            <input type="text" class="form-control input-center" name="name" placeholder="輸入新特典..." required>
+          </div>
+          <button type="submit" class="btn btn-primary mb-2 mt-1" id="">新增特典</button>
         </form>
         <div class="accordion mb-5" id="accordionEdit">
           <table data-toggle="table" id="table">
             <thead>
               <tr>
                 <th data-valign="middle" class="text-center" data-sortable="true" data-width="30">#</th>
-                <th data-valign="middle" class="text-center" data-sortable="true" data-width="200">作品別名稱</th>
-                <th data-valign="middle" class="text-center" data-width="150">作品別操作</th>
+                <th data-valign="middle" class="text-center" data-sortable="true" data-width="50">特典圖片</th>
+                <th data-valign="middle" class="text-center" data-sortable="true" data-width="300">特典名稱</th>
+                <th data-valign="middle" class="text-center" data-width="150">特典操作</th>
               </tr>
             </thead>
             <tbody>
-              {{#each series}}
+              {{#each gifts}}
                 <tr>
                   <td>{{this.id}}</td>
+                  <td>
+                    <img src="{{this.image}}" title="{{this.name}}" class="rounded mx-auto d-block" alt="giftImage"
+                      style="height:50px">
+                  </td>
                   <td>{{this.name}}</td>
                   <td>
                     <button class="text-decoration-none btn btn-outline-dark mx-1" type="button" data-toggle="collapse"
                       data-target="#collapse_{{this.id}}">
-                      <i class="fas fa-edit" title="編輯作品別資料"></i>
+                      <i class="fas fa-edit" title="編輯特典資料"></i>
                     </button>
                     <!-- Delete Button trigger modal -->
                     <button type="button" class="btn btn-outline-dark font-weight-normal mx-1" data-toggle="modal"
-                      data-target="#delete_{{this.id}}" title="刪除此作品別">
+                      data-target="#delete_{{this.id}}" title="刪除此特典">
                       <i class="far fa-trash-alt" aria-hidden="true"></i>
                     </button>
                   </td>
@@ -51,12 +63,11 @@
                           <h5 class="modal-title ml-3" id="ModalScrollable{{this.id}}Title">
                             {{this.name}}</h5>
                           </br>
-                          <h5 class="text-danger text-right">你真的要刪除這則作品別嗎？</h5>
+                          <h5 class="text-danger text-right">你真的要刪除這項特典嗎？</h5>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                          <form action="/admin/series/{{this.id}}?_method=DELETE" method="POST"
-                            style="display: inline;">
+                          <form action="/admin/gifts/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
                             <button type="submit" class="btn btn-outline-danger font-weight-normal">確認刪除
                             </button>
                           </form>
@@ -72,20 +83,29 @@
                       <i class="fas fa-pen"></i>
                     </div>
                   </td>
+                  <td class="p-0 text-center">
+                    <div class="collapse row" id="collapse_{{this.id}}" data-parent="#accordionEdit">
+                      <input hidden type="file" class="inputImg" id="imageEdit_{{this.id}}" name="image" form="edit_{{this.id}}">
+                      <img class="rounded mx-auto d-block editImg" src="" style="height:50px">
+
+                    </div>
+                  </td>
                   <td class="p-0">
                     <div class="collapse" id="collapse_{{this.id}}" data-parent="#accordionEdit">
-                      <form class="" action="/admin/series/{{this.id}}?_method=PUT" method="POST"
-                        id="edit_{{this.id}}">
+                      <form class="" action="/admin/gifts/{{this.id}}?_method=PUT" method="POST" id="edit_{{this.id}}" enctype="multipart/form-data">
                         <div class="form-group mx-sm-3 mb-2 mt-1">
-                          <input type="text" class="form-control" name="name" placeholder="輸入作品別名稱..."
-                            value={{this.name}} required>
+                          <input type="text" class="form-control input-center" name="name" placeholder="輸入特典名稱..."
+                            value='{{this.name}}' required>
                         </div>
                       </form>
                     </div>
                   </td>
                   <td class="p-0">
                     <div class="collapse text-center" id="collapse_{{this.id}}" data-parent="#accordionEdit">
-                      <button type="submit" class="btn btn-outline-dark mb-2 mt-1 px-4" form="edit_{{this.id}}">
+                      <label for="imageEdit_{{this.id}}" class="mx-auto my-auto">
+                        <i class="fas fa-upload btn btn-light mb-1 py-2"></i>
+                      </label>
+                      <button type="submit" class="btn btn-outline-dark mb-2 mt-1 px-3 ml-2" form="edit_{{this.id}}">
                         <i class="fas fa-level-down-alt fa-rotate-90"></i>
                       </button>
                     </div>

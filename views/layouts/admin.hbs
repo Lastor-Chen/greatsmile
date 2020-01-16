@@ -50,6 +50,9 @@
         <li class="nav-item">
           <a class="nav-link {{#ifEqual path '/payments'}}active{{/ifEqual}}" href="/admin/payments">交易紀錄</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link {{#ifEqual path '/gifts'}}active{{/ifEqual}}" href="/admin/gifts">特典</a>
+        </li>
         <br>
       </ul>
       <a class="btn btn-outline-secondary ml-3" href="/users/signout">登出</a>
@@ -68,6 +71,9 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"></script>
     <script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
+      {{#if js}}
+        <script src="/js/{{js}}.js"></script>
+      {{/if}}
   </import>
   {{#if js}}
     <script src="/js/{{js}}.js"></script>
