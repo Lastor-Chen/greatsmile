@@ -59,7 +59,7 @@ module.exports = {
         })
       ])
 
-      res.render('admin/new', { categories, series, tag })
+      res.render('admin/prodNew', { categories, series, tag })
 
     } catch (err) {
       console.error(err)
@@ -189,7 +189,7 @@ module.exports = {
         order: [['id', 'ASC']]
       })
 
-      res.render('admin/edit', {
+      res.render('admin/prodEdit', {
         product,
         categories,
         series,
