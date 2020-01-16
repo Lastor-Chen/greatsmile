@@ -7,6 +7,8 @@ const { isAuth } = require('../middleware/auth.js')
 const { newebpayCb } = require('../controllers/orderCtrller.js')
 const { getHome } = require('../controllers/homeCtrller.js')
 
+const { getCategoryBar } = require('../middleware/category.js')
+
 module.exports = app => {
   app.use('/admin', require('./admin/index.js'))
   app.post('/newebpay/callback', newebpayCb)  // 金流API callback
@@ -17,6 +19,6 @@ module.exports = app => {
   app.use('/orders', isAuth, require('./orders.js'))
   app.use('/users', require('./users.js'))
 
-  app.get('/', getHome)
+  app.get('/', getCategoryBar, getHome)
   app.get('/search', require('../controllers/prodCtrller').getProducts)
 }
