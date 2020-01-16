@@ -101,8 +101,11 @@ module.exports = {
     }
   },
 
-  getCheckout(req, res) {
+  async getCheckout(req, res) {
     try {
+      // 取得 navbar 分類
+      const categoryBar = await getCategoryBar(req)
+
       const data = req.flash('passData')[0]
 
       // 無 passData，阻擋退回
@@ -110,7 +113,7 @@ module.exports = {
       req.flash('passData', data)
 
       const view = req.path.slice(1)
-      res.render(view, { css: 'checkout', js: 'checkout', data, view })
+      res.render(view, { css: 'checkout', js: 'checkout', data, view, categoryBar })
 
     } catch (err) {
       console.error(err)
@@ -270,6 +273,9 @@ module.exports = {
 
   async getSuccess(req, res) {
     try {
+      // 取得 navbar 分類
+      const categoryBar = await getCategoryBar(req)
+
       // 阻擋非經由 postOrder 進入的請求
       const isCreated = req.flash('isCreated')[0]
       if (!isCreated) return res.redirect('/orders')
@@ -281,7 +287,7 @@ module.exports = {
       // 付款期限三天 (臨時)
       const paymentTerms = moment(data.createdAt).add(3, 'days').format('YYYY/MM/DD') + ' 23:59:59'
 
-      res.render('success', { css: 'success', data, orderDate, paymentTerms })
+      res.render('success', { css: 'success', data, orderDate, paymentTerms, categoryBar })
 
     } catch (err) {
       console.error(err)
