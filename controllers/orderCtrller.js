@@ -7,6 +7,7 @@ moment.locale('zh-tw')
 
 const { checkCheckout1 } = require('../lib/checker.js')
 const { aesDecrypt } = require('../lib/tools.js')
+const { getCategoryBar } = require('../lib/category.js')
 const getTradeInfo = require('../config/newebpay.js')
 
 // 藍新金流
@@ -25,6 +26,9 @@ const transporter = nodemailer.createTransport({
 module.exports = {
   async getOrders(req, res) {
     try {
+      // 取得 navbar 分類
+      const categoryBar = await getCategoryBar(req)
+
       const orders = await Order.findAll({
         where: { user_id: req.user.id },
         order: [['id', 'DESC']],
@@ -43,7 +47,7 @@ module.exports = {
           product.subPrice = product.OrderItem.quantity * product.OrderItem.price
         })
       })
-      res.render('orders', { orders, css: 'profile' })
+      res.render('orders', { orders, categoryBar, css: 'profile' })
 
     } catch (err) {
       console.error(err)
