@@ -172,9 +172,8 @@ module.exports = {
         }
       }
 
-      const id = newProduct.id
       req.flash('success', '成功建立商品！')
-      res.redirect(`/admin/products/${id}/edit`)
+      res.redirect(`/admin/products`)
 
     } catch (err) {
       console.error(err)
