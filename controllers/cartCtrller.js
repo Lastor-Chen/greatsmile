@@ -6,9 +6,14 @@ const CartItem = db.CartItem
 const moment = require('moment')
 moment.locale('zh-tw')
 
+const { getCategoryBar } = require('../lib/category.js')
+
 module.exports = {
   getCart: async (req, res) => {
     try {
+      // 取得 navbar 分類
+      const categoryBar = await getCategoryBar(req)
+
       let cart = await Cart.findByPk(req.session.cartId, {
         include: [{
           model: Product, as: 'products',
@@ -32,7 +37,7 @@ module.exports = {
       }
       const totalPriceFormat = totalPrice.toLocaleString()
 
-      res.render('cart', { cart, cartProducts, totalPriceFormat, css: 'cart', js: 'cart'})
+      res.render('cart', { cart, cartProducts, totalPriceFormat, categoryBar, css: 'cart', js: 'cart'})
 
     } catch (err) {
       console.error(err)
