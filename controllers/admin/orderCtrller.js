@@ -124,7 +124,7 @@ module.exports = {
       await order.save()
       
       req.flash('success', '已取消該筆訂單')
-      res.redirect('/admin/orders')
+      res.redirect('/admin/orders?mode=uncancel')
       
     } catch (err) {
       console.error(err)
