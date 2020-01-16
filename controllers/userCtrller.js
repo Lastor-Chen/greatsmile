@@ -4,6 +4,7 @@ const db = require('../models')
 const { User } = db
 
 const { checkSignUp } = require('../lib/checker.js')
+const { getCategoryBar } = require('../lib/category.js')
 
 module.exports = {
   signUp: async (req, res, next) => {
@@ -35,10 +36,19 @@ module.exports = {
     }
   },
 
-  getSignIn: (req, res) => {
-    // 判斷來源頁面
-    const isCheckout = req.path.includes('checkout')
-    res.render('sign', { isCheckout, css: 'sign', js: 'sign'})
+  getSignIn: async (req, res) => {
+    try{
+      // 取得 navbar 分類
+      const categoryBar = await getCategoryBar(req)
+
+      // 判斷來源頁面
+      const isCheckout = req.path.includes('checkout')
+      res.render('sign', { isCheckout, categoryBar, css: 'sign', js: 'sign' })
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+    
   },
 
   signIn: (req, res, next) => {
@@ -59,7 +69,15 @@ module.exports = {
     res.redirect('/')
   },
 
-  getProfile: (req, res) => {
-    res.render('profile', { css: 'profile' })
+  getProfile: async (req, res) => {
+    try {
+    // 取得 navbar 分類
+    const categoryBar = await getCategoryBar(req)
+    
+    res.render('profile', { css: 'profile', categoryBar })
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
   },
 }
