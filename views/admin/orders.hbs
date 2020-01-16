@@ -27,7 +27,7 @@
             <td>{{this.Delivery.method}}</td>
             <td>
               {{#if this.isCanceled}}
-               <i class="fas fa-trash-alt"></i> 
+                <i class="fas fa-trash-alt"></i>
               {{else if this.payStatus}}
                 <i class="fas fa-check text-success"></i>
               {{else}}
@@ -49,19 +49,43 @@
               <button type="button" class="btn btn-outline-dark mr-1" data-toggle="modal"
                 data-target=".orderModal{{this.id}}"><i class="fas fa-search-plus" title="出貨詳情"></i></button>
               {{#if this.isCanceled}}
-                <form  style="display: inline;">
-                  <button type="submit" class="btn btn-secondary font-weight-normal" title="取消此筆訂單" disabled>
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                </form>
+                <button type="submit" class="btn btn-secondary font-weight-normal" title="取消此筆訂單" disabled>
+                  <i class="fas fa-trash-alt"></i>
+                </button>
               {{else}}
-                <form action="/admin/orders/{{this.id}}/cancel?_method=PUT" method="POST" style="display: inline;">
-                  <button type="submit" class="btn btn-outline-danger font-weight-normal" title="取消此筆訂單">
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                </form>
+                <button type="submit" class="btn btn-outline-danger font-weight-normal" title="取消此筆訂單"
+                  data-toggle="modal" data-target="#cancel_{{this.id}}">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
               {{/if}}
             </td>
+            {{!-- Delete modal --}}
+            <div class="modal fade" id="cancel_{{this.id}}" tabindex="-1" role="dialog"
+              aria-labelledby="delete_{{this.id}}Label" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="delete_{{this.id}}Label">取消確認</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <h5 class="modal-title ml-3" id="ModalScrollable{{this.id}}Title">
+                      訂單編號：{{this.sn}}</h5>
+                    </br>
+                    <h5 class="text-danger text-right">你真的要取消這張訂單嗎？</h5>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <form action="/admin/orders/{{this.id}}/cancel?_method=PUT" method="POST" style="display: inline;">
+                      <button type="submit" class="btn btn-outline-danger font-weight-normal">確認刪除
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
             {{!--detail product modal --}}
             <div class="modal fade orderModal{{this.id}}" tabindex="-1" role="dialog">
               <div class="modal-dialog modal-lg" role="document">
@@ -97,12 +121,12 @@
                       </div>
                       {{#if this.shipStatus}}
                       {{else}}
-                      <div class="float-right">
-                        <button class="btn btn-outline-dark mb-2 ml-2 px-3" type="button" data-toggle="collapse"
-                          data-target="#collapse_{{this.id}}">
-                          <i class="fas fa-edit" title="編輯收件資訊"></i>
-                        </button>
-                      </div>
+                        <div class="float-right">
+                          <button class="btn btn-outline-dark mb-2 ml-2 px-3" type="button" data-toggle="collapse"
+                            data-target="#collapse_{{this.id}}">
+                            <i class="fas fa-edit" title="編輯收件資訊"></i>
+                          </button>
+                        </div>
                       {{/if}}
                       {{!-- 收合用編輯表單 --}}
                       <div class="collapse col-12" id="collapse_{{this.id}}">
@@ -123,7 +147,7 @@
                               </div>
                             </div>
                             <div class="float-right">
-                              <button type="submit" class="btn btn-outline-dark mb-2 pr-4 pl-3" 
+                              <button type="submit" class="btn btn-outline-dark mb-2 pr-4 pl-3"
                                 form="putOrder_{{this.id}}">
                                 <i class="fas fa-level-down-alt fa-rotate-90"></i>
                               </button>
