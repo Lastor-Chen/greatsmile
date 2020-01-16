@@ -248,6 +248,7 @@ module.exports = {
       const error = checkProduct(input)
       
       if (error) {
+        console.error(error)
         req.flash('error', error)
         req.flash('input', input)
         return res.redirect(`/admin/products/${id}/edit`)
@@ -289,17 +290,14 @@ module.exports = {
 
       //修改mainImg
       if (input.mainImg) {
+        // 原 mainImg 改為 false
+        const image = await Image.findOne(
+          { where: { product_id: id, isMain: true } }
+        )
+        await image.update({ isMain: false })
+
+        // 指定新 mainImg
         const mainImgId = input.mainImg
-        const images = await Image.findAll({
-          where: { product_id: id }
-        })
-
-        for (const image of images) {
-          await image.update({
-            isMain: false
-          }).then(function () { })
-        }
-
         const mainImg = await Image.findByPk(mainImgId)
         await mainImg.update({ isMain: true })
       }
