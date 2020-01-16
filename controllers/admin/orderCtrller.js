@@ -72,7 +72,7 @@ module.exports = {
           product.subPrice = product.OrderItem.quantity * product.OrderItem.price
         })
       })
-      res.render('admin/orders', { orders, mode })
+      res.render('admin/orders', { css: 'orders', orders, mode })
     } catch (err) {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
