@@ -14,10 +14,9 @@ module.exports = {
     "logging": false
   },
   "test": {
-    "username": process.env.MYSQL_USER,
-    "password": process.env.MYSQL_KEY,
+    "username": "travis",
     "database": process.env.MYSQL_DATABASE_TEST,
-    "host": process.env.MYSQL_HOST,
+    "host": "127.0.0.1",
     "dialect": "mysql",
     "define": {
       "underscored": true
