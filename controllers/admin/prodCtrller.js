@@ -62,12 +62,17 @@ module.exports = {
         })
       ])
 
-      const input = req.flash('input')
-      let product = {}
-      if (input.length > 0) {
-        product = input[0]
-      }
+      // 表單驗證未過時，取回當前 input 值
+      const input = req.flash('input')[0]
+      let product = input || {}
 
+      if (product.tag) {
+        tag.forEach(tag => {
+          const hasTag = input.tag.includes(`${tag.id}`)
+          if (hasTag) { tag.checked = true }
+        })
+      }
+      
       res.render('admin/new', { categories, series, tag, product, js: 'admin/product' })
 
     } catch (err) {
