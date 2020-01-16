@@ -1,8 +1,12 @@
 const db = require('../../models')
 const { Product, Category, Series, Image, Tag, TagItem } = db
 const moment = require('moment')
+
 const imgur = require('imgur')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
+imgur.setClientId(IMGUR_CLIENT_ID)
+
+const {checkProduct} = require('../../lib/checker.js')
 
 module.exports = {
   getProducts: async (req, res) => {
@@ -58,7 +62,13 @@ module.exports = {
         })
       ])
 
-      res.render('admin/new', { categories, series, tag, js:'admin/product'})
+      const input = req.flash('input')
+      let product = {}
+      if (input.length > 0) {
+        product = input[0]
+      }
+
+      res.render('admin/new', { categories, series, tag, product, js: 'admin/product' })
 
     } catch (err) {
       console.error(err)
@@ -110,6 +120,22 @@ module.exports = {
       const input = { ...req.body }
       input.SeriesId = +input.SeriesId
       input.CategoryId = +input.CategoryId
+      const { files } = req
+
+      // 檢查是否有未填的內容
+      const error = checkProduct(input)
+      if (error) {
+        console.error(error)
+        req.flash('error', error)
+        req.flash('input', input)
+        return res.redirect('/admin/products/new')
+      }
+      // 檢查至少有一張圖片
+      if (!files[0]){
+        req.flash('error', '至少上傳一張圖片')
+        req.flash('input', input)
+        return res.redirect('/admin/products/new')
+      }
 
       const newProduct = await Product.create(input)
 
@@ -126,7 +152,6 @@ module.exports = {
        }
 
       //寫入Image
-      const { files } = req
       if (files) {
         const mainImg = {
           url: (await imgur.uploadFile(files[0].path)).data.link,
@@ -146,7 +171,10 @@ module.exports = {
           await Image.create(img)
         }
       }
-      res.redirect('/admin/products')
+
+      req.flash('success', '成功建立商品！')
+      res.redirect(`/admin/products`)
+
     } catch (err) {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
@@ -156,11 +184,10 @@ module.exports = {
   getEditPage: async (req, res) => {
     try {
       const id = req.params.id
-      const product = await Product.findByPk(id)
+      let product = await Product.findByPk(id)
       const releaseDate = product.releaseDate.toJSON().split('T')[0]
       const saleDate = product.saleDate.toJSON().split('T')[0]
       const deadline = product.deadline.toJSON().split('T')[0]
-
       const [categories, series, tag] = await Promise.all([
         Category.findAll({
           order: [['id', 'ASC']],
@@ -190,6 +217,12 @@ module.exports = {
         order: [['id', 'ASC']]
       })
 
+      const input = req.flash('input')
+      if (input.length > 0) {      
+        product = input[0]
+        product.id = +id
+      }
+
       res.render('admin/edit', {
         css: 'edit',
         product,
@@ -213,6 +246,14 @@ module.exports = {
     try {
       const id = req.params.id
       const input = { ...req.body }
+      const error = checkProduct(input)
+      
+      if (error) {
+        console.error(error)
+        req.flash('error', error)
+        req.flash('input', input)
+        return res.redirect(`/admin/products/${id}/edit`)
+      }
 
       //修改商品資訊
       let product = await Product.findByPk(id)
@@ -250,23 +291,21 @@ module.exports = {
 
       //修改mainImg
       if (input.mainImg) {
+        // 原 mainImg 改為 false
+        const image = await Image.findOne(
+          { where: { product_id: id, isMain: true } }
+        )
+        await image.update({ isMain: false })
+
+        // 指定新 mainImg
         const mainImgId = input.mainImg
-        const images = await Image.findAll({
-          where: { product_id: id }
-        })
-
-        for (const image of images) {
-          await image.update({
-            isMain: false
-          }).then(function () { })
-        }
-
         const mainImg = await Image.findByPk(mainImgId)
-        await mainImg.update({
-          isMain: true
-        }).then(function () { })
+        await mainImg.update({ isMain: true })
       }
-      res.redirect('/admin/products')
+      
+      req.flash('success', '成功更新資料！')
+      res.redirect(`/admin/products/${id}/edit`)
+
     } catch (err) {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
