@@ -5,6 +5,7 @@
 const { getCartItem } = require('../middleware/cart.js')
 const { isAuth } = require('../middleware/auth.js')
 const { newebpayCb } = require('../controllers/orderCtrller.js')
+const { getHome } = require('../controllers/homeCtrller.js')
 
 module.exports = app => {
   app.use('/admin', require('./admin/index.js'))
@@ -16,6 +17,6 @@ module.exports = app => {
   app.use('/orders', isAuth, require('./orders.js'))
   app.use('/users', require('./users.js'))
 
-  app.get('/', (req, res) => res.render('home'))
+  app.get('/', getHome)
   app.get('/search', require('../controllers/prodCtrller').getProducts)
 }
