@@ -123,6 +123,7 @@ module.exports = {
       // 檢查是否有未填的內容
       const error = checkProduct(input)
       if (error) {
+        console.error(error)
         req.flash('error', error)
         req.flash('input', input)
         return res.redirect('/admin/products/new')
