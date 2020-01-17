@@ -73,14 +73,16 @@ module.exports = {
           input.image = (await imgur.uploadFile(file.path)).data.link
         }
 
-        if (!input.ProductId) {
-          input.ProductId = null
+        if (input.ProductId.trim() != '') {
+          const product = await Product.findByPk(input.ProductId)
+          if (!product) {
+            req.flash('error', '欲關聯商品不存在！')
+            return res.redirect('back')
+          }
         }
 
-        const product = await Product.findByPk(input.ProductId)
-        if (!product) {
-          req.flash('error', '欲關聯商品不存在！')
-          return res.redirect('back')
+        if (input.ProductId.trim() === '') {
+          input.ProductId = null
         }
 
         const id = +req.params.giftsid
