@@ -9,6 +9,7 @@ const upload = multer({ dest: 'temp/' })
 router.get('/', prodCtrller.getProducts)
 router.get('/new', prodCtrller.getAddPage)
 router.get('/:id/edit', prodCtrller.getEditPage)
+router.get('/:id/preview', prodCtrller.getProduct)
 
 router.post('/', upload.array('image', 10), prodCtrller.postNewProduct)
 router.post('/:id/display', prodCtrller.postDisplay)

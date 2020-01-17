@@ -21,7 +21,6 @@ section {
 /* 圖片畫廊 */
 .gallery-main {
   width: 530px;
-  height: 670px;
   margin: 0 auto;
   background: #eee;
 }
@@ -31,9 +30,17 @@ section {
   margin: 0 auto;
 }
 
+.gallery-nav .img-thumbnail {
+  display: flex;
+  align-items: center;
+  width: 74px;
+  height: 74px;
+  padding: 0;
+}
+
 .gallery-nav img {
-  width: 70px;
-  height: 70px; 
+  height: 70px;
+  margin: 0 auto;
 }
 
 .slick-prev {
@@ -44,12 +51,13 @@ section {
   right: -37px;
 }
 
+.slick-slide:focus,
 .slick-slide a:focus {
   outline: none
 }
 
-.gallery-nav .slick-current img {
-  border: 3px solid #ff9600;
+.gallery-nav .slick-current .img-thumbnail {
+  border: 2px solid #ff9600;
 }
 
 .slick-prev:before, .slick-next:before {

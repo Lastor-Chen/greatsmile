@@ -48,6 +48,42 @@ module.exports = {
     }
   },
 
+  getProduct: async (req, res) => {
+    try {
+      const product = await Product.findOne({
+        where: { id: +req.params.id },
+        include: ['Gifts', 'Images', 'tags', 'Series', 'Category'],
+        // 使 Images 第一張為 mainImg，之後依上傳順排序
+        order: [
+          ['Images', 'isMain', 'DESC'],
+          ['Images', 'id', 'ASC']
+        ]
+      })
+
+      if (!product) return res.redirect('/products')
+
+      // 頁面所需 data
+      product.priceFormat = product.price.toLocaleString()
+      product.saleDateFormat = moment(product.saleDate).format('YYYY年MM月')
+      product.releaseDateFormat = moment(product.releaseDate).format('YYYY年MM月DD日(dd)')
+      product.deadlineFormat = moment(product.deadline).format('YYYY年MM月DD日(dd)')
+      product.hasGift = (product.Gifts.length !== 0) ? true : false
+      product.isOnSale = moment(new Date).isAfter(product.deadline)
+      product.hasInv = (product.inventory !== 0)
+      product.category = product.Category.name
+
+      res.render('product', {
+        css: 'product', js: 'product', layout: 'main',
+        useSlick: true, useLightbox: true,
+        product
+      })
+
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  },
+
   getAddPage: async (req, res) => {
     try {
       const [categories, series, tag] = await Promise.all([
@@ -324,6 +360,8 @@ module.exports = {
       const image = await Image.findByPk(req.params.id)
       const redirectUrl = `/admin/products/${image.ProductId}/edit`
       await image.destroy()
+
+      req.flash('success', '圖片刪除成功！')
       res.redirect(redirectUrl)
 
     } catch (err) {
