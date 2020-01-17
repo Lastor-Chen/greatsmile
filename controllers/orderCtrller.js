@@ -89,6 +89,9 @@ module.exports = {
       req.flash('passData')  // reset flash
       req.flash('passData', data)
 
+      // 建立已通過 flag
+      req.flash('passedStep', [0])
+
       res.redirect('checkout_1')
 
     } catch (err) {
@@ -101,9 +104,27 @@ module.exports = {
     try {
       const data = req.flash('passData')[0]
 
+      const beforePath = req.flash('beforePath')
+      console.log('beforePath', beforePath)
+
       // 無 passData，阻擋退回
       if (!data) return res.redirect('/cart')
       req.flash('passData', data)
+
+      // 審核是否有經過 POST
+      const passedStep = req.flash('passedStep')
+      console.log('passedStep', passedStep)
+      req.flash('passedStep', passedStep)
+
+      const beforeStep = +req.path.slice(-1)
+      console.log('beforeStep', beforeStep)
+      const isPassed = passedStep.includes(beforeStep - 1)
+      if (!isPassed) {
+        console.log('!isPassed')
+        return res.redirect('/orders' + beforePath)
+      }
+
+      req.flash('beforePath', [req.path])
 
       const view = req.path.slice(1)
       res.render(view, { css: 'checkout', js: 'checkout', data, view })
@@ -136,6 +157,9 @@ module.exports = {
       const data = { ...req.flash('passData')[0], ...receiver }
       req.flash('passData', data)
 
+      // 建立已通過 flag
+      req.flash('passedStep', 1)
+
       res.redirect('checkout_2')
 
     } catch (err) {
@@ -167,6 +191,9 @@ module.exports = {
       data.amount = (data.cart.subtotal + input.shipping)
       req.flash('passData', data)
 
+      // 建立已通過 flag
+      req.flash('passedStep', 2)
+
       res.redirect('checkout_3')
 
     } catch (err) {
@@ -187,6 +214,9 @@ module.exports = {
       // 付款方式注入 passData
       const data = { ...req.flash('passData')[0], ...input}
       req.flash('passData', data)
+
+      // 建立已通過 flag
+      req.flash('passedStep', 3)
 
       res.redirect('checkout_4')
 
