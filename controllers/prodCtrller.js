@@ -1,8 +1,5 @@
 const db = require('../models')
-const Product = db.Product
-const Image = db.Image
-const Gift = db.Gift
-const Category = db.Category
+const { Product, Image, Gift, Category } = db
 
 const Op = require('sequelize').Op
 const moment = require('moment')
