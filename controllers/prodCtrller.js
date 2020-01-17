@@ -24,16 +24,19 @@ function setWhere(req, where) {
 
   // 製作 tag where (tagQuery 非數字者為特規)
   let tagQuery = req.query.tag || '所有商品'
-  if (!isNaN(tagQuery)) { tagQuery = +tagQuery }
-  if (tagQuery !== '所有商品') {
-    if (tagQuery !== '即將截止預購') return where['$tags.id$'] = tagQuery
+  const isNumber = !isNaN(tagQuery)
+  if (isNumber) {
+    tagQuery = +tagQuery
+    where['$tags.id$'] = tagQuery
+  }
 
+  if (tagQuery === '即將截止預購') {
     // 從 Date.now 往後取 7 天快截止的商品
     const date = moment().add(7, 'days').endOf('day')
 
     where['$tags.id$'] = 1  // 預購中
     where.deadline = { [Op.lte]: date }
-  } 
+  }
 
   return { categoryQuery, searchQuery, tagQuery }
 }
