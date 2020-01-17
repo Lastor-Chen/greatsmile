@@ -5,7 +5,7 @@ const Op = require('sequelize').Op
 const moment = require('moment')
 moment.locale('zh-tw')
 
-const pageLimit = 30
+const PAGE_LIMIT = 30
 const { genQueryString } = require('../lib/tools.js')
 
 function setWhere(req, where) {
@@ -43,8 +43,8 @@ function setWhere(req, where) {
   return { categoryQuery, searchQuery, tagQuery }
 }
 
-function getPagination(result, pageLimit, page) {
-  const totalPages = Math.ceil(result.count / pageLimit)
+function getPagination(result, PAGE_LIMIT, page) {
+  const totalPages = Math.ceil(result.count / PAGE_LIMIT)
   const pagesArray = Array.from({ length: totalPages }, (val, index) => index + 1)
   const prev = (page === 1) ? 1 : page - 1
   const next = (page === totalPages) ? totalPages : page + 1
@@ -90,12 +90,12 @@ module.exports = {
 
       // 設定分頁偏移
       const page = +req.query.page || 1
-      const offset = (page - 1) * pageLimit
+      const offset = (page - 1) * PAGE_LIMIT
 
       // 製作頁面資料
       const today = new Date()
       const products = result.rows
-      const getProducts = products.slice(offset, offset + pageLimit)
+      const getProducts = products.slice(offset, offset + PAGE_LIMIT)
       getProducts.forEach(product => {
         product.mainImg = product.Images.find(img => img.isMain).url
         product.priceFormat = product.price.toLocaleString()
@@ -105,7 +105,7 @@ module.exports = {
       })
 
       // 製作 pagination bar 資料、超連結位址
-      const { pagesArray, prev, next } = getPagination(result, pageLimit, page)
+      const { pagesArray, prev, next } = getPagination(result, PAGE_LIMIT, page)
       const queryString = genQueryString(req.query)
 
       // 製作麵包屑
