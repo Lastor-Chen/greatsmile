@@ -29,8 +29,8 @@
         </li>
         {{#each categoryBar}}
           <li class="nav-item px-3">
-            <a class="nav-link py-4 {{#ifEqual ../categoryQuery this.name}}active{{/ifEqual}}"
-              href="/products?category={{this.name}}">{{this.name}}</a>
+            <a class="nav-link py-4 {{#ifEqual ../categoryQuery this.id}}active{{/ifEqual}}"
+              href="/products?category={{this.id}}">{{this.name}}</a>
           </li>
         {{/each}}
       </ul>

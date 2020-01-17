@@ -19,17 +19,7 @@ module.exports = {
       // Category 
       const where = { status: 1 }
       const categoryQuery = req.query.category
-      const categoryId = {}
-      const categoryBar = res.locals.categoryBar
-      categoryBar.forEach(item => {
-        const key = item.name
-        const val = item.id
-        categoryId[key] = val
-      })
-
-      if (categoryQuery) {
-        where.category_id = categoryId[categoryQuery]
-      }
+      if (categoryQuery) { where.CategoryId = categoryQuery }
 
       // search 商品名 or 作品名
       // 組合出 SQL， WHERE 'status' AND ('name' OR 'Series.name')
