@@ -2,13 +2,12 @@
  * 路由索引頁
  * 依 RESTful 風設計，再細拆成 router
  */
+const { newebpayCb } = require('../controllers/orderCtrller.js')
+
+// middleware
 const { getCartItem } = require('../middleware/cart.js')
 const { isAuth } = require('../middleware/auth.js')
-const { newebpayCb } = require('../controllers/orderCtrller.js')
-const { getHome } = require('../controllers/homeCtrller.js')
-
 const { getCategoryBar } = require('../middleware/category.js')
-
 const { getTagGroup } = require('../middleware/tag.js')
 
 module.exports = app => {
