@@ -90,7 +90,7 @@ module.exports = {
       req.flash('passData', data)
 
       // 建立已通過 flag
-      req.flash('passedStep', [0])
+      req.flash('passedSteps', [0])
 
       res.redirect('checkout_1')
 
@@ -103,26 +103,19 @@ module.exports = {
   getCheckout(req, res) {
     try {
       const data = req.flash('passData')[0]
-
       const beforePath = req.flash('beforePath')
-      console.log('beforePath', beforePath)
-
+      
       // 無 passData，阻擋退回
       if (!data) return res.redirect('/cart')
       req.flash('passData', data)
 
-      // 審核是否有經過 POST
-      const passedStep = req.flash('passedStep')
-      console.log('passedStep', passedStep)
-      req.flash('passedStep', passedStep)
+      // 審核是否有經過 POST 表單
+      const passedSteps = req.flash('passedSteps')
+      req.flash('passedSteps', passedSteps)
 
-      const beforeStep = +req.path.slice(-1)
-      console.log('beforeStep', beforeStep)
-      const isPassed = passedStep.includes(beforeStep - 1)
-      if (!isPassed) {
-        console.log('!isPassed')
-        return res.redirect('/orders' + beforePath)
-      }
+      const beforeStep = (+req.path.slice(-1)) - 1
+      const isPassed = passedSteps.includes(beforeStep)
+      if (!isPassed) return res.redirect('/orders' + beforePath)
 
       req.flash('beforePath', [req.path])
 
@@ -158,7 +151,7 @@ module.exports = {
       req.flash('passData', data)
 
       // 建立已通過 flag
-      req.flash('passedStep', 1)
+      req.flash('passedSteps', 1)
 
       res.redirect('checkout_2')
 
@@ -192,7 +185,7 @@ module.exports = {
       req.flash('passData', data)
 
       // 建立已通過 flag
-      req.flash('passedStep', 2)
+      req.flash('passedSteps', 2)
 
       res.redirect('checkout_3')
 
@@ -216,7 +209,7 @@ module.exports = {
       req.flash('passData', data)
 
       // 建立已通過 flag
-      req.flash('passedStep', 3)
+      req.flash('passedSteps', 3)
 
       res.redirect('checkout_4')
 
@@ -235,9 +228,9 @@ module.exports = {
         return res.redirect('/cart')
       }
 
-      // 確認已通過各表單 passedStep
-      const passedStep = req.flash('passedStep')
-      const isPassed = [0, 1, 2, 3].every(step => passedStep.includes(step))
+      // 確認已通過各表單 passedSteps
+      const passedSteps = req.flash('passedSteps')
+      const isPassed = [0, 1, 2, 3].every(step => passedSteps.includes(step))
       if (!isPassed) {
         req.flash('error', '錯誤訪問')
         return res.redirect('/cart')
