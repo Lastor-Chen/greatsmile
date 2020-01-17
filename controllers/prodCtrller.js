@@ -33,11 +33,13 @@ module.exports = {
 
       // tag
       const tagQuery = req.query.tag || '所有商品'
-      const tagId = {
-        '預購中商品一覽': 1,
-        '附特典': 2,
-        '庫存販售商品': 3,
-      }
+      const tagId = {}
+      const tagGroup = res.locals.tagGroup
+      tagGroup.forEach(item => {
+        const key = item.name
+        const val = item.id
+        tagId[key] = val
+      })
 
       if (tagQuery) {
         if (tagQuery == '即將截止預購') {

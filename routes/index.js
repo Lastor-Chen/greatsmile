@@ -9,16 +9,19 @@ const { getHome } = require('../controllers/homeCtrller.js')
 
 const { getCategoryBar } = require('../middleware/category.js')
 
+const { getTagGroup } = require('../middleware/tag.js')
+
 module.exports = app => {
   app.use('/admin', require('./admin/index.js'))
   app.post('/newebpay/callback', newebpayCb)  // 金流API callback
   
   app.use('/', getCartItem, getCategoryBar)  // 請勿更動順序
-  app.use('/products', require('./products.js'))
+  app.use('/products', getTagGroup, require('./products.js'))
+
   app.use('/cart', require('./cart.js'))
   app.use('/orders', isAuth, require('./orders.js'))
   app.use('/users', require('./users.js'))
 
-  app.get('/', getHome)
-  app.get('/search', require('../controllers/prodCtrller').getProducts)
+  app.get('/', (req, res) => res.render('home'))
+  app.get('/search', getTagGroup, require('../controllers/prodCtrller').getProducts)
 }
