@@ -38,7 +38,7 @@
                       <tbody>
                         <tr>
                           <td class="accordion-title">收件人</td>
-                          <td class="accordion-data">{{this.receiver}}</td>
+                          <td class="accordion-data">{{this.orderName.[0]}} {{this.orderName.[1]}}</td>
                         </tr>
                         <tr>
                           <td class="accordion-title">聯絡電話</td>
@@ -46,7 +46,9 @@
                         </tr>
                         <tr>
                           <td class="accordion-title">收件地址</td>
-                          <td class="accordion-data">{{this.address}}</td>
+                          <td class="accordion-data">{{this.orderAddress.[0]}} 
+                            {{this.orderAddress.[1]}}{{this.orderAddress.[2]}}{{this.orderAddress.[3]}} 
+                            {{this.orderAddress.[4]}}</td>
                         </tr>
                         <tr>
                           <td class="accordion-title">付款方式</td>
