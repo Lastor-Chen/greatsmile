@@ -18,7 +18,7 @@ module.exports = {
 
       // Category 
       const where = { status: 1 }
-      const categoryQuery = req.query.category
+      const categoryQuery = +req.query.category
       if (categoryQuery) { where.CategoryId = categoryQuery }
 
       // search 商品名 or 作品名
@@ -32,31 +32,23 @@ module.exports = {
       }
 
       // tag
-      const tagQuery = req.query.tag || '所有商品'
-      const tagId = {}
-      const tagGroup = res.locals.tagGroup
-      tagGroup.forEach(item => {
-        const key = item.name
-        const val = item.id
-        tagId[key] = val
-      })
+      let tagQuery = req.query.tag || '所有商品'
+      if (!isNaN(tagQuery)) { tagQuery = +tagQuery }
 
-      if (tagQuery) {
-        if (tagQuery == '即將截止預購') {
-          // 取得當地今日 23:99 ，再轉回時間格式
-          // 從今天往後取 7 天快截止的商品
-          const today = moment().add(7, 'days').endOf('day')
-          const todayDate = new Date(today)
+      if (tagQuery === '即將截止預購') {
+        // 取得當地今日 23:99 ，再轉回時間格式
+        // 從今天往後取 7 天快截止的商品
+        const today = moment().add(7, 'days').endOf('day')
+        const todayDate = new Date(today)
 
-          where['$tags.id$'] = 1  // 預購中
-          where.deadline = {      
-            [Op.lte]: todayDate}
+        where['$tags.id$'] = 1  // 預購中
+        where.deadline = {      
+          [Op.lte]: todayDate}
 
-        } else if (tagQuery == '所有商品') {
-          // 什麼都不加
-        } else {
-          where['$tags.id$'] = tagId[tagQuery]
-        }
+      } else if (tagQuery === '所有商品') {
+        // 什麼都不加
+      } else {
+        where['$tags.id$'] = tagQuery
       }
 
       // 設定分頁偏移
