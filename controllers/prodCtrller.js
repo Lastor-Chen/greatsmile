@@ -10,7 +10,7 @@ const { genQueryString } = require('../lib/tools.js')
 
 function setWhere(req, where) {
   // 製作 category where
-  const categoryQuery = +req.query.category
+  let categoryQuery = +req.query.category || 0
   if (categoryQuery) { where.CategoryId = categoryQuery }
 
   // 製作 search where (商品名 or 作品名)
@@ -20,6 +20,8 @@ function setWhere(req, where) {
       name: { [Op.like]: `%${searchQuery}%` },
       '$Series.name$': { [Op.like]: `%${searchQuery}%` }
     }
+
+    categoryQuery = null  // 搜尋時，關閉分類 active 特效
   }
 
   // 製作 tag where (tagQuery 非數字者為特規)
@@ -109,15 +111,10 @@ module.exports = {
       // 製作麵包屑
       const bread = getBread(categoryQuery, req, res) || '製品一覽'
 
-      // 當為所有商品頁的 製品一覽 時為 true 
-      // search 時，取消分類 active 特效
-      let isAllProducts = categoryQuery ? false : true
-      if (req.path.includes('search')) {isAllProducts = false}
-
-      res.render('products', { 
+      res.render('products', {
         js: 'products',
         css: 'products',
-        getProducts, selectedSort, searchQuery, bread, pagesArray, queryString, categoryQuery, tagQuery, page, prev, next, isAllProducts
+        getProducts, selectedSort, searchQuery, bread, pagesArray, queryString, categoryQuery, tagQuery, page, prev, next
       })
 
     } catch (err) {

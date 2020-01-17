@@ -25,7 +25,7 @@
     <div class="container">
       <ul class="nav mx-auto">
         <li class="nav-item px-3">
-          <a class="nav-link py-4 {{#if isAllProducts}}active{{/if}}" href="/products">製品一覽</a>
+          <a class="nav-link py-4 {{#ifEqual categoryQuery 0}}active{{/ifEqual}}" href="/products">製品一覽</a>
         </li>
         {{#each categoryBar}}
           <li class="nav-item px-3">
