@@ -97,7 +97,7 @@ module.exports = {
     }
   },
 
-  getCheckout(req, res) {
+  async getCheckout(req, res) {
     try {
       const data = req.flash('passData')[0]
 

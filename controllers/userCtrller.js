@@ -35,10 +35,16 @@ module.exports = {
     }
   },
 
-  getSignIn: (req, res) => {
-    // 判斷來源頁面
-    const isCheckout = req.path.includes('checkout')
-    res.render('sign', { isCheckout, css: 'sign', js: 'sign'})
+  getSignIn: async (req, res) => {
+    try{
+      // 判斷來源頁面
+      const isCheckout = req.path.includes('checkout')
+      res.render('sign', { isCheckout, css: 'sign', js: 'sign' })
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+    
   },
 
   signIn: (req, res, next) => {
@@ -72,7 +78,12 @@ module.exports = {
     res.redirect('/')
   },
 
-  getProfile: (req, res) => {
-    res.render('profile', { css: 'profile' })
+  getProfile: async (req, res) => {
+    try {  
+      res.render('profile', { css: 'profile' })
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
   },
 }

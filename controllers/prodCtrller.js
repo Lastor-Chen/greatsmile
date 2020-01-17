@@ -1,7 +1,5 @@
 const db = require('../models')
-const Product = db.Product
-const Image = db.Image
-const Gift = db.Gift
+const { Product, Image, Gift, Category } = db
 
 const Op = require('sequelize').Op
 const moment = require('moment')
@@ -21,15 +19,7 @@ module.exports = {
       // Category 
       const where = { status: 1 }
       const categoryQuery = req.query.category
-      const categoryId = {
-        'Figure': 1,
-        '豆丁人': 2,
-        'Figma': 3,
-        '組裝模型(仮)': 4
-      }
-      if (categoryQuery) {
-        where.category_id = categoryId[categoryQuery]
-      }
+      if (categoryQuery) { where.CategoryId = categoryQuery }
 
       // search 商品名 or 作品名
       // 組合出 SQL， WHERE 'status' AND ('name' OR 'Series.name')
@@ -128,7 +118,7 @@ module.exports = {
   },
 
   getProduct: async (req, res) => {
-    try {
+    try {    
       const product = await Product.findOne({ 
         // 只取上架中商品
         where: { 'id': +req.params.id, 'status': true },
