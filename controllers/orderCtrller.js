@@ -7,7 +7,6 @@ moment.locale('zh-tw')
 
 const { checkCheckout1 } = require('../lib/checker.js')
 const { aesDecrypt } = require('../lib/tools.js')
-const { getCategoryBar } = require('../lib/category.js')
 const getTradeInfo = require('../config/newebpay.js')
 
 // 藍新金流
@@ -26,9 +25,6 @@ const transporter = nodemailer.createTransport({
 module.exports = {
   async getOrders(req, res) {
     try {
-      // 取得 navbar 分類
-      const categoryBar = await getCategoryBar(req)
-
       const orders = await Order.findAll({
         where: { user_id: req.user.id },
         order: [['id', 'DESC']],
@@ -47,7 +43,7 @@ module.exports = {
           product.subPrice = product.OrderItem.quantity * product.OrderItem.price
         })
       })
-      res.render('orders', { orders, categoryBar, css: 'profile' })
+      res.render('orders', { orders, css: 'profile' })
 
     } catch (err) {
       console.error(err)
@@ -103,9 +99,6 @@ module.exports = {
 
   async getCheckout(req, res) {
     try {
-      // 取得 navbar 分類
-      const categoryBar = await getCategoryBar(req)
-
       const data = req.flash('passData')[0]
 
       // 無 passData，阻擋退回
@@ -113,7 +106,7 @@ module.exports = {
       req.flash('passData', data)
 
       const view = req.path.slice(1)
-      res.render(view, { css: 'checkout', js: 'checkout', data, view, categoryBar })
+      res.render(view, { css: 'checkout', js: 'checkout', data, view })
 
     } catch (err) {
       console.error(err)
@@ -273,9 +266,6 @@ module.exports = {
 
   async getSuccess(req, res) {
     try {
-      // 取得 navbar 分類
-      const categoryBar = await getCategoryBar(req)
-
       // 阻擋非經由 postOrder 進入的請求
       const isCreated = req.flash('isCreated')[0]
       if (!isCreated) return res.redirect('/orders')
@@ -287,7 +277,7 @@ module.exports = {
       // 付款期限三天 (臨時)
       const paymentTerms = moment(data.createdAt).add(3, 'days').format('YYYY/MM/DD') + ' 23:59:59'
 
-      res.render('success', { css: 'success', data, orderDate, paymentTerms, categoryBar })
+      res.render('success', { css: 'success', data, orderDate, paymentTerms })
 
     } catch (err) {
       console.error(err)
