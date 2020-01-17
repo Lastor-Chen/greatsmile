@@ -239,7 +239,7 @@ module.exports = {
       // 取出 data 並 format
       const data = { ...passData }
       data.address = data.address.join(',')
-      data.receiver = data.receiver.join(',')
+      data.receiver = data.receiver.join(' ')
 
       // 建立 Order
       const order = await Order.create({
