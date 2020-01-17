@@ -8,14 +8,34 @@ moment.locale('zh-tw')
 const pageLimit = 30
 const { genQueryString } = require('../lib/tools.js')
 
-function setTagWhere(tagQuery, where) {
-  if (tagQuery !== '即將截止預購') return where['$tags.id$'] = tagQuery
+function setWhere(req, where) {
+  // 製作 category where
+  const categoryQuery = +req.query.category
+  if (categoryQuery) { where.CategoryId = categoryQuery }
 
-  // 從 Date.now 往後取 7 天快截止的商品
-  const today = moment().add(7, 'days').endOf('day')
+  // 製作 search where (商品名 or 作品名)
+  const searchQuery = req.query.q
+  if (searchQuery) {
+    where[Op.or] = {
+      name: { [Op.like]: `%${searchQuery}%` },
+      '$Series.name$': { [Op.like]: `%${searchQuery}%` }
+    }
+  }
 
-  where['$tags.id$'] = 1  // 預購中
-  where.deadline = { [Op.lte]: today }
+  // 製作 tag where (tagQuery 非數字者為特規)
+  let tagQuery = req.query.tag || '所有商品'
+  if (!isNaN(tagQuery)) { tagQuery = +tagQuery }
+  if (tagQuery !== '所有商品') {
+    if (tagQuery !== '即將截止預購') return where['$tags.id$'] = tagQuery
+
+    // 從 Date.now 往後取 7 天快截止的商品
+    const date = moment().add(7, 'days').endOf('day')
+
+    where['$tags.id$'] = 1  // 預購中
+    where.deadline = { [Op.lte]: date }
+  } 
+
+  return { categoryQuery, searchQuery, tagQuery }
 }
 
 module.exports = {
@@ -26,29 +46,9 @@ module.exports = {
       const orderBy = req.query.order || 'DESC'
       const order = [[sort, orderBy]]
 
-      // Category 
+      // 製作 db where 物件
       const where = { status: 1 }
-      const categoryQuery = +req.query.category
-      if (categoryQuery) { where.CategoryId = categoryQuery }
-
-      // search 商品名 or 作品名
-      // 組合出 SQL， WHERE 'status' AND ('name' OR 'Series.name')
-      const searchQuery = req.query.q
-      if (searchQuery) {
-        where[Op.or] = {
-          name: { [Op.like]: `%${searchQuery}%` },
-          '$Series.name$': { [Op.like]: `%${searchQuery}%` }
-        } 
-      }
-
-      // 製作 tag where (tagQuery 非數字者為特規)
-      let tagQuery = req.query.tag || '所有商品'
-      if (!isNaN(tagQuery)) { tagQuery = +tagQuery }
-      if (tagQuery !== '所有商品') { setTagWhere(tagQuery, where) }
-      
-      // 設定分頁偏移
-      const page = +req.query.page || 1
-      const offset = (page - 1) * pageLimit 
+      const { categoryQuery, searchQuery, tagQuery } = setWhere(req, where)
 
       // db Query
       const result = await Product.findAndCountAll({
@@ -63,10 +63,14 @@ module.exports = {
         order
       })
 
+      // 設定分頁偏移
+      const page = +req.query.page || 1
+      const offset = (page - 1) * pageLimit
+
       // 製作頁面資料
       const today = new Date()
       const products = result.rows
-      const getProducts = products.slice(offset, offset + pageLimit )
+      const getProducts = products.slice(offset, offset + pageLimit)
       getProducts.forEach(product => {
         product.mainImg = product.Images.find(img => img.isMain).url
         product.priceFormat = product.price.toLocaleString()
