@@ -1,5 +1,14 @@
 <main class="container">
   <div class="card-body pt-4">
+    {{> alert}}
+    <div class="position-relative">
+      <div class="btn-group mode-btn ml-1" role="group" aria-label="Basic example">
+        <a class="btn btn-secondary {{#ifEqual mode "uncancel"}} active{{/ifEqual}}" href="orders?mode=uncancel">未取消訂單</a>
+        <a class="btn btn-secondary {{#ifEqual mode "cancel"}} active{{/ifEqual}}" href="orders?mode=cancel">已取消訂單</a>
+        <a class="btn btn-secondary {{#ifEqual mode "all"}} active{{/ifEqual}}" href="orders">全部訂單</a>
+      </div>
+    </div>
+    
     <table data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true" id="table">
       <thead>
         <tr>
@@ -8,6 +17,7 @@
           <th data-valign="middle" class="text-center" data-sortable="true">成立時間</th>
           <th data-valign="middle" class="text-center" data-sortable="true">總金額</th>
           <th data-valign="middle" class="text-center" data-sortable="true">付款方式</th>
+          <th data-valign="middle" class="text-center" data-sortable="true">出貨方式</th>
           <th data-valign="middle" class="text-center" data-sortable="true">付款狀態</th>
           <th data-valign="middle" class="text-center" data-sortable="true">出貨狀態</th>
           <th data-valign="middle" class="text-center" data-sortable="true">收件人</th>
@@ -20,17 +30,22 @@
             <td>{{this.id}}</td>
             <td>{{this.sn}}</td>
             <td>{{this.createdTime}}</td>
-            <td>{{this.amount}}</td>
+            <td class="text-right">{{addDot this.amount}}</td>
             <td>{{this.payMethod}}</td>
+            <td>{{this.Delivery.method}}</td>
             <td>
-              {{#if this.payStatus}}
+              {{#if this.isCanceled}}
+                <i class="fas fa-trash-alt"></i>
+              {{else if this.payStatus}}
                 <i class="fas fa-check text-success"></i>
               {{else}}
                 <i class="fas fa-times text-danger"></i>
               {{/if}}
             </td>
             <td>
-              {{#if this.shipStatus}}
+              {{#if this.isCanceled}}
+                <i class="fas fa-trash-alt"></i>
+              {{else if this.shipStatus}}
                 <i class="fas fa-check text-success"></i>
               {{else}}
                 <i class="fas fa-times text-danger"></i>
@@ -41,12 +56,44 @@
               {{!--detail Button trigger modal --}}
               <button type="button" class="btn btn-outline-dark mr-1" data-toggle="modal"
                 data-target=".orderModal{{this.id}}"><i class="fas fa-search-plus" title="出貨詳情"></i></button>
-              <!-- Delete Button trigger modal -->
-              <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#delete_{{this.id}}"
-                title="刪除此會員">
-                <i class="far fa-trash-alt" aria-hidden="true"></i>
-              </button>
+              {{#if this.isCanceled}}
+                <button type="submit" class="btn btn-secondary font-weight-normal" title="取消此筆訂單" disabled>
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              {{else}}
+                <button type="submit" class="btn btn-outline-danger font-weight-normal" title="取消此筆訂單"
+                  data-toggle="modal" data-target="#cancel_{{this.id}}">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              {{/if}}
             </td>
+            {{!-- Delete modal --}}
+            <div class="modal fade" id="cancel_{{this.id}}" tabindex="-1" role="dialog"
+              aria-labelledby="delete_{{this.id}}Label" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="delete_{{this.id}}Label">取消確認</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <h5 class="modal-title ml-3" id="ModalScrollable{{this.id}}Title">
+                      訂單編號：{{this.sn}}</h5>
+                    </br>
+                    <h5 class="text-danger text-right">你真的要取消這張訂單嗎？</h5>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <form action="/admin/orders/{{this.id}}/cancel?_method=PUT" method="POST" style="display: inline;">
+                      <button type="submit" class="btn btn-outline-danger font-weight-normal">確認刪除
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
             {{!--detail product modal --}}
             <div class="modal fade orderModal{{this.id}}" tabindex="-1" role="dialog">
               <div class="modal-dialog modal-lg" role="document">
@@ -77,8 +124,51 @@
                       <div class="col-6">
                         <p>聯絡電話：{{this.phone}}</p>
                       </div>
-                      <div class="col-12">
+                      <div class="col-10 mr-4">
                         <p class="mb-0">收件地址：{{this.address}}</p>
+                      </div>
+                      {{#if this.shipStatus}}
+                      {{else}}
+                        <div class="float-right">
+                          <button class="btn btn-outline-dark mb-2 ml-2 px-3" type="button" data-toggle="collapse"
+                            data-target="#collapse_{{this.id}}">
+                            <i class="fas fa-edit" title="編輯收件資訊"></i>
+                          </button>
+                        </div>
+                      {{/if}}
+                      {{!-- 收合用編輯表單 --}}
+                      <div class="collapse col-12" id="collapse_{{this.id}}">
+                        <form action="/admin/orders/{{this.id}}?_method=PUT" method="POST" id="putOrder_{{this.id}}">
+                          <div class="form-group row">
+                            <div class="col-6 row">
+                              <label for="newReceiver" class="col-4 pr-1 col-form-label">新收件人：</label>
+                              <div class="col-8 pl-0">
+                                <input type="text" class="form-control" name="receiver"
+                                  placeholder="輸入新收件人" value={{this.receiver}}>
+                              </div>
+                            </div>
+                            <div class="col-5 row ml-3">
+                              <label for="newPhone" class="col-5 pr-1 col-form-label">新聯絡電話：</label>
+                              <div class="col-7 pl-0">
+                                <input type="text" class="form-control" name="phone" placeholder="輸入新聯絡電話"
+                                  value={{this.phone}}>
+                              </div>
+                            </div>
+                            <div class="float-right">
+                              <button type="submit" class="btn btn-outline-dark mb-2 pr-4 pl-3"
+                                form="putOrder_{{this.id}}">
+                                <i class="fas fa-level-down-alt fa-rotate-90"></i>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="col-12 row pl-0">
+                            <label for="newAddress" class="col-2 pr-1 col-form-label">新收件地址：</label>
+                            <div class="col-9 px-0">
+                              <input type="text" class="form-control" name="address"
+                                placeholder="輸入新收件地址" value="{{this.address}}">
+                            </div>
+                          </div>
+                        </form>
                       </div>
                     </div>
                     <hr>
@@ -105,7 +195,7 @@
                           </div>
                           <div class="col-5 text-center ml-4 pr-0">
                             <div class="d-flex justify-content-between">
-                              <span class="mr-5">NTD {{this.OrderItem.price}}</span>
+                              <span class="mr-5">{{addDot this.OrderItem.price}}</span>
                               <span>
                                 <div class="d-flex align-items-center">
                                   <span class="pr-4">
@@ -116,7 +206,7 @@
                               <span>
                                 <div class="d-flex align-items-center">
                                   <span class="pl-3">
-                                    NTD {{this.subPrice}}
+                                    {{addDot this.subPrice}}
                                   </span>
                                 </div>
                               </span>
@@ -129,7 +219,7 @@
                         <div class="col-9"></div>
                         <div class="col-3 d-flex justify-content-between align-items-center pr-0">
                           <span>總價：</span>
-                          <span class="font-weight-bold pr-1">NTD {{this.amount}}</span>
+                          <span class="font-weight-bold pr-1">{{addDot this.amount}}</span>
                         </div>
                       </div>
                     </div>

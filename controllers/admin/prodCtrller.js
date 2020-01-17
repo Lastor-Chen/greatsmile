@@ -73,7 +73,7 @@ module.exports = {
         })
       }
       
-      res.render('admin/new', { categories, series, tag, product, js: 'admin/product' })
+      res.render('admin/prodNew', { categories, series, tag, product, js: 'admin/product' })
 
     } catch (err) {
       console.error(err)
@@ -222,14 +222,14 @@ module.exports = {
         order: [['id', 'ASC']]
       })
 
+
       const input = req.flash('input')
       if (input.length > 0) {      
         product = input[0]
         product.id = +id
       }
 
-      res.render('admin/edit', {
-        css: 'edit',
+      res.render('admin/prodEdit', {
         product,
         categories,
         series,
@@ -239,7 +239,8 @@ module.exports = {
         deadline,
         tagItem,
         images,
-        js: 'admin/product'
+        js: 'admin/product',
+        css: 'edit'
       })
     } catch (err) {
       console.error(err)

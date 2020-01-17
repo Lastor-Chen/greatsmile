@@ -33,7 +33,7 @@
           <a class="nav-link {{#ifEqual path '/products'}}active{{/ifEqual}}" href="/admin/products">商品</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{#ifEqual path '/orders'}}active{{/ifEqual}}" href="/admin/orders">訂單</a>
+          <a class="nav-link {{#ifEqual path '/orders'}}active{{/ifEqual}}" href="/admin/orders?mode=uncancel">訂單</a>
         </li>
         <li class="nav-item">
           <a class="nav-link {{#ifEqual path '/users'}}active{{/ifEqual}}" href="/admin/users">會員</a>
@@ -75,9 +75,6 @@
         <script src="/js/{{js}}.js"></script>
       {{/if}}
   </import>
-  {{#if js}}
-    <script src="/js/{{js}}.js"></script>
-  {{/if}}
 </body>
 
 </html>
