@@ -42,7 +42,7 @@ module.exports = {
       if (file) {
         input.image = (await imgur.uploadFile(file.path)).data.link
       }
-
+  
       const maxId = await Gift.max('id')
       await Gift.create({ id: maxId + 1, ...input })
 
@@ -71,6 +71,10 @@ module.exports = {
       
         if (file) {
           input.image = (await imgur.uploadFile(file.path)).data.link
+        }
+
+        if (!input.ProductId) {
+          input.ProductId = null
         }
 
         const id = +req.params.giftsid
