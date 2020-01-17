@@ -26,6 +26,7 @@ module.exports = {
       const where = { status: 1 }
       const categoryQuery = req.query.category
       const categoryId = {}
+      const categoryBar = await Category.findAll({ attributes: ['id', 'name'] })
       categoryBar.forEach(item => {
         const key = item.name
         const val = item.id
