@@ -91,7 +91,11 @@ module.exports = {
 
       const selectedSort = `${sort},${orderBy}`
       let bread = '製品一覽'
-      if (categoryQuery) {bread = categoryQuery}
+      if (categoryQuery) { 
+        const categories = res.locals.categoryBar
+        const category = categories.find(cate => cate.id === categoryQuery)
+        bread = category.name 
+      }
       if (req.path.includes('search')) { bread ='搜尋商品'}
 
       // 當為所有商品頁的 製品一覽 時為 true 
