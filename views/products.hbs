@@ -13,15 +13,11 @@
             <li class="d-inline">
               <a class="btn btn-sm {{#ifEqual tagQuery '所有商品'}}active{{/ifEqual}}" data-tag="所有商品">所有商品</a>
             </li>
-            <li class="d-inline">
-              <a class="btn btn-sm {{#ifEqual tagQuery '預購中商品一覽'}}active{{/ifEqual}}" data-tag="預購中商品一覽">預購中商品一覽</a>
-            </li>
-            <li class="d-inline">
-              <a class="btn btn-sm {{#ifEqual tagQuery '附特典'}}active{{/ifEqual}}" data-tag="附特典">附特典</a>
-            </li>
-            <li class="d-inline">
-              <a class="btn btn-sm {{#ifEqual tagQuery '庫存販售商品'}}active{{/ifEqual}}" data-tag="庫存販售商品">庫存販售商品</a>
-            </li>
+            {{#each tagGroup}}
+              <li class="d-inline">
+                <a class="btn btn-sm {{#ifEqual ../tagQuery this.name}}active{{/ifEqual}}" data-tag="{{this.name}}">{{this.name}}</a>
+              </li>
+            {{/each}}
             <li class="d-inline">
               <a class="btn btn-sm {{#ifEqual tagQuery '即將截止預購'}}active{{/ifEqual}}" data-tag="即將截止預購">即將截止預購</a>
             </li>
