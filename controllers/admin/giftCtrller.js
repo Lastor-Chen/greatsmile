@@ -1,5 +1,5 @@
 const db = require('../../models')
-const { Gift } = db
+const { Gift, Product } = db
 
 const imgur = require('imgur')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
@@ -75,6 +75,12 @@ module.exports = {
 
         if (!input.ProductId) {
           input.ProductId = null
+        }
+
+        const product = await Product.findByPk(input.ProductId)
+        if (!product) {
+          req.flash('error', '欲關聯商品不存在！')
+          return res.redirect('back')
         }
 
         const id = +req.params.giftsid
