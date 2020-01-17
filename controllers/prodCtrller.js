@@ -38,6 +38,15 @@ function setWhere(req, where) {
   return { categoryQuery, searchQuery, tagQuery }
 }
 
+function getPagination(result, pageLimit, page) {
+  const totalPages = Math.ceil(result.count / pageLimit)
+  const pagesArray = Array.from({ length: totalPages }, (val, index) => index + 1)
+  const prev = (page === 1) ? 1 : page - 1
+  const next = (page === totalPages) ? totalPages : page + 1
+
+  return { pagesArray, prev, next } 
+}
+
 module.exports = {
   getProducts: async (req, res) => {
     try {
@@ -79,13 +88,8 @@ module.exports = {
         product.hasInv = (product.inventory !== 0)
       })
 
-      // 製作 pagination bar 資料
-      const totalPages = Math.ceil(result.count / pageLimit)
-      const pagesArray = Array.from({ length: totalPages }, (val, index) => index + 1)
-      const prev = (page === 1) ? 1 : page - 1
-      const next = (page === totalPages) ? totalPages : page + 1
-
-      // 生成 pagination bar 超連結位址
+      // 製作 pagination bar 資料、超連結位址
+      const { pagesArray, prev, next } = getPagination(result, pageLimit, page)
       const queryString = genQueryString(req.query)
 
       const selectedSort = `${sort},${orderBy}`
