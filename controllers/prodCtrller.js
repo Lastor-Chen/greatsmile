@@ -47,6 +47,16 @@ function getPagination(result, pageLimit, page) {
   return { pagesArray, prev, next } 
 }
 
+function getBread(categoryQuery, req, res) {
+  if (categoryQuery) {
+    const categories = res.locals.categoryBar
+    const category = categories.find(cate => cate.id === categoryQuery)
+    return category.name
+  }
+
+  if (req.path.includes('search')) return '搜尋商品'
+}
+
 module.exports = {
   getProducts: async (req, res) => {
     try {
@@ -54,6 +64,7 @@ module.exports = {
       const sort = req.query.sort || 'releaseDate'
       const orderBy = req.query.order || 'DESC'
       const order = [[sort, orderBy]]
+      const selectedSort = `${sort},${orderBy}`
 
       // 製作 db where 物件
       const where = { status: 1 }
@@ -92,14 +103,8 @@ module.exports = {
       const { pagesArray, prev, next } = getPagination(result, pageLimit, page)
       const queryString = genQueryString(req.query)
 
-      const selectedSort = `${sort},${orderBy}`
-      let bread = '製品一覽'
-      if (categoryQuery) { 
-        const categories = res.locals.categoryBar
-        const category = categories.find(cate => cate.id === categoryQuery)
-        bread = category.name 
-      }
-      if (req.path.includes('search')) { bread ='搜尋商品'}
+      // 製作麵包屑
+      const bread = getBread(categoryQuery, req, res) || '製品一覽'
 
       // 當為所有商品頁的 製品一覽 時為 true 
       // search 時，取消分類 active 特效
