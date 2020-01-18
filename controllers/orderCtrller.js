@@ -1,5 +1,5 @@
 const db = require('../models')
-const { Cart, CartItem, Order, OrderItem, Delivery, Payment } = db
+const { Cart, CartItem, Order, OrderItem, Delivery, Payment, Product } = db
 
 const moment = require('moment')
 moment.locale('zh-tw')
@@ -231,6 +231,17 @@ module.exports = {
       // 清除購物車 items
       await CartItem.destroy({ where: { CartId: cart.id } })
 
+      // 扣除商品庫存
+      const id = order.id
+      const orderProduct = await Order.findByPk(id, {   // 訂單內的所有商品
+        attributes: ['id'],
+        include: [{ 
+          model: Product, 
+          as: 'products', 
+          attributes: ['id', 'name', 'inventory']
+        }]
+      })
+      
       // send Email
       const mail = getMailObj(data, req.user, order, sn)
       transporter.sendMail(mail, (err, info) => {
