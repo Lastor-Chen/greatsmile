@@ -1,4 +1,3 @@
-const nodemailer = require('nodemailer');
 const db = require('../models')
 const { Cart, CartItem, Order, OrderItem, Delivery, Payment } = db
 
@@ -7,38 +6,14 @@ moment.locale('zh-tw')
 
 const { checkCheckout1 } = require('../lib/checker.js')
 const { aesDecrypt } = require('../lib/tools.js')
-const getTradeInfo = require('../config/newebpay.js')
 
 // 藍新金流
+const getTradeInfo = require('../config/newebpay.js')
 const HashKey = process.env.HASH_KEY
 const HashIV = process.env.HASH_IV
 
-// mailer 設定
-const hbsMailer = require('nodemailer-express-handlebars')
-
-
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_KEY
-  }
-})
-
-
-const options = {
-  viewEngine: {
-    extName: '.hbs',
-    partialsDir: '/views/email/',
-    layoutsDir: '/view/email',
-    defaultLayout: '',
-    helpers: require('../lib/hbs_helpers.js')
-  },
-  viewPath: './views/email/',
-  extName: '.hbs',
-}
-
-transporter.use('compile', hbsMailer(options))
+// nodemailer
+const { transporter, getMailObj } = require('../config/mailer.js')
 
 module.exports = {
   async getOrders(req, res) {
@@ -255,28 +230,8 @@ module.exports = {
       // 清除購物車 items
       await CartItem.destroy({ where: { CartId: cart.id } })
 
-      //地址去除逗號，頭尾加上空格
-      let addressArray = data.address.split(",")
-      let postNumber = addressArray.shift() + " "
-      let lastNumber = " " + addressArray.pop()
-      data.address = postNumber + addressArray.join("") + lastNumber
-
-      //付款期限
-      const paymentTerms = moment(order.createdAt).add(3, 'days').format('YYYY/MM/DD')
-
-      let mail = {
-        from: `大微笑商店 <${process.env.GMAIL_USER}>`,
-        to: req.user.email,
-        subject: `【GreatSmile Online Shop】訂單已建立 (單號${sn})`,
-        template:'template',
-        context: {
-          sn,
-          data,
-          paymentTerms,
-          user: req.user
-        }
-      }
-
+      // send Email
+      const mail = getMailObj(data, req.user, order, sn)
       transporter.sendMail(mail, (err, info) => {
         if (err) return console.error(err)
         console.log(`Email sent: ${info.response}`)
