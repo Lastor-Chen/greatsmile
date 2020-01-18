@@ -7,7 +7,7 @@
         <span>{{bread}}</span>
       </nav>
       {{!-- tag + select --}}
-      <div class="row d-flex justify-content-between">
+      <div class="row d-flex justify-content-between px-2">
         <div class="d-flex align-items-start">
           <ul class="nav-tag">
             <li class="d-inline">
@@ -37,12 +37,6 @@
               <option value="price,DESC" {{#ifEqual selectedSort 'price,DESC'}}selected{{/ifEqual}}>價格高</option>
             </select>
           </div>
-          <a href="#" class="btn btn-display">
-            <i class="fas fa-list"></i>
-          </a>
-          <a href="#" class="btn btn-display">
-            <i class="fas fa-th-large"></i>
-          </a>
         </div>
       </div>
       {{#if getProducts.length}}
