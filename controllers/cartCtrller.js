@@ -191,7 +191,7 @@ module.exports = {
       ])
 
       // 無持有購物車
-      if (!userCart && !visitCart) return res.redirect('/admin')
+      if (!userCart && !visitCart) return res.redirect('/admin/products')
 
       // User 原本沒車
       if (!userCart) { await visitCart.update({ UserId }) }
@@ -242,7 +242,7 @@ module.exports = {
         }
       }
 
-      res.redirect('/admin')
+      res.redirect('/admin/products')
 
     } catch (err) {
       console.error(err)
