@@ -43,8 +43,12 @@
 }
 
 .continue-btn a { 
-   background: #eeeeee;
-   color: #777;
+  background: #eeeeee;
+  color: #777;
+}
+
+.continue-btn a:hover {
+  color: #777;
 }
 
 .font-format {

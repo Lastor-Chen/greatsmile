@@ -10,6 +10,10 @@ body {
   font-family: 'Noto Sans TC', sans-serif;
 }
 
+.btn:hover {
+  color: #fff;
+}
+
 .container {
   min-width: 1250px;
   width: 1250px;
