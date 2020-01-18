@@ -1,4 +1,3 @@
-const nodemailer = require('nodemailer');
 const db = require('../models')
 const { Cart, CartItem, Order, OrderItem, Delivery, Payment } = db
 
@@ -7,20 +6,14 @@ moment.locale('zh-tw')
 
 const { checkCheckout1 } = require('../lib/checker.js')
 const { aesDecrypt } = require('../lib/tools.js')
-const getTradeInfo = require('../config/newebpay.js')
 
 // 藍新金流
+const getTradeInfo = require('../config/newebpay.js')
 const HashKey = process.env.HASH_KEY
 const HashIV = process.env.HASH_IV
 
-// mailer 設定
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_KEY
-  }
-})
+// nodemailer
+const { transporter, getMailObj } = require('../config/mailer.js')
 
 module.exports = {
   async getOrders(req, res) {
@@ -238,14 +231,8 @@ module.exports = {
       await CartItem.destroy({ where: { CartId: cart.id } })
 
       // send Email
-      const mailOptions = {
-        from: `大微笑商店 <${process.env.GMAIL_USER}>`,
-        to: req.user.email,
-        subject: `【GreatSmile Online Shop】訂單已建立 (單號${sn})`,
-        text: `${sn} 訂單已成立`
-      }
-
-      transporter.sendMail(mailOptions, (err, info) => {
+      const mail = getMailObj(data, req.user, order, sn)
+      transporter.sendMail(mail, (err, info) => {
         if (err) return console.error(err)
         console.log(`Email sent: ${info.response}`)
       })
@@ -276,7 +263,7 @@ module.exports = {
       const orderDate = moment(data.createdAt).format('YYYY/MM/DD HH:mm')
 
       // 付款期限三天 (臨時)
-      const paymentTerms = moment(data.createdAt).add(3, 'days').format('YYYY/MM/DD') + ' 23:59:59'
+      const paymentTerms = moment(data.createdAt).add(3, 'days').format('YYYY/MM/DD')
 
       res.render('success', { css: 'success', data, orderDate, paymentTerms })
 
