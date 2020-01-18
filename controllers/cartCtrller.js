@@ -179,6 +179,7 @@ module.exports = {
        */
       const CartId = req.session.cartId || null
       const UserId = req.user.id
+      const path = req.user.isAdmin ? '/admin/products' : '/cart'
 
       // 找出 User 車、visitor 車
       const [userCart, visitCart] = await Promise.all([
@@ -191,7 +192,7 @@ module.exports = {
       ])
 
       // 無持有購物車
-      if (!userCart && !visitCart) return res.redirect('/admin/products')
+      if (!userCart && !visitCart) return res.redirect(path)
 
       // User 原本沒車
       if (!userCart) { await visitCart.update({ UserId }) }
@@ -242,7 +243,7 @@ module.exports = {
         }
       }
 
-      res.redirect('/admin/products')
+      res.redirect(path)
 
     } catch (err) {
       console.error(err)
