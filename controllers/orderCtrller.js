@@ -264,7 +264,6 @@ module.exports = {
       //付款期限
       const paymentTerms = moment().add(3, 'days').format('YYYY/MM/DD') + ' 23:59:59'
 
-
       let mail = {
         from: `大微笑商店 <${process.env.GMAIL_USER}>`,
         to: req.user.email,
