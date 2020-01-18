@@ -23,7 +23,7 @@ module.exports = {
         [Op.or]: { deadline: { [Op.gte]: now }, saleDate: { [Op.lte]: now } }
       }
       const { categoryQuery, searchQuery, tagQuery } = setWhere(req, where)
-      console.log(where)
+
       // db Query
       const result = await Product.findAndCountAll({
         include: [
