@@ -5,11 +5,14 @@
         <div class="alertBlock mb-2">
           {{> alert}}
         </div>
+        <div  class="text-right">
+          <small class="form-text text-muted">※ 可透過編輯特典，設定關聯之商品</small>
+        </div>
         <form class="form-inline d-flex justify-content-end" action="/admin/gifts" method="POST" enctype="multipart/form-data" id="newGift">
           <div class="d-flex align-items-center justify-content-center">
             <img class="rounded mx-auto d-block" id="preview_img" name="preview_img" src="" style="height:40px">
             <label for="image">
-                <i class="fas fa-upload btn btn-light ml-2 mb-1 py-2"></i>
+              <i class="fas fa-upload btn btn-light ml-2 mb-1 py-2"></i>
             </label>
             <input hidden type="file" id="image" name="image" form="newGift">
           </div>
@@ -87,7 +90,6 @@
                     <div class="collapse row" id="collapse_{{this.id}}" data-parent="#accordionEdit">
                       <input hidden type="file" class="inputImg" id="imageEdit_{{this.id}}" name="image" form="edit_{{this.id}}">
                       <img class="rounded mx-auto d-block editImg" src="" style="height:50px">
-
                     </div>
                   </td>
                   <td class="p-0">
@@ -96,6 +98,11 @@
                         <div class="form-group mx-sm-3 mb-2 mt-1">
                           <input type="text" class="form-control input-center" name="name" placeholder="輸入特典名稱..."
                             value='{{this.name}}' required>
+                          <input type="number" class="form-control input-center mt-1" name="ProductId"
+                            value='{{this.ProductId}}' placeholder="輸入關聯商品號碼">
+                          <div class="text-center">
+                            <small class="form-text text-muted">※ 商品ID欄位空白，可移除關聯</small>
+                          </div>
                         </div>
                       </form>
                     </div>
