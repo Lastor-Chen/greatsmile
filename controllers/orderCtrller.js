@@ -262,7 +262,7 @@ module.exports = {
       data.address = postNumber + addressArray.join("") + lastNumber
 
       //付款期限
-      const paymentTerms = moment().add(3, 'days').format('YYYY/MM/DD') + ' 23:59:59'
+      const paymentTerms = moment(order.createdAt).add(3, 'days').format('YYYY/MM/DD')
 
       let mail = {
         from: `大微笑商店 <${process.env.GMAIL_USER}>`,
@@ -307,7 +307,7 @@ module.exports = {
       const orderDate = moment(data.createdAt).format('YYYY/MM/DD HH:mm')
 
       // 付款期限三天 (臨時)
-      const paymentTerms = moment(data.createdAt).add(3, 'days').format('YYYY/MM/DD') + ' 23:59:59'
+      const paymentTerms = moment(data.createdAt).add(3, 'days').format('YYYY/MM/DD')
 
       res.render('success', { css: 'success', data, orderDate, paymentTerms })
 
