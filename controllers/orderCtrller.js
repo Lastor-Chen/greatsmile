@@ -254,10 +254,15 @@ module.exports = {
 
       // 清除購物車 items
       await CartItem.destroy({ where: { CartId: cart.id } })
+
+      //地址去除逗號，頭尾加上空格
       let addressArray = data.address.split(",")
       let postNumber = addressArray.shift() + " "
       let lastNumber = " " + addressArray.pop()
       data.address = postNumber + addressArray.join("") + lastNumber
+
+      //付款期限
+      const paymentTerms = moment().add(3, 'days').format('YYYY/MM/DD') + ' 23:59:59'
 
 
       let mail = {
@@ -268,6 +273,7 @@ module.exports = {
         context: {
           sn,
           data,
+          paymentTerms,
           user: req.user
         }
       }
