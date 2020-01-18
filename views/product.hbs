@@ -100,15 +100,15 @@
       </div>
     </div>
     <hr>
-    {{!-- 預購期間 --}}
+    {{!-- 預約期間 --}}
     <div class="row py-4">
-      <div class="col-2 font-weight-bold">預購期間</div>
+      <div class="col-2 font-weight-bold">預約期間</div>
       <div class="col-10">
-        {{#if product.isOnSale}}
-          <s>【預購生產】{{product.releaseDateFormat}} 12:00 開始 {{product.deadlineFormat}} 21:00 結束。</s>
-          <p>※ 無庫存時結束販售</p>
+        {{#if product.isPreOrder}}
+          <p>【預約生產】{{product.releaseDateFormat}} 12:00 開始 {{product.deadlineFormat}} 21:00 結束。</p>
         {{else}}
-          <p>【預購生產】{{product.releaseDateFormat}} 12:00 開始 {{product.deadlineFormat}} 21:00 結束。</p>
+          <s>【預約生產】{{product.releaseDateFormat}} 12:00 開始 {{product.deadlineFormat}} 21:00 結束。</s>
+          <p>※ 無庫存時結束販售</p>
         {{/if}}
       </div>
     </div>
@@ -121,7 +121,7 @@
       </div>
       <div class="col-6">
         <p>【GREATSMILE ONLINE SHOP預約特典】</p>
-        <p>預購「{{product.name}}」，將贈送特典「{{product.Gifts.0.name}}」！</p>
+        <p>預約「{{product.name}}」，將贈送特典「{{product.Gifts.0.name}}」！</p>
       </div>
       <div class="col-4">
         <div class="gift-img">
@@ -209,7 +209,7 @@
   {{!-- waring info --}}
   <section class="mb-5 p-5">
     <div class="small-text">
-      ※ 有可能會在訂購期間﹑預購期間內提早結束販售。敬請見諒。
+      ※ 有可能會在訂購期間﹑預約期間內提早結束販售。敬請見諒。
       <br>
       ※ 信用卡結帳、便利商店付款請在訂單成立後在指定期限內付款。
       <br>

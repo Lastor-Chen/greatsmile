@@ -52,10 +52,10 @@
                     <img src="{{this.mainImg}}" class="w-100">
                   </div>
                   {{#if hasInv}}
-                    {{#if isPreorder}}
-                      <span class="tag tag-preorder">預約中</span>
-                    {{else}}
+                    {{#if isOnSale}}
                       <span class="tag tag-preorder">發售中</span>
+                    {{else}}
+                      <span class="tag tag-preorder">預約中</span>
                     {{/if}}
                   {{else}}
                     <span class="tag tag-sold-out">已售完</span>
