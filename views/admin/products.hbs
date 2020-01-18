@@ -134,6 +134,19 @@
                           <span>#{{this.name}}</span>
                         {{/each}}
                       </p>
+                      
+                      <p>
+                        <span>特典：
+                          {{#if this.Gifts}}
+                           {{#each this.Gifts}}
+                            {{this.name}}
+                           {{/each}}
+                          {{else}}
+                            無
+                          {{/if}}
+                        </span>
+                      </p>
+                      
                     </div>
                   </div>
                   <hr>

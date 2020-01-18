@@ -1,5 +1,5 @@
 const db = require('../../models')
-const { Product, Category, Series, Image, Tag, TagItem } = db
+const { Product, Category, Series, Image, Tag, TagItem, Gift } = db
 const moment = require('moment')
 
 const imgur = require('imgur')
@@ -13,7 +13,7 @@ module.exports = {
     try {
       const products = await Product.findAll({
         order: [['id', 'DESC']],
-        include: [Category, Series, Image, 'tags']
+        include: [Category, Series, Image, Gift,'tags']
       })
 
       //判斷日期用
@@ -41,6 +41,8 @@ module.exports = {
         //售價加上dot
         product.price = product.price.toLocaleString()
       })
+
+      console.log(products)
       res.render('admin/products', { products })
     } catch (err) {
       console.error(err)
