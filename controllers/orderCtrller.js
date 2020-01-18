@@ -14,7 +14,7 @@ const HashKey = process.env.HASH_KEY
 const HashIV = process.env.HASH_IV
 
 // mailer 設定
-const hbs = require('nodemailer-express-handlebars')
+const hbsMailer = require('nodemailer-express-handlebars')
 
 
 const transporter = nodemailer.createTransport({
@@ -38,7 +38,7 @@ const options = {
   extName: '.hbs',
 }
 
-transporter.use('compile', hbs(options))
+transporter.use('compile', hbsMailer(options))
 
 module.exports = {
   async getOrders(req, res) {
