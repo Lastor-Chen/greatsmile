@@ -254,6 +254,11 @@ module.exports = {
 
       // 清除購物車 items
       await CartItem.destroy({ where: { CartId: cart.id } })
+      let addressArray = data.address.split(",")
+      let postNumber = addressArray.shift() + " "
+      let lastNumber = " " + addressArray.pop()
+      data.address = postNumber + addressArray.join("") + lastNumber
+
 
       let mail = {
         from: `大微笑商店 <${process.env.GMAIL_USER}>`,
