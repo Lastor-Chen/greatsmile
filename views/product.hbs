@@ -59,12 +59,14 @@
           <div class="mb-0 text-center">
             {{#if product.isOnSale}}
               {{#if product.hasInv}}
-                <p class="mb-2 status-text">發售中</p>
+                <span class="mb-2 status-text">發售中</span>
               {{else}}
-                <p class="mb-2 status-sold-out">已售完</p>
+                <span class="mb-2 status-sold-out">已售完</span>
               {{/if}}
+            {{else if product.isPreOrder}}
+              <span class="mb-2 status-text">預約中</span>
             {{else}}
-              <p class="mb-2 status-text">預約中</p>
+              <span class="mb-2 status-sold-out">預約已截止</span>
             {{/if}}
             <hr class="my-2">
             <div class="d-flex px-3 mb-2 justify-content-between align-items-center">
@@ -161,8 +163,10 @@
               {{else}}
                 <span class="status-sold-out">已售完</span>
               {{/if}}
-            {{else}}
+            {{else if product.isPreOrder}}
               <span class="status-text">預約中</span>
+            {{else}}
+              <span class="status-sold-out">預約已截止</span>
             {{/if}}
           </div>
         </div>

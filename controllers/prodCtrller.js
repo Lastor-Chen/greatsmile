@@ -18,6 +18,7 @@ module.exports = {
 
       // 製作 db where 物件
       const where = { status: 1 }
+      const now = new Date()
       const { categoryQuery, searchQuery, tagQuery } = setWhere(req, where)
 
       // db Query
@@ -43,7 +44,8 @@ module.exports = {
       getProducts.forEach(product => {
         product.mainImg = product.Images.find(img => img.isMain).url
         product.priceFormat = product.price.toLocaleString()
-        product.isOnSale = moment().isAfter(product.saleDate)
+        product.isOnSale = moment(now).isAfter(product.saleDate)
+        product.isPreOrder = moment(now).isBefore(product.deadline)
         product.isGift = product.Gifts.length > 0 ? true : false
         product.hasInv = (product.inventory !== 0)
       })
@@ -84,13 +86,14 @@ module.exports = {
       if (!product) return res.redirect('/products')
 
       // 頁面所需 data
+      const now = new Date()
       product.priceFormat = product.price.toLocaleString()
       product.saleDateFormat = moment(product.saleDate).format('YYYY年MM月')
       product.releaseDateFormat = moment(product.releaseDate).format('YYYY年MM月DD日(dd)')
       product.deadlineFormat = moment(product.deadline).format('YYYY年MM月DD日(dd)')
       product.hasGift = (product.Gifts.length !== 0) ? true : false
-      product.isOnSale = moment().isAfter(product.saleDate)
-      product.isPreOrder = moment().isBefore(product.deadline)
+      product.isOnSale = moment(now).isAfter(product.saleDate)
+      product.isPreOrder = moment(now).isBefore(product.deadline)
       product.hasInv = (product.inventory !== 0)
       product.category = product.Category.name
 
