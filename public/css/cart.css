@@ -29,7 +29,9 @@
 }
 
 .cart-btn {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: #ff5400;
   color: #fff;
   font-weight: bold;
