@@ -10,7 +10,11 @@ const { isAuth } = require('../middleware/auth.js')
 const { getCategoryBar } = require('../middleware/category.js')
 const { getTagGroup } = require('../middleware/tag.js')
 
+const favicon = require('serve-favicon')
+const path = require('path')
+
 module.exports = app => {
+  app.use(favicon(path.join('./','public', 'favicon.ico')))
   app.use('/admin', require('./admin/index.js'))
   app.post('/newebpay/callback', newebpayCb)  // 金流API callback
   
