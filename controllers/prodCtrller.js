@@ -1,6 +1,7 @@
 const db = require('../models')
 const { Product, Image, Gift } = db
 
+const Op = require('sequelize').Op
 const moment = require('moment')
 moment.locale('zh-tw')
 
@@ -17,10 +18,12 @@ module.exports = {
       const selectedSort = `${sort},${orderBy}`
 
       // 製作 db where 物件
-      const where = { status: 1 }
       const now = new Date()
+      const where = { status: 1,
+        [Op.or]: { deadline: { [Op.gte]: now }, saleDate: { [Op.lte]: now } }
+      }
       const { categoryQuery, searchQuery, tagQuery } = setWhere(req, where)
-
+      console.log(where)
       // db Query
       const result = await Product.findAndCountAll({
         include: [
