@@ -1,12 +1,11 @@
 const db = require('../models')
-const { Product, Image, Gift, Category } = db
+const { Product, Image, Gift } = db
 
-const Op = require('sequelize').Op
 const moment = require('moment')
 moment.locale('zh-tw')
 
-const pageLimit = 30
-const { genQueryString } = require('../lib/tools.js')
+const PAGE_LIMIT = 30
+const { genQueryString, setWhere, getPagination, getBread } = require('../lib/product_tools.js')
 
 module.exports = {
   getProducts: async (req, res) => {
@@ -15,53 +14,11 @@ module.exports = {
       const sort = req.query.sort || 'releaseDate'
       const orderBy = req.query.order || 'DESC'
       const order = [[sort, orderBy]]
+      const selectedSort = `${sort},${orderBy}`
 
-      // Category 
+      // 製作 db where 物件
       const where = { status: 1 }
-      const categoryQuery = req.query.category
-      if (categoryQuery) { where.CategoryId = categoryQuery }
-
-      // search 商品名 or 作品名
-      // 組合出 SQL， WHERE 'status' AND ('name' OR 'Series.name')
-      const searchQuery = req.query.q
-      if (searchQuery) {
-        where[Op.or] = {
-          name: { [Op.like]: `%${searchQuery}%` },
-          '$Series.name$': { [Op.like]: `%${searchQuery}%` }
-        } 
-      }
-
-      // tag
-      const tagQuery = req.query.tag || '所有商品'
-      const tagId = {}
-      const tagGroup = res.locals.tagGroup
-      tagGroup.forEach(item => {
-        const key = item.name
-        const val = item.id
-        tagId[key] = val
-      })
-
-      if (tagQuery) {
-        if (tagQuery == '即將截止預購') {
-          // 取得當地今日 23:99 ，再轉回時間格式
-          // 從今天往後取 7 天快截止的商品
-          const today = moment().add(7, 'days').endOf('day')
-          const todayDate = new Date(today)
-
-          where['$tags.id$'] = 1  // 預購中
-          where.deadline = {      
-            [Op.lte]: todayDate}
-
-        } else if (tagQuery == '所有商品') {
-          // 什麼都不加
-        } else {
-          where['$tags.id$'] = tagId[tagQuery]
-        }
-      }
-
-      // 設定分頁偏移
-      const page = +req.query.page || 1
-      const offset = (page - 1) * pageLimit 
+      const { categoryQuery, searchQuery, tagQuery } = setWhere(req, where)
 
       // db Query
       const result = await Product.findAndCountAll({
@@ -76,10 +33,14 @@ module.exports = {
         order
       })
 
+      // 設定分頁偏移
+      const page = +req.query.page || 1
+      const offset = (page - 1) * PAGE_LIMIT
+
       // 製作頁面資料
       const today = new Date()
       const products = result.rows
-      const getProducts = products.slice(offset, offset + pageLimit )
+      const getProducts = products.slice(offset, offset + PAGE_LIMIT)
       getProducts.forEach(product => {
         product.mainImg = product.Images.find(img => img.isMain).url
         product.priceFormat = product.price.toLocaleString()
@@ -88,29 +49,18 @@ module.exports = {
         product.hasInv = (product.inventory !== 0)
       })
 
-      // 製作 pagination bar 資料
-      const totalPages = Math.ceil(result.count / pageLimit)
-      const pagesArray = Array.from({ length: totalPages }, (val, index) => index + 1)
-      const prev = (page === 1) ? 1 : page - 1
-      const next = (page === totalPages) ? totalPages : page + 1
-
-      // 生成 pagination bar 超連結位址
+      // 製作 pagination bar 資料、超連結位址
+      const { pagesArray, prev, next } = getPagination(result, PAGE_LIMIT, page)
       const queryString = genQueryString(req.query)
 
-      const selectedSort = `${sort},${orderBy}`
-      let bread = '製品一覽'
-      if (categoryQuery) {bread = categoryQuery}
-      if (req.path.includes('search')) { bread ='搜尋商品'}
+      // 製作麵包屑
+      const bread = getBread(categoryQuery, req, res) || '製品一覽'
 
-      // 當為所有商品頁的 製品一覽 時為 true 
-      // search 時，取消分類 active 特效
-      let isAllProducts = categoryQuery ? false : true
-      if (req.path.includes('search')) {isAllProducts = false}
-
-      res.render('products', { 
-        js: 'products',
-        css: 'products',
-        getProducts, selectedSort, searchQuery, bread, pagesArray, queryString, categoryQuery, tagQuery, page, prev, next, isAllProducts
+      res.render('products', {
+        css: 'products', js: 'products', 
+        getProducts, bread,
+        categoryQuery, searchQuery, tagQuery, selectedSort,
+        pagesArray, page, prev, next, queryString
       })
 
     } catch (err) {

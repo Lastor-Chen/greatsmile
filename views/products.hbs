@@ -15,7 +15,7 @@
             </li>
             {{#each tagGroup}}
               <li class="d-inline">
-                <a class="btn btn-sm {{#ifEqual ../tagQuery this.name}}active{{/ifEqual}}" data-tag="{{this.name}}">{{this.name}}</a>
+                <a class="btn btn-sm {{#ifEqual ../tagQuery this.id}}active{{/ifEqual}}" data-tag="{{this.id}}">{{this.name}}</a>
               </li>
             {{/each}}
             <li class="d-inline">
