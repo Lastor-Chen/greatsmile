@@ -45,7 +45,7 @@ module.exports = {
         order.orderName = order.receiver.split(',')
         order.orderAddress = order.address.split(',')
       })
-      res.render('orders', { orders, css: 'profile' })
+      res.render('orders', { orders, css: 'orders' })
 
     } catch (err) {
       console.error(err)
