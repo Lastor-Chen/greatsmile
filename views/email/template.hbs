@@ -5,21 +5,194 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <!-- included style -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css">
-  <link href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="/css/main.css">
-  {{#if css}}
-    <link rel="stylesheet" href="/css/{{css}}.css">
-  {{/if}}
+
   <title>GreatSmile Online Shop</title>
 </head>
 
 <body>
-  {{> header}}
-  {{{body}}}
+
+  <body style="margin: 0; padding: 0; ">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+      <tr>
+        <td align="center">
+          <img
+            src="https://lh3.googleusercontent.com/UodUEcaWPGmH8_J0ktqMGmvo4GttZzFdZy-ja7Jtv3HHlrcHP5RDsdzJyGksAyd3ihtGsPKykoC_BKLsLRhLhIPAH58hH7sJJl5fvDi-7WjtyhVgoOSvQVop7rhsnE5G0GKzIBbawto=w800"
+            height="230" style="display: block;" />
+        </td>
+      </tr>
+      <tr style="background-color: #ff9604;">
+        <td style="padding: 0px 30px 10px 30px;">
+          <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+              <td>
+                <h3 style="color: #ffffff;">嗨，{{user.name}}!
+                  <br>
+                  感謝你的訂購！
+                </h3>
+                <p style="color: #ffffff;">您的訂單({{sn}})已成立，我們將於收到款項後的三個工作天內為您出貨，您也可隨時前往個人專頁進行本次的訂單查詢。</p>
+                <a href="https://greatsmile.herokuapp.com/users/profile"><button
+                    style="background-color: #ff5400;border: 1px solid #ff9600;color: #ffffff;border-radius: 4px;width: 6rem;height: 2rem;line-height: 0.5rem;">個人專頁</button></a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="background-color:#ebebeb;">
+      <tr>
+        <td style="padding: 0px 30px 40px 30px;">
+          <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+              <td style="padding: 20px 20px 30px 20px;">
+                <h3 style="color: #ff5400;">訂單資訊</h3>
+                <hr style="border-color: #ff5400;">
+                <table>
+                  <tr>
+                    <td>
+                      <p style="font-weight:bold;">收件人：</p>
+                    </td>
+                    <td>
+                      <p>{{data.receiver}}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p style="font-weight:bold;">收件地址：</p>
+                    </td>
+                    <td>
+                      <p>{{data.address}}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p style="font-weight:bold;">聯絡電話：</p>
+                    </td>
+                    <td>
+                      <p>{{data.phone}}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p style="font-weight:bold;">寄送方式：</p>
+                    </td>
+                    <td>
+                      <p>{{data.deliveryMethod}}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p style="font-weight:bold;">付款方式：</p>
+                    </td>
+                    <td>
+                      <p>{{data.payMethod}}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p style="font-weight:bold;">付款金額：</p>
+                    </td>
+                    <td>
+                      <p>{{addDot data.amount}} NTD</p>
+                    </td>
+                  </tr>
+                </table>
+                <hr style="border-color: #ff5400;">
+              </td>
+            </tr>
+      </tr>
+    </table>
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="background-color:#ebebeb;">
+      <tr>
+        <td style="padding: 0px 30px 40px 30px;">
+          <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+              <td style="padding: 0px 20px 30px 20px;">
+                <h3 style="color: #ff5400;">出貨資訊</h3>
+                <hr style="border-color: #ff5400;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                  <tr>
+                    <td style="padding: 10px 10px 10px 10px;">
+                      <h6> </h6>
+                    </td>
+                    <td style="padding: 10px 10px 10px 10px;">
+                      <h6>名稱</h6>
+                    </td>
+                    <td style="padding: 10px 10px 10px 10px;">
+                      <h6>售價</h6>
+                    </td>
+                    <td style="padding: 10px 0px 10px 0px;text-align: center;">
+                      <h6>數量</h6>
+                    </td>
+                    <td style="padding: 10px 10px 10px 10px;text-align: end;">
+                      <h6>小計</h6>
+                    </td>
+                  </tr>
+                  {{#each data.cart.products}}
+                    <tr>
+                      <td style="padding: 10px 10px 10px 10px;">
+                        {{#each this.Images}}
+                          <img src="{{this.url}}" height="100" style="display: block; border-radius:0.5em" />
+                        {{/each}}
+                      </td>
+                      <td style="padding: 10px 10px 10px 10px;">
+                        <p>{{this.name}}</p>
+                      </td>
+                      <td style="padding: 10px 10px 10px 10px;">
+                        <p>{{addDot this.price}}</p>
+                      </td>
+                      <td style="padding: 10px 10px 10px 10px;text-align: center;">
+                        <p>{{this.quantity}}</p>
+                      </td>
+                      <td style="padding: 10px 10px 10px 10px;text-align: end;">
+                        <p>{{addDot this.amount}}</p>
+                      </td>
+                    </tr>
+                  {{/each}}
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <h6>運費</h6>
+                    </td>
+                    <td style="padding: 10px 10px 10px 10px;text-align: end;">
+                      <p>{{addDot data.shipping}}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <h6>總價</h6>
+                    </td>
+                    <td style="padding: 10px 10px 10px 10px;text-align: end;">
+                      <p>{{addDot data.amount}}</p>
+                    </td>
+                  </tr>
+                </table>
+                <hr style="border-color: #ff5400;">
+                <small style="padding: 10px 10px 10px 10px;text-align: end;">＊本信件為系統自動發送，請勿回信</small>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+      <tr style="background-color: #ff9604;">
+        <td style="padding: 0px 30px 0px 30px;">
+          <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+              <td style="text-align: center;">
+                <h3 style="color: #ffffff;">© 2019 最終溫蒂蕃茄堡</h3>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
   <footer class="mt-auto py-3 text-center">
     <a href="jquery:;" class="back-top">
       <i class="fas fa-chevron-up"></i>
@@ -43,16 +216,7 @@
     </ul>
     <span class="footer-muted">© 2019 最終溫蒂蕃茄堡</span>
   </footer>
-  <!-- included script -->
-  <import>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-      crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-      crossorigin="anonymous"></script>
-  </import>
+  
 </body>
 
 </html>

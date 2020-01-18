@@ -259,7 +259,7 @@ module.exports = {
         from: `大微笑商店 <${process.env.GMAIL_USER}>`,
         to: req.user.email,
         subject: `【GreatSmile Online Shop】訂單已建立 (單號${sn})`,
-        template: 'mailContent',
+        template:'template',
         context: {
           sn,
           data,
