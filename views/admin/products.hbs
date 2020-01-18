@@ -124,6 +124,17 @@
                       <p>廠商： {{this.maker}}</p>
                       <p>版權： {{this.copyright}}</p>
                       <p>規格： {{this.spec}}</p>
+                      <p>
+                        <span>特典：
+                          {{#if this.Gifts}}
+                            {{#each this.Gifts}}
+                              {{this.name}}
+                            {{/each}}
+                          {{else}}
+                            無
+                          {{/if}}
+                        </span>
+                      </p>
                     </div>
                     <div class="col-6 ">
                       <p>分類： {{this.Category.name}}</p>
@@ -135,17 +146,7 @@
                         {{/each}}
                       </p>
                       
-                      <p>
-                        <span>特典：
-                          {{#if this.Gifts}}
-                           {{#each this.Gifts}}
-                            {{this.name}}
-                           {{/each}}
-                          {{else}}
-                            無
-                          {{/if}}
-                        </span>
-                      </p>
+
                       <p>公開日期： {{this.release}}</p>
                       <p>發售日期： {{this.sale}}</p>
                       <p>預購截止日期： {{this.dead}}</p>
