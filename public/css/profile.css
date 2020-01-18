@@ -57,96 +57,10 @@
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, .25);
 }
 
-.tag-gift {
-  background-color: #ffe14d;
-  color: #e53900;
-}
-
-.tag-preorder {
-  background-color: #34A853;
-  color: #ffffff;
-}
-
-.text-pick {
-  color: #ff9600;
-}
-
 .side-list-text {
   font-size: 0.9rem;
 }
 
 .profile-href {
   color: #258fb8;
-}
-
-.order-card {
-   cursor: pointer;
-   padding-left: 0;
-   padding-right: 0;
-   background-color: white;
-}
-
-.card{
-  width: 48rem;
-}
-
-.accordion-thead {
-  width: 16rem;
-  text-align: center;
-}
-
-.accordion-title {
-  width: 12rem;
-  padding-left: 5rem;
-  padding-right: 2rem;
-  text-align: right;
-}
-
-.accordion-data {
-  width: 30rem;
-}
-
-.border-less {
-  border-color: white;
-}
-
-.table th {
-  border-top: 0px;
-}
-
-.order-info {
-  font-size: 0.9rem;
-}
-
-/* button */
-.cart-btn {
-  display: inline-block;
-  background: #ff5400;
-  color: #fff;
-  font-weight: bold;
-  border-radius: 10px;
-}
-
-.cell-image {
-  width: 10%!important;
-}
-
-.cell-name {
-  width: 40%!important;
-}
-
-.cell-quantity {
-  width: 15%!important;
-}
-
-.cell-price {
-  width: 20%!important;
-}
-
-.cell-subPrice {
-  width: 15%!important;
-}
-
-.fa-gift{
-  color: #ff5402;
 }

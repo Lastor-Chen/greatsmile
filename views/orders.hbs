@@ -51,7 +51,13 @@
                         </tr>
                         <tr>
                           <td class="accordion-title">收件地址</td>
-                          <td class="accordion-data">{{this.address}}</td>
+                          <td class="accordion-data">
+                            <span>{{this.orderAddress.[0]}}</span>
+                            <span>{{this.orderAddress.[1]}}</span>
+                            <span>{{this.orderAddress.[2]}}</span>
+                            <span>{{this.orderAddress.[3]}}</span>
+                            <span>{{this.orderAddress.[4]}}</span>
+                          </td>
                         </tr>
                         <tr>
                           <td class="accordion-title">付款方式</td>
@@ -91,7 +97,7 @@
                           <tr class="mb-2">
                             <td class="cell-img">
                               <a href="/products/{{this.id}}" class="product-img">
-                                <img src="{{this.mainImg}}" class="rounded mx-2 float-right my-1 " alt="productImage">
+                                <img src="{{this.mainImg}}" class="rounded mx-2 float-right my-1" alt="productImage">
                               </a>
                             </td>
                             <td class="cell-name">

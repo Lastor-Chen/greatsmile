@@ -35,8 +35,9 @@ module.exports = {
           product.mainImg = product.Images.find(img => img.isMain).url
           product.subPrice = product.OrderItem.quantity * product.OrderItem.price
         })
+        order.orderAddress = order.address.split(',')
       })
-      res.render('orders', { orders, css: 'profile' })
+      res.render('orders', { orders, css: 'orders' })
 
     } catch (err) {
       console.error(err)

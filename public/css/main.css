@@ -7,6 +7,11 @@ body {
   display: flex;
   flex-flow: column;
   min-height: 100vh;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+.btn:hover {
+  color: #fff;
 }
 
 .container {
