@@ -40,9 +40,15 @@ module.exports = {
 
         //售價加上dot
         product.price = product.price.toLocaleString()
+
+        //校正日期格式
+        product.release = moment(product.releaseDate).format('YYYY/MM/DD')
+        product.sale = moment(product.saleDate).format('YYYY/MM/DD')
+        product.dead = moment(product.deadline).format('YYYY/MM/DD')
+
       })
 
-      console.log(products)
+      console.log(products[0])
       res.render('admin/products', { products })
     } catch (err) {
       console.error(err)
