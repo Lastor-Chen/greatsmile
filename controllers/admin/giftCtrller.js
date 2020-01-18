@@ -60,38 +60,45 @@ module.exports = {
   putGift: async (req, res) => {
     try {
       const input = { ...req.body }
+      const giftId = +req.params.giftsid
       if (input.name.trim() === '') {
-
         req.flash('error', '特典名稱不能為空白')
-        res.redirect('back')
-
-      } else {
-
-        const { file } = req
-      
-        if (file) {
-          input.image = (await imgur.uploadFile(file.path)).data.link
-        }
-
-        if (input.ProductId.trim() != '') {
-          const product = await Product.findByPk(input.ProductId)
-          if (!product) {
-            req.flash('error', '欲關聯商品不存在！')
-            return res.redirect('back')
-          }
-        }
-
-        if (input.ProductId.trim() === '') {
-          input.ProductId = null
-        }
-
-        const id = +req.params.giftsid
-        await Gift.update(input, { where: { id } })
-
-        req.flash('success', '更新成功！')
-        res.redirect('/admin/gifts')
-
+        return res.redirect('back')
       }
+
+      // 處理圖片
+      const { file } = req
+      if (file) {
+        input.image = (await imgur.uploadFile(file.path)).data.link
+      }
+
+      // 處理關聯商品
+      if (input.ProductId.trim() !== '') {
+        const product = await Product.findByPk(input.ProductId, {
+          attributes: [ 'id' ],
+          include: Gift
+        })
+
+        if (!product) {
+          req.flash('error', '欲關聯商品不存在！')
+          return res.redirect('back')
+        }
+
+        const gift = product.Gifts[0]
+        if (gift && (gift.id !== giftId)) {
+          req.flash('error', `該商品已有特典 id ${gift.id}`)
+          return res.redirect('back')
+        }
+      }
+
+      if (input.ProductId.trim() === '') {
+        input.ProductId = null
+      }
+
+      await Gift.update(input, { where: { id: giftId } })
+
+      req.flash('success', '更新成功！')
+      res.redirect('/admin/gifts')
 
     } catch (err) {
       console.error(err)
