@@ -242,6 +242,11 @@ module.exports = {
         }]
       })
       
+      orderProduct.products.forEach(product => {
+        const inventory = product.inventory - product.OrderItem.quantity
+        product.update({inventory})
+      })
+      
       // send Email
       const mail = getMailObj(data, req.user, order, sn)
       transporter.sendMail(mail, (err, info) => {
