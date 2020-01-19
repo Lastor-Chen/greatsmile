@@ -71,13 +71,13 @@
     <div class="container">
       <ul class="nav mx-auto align-items-center">
         <li class="nav-item">
-          <a class="nav-link py-3 {{#if isAllProducts}}active{{/if}}" href="/products">製品一覽</a>
+          <a class="nav-link py-3 {{#ifEqual categoryQuery 0}}active{{/ifEqual}}" href="/products">製品一覽</a>
         </li>
         {{#each categoryBar}}
-        <li class="nav-item">
-          <a class="nav-link py-3 {{#ifEqual ../categoryQuery this.name}}active{{/ifEqual}}"
-            href="/products?category={{this.name}}">{{this.name}}</a>
-        </li>
+          <li class="nav-item">
+            <a class="nav-link py-3 {{#ifEqual ../categoryQuery this.id}}active{{/ifEqual}}"
+              href="/products?category={{this.id}}">{{this.name}}</a>
+          </li>
         {{/each}}
         <li class="nav-item">
           <form class="px-3" action="/search" method="GET">
