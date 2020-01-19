@@ -21,6 +21,6 @@ module.exports = app => {
   app.use('/orders', isAuth, require('./orders.js'))
   app.use('/users', require('./users.js'))
 
-  app.get('/', (req, res) => res.render('home'))
+  app.get('/', (req, res) => res.redirect('/products'))
   app.get('/search', getTagGroup, require('../controllers/prodCtrller').getProducts)
 }

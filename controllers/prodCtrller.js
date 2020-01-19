@@ -38,13 +38,12 @@ module.exports = {
       const offset = (page - 1) * PAGE_LIMIT
 
       // 製作頁面資料
-      const today = new Date()
       const products = result.rows
       const getProducts = products.slice(offset, offset + PAGE_LIMIT)
       getProducts.forEach(product => {
         product.mainImg = product.Images.find(img => img.isMain).url
         product.priceFormat = product.price.toLocaleString()
-        product.isPreorder = moment(today).isBefore(product.deadline)
+        product.isOnSale = moment().isAfter(product.saleDate)
         product.isGift = product.Gifts.length > 0 ? true : false
         product.hasInv = (product.inventory !== 0)
       })
@@ -90,7 +89,8 @@ module.exports = {
       product.releaseDateFormat = moment(product.releaseDate).format('YYYY年MM月DD日(dd)')
       product.deadlineFormat = moment(product.deadline).format('YYYY年MM月DD日(dd)')
       product.hasGift = (product.Gifts.length !== 0) ? true : false
-      product.isOnSale = moment(new Date).isAfter(product.deadline)
+      product.isOnSale = moment().isAfter(product.saleDate)
+      product.isPreOrder = moment().isBefore(product.deadline)
       product.hasInv = (product.inventory !== 0)
       product.category = product.Category.name
 

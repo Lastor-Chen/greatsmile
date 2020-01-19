@@ -19,11 +19,6 @@
   color: hsl(30, 8%, 59%);
 }
 
-.btn-display {
-  padding: 0 10px;
-  font-size: 25px;
-}
-
 .btn-icon {
   background-color: #ffffff;
   border-radius: 8px;
@@ -82,7 +77,7 @@
 }
 
 .nav-tag {
-  padding: 0 10px;
+  padding: 0;
 }
 
 .nav-tag li .active{

@@ -62,3 +62,9 @@
   background-color: #faf5f1;
 }
 
+.demo-info {
+  background-color: #e9ecef;
+  border-radius: 10px;
+  font-size: .8rem;
+  line-height: 1.4rem;
+}

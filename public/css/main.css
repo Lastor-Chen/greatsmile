@@ -75,6 +75,11 @@ body {
   color:#ffffff;
 }
 
+footer .fa-github-square {
+  font-size: 2.5rem;
+  color: #fff;
+}
+
 .category-bar .nav-link {
   color: #ffffff;
   font-size: .9rem;
