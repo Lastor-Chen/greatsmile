@@ -1,6 +1,7 @@
 const db = require('../models')
-const { Cart, CartItem, Order, OrderItem, Delivery, Payment } = db
+const { Cart, CartItem, Order, OrderItem, Delivery, Payment, Product } = db
 
+const Op = require('sequelize').Op
 const moment = require('moment')
 moment.locale('zh-tw')
 
@@ -234,6 +235,38 @@ module.exports = {
       const data = { ...passData }
       data.address = data.address.join(',')
       data.receiver = data.receiver.join(' ')
+
+      // 計算商品庫存
+      const cartProds = data.cart.products
+      const queryArray = cartProds.map(prod => ({ id: prod.id }))
+      const products = await Product.findAll({ where: {
+        [Op.or]: queryArray
+      }})
+
+      // 遍歷商品，確認庫存狀況
+      const noInvProds = []
+      const hasInvProds = []
+      products.forEach(async prod => {
+        const cartProd = cartProds.find(item => item.id === prod.id)
+        const inventory = (prod.inventory - cartProd.CartItem.quantity)
+        if (inventory < 0) return noInvProds.push({ name: prod.name, qty: prod.inventory })
+
+        prod.inventory = inventory
+        hasInvProds.push(prod)
+      })
+
+      // 併發無庫存時，停止訂單建立
+      if (noInvProds.length) {
+        let msg = ''
+        noInvProds.forEach(prod => {
+          msg += `商品 ${prod.name}，庫存數量為 ${prod.qty}，已超出您選購的數量\n`
+        })
+        req.flash('error', msg)
+        return res.redirect('/cart')
+      }
+
+      // 確認都有庫存，才 update
+      hasInvProds.forEach(async prod => await prod.save())
 
       // 建立 Order
       const order = await Order.create({
