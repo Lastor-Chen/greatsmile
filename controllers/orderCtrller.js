@@ -1,6 +1,7 @@
 const db = require('../models')
 const { Cart, CartItem, Order, OrderItem, Delivery, Payment, Product } = db
 
+const Op = require('sequelize').Op
 const moment = require('moment')
 moment.locale('zh-tw')
 
@@ -203,6 +204,38 @@ module.exports = {
       data.address = data.address.join(',')
       data.receiver = data.receiver.join(',')
 
+      // 計算商品庫存
+      const cartProds = data.cart.products
+      const queryArray = cartProds.map(prod => ({ id: prod.id }))
+      const products = await Product.findAll({ where: {
+        [Op.or]: queryArray
+      }})
+
+      // 遍歷商品，確認庫存狀況
+      const noInvProds = []
+      const hasInvProds = []
+      products.forEach(async prod => {
+        const cartProd = cartProds.find(item => item.id === prod.id)
+        const inventory = (prod.inventory - cartProd.CartItem.quantity)
+        if (inventory < 0) return noInvProds.push({ name: prod.name, qty: prod.inventory })
+
+        prod.inventory = inventory
+        hasInvProds.push(prod)
+      })
+
+      // 併發無庫存時，停止訂單建立
+      if (noInvProds.length) {
+        let msg = ''
+        noInvProds.forEach(prod => {
+          msg += `商品 ${prod.name}，庫存數量為 ${prod.qty}，已超出您選購的數量\n`
+        })
+        req.flash('error', msg)
+        return res.redirect('/cart')
+      }
+
+      // 確認都有庫存，才 update
+      hasInvProds.forEach(async prod => await prod.save())
+
       // 建立 Order
       const order = await Order.create({
         ...data,
@@ -231,22 +264,6 @@ module.exports = {
       // 清除購物車 items
       await CartItem.destroy({ where: { CartId: cart.id } })
 
-      // 扣除商品庫存
-      const id = order.id
-      const orderProduct = await Order.findByPk(id, {   // 訂單內的所有商品
-        attributes: ['id'],
-        include: [{ 
-          model: Product, 
-          as: 'products', 
-          attributes: ['id', 'name', 'inventory']
-        }]
-      })
-      
-      orderProduct.products.forEach(product => {
-        const inventory = product.inventory - product.OrderItem.quantity
-        product.update({inventory})
-      })
-      
       // send Email
       const mail = getMailObj(data, req.user, order, sn)
       transporter.sendMail(mail, (err, info) => {
