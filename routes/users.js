@@ -4,7 +4,7 @@ const cartCtrller = require('../controllers/cartCtrller.js')
 const { isAuth } = require('../middleware/auth.js')
 
 // route base '/users'
-router.post('/signup', userCtrller.signUp, userCtrller.signIn)
+router.post('/signup', userCtrller.signUp, userCtrller.signIn, (req, res) => res.redirect('/products'))
 router.get('/signin', userCtrller.getSignIn)
 router.get('/signin/checkout', userCtrller.getSignIn)
 router.post('/signin', userCtrller.signIn, cartCtrller.setCart)
