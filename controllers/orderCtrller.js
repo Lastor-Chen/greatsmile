@@ -83,6 +83,9 @@ module.exports = {
       req.flash('passData')  // reset flash
       req.flash('passData', data)
 
+      // 建立已通過 flag
+      req.flash('passedSteps', [0])
+
       res.redirect('checkout_1')
 
     } catch (err) {
@@ -94,10 +97,21 @@ module.exports = {
   async getCheckout(req, res) {
     try {
       const data = req.flash('passData')[0]
-
+      const beforePath = req.flash('beforePath')
+      
       // 無 passData，阻擋退回
       if (!data) return res.redirect('/cart')
       req.flash('passData', data)
+
+      // 審核是否有經過 POST 表單
+      const passedSteps = req.flash('passedSteps')
+      req.flash('passedSteps', passedSteps)
+
+      const beforeStep = (+req.path.slice(-1)) - 1
+      const isPassed = passedSteps.includes(beforeStep)
+      if (!isPassed) return res.redirect('/orders' + beforePath)
+
+      req.flash('beforePath', [req.path])
 
       const view = req.path.slice(1)
       res.render(view, { css: 'checkout', js: 'checkout', data, view })
@@ -130,6 +144,9 @@ module.exports = {
       const data = { ...req.flash('passData')[0], ...receiver }
       req.flash('passData', data)
 
+      // 建立已通過 flag
+      req.flash('passedSteps', 1)
+
       res.redirect('checkout_2')
 
     } catch (err) {
@@ -161,6 +178,9 @@ module.exports = {
       data.amount = (data.cart.subtotal + input.shipping)
       req.flash('passData', data)
 
+      // 建立已通過 flag
+      req.flash('passedSteps', 2)
+
       res.redirect('checkout_3')
 
     } catch (err) {
@@ -182,6 +202,9 @@ module.exports = {
       const data = { ...req.flash('passData')[0], ...input}
       req.flash('passData', data)
 
+      // 建立已通過 flag
+      req.flash('passedSteps', 3)
+
       res.redirect('checkout_4')
 
     } catch (err) {
@@ -192,8 +215,17 @@ module.exports = {
 
   async postOrder(req, res) {
     try {
+      // 確認攜帶 passData
       const passData = req.flash('passData')[0]
       if (!passData) {
+        req.flash('error', '錯誤訪問')
+        return res.redirect('/cart')
+      }
+
+      // 確認已通過各表單 passedSteps
+      const passedSteps = req.flash('passedSteps')
+      const isPassed = [0, 1, 2, 3].every(step => passedSteps.includes(step))
+      if (!isPassed) {
         req.flash('error', '錯誤訪問')
         return res.redirect('/cart')
       }
@@ -201,7 +233,7 @@ module.exports = {
       // 取出 data 並 format
       const data = { ...passData }
       data.address = data.address.join(',')
-      data.receiver = data.receiver.join(',')
+      data.receiver = data.receiver.join(' ')
 
       // 建立 Order
       const order = await Order.create({
