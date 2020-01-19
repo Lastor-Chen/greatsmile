@@ -9,11 +9,11 @@
     "copyright": "Koyoharu Gotoge / SHUEISHA, Aniplex, ufotable",
     "maker": "Good Smile Company",
     "status": 1,
-    "release_date": "2019/10/01",
+    "release_date": "2020/01/01",
     "sale_date": "2020/03/01",
     "deadline": "2020/02/01",
     "series_id": 1,
-    "category_id": 1
+    "category_id": 2
   },
 
   {
@@ -30,7 +30,7 @@
     "sale_date": "2020/04/01",
     "deadline": "2019/08/29",
     "series_id": 1,
-    "category_id": 1
+    "category_id": 2
   },
 
   {
@@ -47,7 +47,7 @@
     "sale_date": "2020/07/01",
     "deadline": "2019/05/01",
     "series_id": 2,
-    "category_id": 1
+    "category_id": 2
   },
 
   {
@@ -64,7 +64,7 @@
     "sale_date": "2020/06/01",
     "deadline": "2019/05/01",
     "series_id": 3,
-    "category_id": 1
+    "category_id": 2
   },
 
   {
@@ -77,11 +77,11 @@
     "copyright": "TYPE-MOON / FGO7 ANIME PROJECT",
     "maker": "Max Factory",
     "status": 1,
-    "release_date": "2019/10/01",
+    "release_date": "2019/11/30",
     "sale_date": "2020/02/01",
     "deadline": "2019/12/01",
     "series_id": 4,
-    "category_id": 2
+    "category_id": 3
   },
 
   {
@@ -98,7 +98,7 @@
     "sale_date": "2020/06/01",
     "deadline": "2019/05/01",
     "series_id": 5,
-    "category_id": 3
+    "category_id": 4
   }
 
 ]
