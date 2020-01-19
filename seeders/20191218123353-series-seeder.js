@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    const series = ['鬼滅之刃', '寶可夢', '排球少年', 'Vocaloid']
+    const series = ['鬼滅之刃', '中華一番', 'MARVEL', 'Fate/Grand Order ','新幹線變形機器人 Shinkalion']
     return queryInterface.bulkInsert('series',
       series.map((item, index) => ({
         name: item
