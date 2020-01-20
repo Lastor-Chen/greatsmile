@@ -10,7 +10,7 @@ module.exports = {
       queryInterface.bulkInsert('tag_items',
         Array.from({ length: 50 }, (val, index) => ({
           tag_Id: 1,  // 預約中
-          product_id: index + 50
+          product_id: index + 51
         }))
       ),
       queryInterface.bulkInsert('tag_items',
@@ -40,6 +40,6 @@ module.exports = {
  * 共 100 筆
  * product_id   tag
  *   51-100     1 (預約中)
- *   random     2 (附特典)
+ *   3n         2 (附特典)
  *   1-50       3 (發售中)
  */
