@@ -1,6 +1,7 @@
 const db = require('../models')
 const { Product, Image, Gift } = db
 
+const Op = require('sequelize').Op
 const moment = require('moment')
 moment.locale('zh-tw')
 
@@ -17,7 +18,10 @@ module.exports = {
       const selectedSort = `${sort},${orderBy}`
 
       // 製作 db where 物件
-      const where = { status: 1 }
+      const now = new Date()
+      const where = { status: 1,
+        [Op.or]: { deadline: { [Op.gte]: now }, saleDate: { [Op.lte]: now } }
+      }
       const { categoryQuery, searchQuery, tagQuery } = setWhere(req, where)
 
       // db Query
@@ -38,13 +42,13 @@ module.exports = {
       const offset = (page - 1) * PAGE_LIMIT
 
       // 製作頁面資料
-      const today = new Date()
       const products = result.rows
       const getProducts = products.slice(offset, offset + PAGE_LIMIT)
       getProducts.forEach(product => {
         product.mainImg = product.Images.find(img => img.isMain).url
         product.priceFormat = product.price.toLocaleString()
-        product.isPreorder = moment(today).isBefore(product.deadline)
+        product.isOnSale = moment(now).isAfter(product.saleDate)
+        product.isPreOrder = moment(now).isBefore(product.deadline)
         product.isGift = product.Gifts.length > 0 ? true : false
         product.hasInv = (product.inventory !== 0)
       })
@@ -85,12 +89,14 @@ module.exports = {
       if (!product) return res.redirect('/products')
 
       // 頁面所需 data
+      const now = new Date()
       product.priceFormat = product.price.toLocaleString()
       product.saleDateFormat = moment(product.saleDate).format('YYYY年MM月')
       product.releaseDateFormat = moment(product.releaseDate).format('YYYY年MM月DD日(dd)')
       product.deadlineFormat = moment(product.deadline).format('YYYY年MM月DD日(dd)')
       product.hasGift = (product.Gifts.length !== 0) ? true : false
-      product.isOnSale = moment(new Date).isAfter(product.deadline)
+      product.isOnSale = moment(now).isAfter(product.saleDate)
+      product.isPreOrder = moment(now).isBefore(product.deadline)
       product.hasInv = (product.inventory !== 0)
       product.category = product.Category.name
 

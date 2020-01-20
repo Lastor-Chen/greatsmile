@@ -1,10 +1,22 @@
 <header id="navbar" class="navbar navbar-light p-0">
   <div class="top-bar">
     <div class="container py-3">
-      <a href="/" class="navbar-brand">LOGO</a>
+      <div class="text-right">
+        <a href="/" class="navbar-brand d-block p-0 m-0">
+          <img src="/img/logo.png" alt="logo">
+        </a>
+        <small>This is a demo site</small>
+      </div>
       <div>
         {{#if user}}
-          <a href="/users/signout" class="signout-href text-decoration-none align-top mr-2"><i class="fas fa-sign-out-alt"></i> 登出</a>
+          {{#if user.isAdmin}}
+            <a href="/admin/products" class="signout-href text-decoration-none align-top mr-3">
+              <i class="fas fa-user-cog"></i> 後台
+            </a>
+          {{/if}}
+          <a href="/users/signout" class="signout-href text-decoration-none align-top mr-2">
+            <i class="fas fa-sign-out-alt"></i> 登出
+          </a>
           <a href="/users/profile" class="btn mr-2 btn-top-bar" style="line-height: 1.5rem;">
             <span class="userpage-item">歡迎 {{user.nickname}}</span>
             </br>
@@ -59,13 +71,13 @@
     <div class="container">
       <ul class="nav mx-auto align-items-center">
         <li class="nav-item">
-          <a class="nav-link py-3 {{#if isAllProducts}}active{{/if}}" href="/products">製品一覽</a>
+          <a class="nav-link py-3 {{#ifEqual categoryQuery 0}}active{{/ifEqual}}" href="/products">製品一覽</a>
         </li>
         {{#each categoryBar}}
-        <li class="nav-item">
-          <a class="nav-link py-3 {{#ifEqual ../categoryQuery this.name}}active{{/ifEqual}}"
-            href="/products?category={{this.name}}">{{this.name}}</a>
-        </li>
+          <li class="nav-item">
+            <a class="nav-link py-3 {{#ifEqual ../categoryQuery this.id}}active{{/ifEqual}}"
+              href="/products?category={{this.id}}">{{this.name}}</a>
+          </li>
         {{/each}}
         <li class="nav-item">
           <form class="px-3" action="/search" method="GET">
