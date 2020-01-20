@@ -1,8 +1,6 @@
 'use strict';
 
-function randomNum(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min
-}
+const tagItems = require('./json/tagItem.json')
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -24,7 +22,8 @@ module.exports = {
           tag_Id: 3,  // 發售中
           product_id: index + 1
         }))
-      )
+      ),
+      queryInterface.bulkInsert('tag_items', tagItems)
     ])
   },
 
