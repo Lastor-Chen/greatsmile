@@ -1,13 +1,13 @@
 'use strict';
-const faker = require('faker')
+const images = require('./json/images.js')
 
 function randomNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return Promise.all([
+  up: async (queryInterface, Sequelize) => {
+    await Promise.all([
       queryInterface.bulkInsert('images',
         Array.from({ length: 260 }, (val, index) => ({
           url: `https://picsum.photos/seed/${index + 1}/530/670`,
@@ -23,6 +23,8 @@ module.exports = {
         }))
       ),
     ])
+
+    await queryInterface.bulkInsert('images', images)
   },
 
   down: (queryInterface, Sequelize) => {

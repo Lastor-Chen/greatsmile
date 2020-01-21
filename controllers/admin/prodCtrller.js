@@ -48,43 +48,7 @@ module.exports = {
 
       })
 
-      console.log(products[0])
       res.render('admin/products', { products })
-    } catch (err) {
-      console.error(err)
-      res.status(500).json({ status: 'serverError', message: err.toString() })
-    }
-  },
-
-  getProduct: async (req, res) => {
-    try {
-      const product = await Product.findOne({
-        where: { id: +req.params.id },
-        include: ['Gifts', 'Images', 'tags', 'Series', 'Category'],
-        // 使 Images 第一張為 mainImg，之後依上傳順排序
-        order: [
-          ['Images', 'isMain', 'DESC'],
-          ['Images', 'id', 'ASC']
-        ]
-      })
-
-      if (!product) return res.redirect('/products')
-
-      // 頁面所需 data
-      product.priceFormat = product.price.toLocaleString()
-      product.saleDateFormat = moment(product.saleDate).format('YYYY年MM月')
-      product.releaseDateFormat = moment(product.releaseDate).format('YYYY年MM月DD日(dd)')
-      product.deadlineFormat = moment(product.deadline).format('YYYY年MM月DD日(dd)')
-      product.hasGift = (product.Gifts.length !== 0) ? true : false
-      product.isOnSale = moment(new Date).isAfter(product.deadline)
-      product.hasInv = (product.inventory !== 0)
-      product.category = product.Category.name
-
-      res.render('product', {
-        css: 'product', js: 'product', layout: 'main',
-        useSlick: true, useLightbox: true,
-        product
-      })
 
     } catch (err) {
       console.error(err)
@@ -179,6 +143,12 @@ module.exports = {
         req.flash('input', input)
         return res.redirect('/admin/products/new')
       }
+
+      // 添加預設 Time
+      input.releaseDate += 'T12:00'
+      input.deadline += 'T21:00'
+      input.saleDate += 'T00:00'
+
       // 檢查至少有一張圖片
       if (!files[0]){
         req.flash('error', '至少上傳一張圖片')
@@ -304,6 +274,11 @@ module.exports = {
         req.flash('input', input)
         return res.redirect(`/admin/products/${id}/edit`)
       }
+
+      // 添加預設 Time
+      input.releaseDate += 'T12:00'
+      input.deadline += 'T21:00'
+      input.saleDate += 'T00:00'
 
       //修改商品資訊
       let product = await Product.findByPk(id)

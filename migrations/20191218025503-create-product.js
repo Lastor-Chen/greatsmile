@@ -38,10 +38,10 @@ module.exports = {
       release_date: {
         type: Sequelize.DATE
       },
-      sale_date: {
+      deadline: {
         type: Sequelize.DATE
       },
-      deadline: {
+      sale_date: {
         type: Sequelize.DATE
       },
       series_id: {

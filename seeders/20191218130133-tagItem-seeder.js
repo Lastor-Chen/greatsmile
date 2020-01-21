@@ -1,26 +1,29 @@
 'use strict';
 
+const tagItems = require('./json/tagItems.json')
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return Promise.all([
       queryInterface.bulkInsert('tag_items',
-        Array.from({ length: 90 }, (val, index) => ({
-          tag_Id: 1,
-          product_id: index + 11
+        Array.from({ length: 50 }, (val, index) => ({
+          tag_Id: 1,  // 預約中
+          product_id: index + 51
         }))
       ),
       queryInterface.bulkInsert('tag_items',
-        Array.from({ length: 5 }, (val, index) => ({
-          tag_Id: 2,
-          product_id: index + 1
+        Array.from({ length: 30 }, (val, index) => ({
+          tag_Id: 2,  // 附特典
+          product_id: (index + 1) * 3
         }))
       ),
       queryInterface.bulkInsert('tag_items',
-        Array.from({ length: 5 }, (val, index) => ({
-          tag_Id: 3,
+        Array.from({ length: 50 }, (val, index) => ({
+          tag_Id: 3,  // 發售中
           product_id: index + 1
         }))
-      )
+      ),
+      queryInterface.bulkInsert('tag_items', tagItems)
     ])
   },
 
@@ -35,7 +38,7 @@ module.exports = {
 /**
  * 共 100 筆
  * product_id   tag
- *   1-5         2 (特典)
- *   1-5         3 (販售中)
- *   ~11         1 (預約中)
+ *   51-100     1 (預約中)
+ *   3n         2 (附特典)
+ *   1-50       3 (發售中)
  */
