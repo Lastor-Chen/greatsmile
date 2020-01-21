@@ -52,4 +52,27 @@ seed.push(...genImgSeed(107, [
   'https://i.imgur.com/7nFWeJJ.jpg'
 ]))
 
+// 寶多六花 ～I believe in future～
+seed.push(...genImgSeed(108, [
+  'https://i.imgur.com/QkKeb5i.jpg',
+  'https://i.imgur.com/DoEGJDM.jpg',
+  'https://i.imgur.com/Sj7Lglh.jpg',
+  'https://i.imgur.com/trvVpzX.jpg',
+  'https://i.imgur.com/lMj8ybK.jpg',
+  'https://i.imgur.com/ERHCuv4.jpg',
+  'https://i.imgur.com/ixHE55x.jpg'
+]))
+
+// 奈奈祈
+seed.push(...genImgSeed(109, [
+  'https://i.imgur.com/GcxJ6Fr.jpg',
+  'https://i.imgur.com/N5bEyCn.jpg',
+  'https://i.imgur.com/W6otWjf.jpg',
+  'https://i.imgur.com/hQKDmI2.jpg',
+  'https://i.imgur.com/SEcG4rY.jpg',
+  'https://i.imgur.com/WDmXifo.jpg',
+  'https://i.imgur.com/CGA2S4J.jpg',
+  'https://i.imgur.com/LoZGYcd.jpg'
+]))
+
 module.exports = seed

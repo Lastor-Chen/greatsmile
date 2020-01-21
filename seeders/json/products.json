@@ -123,6 +123,42 @@
     "spec": "ABS&PVC 製塗裝完成品・1/7比例模型・附專用台座・全高：約240mm（含帽子）",
     "series_id": 6,
     "category_id": 1
+  },
+
+  {
+    "id": 108,
+    "name": "寶多六花 ～I believe in future～",
+    "price": 5760,
+    "inventory": 99,
+    "slogan": "假如說，你受傷──",
+    "description": "出自TV動畫《SSSS.GRIDMAN》，女主角之一「寶多六花」化身為比例模型！依照擔任本作監督的雨宮哲全新繪製的插圖，並經由「TSUBURAYA PRODUCTIONS」及「TRIGGER」徹底監修，將角色魅力與作品世界氛圍合為一體，製出高品質的模型。",
+    "copyright": "TSUBURAYA PRODUCTIONS ©2018 TRIGGER・Akira Amemiya ©GRIDMAN PRODUCTION CONSORTIUM",
+    "status": 1,
+    "release_date": "2020-01-01T12:00",
+    "deadline": "2020-03-01T21:00",
+    "sale_date": "2020-08-01",
+    "maker": "Good Smile Company",
+    "spec": "ABS&PVC 製塗裝完成品・1/7比例模型・附專用台座・全高：約175mm（至頭頂部）、約185mm（至圍巾頂部）",
+    "series_id": 7,
+    "category_id": 1
+  },
+
+  {
+    "id": 109,
+    "name": "黏土人 奈奈祈（再販）",
+    "price": 1720,
+    "inventory": 99,
+    "slogan": "咱是奈奈祈。",
+    "description": "出自超人氣TV動畫《來自深淵》，「終末」造型的「奈奈祈」黏土人決定再次販售！表情零件附有可愛的「笑臉」、雷格接近時露出的「害羞臉」與「感動臉」。配件附有好友「米蒂」以及「炸岸木鱒魚塊」，能賞玩各種劇中情境。將可愛到無可救藥的奈奈祈帶回家吧！",
+    "copyright": "2017 つくしあきひと・竹書房／メイドインアビス製作委員会",
+    "status": 1,
+    "release_date": "2020-01-01T12:00",
+    "deadline": "2020-03-01T21:00",
+    "sale_date": "2020-08-01",
+    "maker": "Good Smile Company",
+    "spec": "ABS&PVC 製塗裝完成品・1/7比例模型・附專用台座・全高：約175mm（至頭頂部）、約185mm（至圍巾頂部）",
+    "series_id": 8,
+    "category_id": 2
   }
 
 ]

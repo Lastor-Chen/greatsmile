@@ -32,5 +32,20 @@
   {
     "tag_id": 1,
     "product_id": 107
+  },
+
+  {
+    "tag_id": 1,
+    "product_id": 108
+  },
+
+  {
+    "tag_id": 1,
+    "product_id": 109
+  },
+
+  {
+    "tag_id": 2,
+    "product_id": 109
   }
 ]

@@ -1,6 +1,8 @@
 'use strict';
 const faker = require('faker')
 
+const gifts = require('./json/gifts.json')
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('gifts',
@@ -8,7 +10,8 @@ module.exports = {
         name: faker.commerce.productName(),
         image: `https://picsum.photos/seed/gift${index + 1}/360/400`,
         product_id: (index + 1) * 3
-      }))
+      })),
+      queryInterface.bulkInsert('gifts', gifts)
     )
   },
 
