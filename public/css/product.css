@@ -98,7 +98,7 @@ section {
 
 /* 上部購物車 */
 .small-text {
-  font-size: 12px;
+  font-size: .85rem;
 }
 
 .status-text {
@@ -146,7 +146,7 @@ section {
 }
 
 .buy-info {
-  font-size: 12px;
+  font-size: .85rem;
   color: #ff0000;
 }
 
@@ -164,6 +164,10 @@ section {
 }
 
 /* 商品規格 */
+.spec-list {
+  font-size: .9rem;
+}
+
 .list-group-item:nth-of-type(odd) {
   background: #f8f8f8;
 }
