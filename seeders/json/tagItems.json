@@ -3,64 +3,44 @@
     "tag_id": 1,
     "product_id": 101
   },
-
   {
     "tag_id": 1,
     "product_id": 102
   },
-
   {
     "tag_id": 1,
     "product_id": 103
   },
-
   {
     "tag_id": 1,
     "product_id": 104
   },
-
   {
     "tag_id": 1,
     "product_id": 105
   },
-
+  {
+    "tag_id": 2,
+    "product_id": 105
+  },
   {
     "tag_id": 1,
     "product_id": 106
   },
-
   {
     "tag_id": 1,
     "product_id": 107
   },
-
+  {
+    "tag_id": 2,
+    "product_id": 107
+  },
   {
     "tag_id": 1,
     "product_id": 108
   },
-
   {
     "tag_id": 1,
     "product_id": 109
-  },
-
-  {
-    "tag_id": 2,
-    "product_id": 109
-  },
-
-  {
-    "tag_id": 1,
-    "product_id": 110
-  },
-
-  {
-    "tag_id": 1,
-    "product_id": 111
-  },
-
-  {
-    "tag_id": 1,
-    "product_id": 112
   }
 ]
