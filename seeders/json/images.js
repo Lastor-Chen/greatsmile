@@ -35,12 +35,23 @@ seed.push(...genImgSeed(102, [
 
 // 黏土人 竈門炭治郎
 seed.push(...genImgSeed(103, [
-  "https://lh3.googleusercontent.com/sdEhhph_nkIIigbBOLv7TLK-UAnd641f3t3h6fcg7SZVmeFOHwYP-UBl5OCNcre8xTPE127KCco9wjJWFTKu9_SdWzynGgF1RyX1VJCYeRDZkYC7zZA1_OOSpah7ZVyabxXxHZ2eSyA=w2400",
+  "https://i.imgur.com/ozkd3K9.jpg",
+  "https://i.imgur.com/Loog0Bt.jpg",
+  "https://i.imgur.com/z2FRFNY.jpg",
+  "https://i.imgur.com/G72eqlk.jpg",
+  "https://i.imgur.com/3wHiiFo.jpg",
+  "https://i.imgur.com/u2aMSt9.jpg"
 ]))
 
 // 黏土人 竈門禰豆子
 seed.push(...genImgSeed(104, [
-  "https://lh3.googleusercontent.com/LY7pWJ2JfiwVI6K-qaGAjnJLf53ZAs2pVQgpvxs0FppKhzTRBs_p_-9N16agGT9wVX0IPJ6PJWBxRx1v5btHbdpd8SruQGFBkoU9SPlKoSR5k_IZM1KVk2REKVe1JJLyd93AGyisO34=w2400",
+  'https://i.imgur.com/W5L8yff.jpg',
+  'https://i.imgur.com/ftZ9Q5g.jpg',
+  'https://i.imgur.com/HHQL34d.jpg',
+  'https://i.imgur.com/H2YthrT.jpg',
+  'https://i.imgur.com/kgSC2Hv.jpg',
+  'https://i.imgur.com/Wf6D9H3.jpg',
+  'https://i.imgur.com/WyGO4oH.jpg'
 ]))
 
 // 奈奈祈
