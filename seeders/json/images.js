@@ -75,4 +75,34 @@ seed.push(...genImgSeed(109, [
   'https://i.imgur.com/LoZGYcd.jpg'
 ]))
 
+// 絆愛
+seed.push(...genImgSeed(110, [
+  'https://i.imgur.com/ajkFV0G.jpg',
+  'https://i.imgur.com/ZoPsNPE.jpg',
+  'https://i.imgur.com/GkwdWuR.jpg',
+  'https://i.imgur.com/YtEk62y.jpg',
+  'https://i.imgur.com/aWGnNUa.jpg',
+  'https://i.imgur.com/eZR2c4m.jpg',
+  'https://i.imgur.com/QDYHI1U.jpg'
+]))
+
+// 大和
+seed.push(...genImgSeed(111, [
+  'https://i.imgur.com/S1KTKVb.jpg',
+  'https://i.imgur.com/IbtjSLJ.jpg',
+  'https://i.imgur.com/Ma0hNZh.jpg',
+  'https://i.imgur.com/HGcbqiZ.jpg'
+]))
+
+// 翠星
+seed.push(...genImgSeed(112, [
+  'https://i.imgur.com/T6SkkN9.jpg',
+  'https://i.imgur.com/h2vBysW.jpg',
+  'https://i.imgur.com/9o3zpQ5.jpg',
+  'https://i.imgur.com/rFyksHI.jpg',
+  'https://i.imgur.com/5ISZJzO.jpg',
+  'https://i.imgur.com/wnWb3Ty.jpg',
+  'https://i.imgur.com/sFnacfk.jpg'
+]))
+
 module.exports = seed

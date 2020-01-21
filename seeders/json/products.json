@@ -159,6 +159,59 @@
     "spec": "ABS&PVC 製塗裝完成品・1/7比例模型・附專用台座・全高：約175mm（至頭頂部）、約185mm（至圍巾頂部）",
     "series_id": 8,
     "category_id": 2
-  }
+  },
 
+  {
+    "id": 110,
+    "name": "figma 絆愛",
+    "price": 1900,
+    "inventory": 99,
+    "slogan": "(自稱)世界第一個虛擬YouTuber，在figma登場！",
+    "description": "使用容易擺出姿勢且不易滑動的figma獨創關節零件，重現影片中的各種動作。肩與腰部採用取出式關節。運動範圍進一步擴大。有四種表情零件，「微笑」，「閉眼微笑」，「微笑眼睛」和「尖叫的臉」。此外，還有配件「戴眼鏡的劉海」，「戴太陽眼鏡的劉海」與「遊戲手把」。帶有安裝於台座的figma專用可動支架，可實現多彩的動作表現。",
+    "copyright": "Kizuna AI",
+    "status": 1,
+    "release_date": "2020-01-01T12:00",
+    "deadline": "2020-03-01T21:00",
+    "sale_date": "2020-08-01",
+    "maker": "Max Factory",
+    "spec": "ABS&PVC 塗裝完成可動模型・無比例・附專用台座・全高：約135mm",
+    "series_id": 9,
+    "category_id": 3
+  },
+
+  {
+    "id": 111,
+    "name": "PLAMAX MF-17 minimum factory 大和",
+    "price": 1600,
+    "inventory": 99,
+    "slogan": "1/20比例的戰艦大和參上！",
+    "description": "使用容易擺出姿勢且不易滑動的figma獨創關節零件，重現影片中的各種動作。肩與腰部採用取出式關節。運動範圍進一步擴大。有四種表情零件，「微笑」，「閉眼微笑」，「微笑眼睛」和「尖叫的臉」。此外，還有配件「戴眼鏡的劉海」，「戴太陽眼鏡的劉海」與「遊戲手把」。帶有安裝於台座的figma專用可動支架，可實現多彩的動作表現。",
+    "copyright": "2017 DMM.com POWERCHORD STUDIO / C2 / KADOKAWA All Rights Reserved.",
+    "status": 1,
+    "release_date": "2020-01-01T12:00",
+    "deadline": "2020-03-01T21:00",
+    "sale_date": "2020-08-01",
+    "maker": "Max Factory",
+    "spec": "ABS＆PS組裝式塑膠模型・1/20比例模型・附專用台座・附眼睛水貼・全高：約90mm",
+    "series_id": 10,
+    "category_id": 4
+  },
+
+  {
+    "id": 112,
+    "name": "PLAMAX SG-03 Machine Calibur Avalon Guard",
+    "price": 2700,
+    "inventory": 99,
+    "slogan": "另一架“捷霸”",
+    "description": "TV動畫『翠星上的加爾岡緹亞』中登場的主角機“ K6821 捷霸”。本次推出的是以K6821捷霸為基礎設計，並由『翠星上的加爾岡緹亞』機械設計師石渡マコト特別繪製的「Machine Calibur Avalon Guard」。Machine Calibur Avalon Guard是銀河人類同盟的據點、移民船“Avalon”警備用武裝機器人。請務必親手組出這款劇中沒有出現的另一架“捷霸”！",
+    "copyright": "オケアノス／「翠星のガルガンティア」製作委員会",
+    "status": 1,
+    "release_date": "2020-01-01T12:00",
+    "deadline": "2020-03-01T21:00",
+    "sale_date": "2020-08-01",
+    "maker": "Max Factory",
+    "spec": "PS組裝式塑膠模型・附水轉印貼・1/48比例模型・全高：約170mm",
+    "series_id": 11,
+    "category_id": 4
+  }
 ]
