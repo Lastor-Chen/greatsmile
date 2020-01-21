@@ -48,8 +48,8 @@ module.exports = {
 
       })
 
-      console.log(products[0])
       res.render('admin/products', { products })
+
     } catch (err) {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
@@ -179,6 +179,12 @@ module.exports = {
         req.flash('input', input)
         return res.redirect('/admin/products/new')
       }
+
+      // 添加預設 Time
+      input.releaseDate += 'T12:00'
+      input.deadline += 'T21:00'
+      input.saleDate += 'T00:00'
+
       // 檢查至少有一張圖片
       if (!files[0]){
         req.flash('error', '至少上傳一張圖片')
@@ -304,6 +310,11 @@ module.exports = {
         req.flash('input', input)
         return res.redirect(`/admin/products/${id}/edit`)
       }
+
+      // 添加預設 Time
+      input.releaseDate += 'T12:00'
+      input.deadline += 'T21:00'
+      input.saleDate += 'T00:00'
 
       //修改商品資訊
       let product = await Product.findByPk(id)
