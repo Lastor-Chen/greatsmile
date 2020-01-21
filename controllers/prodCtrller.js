@@ -20,6 +20,7 @@ module.exports = {
       // 製作 db where 物件
       const now = new Date()
       const where = { status: 1,
+        releaseDate: { [Op.lte]: now },
         [Op.or]: { deadline: { [Op.gte]: now }, saleDate: { [Op.lte]: now } }
       }
       const { categoryQuery, searchQuery, tagQuery } = setWhere(req, where)
@@ -74,10 +75,15 @@ module.exports = {
   },
 
   getProduct: async (req, res) => {
-    try {    
+    try {
+      const now = new Date()
       const product = await Product.findOne({ 
         // 只取上架中商品
-        where: { 'id': +req.params.id, 'status': true },
+        where: { 
+          'id': +req.params.id, 'status': true,
+          releaseDate: { [Op.lte]: now },
+          [Op.or]: { deadline: { [Op.gte]: now }, saleDate: { [Op.lte]: now } }
+        },
         include: ['Gifts', 'Images', 'tags', 'Series', 'Category'],
         // 使 Images 第一張為 mainImg，之後依上傳順排序
         order: [
@@ -85,11 +91,10 @@ module.exports = {
           ['Images', 'id', 'ASC']
         ]
       })
-      
+
       if (!product) return res.redirect('/products')
 
       // 頁面所需 data
-      const now = new Date()
       product.priceFormat = product.price.toLocaleString()
       product.saleDateFormat = moment(product.saleDate).format('YYYY年MM月')
       product.releaseDateFormat = moment(product.releaseDate).format('YYYY年MM月DD日(dd)')
