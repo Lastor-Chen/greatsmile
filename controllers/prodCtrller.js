@@ -77,13 +77,22 @@ module.exports = {
   getProduct: async (req, res) => {
     try {
       const now = new Date()
-      const product = await Product.findOne({ 
-        // 只取上架中商品
-        where: { 
-          'id': +req.params.id, 'status': true,
+
+      // 判斷是否為 preview 頁
+      const isPreview = req.path.includes('preview')
+      let where = { 'id': +req.params.id }
+      if (!isPreview) {
+        where = { ...where,
+          // 只取營銷中的商品
+          'status': true,
           releaseDate: { [Op.lte]: now },
           [Op.or]: { deadline: { [Op.gte]: now }, saleDate: { [Op.lte]: now } }
-        },
+        }
+      }
+
+      // Query 資料庫
+      const product = await Product.findOne({ 
+        where,
         include: ['Gifts', 'Images', 'tags', 'Series', 'Category'],
         // 使 Images 第一張為 mainImg，之後依上傳順排序
         order: [
@@ -106,8 +115,9 @@ module.exports = {
       product.category = product.Category.name
 
       res.render('product', { 
-        css: 'product', js: 'product', product,
-        useSlick: true, useLightbox: true
+        layout: 'main', css: 'product', js: 'product',
+        useSlick: true, useLightbox: true,
+        product
       })
 
     } catch (err) {
