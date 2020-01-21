@@ -3,7 +3,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
 
-    const categories = ['Figure', '豆丁人', 'Figma', '組裝模型(仮)']
+    const categories = ['Figure', '豆丁人', 'Figma', '組裝模型']
     return queryInterface.bulkInsert('categories',
       categories.map((item, index) => ({
         name: item
