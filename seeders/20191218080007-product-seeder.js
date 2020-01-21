@@ -27,7 +27,7 @@ module.exports = {
         copyright: faker.company.companyName(),
         maker: faker.company.companyName(),
         status: 1,
-        release_date: index < 50 ? faker.date.between('2019-10-01', '2019-10-31') : faker.date.between('2019-12-01', '2019-12-31'),
+        release_date: index < 50 ? faker.date.between('2019-10-01', '2019-10-31') : faker.date.between('2019-11-01', '2019-11-30'),
         deadline: index < 50 ? faker.date.between('2019-11-01', '2019-11-31') : faker.date.between('2020-01-15', '2020-03-15'),
         sale_date: index < 50 ? faker.date.between('2019-12-01', '2019-12-18') : faker.date.between('2020-05-01', '2020-10-31'),
         series_id: randomNum(1, 4),
