@@ -1,7 +1,7 @@
 'use strict';
 const faker = require('faker')
 
-const products = require('./json/product.json')
+const products = require('./json/products.json')
 
 function randomNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min

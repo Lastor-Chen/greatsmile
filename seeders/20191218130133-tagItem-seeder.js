@@ -1,6 +1,6 @@
 'use strict';
 
-const tagItems = require('./json/tagItem.json')
+const tagItems = require('./json/tagItems.json')
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
