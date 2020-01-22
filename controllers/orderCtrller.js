@@ -326,10 +326,11 @@ module.exports = {
 
       // 取出、整理購物 data
       const data = req.flash('passData')[0]
-      const orderDate = moment(data.createdAt).format('YYYY/MM/DD HH:mm')
+      const twDate = moment(data.createdAt).tz('Asia/Taipei')
+      const orderDate = twDate.format('YYYY/MM/DD HH:mm')
 
       // 付款期限三天 (臨時)
-      const paymentTerms = moment(data.createdAt).add(3, 'days').format('YYYY/MM/DD')
+      const paymentTerms = twDate.add(3, 'days').format('YYYY/MM/DD')
 
       res.render('success', { css: 'success', data, orderDate, paymentTerms })
 
