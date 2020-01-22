@@ -10,7 +10,6 @@ module.exports = {
         password: bcrypt.hashSync('12345678', 10),
         nickname: index === 0 ? 'root' : faker.name.firstName(),
         name: index === 0 ? 'root' : faker.name.findName(),
-        phone: faker.phone.phoneNumberFormat(),
         address: faker.address.streetAddress() + faker.address.city(),
         birthday: faker.date.past(30),
         gender: index < 6 ? 'M' : 'F',
