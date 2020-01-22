@@ -18,25 +18,20 @@
           <input type="text" name="from" value="/checkout" hidden>
         {{/if}}
         <div class="form-group col-6 pr-1">
-          <input type="text" class="form-control" name="lastName" placeholder="姓氏*"
-            {{#if input.lastName}}value={{input.lastName}} {{/if}} required>
+          <input type="text" class="form-control" name="lastName" placeholder="姓氏*" value="{{input.lastName}}" required>
         </div>
         <div class="form-group col-6 pl-1">
-          <input type="text" class="form-control" name="firstName" placeholder="名字*"
-            {{#if input.firstName}}value={{input.firstName}} {{/if}} required>
+          <input type="text" class="form-control" name="firstName" placeholder="名字*" value="{{input.firstName}}" required>
         </div>
         <div class="form-group col-12">
-          <input type="email" class="form-control" name="email" placeholder="電子郵件地址*" autocomplete="email"
-            {{#if input.email}}value={{input.email}} {{/if}} required>
+          <input type="email" class="form-control" name="email" placeholder="電子郵件地址*" autocomplete="email" value="{{input.email}}" required>
         </div>
         <div class="form-group col-6 pr-1">
-          <input type="password" class="form-control" name="password" placeholder="密碼*" autocomplete="new-password"
-            {{#if input.password}}value={{input.password}} {{/if}} required>
+          <input type="password" class="form-control" name="password" placeholder="密碼*" autocomplete="new-password" required>
           <small class="form-text text-muted">最短長度 6 個字元</small>
         </div>
         <div class="form-group col-6 pl-1">
-          <input type="password" class="form-control" name="passwordCheck" placeholder="確認密碼*" autocomplete="new-password"
-            {{#if input.passwordCheck}}value={{input.passwordCheck}} {{/if}} required>
+          <input type="password" class="form-control" name="passwordCheck" placeholder="確認密碼*" autocomplete="new-password" required>
         </div>
         <div class="col-12">
           <p class="description mb-1">性別*</p>
@@ -55,8 +50,7 @@
         </div>
         <div class="col-6 mt-2">
           <p class="description mb-1">生日*</p>
-          <input type="date" class="form-control" name="birthday" {{#if input.birthday}}value={{input.birthday}} {{/if}}
-            required>
+          <input type="date" class="form-control" name="birthday" value="{{input.birthday}}" required>
           <small class="form-text text-danger">※性別與生日在註冊後將無法變更。</small>
         </div>
         <br>

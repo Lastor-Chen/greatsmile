@@ -36,7 +36,7 @@
             <div class="col-sm-7">
               <select class="form-control" name="CategoryId" id="category">
                 {{#each categories}}
-                  <option value={{this.id}}>{{this.name}}</option>
+                  <option value="{{this.id}}">{{this.name}}</option>
                 {{/each}}
               </select>
             </div>
@@ -48,7 +48,7 @@
             <div class="col-sm-7 d-flex align-items-center">
               {{#each tag}}
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" name="tag[]" id="tag_{{this.id}}" value={{this.id}}
+                  <input class="form-check-input" type="checkbox" name="tag[]" id="tag_{{this.id}}" value="{{this.id}}"
                     {{#if this.checked}}checked{{/if}}
                   >
                   <label class="form-check-label" for="tag_{{this.id}}">{{this.name}}</label>
@@ -149,7 +149,7 @@
             <div class="col-sm-7">
               <select class="form-control" name="SeriesId" id="series">
                 {{#each series}}
-                  <option value={{this.id}}>{{this.name}}</option>
+                  <option value="{{this.id}}">{{this.name}}</option>
                 {{/each}}
               </select>
             </div>
