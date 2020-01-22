@@ -7,10 +7,7 @@ const { propTest, assnTest, actionTest } = require('./lib/testTools.js')
 const props = [
   'email',
   'password',
-  'nickname',
   'name',
-  'phone',
-  'address',
   'birthday',
   'gender',
   'isAdmin'
