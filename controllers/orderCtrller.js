@@ -385,7 +385,7 @@ module.exports = {
 
       const orderNo = tradeInfo.Result.MerchantOrderNo
       let payTime = tradeInfo.Result.PayTime
-      payTime = payTime.slice(0, 10) + 'T' + payTime.slice(10)
+      payTime = payTime.slice(0, 10) + 'T' + payTime.slice(10) + '+08:00'
 
       // 更新資料庫
       const order = await Order.findOne({ where: { orderNo } })
