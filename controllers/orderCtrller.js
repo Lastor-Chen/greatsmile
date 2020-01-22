@@ -378,7 +378,6 @@ module.exports = {
 
       // 解密、整理資料
       const tradeInfo = JSON.parse(aesDecrypt(req.body.TradeInfo, HashKey, HashIV))
-      console.log(tradeInfo)
 
       // 防止不同用戶 "同時" 進行支付，此時不對資料庫操作
       if (tradeInfo.Message === '已存在相同的商店訂單編號') return res.redirect('/orders')
