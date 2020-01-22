@@ -130,5 +130,19 @@ module.exports = {
       console.error(err)
       res.status(500).json({ status: 'serverError', message: err.toString() })
     }
-  }
+  },
+
+  swtichShipStatus: async (req, res) => {
+    try {
+      const orderId = req.params.ordersid
+      const order = await Order.findByPk(orderId)
+      order.shipStatus = !order.shipStatus
+      await order.save()
+
+      res.redirect('/admin/orders?mode=uncancel')
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ status: 'serverError', message: err.toString() })
+    }
+  },
 }
