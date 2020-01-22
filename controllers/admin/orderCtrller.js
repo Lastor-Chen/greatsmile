@@ -90,7 +90,7 @@ module.exports = {
 
       } else {
 
-        const id = +req.params.ordersid
+        const id = +req.params.orderId
         const order = await Order.findByPk(id)
         if (order.shipStatus !== false) {
 
@@ -115,7 +115,7 @@ module.exports = {
   cancelOrder: async (req, res) => {
     try {
 
-      const id = req.params.ordersid
+      const id = req.params.orderId
       const order = await Order.findByPk(id)
 
       order.payStatus = -1
@@ -132,9 +132,9 @@ module.exports = {
     }
   },
 
-  swtichShipStatus: async (req, res) => {
+  switchShipStatus: async (req, res) => {
     try {
-      const orderId = req.params.ordersid
+      const orderId = +req.params.orderId
       const order = await Order.findByPk(orderId)
       order.shipStatus = !order.shipStatus
       await order.save()
