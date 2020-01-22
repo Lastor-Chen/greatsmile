@@ -42,9 +42,9 @@ module.exports = {
         product.price = product.price.toLocaleString()
 
         //校正日期格式
-        product.release = moment(product.releaseDate).format('YYYY/MM/DD')
-        product.sale = moment(product.saleDate).format('YYYY/MM/DD')
-        product.dead = moment(product.deadline).format('YYYY/MM/DD')
+        product.release = moment(product.releaseDate).tz('Asia/Taipei').format('YYYY/MM/DD')
+        product.sale = moment(product.saleDate).tz('Asia/Taipei').format('YYYY/MM/DD')
+        product.dead = moment(product.deadline).tz('Asia/Taipei').format('YYYY/MM/DD')
 
       })
 

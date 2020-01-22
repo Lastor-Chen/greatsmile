@@ -105,9 +105,9 @@ module.exports = {
 
       // 頁面所需 data
       product.priceFormat = product.price.toLocaleString()
-      product.saleDateFormat = moment(product.saleDate).format('YYYY年MM月')
-      product.releaseDateFormat = moment(product.releaseDate).format('YYYY年MM月DD日(dd)')
-      product.deadlineFormat = moment(product.deadline).format('YYYY年MM月DD日(dd)')
+      product.saleDateFormat = moment(product.saleDate).tz('Asia/Taipei').format('YYYY年MM月')
+      product.releaseDateFormat = moment(product.releaseDate).tz('Asia/Taipei').format('YYYY年MM月DD日(dd)')
+      product.deadlineFormat = moment(product.deadline).tz('Asia/Taipei').format('YYYY年MM月DD日(dd)')
       product.hasGift = (product.Gifts.length !== 0) ? true : false
       product.isOnSale = moment(now).isAfter(product.saleDate)
       product.isPreOrder = moment(now).isBefore(product.deadline)
