@@ -46,9 +46,17 @@
               {{#if this.isCanceled}}
                 <i class="fas fa-trash-alt"></i>
               {{else if this.shipStatus}}
-                <i class="fas fa-check text-success"></i>
+                <i class="fas fa-check text-success" hidden></i>
+                <form action="/admin/orders/{{this.id}}/ship" method="POST">
+                  <input type="text" name="id" hidden>
+                  <button type="submit" class="btn" title="修改為未出貨"><i class="fas fa-check text-success"></i></button>
+                </form>
               {{else}}
-                <i class="fas fa-times text-danger"></i>
+                <i class="fas fa-times text-danger" hidden></i>
+                <form action="/admin/orders/{{this.id}}/ship" method="POST">
+                  <input type="text" name="id" hidden>
+                  <button type="submit" class="btn" title="修改為已出貨"><i class="fas fa-times text-danger"></i></button>
+                </form>
               {{/if}}
             </td>
             <td>{{this.receiver}}</td>
