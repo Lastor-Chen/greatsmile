@@ -36,15 +36,21 @@
         <div class="col-12">
           <p class="description mb-1">性別*</p>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="M" required>
+            <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="M" required 
+              {{#ifEqual input.gender "M"}}checked{{/ifEqual}}
+            >
             <label class="form-check-label" for="inlineRadio1">男性</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="F">
+            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="F"
+              {{#ifEqual input.gender "F"}}checked{{/ifEqual}}
+            >
             <label class="form-check-label" for="inlineRadio2">女性</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="gender" id="inlineRadio3" value="N">
+            <input class="form-check-input" type="radio" name="gender" id="inlineRadio3" value="N"
+              {{#ifEqual input.gender "N"}}checked{{/ifEqual}}
+            >
             <label class="form-check-label" for="inlineRadio3">其他</label>
           </div>
         </div>
