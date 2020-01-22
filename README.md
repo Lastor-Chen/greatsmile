@@ -46,11 +46,11 @@ User Story - (準備中) <br>
 
 - 此 App 的核心體系為 Node.js + Express.js，以 Node npm 來管理套件。
 - 目前並無使用 Vue 之類較完整的前端框架，為純後端生成頁面的 Web App。
-- 單元測試部分，並沒完整實作，僅有初步的 model 測試，並把 CI 建起來而以。
+- 單元測試部分，並沒完整實作，僅有初步的 model 測試，並把 CI 建起來而已。
 - 其他依賴套件請參考專案 [package.json](./package.json)
 
 ## Installation & 本機端啟動
-如欲在本地端啟動，必須先安裝 [Node.js](https://nodejs.org/en/) 與 [MySQL](https://www.mongodb.com/)。<br>
+如欲在本地端啟動，必須先安裝 [Node.js](https://nodejs.org/en/) 與 [MySQL](https://dev.mysql.com/downloads/mysql/)。<br>
 推薦使用 [nvm](https://github.com/coreybutler/nvm-windows) 來安裝指定版本的 Node.js。
 - Node.js v10.16.3
 - MySQL v8.0.17
