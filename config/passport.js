@@ -30,7 +30,10 @@ passport.serializeUser((user, done) => {
 })
 passport.deserializeUser((id, done) => {
   User.findByPk(id)
-    .then(user => done(null, user))
+    .then(user => {
+      user.nickname = user.name.split(' ').slice(-1)
+      done(null, user)
+    })
     .catch(err => console.error(err))
 })
 
