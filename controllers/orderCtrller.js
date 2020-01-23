@@ -326,10 +326,11 @@ module.exports = {
 
       // 取出、整理購物 data
       const data = req.flash('passData')[0]
-      const orderDate = moment(data.createdAt).format('YYYY/MM/DD HH:mm')
+      const twDate = moment(data.createdAt).tz('Asia/Taipei')
+      const orderDate = twDate.format('YYYY/MM/DD HH:mm')
 
       // 付款期限三天 (臨時)
-      const paymentTerms = moment(data.createdAt).add(3, 'days').format('YYYY/MM/DD')
+      const paymentTerms = twDate.add(3, 'days').format('YYYY/MM/DD')
 
       res.render('success', { css: 'success', data, orderDate, paymentTerms })
 
@@ -377,14 +378,13 @@ module.exports = {
 
       // 解密、整理資料
       const tradeInfo = JSON.parse(aesDecrypt(req.body.TradeInfo, HashKey, HashIV))
-      console.log(tradeInfo)
 
       // 防止不同用戶 "同時" 進行支付，此時不對資料庫操作
       if (tradeInfo.Message === '已存在相同的商店訂單編號') return res.redirect('/orders')
 
       const orderNo = tradeInfo.Result.MerchantOrderNo
       let payTime = tradeInfo.Result.PayTime
-      payTime = payTime.slice(0, 10) + 'T' + payTime.slice(10)
+      payTime = payTime.slice(0, 10) + 'T' + payTime.slice(10) + '+08:00'
 
       // 更新資料庫
       const order = await Order.findOne({ where: { orderNo } })

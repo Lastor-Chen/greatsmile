@@ -24,7 +24,7 @@ module.exports = {
       // SN、時間格式
       payments.forEach(payment => {
         payment.SN = ("000000000" + inputSn).slice(-10)
-        payment.payDate = moment(payment.payTime).format('YYYY/MM/DD HH:mm')
+        payment.payDate = moment(payment.payTime).tz('Asia/Taipei').format('YYYY/MM/DD HH:mm')
       });
 
       res.render('admin/payments', { payments, showSn })
