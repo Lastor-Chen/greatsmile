@@ -46,9 +46,17 @@
               {{#if this.isCanceled}}
                 <i class="fas fa-trash-alt"></i>
               {{else if this.shipStatus}}
-                <i class="fas fa-check text-success"></i>
+                <i class="fas fa-check text-success" hidden></i>
+                <form action="/admin/orders/{{this.id}}/ship" method="POST">
+                  <input type="text" name="id" hidden>
+                  <button type="submit" class="btn" title="修改為未出貨"><i class="fas fa-check text-success"></i></button>
+                </form>
               {{else}}
-                <i class="fas fa-times text-danger"></i>
+                <i class="fas fa-times text-danger" hidden></i>
+                <form action="/admin/orders/{{this.id}}/ship" method="POST">
+                  <input type="text" name="id" hidden>
+                  <button type="submit" class="btn" title="修改為已出貨"><i class="fas fa-times text-danger"></i></button>
+                </form>
               {{/if}}
             </td>
             <td>{{this.receiver}}</td>
@@ -106,11 +114,8 @@
                   </div>
                   <div class="modal-body">
                     <div class="row col-12">
-                      <div class="col-6">
+                      <div class="col-12">
                         <p>訂購人：{{this.User.name}} </p>
-                      </div>
-                      <div class="col-6">
-                        <p>聯絡電話：{{this.User.phone}}</p>
                       </div>
                       <div class="col-12">
                         <p class="mb-0">會員信箱：{{this.User.email}}</p>
@@ -144,14 +149,14 @@
                               <label for="newReceiver" class="col-4 pr-1 col-form-label">新收件人：</label>
                               <div class="col-8 pl-0">
                                 <input type="text" class="form-control" name="receiver"
-                                  placeholder="輸入新收件人" value={{this.receiver}}>
+                                  placeholder="輸入新收件人" value="{{this.receiver}}">
                               </div>
                             </div>
                             <div class="col-5 row ml-3">
                               <label for="newPhone" class="col-5 pr-1 col-form-label">新聯絡電話：</label>
                               <div class="col-7 pl-0">
                                 <input type="text" class="form-control" name="phone" placeholder="輸入新聯絡電話"
-                                  value={{this.phone}}>
+                                  value="{{this.phone}}">
                               </div>
                             </div>
                             <div class="float-right">

@@ -20,8 +20,9 @@ module.exports = {
       }
 
       // 整理 input 資料
-      input.name = input.lastName + input.firstName
-      input.nickname = input.firstName
+      const lastName = input.lastName.replace(/ /g, '')
+      const firstName = input.firstName.replace(/ /g, '')
+      input.name = `${lastName} ${firstName}`
       input.password = bcrypt.hashSync(input.password, 10)
       input.isAdmin = false
       await User.create(input)
