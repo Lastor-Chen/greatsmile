@@ -32,7 +32,8 @@ ps. 有透過 Travis 來進行基本的 CI / CD 自動化技術。
 
 ## 相關資料
 User Story - [傳送門](https://hackmd.io/@lastwendytomaburger/HJJ2c-mZL) <br>
-資料庫ERD - [傳送門](public/img/GreatSmile_ERD%20.png)
+資料庫ERD - [傳送門](public/img/GreatSmile_ERD%20.png) <br>
+路由設計 - [傳送門](https://hackmd.io/@lastwendytomaburger/BJRf57H0r)
 
 ## 主要技術
 
@@ -106,6 +107,6 @@ $ npm run dev
 
 ## 開發人員
 Team 最終溫蒂蕃茄堡
-- [Lastor](https://github.com/Lastor-Chen)
-- [TomatoSoup](https://github.com/TomatoSoup0126)
-- [Wendy](https://github.com/wendyhsiao)
+- [Lastor](https://github.com/Lastor-Chen)，心得Blog - [傳送門](https://link.medium.com/cW3ljqsVE3)
+- [TomatoSoup](https://github.com/TomatoSoup0126)，心得Blog - [傳送門](https://link.medium.com/JUSgRUQuF3)
+- [Wendy](https://github.com/wendyhsiao)，心得Blog - [傳送門](https://link.medium.com/oGkoZ9eVE3)
