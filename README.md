@@ -107,6 +107,6 @@ $ npm run dev
 
 ## 開發人員
 Team 最終溫蒂蕃茄堡
-- [Lastor](https://github.com/Lastor-Chen)
-- [TomatoSoup](https://github.com/TomatoSoup0126)
-- [Wendy](https://github.com/wendyhsiao)
+- [Lastor](https://github.com/Lastor-Chen)，心得Blog - [傳送門](https://link.medium.com/cW3ljqsVE3)
+- [TomatoSoup](https://github.com/TomatoSoup0126)，心得Blog - [傳送門](https://link.medium.com/JUSgRUQuF3)
+- [Wendy](https://github.com/wendyhsiao)，心得Blog - [傳送門](https://link.medium.com/oGkoZ9eVE3)
