@@ -32,7 +32,8 @@ ps. 有透過 Travis 來進行基本的 CI / CD 自動化技術。
 
 ## 相關資料
 User Story - [傳送門](https://hackmd.io/@lastwendytomaburger/HJJ2c-mZL) <br>
-資料庫ERD - [傳送門](public/img/GreatSmile_ERD%20.png)
+資料庫ERD - [傳送門](public/img/GreatSmile_ERD%20.png) <br>
+路由設計 - [傳送門](https://hackmd.io/@lastwendytomaburger/BJRf57H0r)
 
 ## 主要技術
 
