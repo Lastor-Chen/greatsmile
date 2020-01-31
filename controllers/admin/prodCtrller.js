@@ -48,7 +48,7 @@ module.exports = {
 
       })
 
-      res.render('admin/products', { products })
+      res.render('admin/products', { products , css:'products'})
 
     } catch (err) {
       console.error(err)
