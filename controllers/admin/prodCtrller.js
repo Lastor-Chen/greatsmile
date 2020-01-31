@@ -13,9 +13,16 @@ const { genQueryString, setWhere, getPagination} = require('../../lib/product_to
 module.exports = {
   getProducts: async (req, res) => {
     try {
+
+      // 製作 db where 物件
+      const now = new Date()
+      const where = { }
+      const { searchQuery } = setWhere(req, where)
+
       const result = await Product.findAndCountAll({
         order: [['id', 'DESC']],
-        include: [Category, Series, Image, Gift,'tags']
+        include: [Category, Series, Image, Gift,'tags'],
+        where
       })
 
 
@@ -67,7 +74,12 @@ module.exports = {
 
       res.render('admin/products', { 
         getProducts,
-        pagesArray, page, prev, next, queryString,
+        pagesArray, 
+        page, 
+        prev, 
+        next, 
+        queryString, 
+        searchQuery,
         css:'products'})
 
     } catch (err) {
