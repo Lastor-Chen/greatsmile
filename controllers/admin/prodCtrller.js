@@ -7,19 +7,36 @@ const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 imgur.setClientId(IMGUR_CLIENT_ID)
 
 const {checkProduct} = require('../../lib/checker.js')
+const PAGE_LIMIT = 10
+const { genQueryString, setWhere, getPagination} = require('../../lib/product_tools.js')
 
 module.exports = {
   getProducts: async (req, res) => {
     try {
-      const products = await Product.findAll({
+      const result = await Product.findAndCountAll({
         order: [['id', 'DESC']],
         include: [Category, Series, Image, Gift,'tags']
       })
 
+
+      // 設定分頁偏移
+      const page = +req.query.page || 1
+      const offset = (page - 1) * PAGE_LIMIT
+
+      // 製作頁面資料
+      const products = result.rows
+      products.count = result.rows.length 
+      const getProducts = products.slice(offset, offset + PAGE_LIMIT)
+
+      // 製作 pagination bar 資料、超連結位址
+      const { pagesArray, prev, next } = getPagination(products, PAGE_LIMIT, page)
+      const queryString = genQueryString(req.query)
+
+
       //判斷日期用
       const today = new Date()
 
-      products.forEach(product => {
+      getProducts.forEach(product => {
         //寫入主商品圖, 若無商品圖則寫入無圖片圖示
         if (product.Images.length != 0) {
           product.mainImg = product.Images.find(img => img.isMain).url
@@ -48,7 +65,10 @@ module.exports = {
 
       })
 
-      res.render('admin/products', { products , css:'products'})
+      res.render('admin/products', { 
+        getProducts,
+        pagesArray, page, prev, next, queryString,
+        css:'products'})
 
     } catch (err) {
       console.error(err)

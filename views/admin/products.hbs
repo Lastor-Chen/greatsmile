@@ -16,7 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        {{#each products}}
+        {{#each getProducts}}
           <tr>
             <td class="text-center">{{this.id}}</td>
             <td class="text-center">
@@ -179,5 +179,9 @@
         {{/each}}
       </tbody>
     </table>
+  </div>
+  {{!-- 分頁 --}}
+  <div class="float-right pr-4">
+    {{>pagination}}
   </div>
 </main>
