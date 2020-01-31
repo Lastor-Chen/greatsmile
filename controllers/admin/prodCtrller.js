@@ -7,7 +7,7 @@ const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 imgur.setClientId(IMGUR_CLIENT_ID)
 
 const {checkProduct} = require('../../lib/checker.js')
-const PAGE_LIMIT = 10
+const PAGE_LIMIT = 20
 const { genQueryString, setWhere, getPagination} = require('../../lib/product_tools.js')
 
 module.exports = {
