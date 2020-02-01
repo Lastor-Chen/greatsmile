@@ -7,7 +7,7 @@
         </div>
         <form class="form-inline d-flex justify-content-end" action="/admin/series" method="POST">
           <div class="form-group mx-sm-3 mb-2 mt-1">
-            <input type="text" class="form-control" name="name" placeholder="輸入新作品別..." required>
+            <input type="text" class="form-control input-center" name="name" placeholder="輸入新作品別..." required>
           </div>
           <button type="submit" class="btn btn-primary mb-2 mt-1">新增作品別</button>
         </form>
@@ -77,7 +77,7 @@
                       <form class="" action="/admin/series/{{this.id}}?_method=PUT" method="POST"
                         id="edit_{{this.id}}">
                         <div class="form-group mx-sm-3 mb-2 mt-1">
-                          <input type="text" class="form-control" name="name" placeholder="輸入作品別名稱..."
+                          <input type="text" class="form-control input-center" name="name" placeholder="輸入作品別名稱..."
                             value="{{this.name}}" required>
                         </div>
                       </form>
