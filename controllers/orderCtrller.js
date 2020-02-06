@@ -1,5 +1,5 @@
 const db = require('../models')
-const { Cart, CartItem, Order, OrderItem, Delivery, Payment, Product } = db
+const { Cart, CartItem, Order, Delivery, Payment } = db
 
 const moment = require('moment')
 moment.locale('zh-tw')
