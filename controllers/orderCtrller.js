@@ -217,17 +217,12 @@ module.exports = {
 
   async postOrder(req, res) {
     try {
-      // 確認攜帶 passData
       const passData = req.flash('passData')[0]
-      if (!passData) {
-        req.flash('error', '錯誤訪問')
-        return res.redirect('/cart')
-      }
-
-      // 確認已通過各表單 passedSteps
       const passedSteps = req.flash('passedSteps')
+
+      // 確認是否為正當進入
       const isPassed = [0, 1, 2, 3].every(step => passedSteps.includes(step))
-      if (!isPassed) {
+      if (!passData || !isPassed) {
         req.flash('error', '錯誤訪問')
         return res.redirect('/cart')
       }
