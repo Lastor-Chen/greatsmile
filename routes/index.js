@@ -10,6 +10,9 @@ const { isAuth } = require('../middleware/auth.js')
 const { getCategoryBar } = require('../middleware/category.js')
 const { getTagGroup } = require('../middleware/tag.js')
 
+const db = require('../models')
+const { Product } = db
+
 module.exports = app => {
   app.use('/admin', require('./admin/index.js'))
   app.post('/newebpay/callback', newebpayCb)  // 金流API callback
@@ -23,4 +26,13 @@ module.exports = app => {
 
   app.get('/', (req, res) => res.redirect('/products'))
   app.get('/search', getTagGroup, require('../controllers/prodCtrller').getProducts)
+
+  app.get('/test', (req, res) => {
+    const productMap = [1, 2, 3]
+    productMap.forEach(id => {
+      Product.decrement({ inventory: 1 }, { where: { id } })
+    })
+
+    res.send('fin')
+  })
 }
