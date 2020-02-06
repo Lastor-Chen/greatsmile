@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const prodCtrller = require('../../controllers/admin/prodCtrller.js')
 const frontProdCtrller = require('../../controllers/prodCtrller.js')
+const { getCategoryBar } = require('../../middleware/category.js')
 
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
@@ -10,7 +11,7 @@ const upload = multer({ dest: 'temp/' })
 router.get('/', prodCtrller.getProducts)
 router.get('/new', prodCtrller.getAddPage)
 router.get('/:id/edit', prodCtrller.getEditPage)
-router.get('/:id/preview', frontProdCtrller.getProduct)
+router.get('/:id/preview', getCategoryBar, frontProdCtrller.getProduct)
 
 router.post('/', upload.array('image', 10), prodCtrller.postNewProduct)
 router.post('/:id/display', prodCtrller.postDisplay)

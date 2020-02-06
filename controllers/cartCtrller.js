@@ -1,7 +1,6 @@
 const db = require('../models')
-const { Product, Cart, CartItem} = db
+const { Product, Cart, CartItem } = db
 
-const Op = require('sequelize').Op
 const moment = require('moment')
 moment.locale('zh-tw')
 

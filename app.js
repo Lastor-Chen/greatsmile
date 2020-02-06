@@ -25,8 +25,8 @@ app.use('/favicon.ico', express.static('public/favicon.ico'))
 app.use(flash())
 
 app.use(session({
-  secret: 'LastWendyTomatoBurger',
-  name: 'greatSmile',
+  secret: process.env.SESSION_KEY,
+  name: process.env.SESSION_NAME,
   cookie: { maxAge: 1000*60*10 },
   resave: false,
   saveUninitialized: false
