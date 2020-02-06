@@ -249,7 +249,7 @@ module.exports = {
       if (order instanceof Error) { throw order }
 
       // send Email
-      const mail = getMailObj(data, req.user, order, sn)
+      const mail = getMailObj(data, req.user, order, order.sn)
       transporter.sendMail(mail, (err, info) => {
         if (err) return console.error(err)
         console.log(`Email sent: ${info.response}`)
@@ -257,7 +257,7 @@ module.exports = {
       
       // 傳遞資料給 success 頁
       passData.id = order.id
-      passData.sn = sn
+      passData.sn = order.sn
       passData.createdAt = order.createdAt
       req.flash('passData', passData)
       req.flash('isCreated', true)
