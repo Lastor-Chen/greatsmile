@@ -1,12 +1,13 @@
 const db = require('../models')
 const { Cart, CartItem, Order, OrderItem, Delivery, Payment, Product } = db
 
-const Op = require('sequelize').Op
 const moment = require('moment')
 moment.locale('zh-tw')
 
+// 引入自定義 lib
 const { checkCheckout1 } = require('../lib/checker.js')
 const { aesDecrypt } = require('../lib/tools.js')
+const { checkInv, txnOrder } = require('../lib/order_helper.js')
 
 // 藍新金流
 const getTradeInfo = require('../config/newebpay.js')
@@ -236,65 +237,16 @@ module.exports = {
       data.address = data.address.join(',')
       data.receiver = data.receiver.join(' ')
 
-      // 計算商品庫存
-      const cartProds = data.cart.products
-      const queryArray = cartProds.map(prod => ({ id: prod.id }))
-      const products = await Product.findAll({ where: {
-        [Op.or]: queryArray
-      }})
-
-      // 遍歷商品，確認庫存狀況
-      const noInvProds = []
-      const hasInvProds = []
-      products.forEach(async prod => {
-        const cartProd = cartProds.find(item => item.id === prod.id)
-        const inventory = (prod.inventory - cartProd.CartItem.quantity)
-        if (inventory < 0) return noInvProds.push({ name: prod.name, qty: prod.inventory })
-
-        prod.inventory = inventory
-        hasInvProds.push(prod)
-      })
-
-      // 併發無庫存時，停止訂單建立
-      if (noInvProds.length) {
-        let msg = ''
-        noInvProds.forEach(prod => {
-          msg += `商品 ${prod.name}，庫存數量為 ${prod.qty}，已超出您選購的數量\n`
-        })
-        req.flash('error', msg)
+      // 檢查商品庫存
+      const error = await checkInv(data)
+      if (error) {
+        req.flash('error', error)
         return res.redirect('/cart')
       }
 
-      // 確認都有庫存，才 update
-      hasInvProds.forEach(async prod => await prod.save())
-
-      // 建立 Order
-      const order = await Order.create({
-        ...data,
-        UserId: req.user.id,
-        payStatus: false,
-        shipStatus: false
-      })
-
-      // 加入單號 SN
-      const sn = ("000000000" + order.id).slice(-10)
-      await order.update({ sn })
-
-      // 建立 OrderItem
-      const cart = data.cart
-      await Promise.all(
-        cart.products.map(prod =>
-          OrderItem.create({
-            price: prod.price,
-            quantity: prod.quantity,
-            OrderId: order.id,
-            product_id: prod.id
-          })
-        )
-      )
-
-      // 清除購物車 items
-      await CartItem.destroy({ where: { CartId: cart.id } })
+      // 成立訂單 by transaction
+      const order = await txnOrder(req.user.id, data)
+      if (order instanceof Error) { throw order }
 
       // send Email
       const mail = getMailObj(data, req.user, order, sn)
