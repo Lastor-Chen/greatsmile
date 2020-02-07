@@ -1,12 +1,13 @@
 const db = require('../models')
-const { Cart, CartItem, Order, OrderItem, Delivery, Payment, Product } = db
+const { Cart, CartItem, Order, Delivery, Payment } = db
 
-const Op = require('sequelize').Op
 const moment = require('moment')
 moment.locale('zh-tw')
 
+// 引入自定義 lib
 const { checkCheckout1 } = require('../lib/checker.js')
 const { aesDecrypt } = require('../lib/tools.js')
+const { checkInv, txnOrder } = require('../lib/order_helper.js')
 
 // 藍新金流
 const getTradeInfo = require('../config/newebpay.js')
@@ -216,17 +217,12 @@ module.exports = {
 
   async postOrder(req, res) {
     try {
-      // 確認攜帶 passData
       const passData = req.flash('passData')[0]
-      if (!passData) {
-        req.flash('error', '錯誤訪問')
-        return res.redirect('/cart')
-      }
-
-      // 確認已通過各表單 passedSteps
       const passedSteps = req.flash('passedSteps')
+
+      // 確認是否為正當進入
       const isPassed = [0, 1, 2, 3].every(step => passedSteps.includes(step))
-      if (!isPassed) {
+      if (!passData || !isPassed) {
         req.flash('error', '錯誤訪問')
         return res.redirect('/cart')
       }
@@ -236,68 +232,19 @@ module.exports = {
       data.address = data.address.join(',')
       data.receiver = data.receiver.join(' ')
 
-      // 計算商品庫存
-      const cartProds = data.cart.products
-      const queryArray = cartProds.map(prod => ({ id: prod.id }))
-      const products = await Product.findAll({ where: {
-        [Op.or]: queryArray
-      }})
-
-      // 遍歷商品，確認庫存狀況
-      const noInvProds = []
-      const hasInvProds = []
-      products.forEach(async prod => {
-        const cartProd = cartProds.find(item => item.id === prod.id)
-        const inventory = (prod.inventory - cartProd.CartItem.quantity)
-        if (inventory < 0) return noInvProds.push({ name: prod.name, qty: prod.inventory })
-
-        prod.inventory = inventory
-        hasInvProds.push(prod)
-      })
-
-      // 併發無庫存時，停止訂單建立
-      if (noInvProds.length) {
-        let msg = ''
-        noInvProds.forEach(prod => {
-          msg += `商品 ${prod.name}，庫存數量為 ${prod.qty}，已超出您選購的數量\n`
-        })
-        req.flash('error', msg)
+      // 檢查商品庫存
+      const error = await checkInv(data)
+      if (error) {
+        req.flash('error', error)
         return res.redirect('/cart')
       }
 
-      // 確認都有庫存，才 update
-      hasInvProds.forEach(async prod => await prod.save())
-
-      // 建立 Order
-      const order = await Order.create({
-        ...data,
-        UserId: req.user.id,
-        payStatus: false,
-        shipStatus: false
-      })
-
-      // 加入單號 SN
-      const sn = ("000000000" + order.id).slice(-10)
-      await order.update({ sn })
-
-      // 建立 OrderItem
-      const cart = data.cart
-      await Promise.all(
-        cart.products.map(prod =>
-          OrderItem.create({
-            price: prod.price,
-            quantity: prod.quantity,
-            OrderId: order.id,
-            product_id: prod.id
-          })
-        )
-      )
-
-      // 清除購物車 items
-      await CartItem.destroy({ where: { CartId: cart.id } })
+      // 成立訂單 by transaction
+      const order = await txnOrder(req.user.id, data)
+      if (order instanceof Error) { throw order }
 
       // send Email
-      const mail = getMailObj(data, req.user, order, sn)
+      const mail = getMailObj(data, req.user, order, order.sn)
       transporter.sendMail(mail, (err, info) => {
         if (err) return console.error(err)
         console.log(`Email sent: ${info.response}`)
@@ -305,7 +252,7 @@ module.exports = {
       
       // 傳遞資料給 success 頁
       passData.id = order.id
-      passData.sn = sn
+      passData.sn = order.sn
       passData.createdAt = order.createdAt
       req.flash('passData', passData)
       req.flash('isCreated', true)
