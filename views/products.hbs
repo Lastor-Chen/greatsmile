@@ -22,14 +22,14 @@
             <li class="d-inline">
               <a class="btn btn-sm {{#ifEqual tagQuery 'available'}}active{{/ifEqual}}" data-tag="available">庫存發售中</a>
             </li>
+            <li class="d-inline">
+              <a class="btn btn-sm {{#ifEqual tagQuery 'soon'}}active{{/ifEqual}}" data-tag="soon">即將截止預約</a>
+            </li>
             {{#each tagGroup}}
               <li class="d-inline">
                 <a class="btn btn-sm {{#ifEqual ../tagQuery this.id}}active{{/ifEqual}}" data-tag="{{this.id}}">{{this.name}}</a>
               </li>
             {{/each}}
-            <li class="d-inline">
-              <a class="btn btn-sm {{#ifEqual tagQuery 'soon'}}active{{/ifEqual}}" data-tag="soon">即將截止預約</a>
-            </li>
           </ul>
         </div>
         <div class="d-flex align-items-start">

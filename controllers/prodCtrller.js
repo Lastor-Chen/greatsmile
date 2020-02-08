@@ -49,7 +49,7 @@ module.exports = {
         product.isOnSale = moment(now).isAfter(product.saleDate)
         product.isPreOrder = moment(now).isBefore(product.deadline)
         product.isGift = product.Gifts.length > 0 ? true : false
-        product.hasInv = (product.inventory !== 0)
+        product.hasInv = (product.inventory > 0)
       })
 
       // 製作 pagination bar 資料、超連結位址
@@ -109,7 +109,7 @@ module.exports = {
       product.hasGift = (product.Gifts.length !== 0) ? true : false
       product.isOnSale = moment(now).isAfter(product.saleDate)
       product.isPreOrder = moment(now).isBefore(product.deadline)
-      product.hasInv = (product.inventory !== 0)
+      product.hasInv = (product.inventory > 0)
       product.category = product.Category.name
 
       res.render('product', { 

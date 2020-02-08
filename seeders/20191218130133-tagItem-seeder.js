@@ -4,9 +4,9 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return Promise.all([
       queryInterface.bulkInsert('tag_items',
-        Array.from({ length: 30 }, (val, index) => ({
+        Array.from({ length: 3 }, (val, index) => ({
           tag_Id: 1,
-          product_id: (index + 1) * 3  // 每 3 筆賦予
+          product_id: (index + 30)
         }))
       ),
     ])

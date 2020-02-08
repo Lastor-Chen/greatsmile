@@ -2,12 +2,9 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    const tag = ['Tag']
-    return queryInterface.bulkInsert('tags',
-      tag.map((item, index) => ({
-        name: item,
-      }))
-    )
+    return queryInterface.bulkInsert('tags', [
+      { name: 'Wonder Festival'}
+    ])
   },
 
   down: (queryInterface, Sequelize) => {
