@@ -19,9 +19,12 @@ module.exports = {
 
       // 製作 db where 物件
       const now = new Date()
-      const where = { status: 1,
+      const where = { 
+        status: 1,
         releaseDate: { [Op.lte]: now },
-        [Op.or]: { deadline: { [Op.gte]: now }, saleDate: { [Op.lte]: now } }
+        [Op.and]: [  // 配合 searchQuery
+          { [Op.or]: { deadline: { [Op.gte]: now }, saleDate: { [Op.lte]: now } } }
+        ]
       }
       const { categoryQuery, searchQuery, tagQuery } = setWhere(req, where)
 
