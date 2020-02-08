@@ -1,17 +1,14 @@
 'use strict';
 
-const tagItems = require('./json/tagItems.json')
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return Promise.all([
       queryInterface.bulkInsert('tag_items',
         Array.from({ length: 30 }, (val, index) => ({
-          tag_Id: 1,  // 附特典
-          product_id: (index + 1) * 3  // 每 3 筆賦予特典
+          tag_Id: 1,
+          product_id: (index + 1) * 3  // 每 3 筆賦予
         }))
       ),
-      queryInterface.bulkInsert('tag_items', tagItems)
     ])
   },
 
