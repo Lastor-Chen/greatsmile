@@ -27,12 +27,7 @@ module.exports = {
 
       // db Query
       const result = await Product.findAndCountAll({
-        include: [
-          // 設定 separate，使 '$Series.name$' 能工作  (一對多)
-          { model: Image, separate: true },
-          { model: Gift, separate: true },
-          'Series', 'tags'
-        ],
+        include: [ 'Images', 'Gifts', 'Series', 'tags' ],
         distinct: true, // 去重顯示正確數量
         where,
         order
