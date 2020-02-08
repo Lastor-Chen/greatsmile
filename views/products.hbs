@@ -13,6 +13,12 @@
             <li class="d-inline">
               <a class="btn btn-sm {{#ifEqual tagQuery '所有商品'}}active{{/ifEqual}}" data-tag="所有商品">所有商品</a>
             </li>
+            <li class="d-inline">
+              <a class="btn btn-sm {{#ifEqual tagQuery '預約中'}}active{{/ifEqual}}" data-tag="預約中">預約中*</a>
+            </li>
+            <li class="d-inline">
+              <a class="btn btn-sm {{#ifEqual tagQuery '發售中'}}active{{/ifEqual}}" data-tag="發售中">庫存發售中*</a>
+            </li>
             {{#each tagGroup}}
               <li class="d-inline">
                 <a class="btn btn-sm {{#ifEqual ../tagQuery this.id}}active{{/ifEqual}}" data-tag="{{this.id}}">{{this.name}}</a>
