@@ -60,7 +60,8 @@
                   <div class="card-img-top card-bg mb-3">
                     <img src="{{this.mainImg}}" class="w-100">
                   </div>
-                  <ul class="tags">
+                  <h5 class="card-title mt-2 mb-3">{{this.name}}</h5>
+                  <ul class="tags mb-2">
                     {{#if isOnSale}}
                       {{#if hasInv}}
                         <li class="tag tag-preorder">發售中</li>
@@ -81,10 +82,9 @@
                       <li class="tag tag-custom">{{name}}</li>
                     {{/each}}
                   </ul>
-                  <h5 class="card-title my-2 mb-4">{{this.name}}</h5>
                   <p class="card-text d-flex justify-content-end">NTD {{this.priceFormat}}</p>
                 </div>
-                <div class="hover ">
+                <div class="hover">
                   <div class="icon-group">
                     <a href="/products/{{this.id}}" class="btn btn-icon px-2 py-2 mx-1 d-inline-block">
                       <i class="fas fa-search fa-2x"></i>
