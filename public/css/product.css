@@ -87,13 +87,22 @@ section {
 }
 
 /* Tag 群 */
-.tag-icon {
+.tag {
+  display: inline-block;
   font-weight: bold;
   padding: .5rem;
   border-radius: 5px;
   font-size: .85rem;
+}
+
+.tag-gift {
   background: #ffe14d; 
   color: #e53900;
+}
+
+.tag-custom {
+  background: #ef7900;
+  color: #fff;
 }
 
 /* 上部購物車 */

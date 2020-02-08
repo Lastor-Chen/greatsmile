@@ -48,7 +48,6 @@ module.exports = {
         product.priceFormat = product.price.toLocaleString()
         product.isOnSale = moment(now).isAfter(product.saleDate)
         product.isPreOrder = moment(now).isBefore(product.deadline)
-        product.isGift = product.Gifts.length > 0 ? true : false
         product.hasInv = (product.inventory > 0)
       })
 
@@ -106,7 +105,7 @@ module.exports = {
       product.saleDateFormat = moment(product.saleDate).tz('Asia/Taipei').format('YYYY年MM月')
       product.releaseDateFormat = moment(product.releaseDate).tz('Asia/Taipei').format('YYYY年MM月DD日(dd)')
       product.deadlineFormat = moment(product.deadline).tz('Asia/Taipei').format('YYYY年MM月DD日(dd)')
-      product.hasGift = (product.Gifts.length !== 0) ? true : false
+      product.hasIcon = (product.Gifts.length || product.tags.length)
       product.isOnSale = moment(now).isAfter(product.saleDate)
       product.isPreOrder = moment(now).isBefore(product.deadline)
       product.hasInv = (product.inventory > 0)

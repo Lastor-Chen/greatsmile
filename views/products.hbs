@@ -60,20 +60,27 @@
                   <div class="card-img-top card-bg mb-3">
                     <img src="{{this.mainImg}}" class="w-100">
                   </div>
-                  {{#if isOnSale}}
-                    {{#if hasInv}}
-                      <span class="tag tag-preorder">發售中</span>
+                  <ul class="tags">
+                    {{#if isOnSale}}
+                      {{#if hasInv}}
+                        <li class="tag tag-preorder">發售中</li>
+                      {{else}}
+                        <li class="tag tag-sold-out">已售完</li>
+                      {{/if}}
+                    {{else if isPreOrder}}
+                      <li class="tag tag-preorder">預約中</li>
                     {{else}}
-                      <span class="tag tag-sold-out">已售完</span>
+                      <li class="tag tag-sold-out">預約已截止</li>
                     {{/if}}
-                  {{else if isPreOrder}}
-                    <span class="tag tag-preorder">預約中</span>
-                  {{else}}
-                    <span class="tag tag-sold-out">預約已截止</span>
-                  {{/if}}
-                  {{#if isGift}}
-                    <span class="tag tag-gift">附特典</span>
-                  {{/if}}
+
+                    {{#if Gifts.length}}
+                      <li class="tag tag-gift">附特典</li>
+                    {{/if}}
+
+                    {{#each tags}}
+                      <li class="tag tag-custom">{{name}}</li>
+                    {{/each}}
+                  </ul>
                   <h5 class="card-title my-2 mb-4">{{this.name}}</h5>
                   <p class="card-text d-flex justify-content-end">NTD {{this.priceFormat}}</p>
                 </div>
