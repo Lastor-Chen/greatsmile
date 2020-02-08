@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    const tag = ['預約中', '附特典', '庫存發售中']
+    const tag = ['附特典']
     return queryInterface.bulkInsert('tags',
       tag.map((item, index) => ({
         name: item,
