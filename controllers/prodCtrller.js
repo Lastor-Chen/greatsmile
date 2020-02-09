@@ -6,7 +6,7 @@ const moment = require('moment')
 moment.locale('zh-tw')
 
 const PAGE_LIMIT = 30
-const { genQueryString, getOrder, setWhere, getPagination, getBread } = require('../lib/product_tools.js')
+const { genQueryString, getOrder, setWhere, getPagination, getBread } = require('../lib/products_tools.js')
 
 module.exports = {
   getProducts: async (req, res) => {
