@@ -7,7 +7,7 @@ $('#sort').on('change', function() {
   
   // 確認 search query
   const searchQuery = $('#searchQuery').data('q')
-  if (searchQuery) {
+  if (location.pathname === '/search') {
     queryString += `q=${searchQuery}&`
   } 
 
@@ -35,7 +35,7 @@ $('.nav-tag').on('click', e => {
  
   // 確認 search query
   const searchQuery = $('#searchQuery').data('q')
-  if (searchQuery) {
+  if (location.pathname === '/search') {
     queryString += `q=${searchQuery}&`
   }
 
