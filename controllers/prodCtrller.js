@@ -1,51 +1,40 @@
 const db = require('../models')
-const { Product, Image, Gift } = db
+const { Product } = db
 
-const Op = require('sequelize').Op
+const Op = db.Sequelize.Op
 const moment = require('moment')
 moment.locale('zh-tw')
 
 const PAGE_LIMIT = 30
-const { genQueryString, setWhere, getPagination, getBread } = require('../lib/product_tools.js')
+const { genQueryString, getOrder, setWhere, getPagination, getBread } = require('../lib/product_tools.js')
 
 module.exports = {
   getProducts: async (req, res) => {
     try {
-      // 排序條件，預設為 ['releaseDate', 'DESC']
-      const sort = req.query.sort || 'releaseDate'
-      const orderBy = req.query.order || 'DESC'
-      const order = [[sort, orderBy]]
-      const selectedSort = `${sort},${orderBy}`
-
-      // 製作 db where 物件
+      // 處理 query data
       const now = new Date()
-      const where = { 
-        status: 1,
-        releaseDate: { [Op.lte]: now },
-        [Op.and]: [  // 搭配 searchQuery 組雙 OR
-          { [Op.or]: { deadline: { [Op.gte]: now }, saleDate: { [Op.lte]: now } } }
-        ]
-      }
-      const { categoryQuery, searchQuery, tagQuery } = setWhere(req, where)
+      const [order, selectedSort] = getOrder(req)
+      const { where, categoryQuery, searchQuery, tagQuery } = setWhere(req, now)
 
       // db Query
-      let products = await Product.findAll({
+      let allProducts = await Product.findAll({
         include: [ 'Images', 'Gifts', 'Series', 'tags' ],
         distinct: true, // 去重顯示正確數量
         where,
         order
       })
 
+      if (!isNaN(tagQuery)) {
+        allProducts = allProducts.filter(prod => prod.tags.some(tag => tag.id === tagQuery))
+      }
+
       // 設定分頁偏移
       const page = +req.query.page || 1
       const offset = (page - 1) * PAGE_LIMIT
+      const products = allProducts.slice(offset, offset + PAGE_LIMIT)
 
       // 製作頁面資料
-      if (!isNaN(tagQuery)) {
-        products = products.filter(prod => prod.tags.some(tag => tag.id === tagQuery))
-      }
-      const getProducts = products.slice(offset, offset + PAGE_LIMIT)
-      getProducts.forEach(product => {
+      products.forEach(product => {
         product.mainImg = product.Images.find(img => img.isMain).url
         product.priceFormat = product.price.toLocaleString()
         product.isOnSale = moment(now).isAfter(product.saleDate)
@@ -54,7 +43,7 @@ module.exports = {
       })
 
       // 製作 pagination bar 資料、超連結位址
-      const { pagesArray, prev, next } = getPagination(products, PAGE_LIMIT, page)
+      const { pagesArray, prev, next } = getPagination(allProducts, PAGE_LIMIT, page)
       const queryString = genQueryString(req.query)
 
       // 製作麵包屑
@@ -62,7 +51,7 @@ module.exports = {
 
       res.render('products', {
         css: 'products', js: 'products', 
-        getProducts, bread,
+        products, bread,
         categoryQuery, searchQuery, tagQuery, selectedSort,
         pagesArray, page, prev, next, queryString
       })
