@@ -32,10 +32,15 @@
       </div>
       {{!-- info、購物車 --}}
       <div class="col-lg-4 mt-lg-0 mt-sm-5">
-        {{#if product.hasGift}}
-          <div class="mb-3 pt-1">
-            <span class="tag-icon mr-2">附特典</span>
-          </div>
+        {{#if product.hasIcon}}
+          <ul class="pb-2">
+            {{#if product.Gifts.length}}
+              <li class="tag tag-gift mr-2">附特典</li>
+            {{/if}}
+            {{#each product.tags}}
+              <li class="tag tag-custom mr-2">{{name}}</li>
+            {{/each}}
+          </ul>
         {{/if}}
         <div>
           <h4 class="mb-3">{{product.name}}</h4>
@@ -116,7 +121,7 @@
     </div>
     <hr>
     {{!-- 特典 --}}
-    {{#if product.hasGift}}
+    {{#if product.Gifts.length}}
     <div class="row py-4">
       <div class="col-2">
         <span class="tag-icon icon2">附特典</span>

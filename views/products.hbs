@@ -11,16 +11,25 @@
         <div class="d-flex align-items-start">
           <ul class="nav-tag">
             <li class="d-inline">
-              <a class="btn btn-sm {{#ifEqual tagQuery '所有商品'}}active{{/ifEqual}}" data-tag="所有商品">所有商品</a>
+              <a class="btn btn-sm {{#ifEqual tagQuery 'all'}}active{{/ifEqual}}" data-tag="all">所有商品</a>
+            </li>
+            <li class="d-inline">
+              <a class="btn btn-sm {{#ifEqual tagQuery 'gift'}}active{{/ifEqual}}" data-tag="gift">附特典</a>
+            </li>
+            <li class="d-inline">
+              <a class="btn btn-sm {{#ifEqual tagQuery 'preOrder'}}active{{/ifEqual}}" data-tag="preOrder">預約中</a>
+            </li>
+            <li class="d-inline">
+              <a class="btn btn-sm {{#ifEqual tagQuery 'available'}}active{{/ifEqual}}" data-tag="available">庫存發售中</a>
+            </li>
+            <li class="d-inline">
+              <a class="btn btn-sm {{#ifEqual tagQuery 'soon'}}active{{/ifEqual}}" data-tag="soon">即將截止預約</a>
             </li>
             {{#each tagGroup}}
               <li class="d-inline">
                 <a class="btn btn-sm {{#ifEqual ../tagQuery this.id}}active{{/ifEqual}}" data-tag="{{this.id}}">{{this.name}}</a>
               </li>
             {{/each}}
-            <li class="d-inline">
-              <a class="btn btn-sm {{#ifEqual tagQuery '即將截止預約'}}active{{/ifEqual}}" data-tag="即將截止預約">即將截止預約</a>
-            </li>
           </ul>
         </div>
         <div class="d-flex align-items-start">
@@ -51,24 +60,31 @@
                   <div class="card-img-top card-bg mb-3">
                     <img src="{{this.mainImg}}" class="w-100">
                   </div>
-                  {{#if isOnSale}}
-                    {{#if hasInv}}
-                      <span class="tag tag-preorder">發售中</span>
+                  <h5 class="card-title mt-2 mb-3">{{this.name}}</h5>
+                  <ul class="tags mb-2">
+                    {{#if isOnSale}}
+                      {{#if hasInv}}
+                        <li class="tag tag-preorder">發售中</li>
+                      {{else}}
+                        <li class="tag tag-sold-out">已售完</li>
+                      {{/if}}
+                    {{else if isPreOrder}}
+                      <li class="tag tag-preorder">預約中</li>
                     {{else}}
-                      <span class="tag tag-sold-out">已售完</span>
+                      <li class="tag tag-sold-out">預約已截止</li>
                     {{/if}}
-                  {{else if isPreOrder}}
-                    <span class="tag tag-preorder">預約中</span>
-                  {{else}}
-                    <span class="tag tag-sold-out">預約已截止</span>
-                  {{/if}}
-                  {{#if isGift}}
-                    <span class="tag tag-gift">附特典</span>
-                  {{/if}}
-                  <h5 class="card-title my-2 mb-4">{{this.name}}</h5>
+
+                    {{#if Gifts.length}}
+                      <li class="tag tag-gift">附特典</li>
+                    {{/if}}
+
+                    {{#each tags}}
+                      <li class="tag tag-custom">{{name}}</li>
+                    {{/each}}
+                  </ul>
                   <p class="card-text d-flex justify-content-end">NTD {{this.priceFormat}}</p>
                 </div>
-                <div class="hover ">
+                <div class="hover">
                   <div class="icon-group">
                     <a href="/products/{{this.id}}" class="btn btn-icon px-2 py-2 mx-1 d-inline-block">
                       <i class="fas fa-search fa-2x"></i>

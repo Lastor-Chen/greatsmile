@@ -97,11 +97,14 @@
   color: #ffffff;
 }
 
-.row li {
-  list-style-type: none;
+ul.tags {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .tag {
+  display: inline-block;
   font-size: 12px;
   font-weight: bold;
   border-radius: 5px;
@@ -122,4 +125,9 @@
 .tag-sold-out {
   background-color: #9E9E9F;
   color: #ffffff;
+}
+
+.tag-custom {
+  background: #ef7900;
+  color: #fff;
 }

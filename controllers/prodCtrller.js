@@ -19,20 +19,18 @@ module.exports = {
 
       // 製作 db where 物件
       const now = new Date()
-      const where = { status: 1,
+      const where = { 
+        status: 1,
         releaseDate: { [Op.lte]: now },
-        [Op.or]: { deadline: { [Op.gte]: now }, saleDate: { [Op.lte]: now } }
+        [Op.and]: [  // 配合 searchQuery
+          { [Op.or]: { deadline: { [Op.gte]: now }, saleDate: { [Op.lte]: now } } }
+        ]
       }
       const { categoryQuery, searchQuery, tagQuery } = setWhere(req, where)
 
       // db Query
       const result = await Product.findAndCountAll({
-        include: [
-          // 設定 separate，使 '$Series.name$' 能工作  (一對多)
-          { model: Image, separate: true },
-          { model: Gift, separate: true },
-          'Series', 'tags'
-        ],
+        include: [ 'Images', 'Gifts', 'Series', 'tags' ],
         distinct: true, // 去重顯示正確數量
         where,
         order
@@ -50,8 +48,7 @@ module.exports = {
         product.priceFormat = product.price.toLocaleString()
         product.isOnSale = moment(now).isAfter(product.saleDate)
         product.isPreOrder = moment(now).isBefore(product.deadline)
-        product.isGift = product.Gifts.length > 0 ? true : false
-        product.hasInv = (product.inventory !== 0)
+        product.hasInv = (product.inventory > 0)
       })
 
       // 製作 pagination bar 資料、超連結位址
@@ -108,10 +105,10 @@ module.exports = {
       product.saleDateFormat = moment(product.saleDate).tz('Asia/Taipei').format('YYYY年MM月')
       product.releaseDateFormat = moment(product.releaseDate).tz('Asia/Taipei').format('YYYY年MM月DD日(dd)')
       product.deadlineFormat = moment(product.deadline).tz('Asia/Taipei').format('YYYY年MM月DD日(dd)')
-      product.hasGift = (product.Gifts.length !== 0) ? true : false
+      product.hasIcon = (product.Gifts.length || product.tags.length)
       product.isOnSale = moment(now).isAfter(product.saleDate)
       product.isPreOrder = moment(now).isBefore(product.deadline)
-      product.hasInv = (product.inventory !== 0)
+      product.hasInv = (product.inventory > 0)
       product.category = product.Category.name
 
       res.render('product', { 
