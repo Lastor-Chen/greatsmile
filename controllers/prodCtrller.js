@@ -22,14 +22,14 @@ module.exports = {
       const where = { 
         status: 1,
         releaseDate: { [Op.lte]: now },
-        [Op.and]: [  // 配合 searchQuery
+        [Op.and]: [  // 搭配 searchQuery 組雙 OR
           { [Op.or]: { deadline: { [Op.gte]: now }, saleDate: { [Op.lte]: now } } }
         ]
       }
       const { categoryQuery, searchQuery, tagQuery } = setWhere(req, where)
 
       // db Query
-      const result = await Product.findAndCountAll({
+      let products = await Product.findAll({
         include: [ 'Images', 'Gifts', 'Series', 'tags' ],
         distinct: true, // 去重顯示正確數量
         where,
@@ -41,7 +41,9 @@ module.exports = {
       const offset = (page - 1) * PAGE_LIMIT
 
       // 製作頁面資料
-      const products = result.rows
+      if (!isNaN(tagQuery)) {
+        products = products.filter(prod => prod.tags.some(tag => tag.id === tagQuery))
+      }
       const getProducts = products.slice(offset, offset + PAGE_LIMIT)
       getProducts.forEach(product => {
         product.mainImg = product.Images.find(img => img.isMain).url
@@ -52,7 +54,7 @@ module.exports = {
       })
 
       // 製作 pagination bar 資料、超連結位址
-      const { pagesArray, prev, next } = getPagination(result, PAGE_LIMIT, page)
+      const { pagesArray, prev, next } = getPagination(products, PAGE_LIMIT, page)
       const queryString = genQueryString(req.query)
 
       // 製作麵包屑
