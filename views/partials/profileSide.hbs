@@ -7,16 +7,16 @@
     </div>
     <hr class="my-2">
     <div class="profile-link">
-      <a href="/users/profile" class="font-weight-bold ml-2 text-decoration-none">我的帳戶</a>
+      <a href="/users/profile" class="font-weight-bold ml-2">我的帳戶</a>
       <ul class="side-item-list">
         <li>更新設定檔案</li>
         <li>密碼變更</li>
         <li>通訊地址管理</li>
         <li>
           {{#if orders.length}}
-            <a href="/orders" class="text-decoration-none text-pick">訂購紀錄</a>
+            <a href="/orders" class="text-pick">訂購紀錄</a>
           {{else}}
-            <a href="/orders" class="text-decoration-none">訂購紀錄</a>
+            <a href="/orders">訂購紀錄</a>
           {{/if}}
         </li>
       </ul>

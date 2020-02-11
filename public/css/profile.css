@@ -29,7 +29,7 @@
 }
 
 .panel-item-heading {
-  padding: 10px 15px;
+  padding: 10px 10px;
   font-size: 15px;
   font-weight: bold;
   border-bottom: 1px solid rgb(221, 221, 221);
@@ -59,4 +59,5 @@
 
 .profile-link a {
   color: #258fb8;
+  text-decoration: none;
 }

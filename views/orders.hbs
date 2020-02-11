@@ -101,13 +101,11 @@
                               </a>
                             </td>
                             <td class="cell-name">
-                              <a href="/products/{{this.id}}" class="text-body text-decoration-none">
-                                <div class="text-left ml-2">
-                                  {{this.name}}
-                                  {{#if this.Gifts}}
-                                    <label title="含特典"><i class="fas fa-gift"></i></label>
-                                  {{/if}}
-                                </div>
+                              <a href="/products/{{this.id}}" class="pl-2 text-body text-decoration-none">
+                                <span>{{this.name}}</span>
+                                {{#if this.Gifts}}
+                                  <i class="fas fa-gift" title="含特典"></i>
+                                {{/if}}
                               </a>
                             </td>
                             <td class="cell-quantity">
