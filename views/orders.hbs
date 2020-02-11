@@ -101,13 +101,11 @@
                               </a>
                             </td>
                             <td class="cell-name">
-                              <a href="/products/{{this.id}}" class="text-body text-decoration-none">
-                                <div class="text-left ml-2">
-                                  {{this.name}}
-                                  {{#if this.Gifts}}
-                                    <label title="含特典"><i class="fas fa-gift"></i></label>
-                                  {{/if}}
-                                </div>
+                              <a href="/products/{{this.id}}" class="pl-2 text-body text-decoration-none">
+                                <span>{{this.name}}</span>
+                                {{#if this.Gifts}}
+                                  <i class="fas fa-gift" title="含特典"></i>
+                                {{/if}}
                               </a>
                             </td>
                             <td class="cell-quantity">
@@ -175,30 +173,7 @@
     </section>
     {{!-- 側邊欄 --}}
     <section class="col-3">
-      <div class="row panel mx-1 side-box-shadow">
-        <div class="panel-body w-100 p-3">
-          <div>
-            <div class="side-heading col-md-12">
-              <div><i class="fas fa-user mr-2"></i> 帳戶</div>
-            </div>
-          </div>
-          <hr class="my-2">
-          <div>
-            <a href="/users/profile" class="font-weight-bold ml-2 text-decoration-none profile-href">我的帳戶</a>
-            <ul class="side-item-list">
-              <li>
-                <a href="#" class="text-decoration-none profile-href side-list-text">設定檔</a>
-              </li>
-              <li>
-                <a href="#" class="text-decoration-none profile-href side-list-text">密碼變更</a>
-              </li>
-              <li>
-                <a href="/orders" class="text-decoration-none font-weight-bold text-pick side-list-text">訂購紀錄</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      {{> profileSide}}
     </section>
   </div>
 </main>

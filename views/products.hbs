@@ -48,12 +48,12 @@
           </div>
         </div>
       </div>
-      {{#if getProducts.length}}
+      {{#if products.length}}
         {{!-- 分頁 --}}
         {{>pagination}}
         {{!-- 商品型錄 --}}
         <div class="row row-cols-5">
-          {{#each getProducts}}
+          {{#each products}}
             <div class="col px-2 mb-3">
               <div class="card">
                 <div class="card-body">

@@ -1,29 +1,30 @@
-// 排序 <select>
-$('#sort').on('change', function() {
-  // 取得 selected 排序
-  const selectedValue = this.value
-  const [sort, order] = selectedValue.split(',')
+function getQueryString() {
   let queryString = `?`
-  
+
   // 確認 search query
   const searchQuery = $('#searchQuery').data('q')
-  if (searchQuery) {
+  if (location.pathname === '/search') {
     queryString += `q=${searchQuery}&`
-  } 
+  }
 
   // 確認 category query
   const categoryQuery = $('#categoryQuery').data('category')
   if (categoryQuery) {
     queryString += `category=${categoryQuery}&`
-  } 
-  
-  // 取得 tag
-  const tagQuery = $('#tagQuery').data('tag')
-  if (tagQuery) {
-    queryString += `tag=${tagQuery}&`
-  } 
+  }
 
-  // 最後加上 selected 排序
+  return queryString
+}
+
+// 排序 <select>
+$('#sort').on('change', function() {
+  let queryString = getQueryString()
+  const tagQuery = $('#tagQuery').data('tag')
+  queryString += `tag=${tagQuery}&`
+
+  // 取得 selected 排序
+  const selectedValue = this.value
+  const [sort, order] = selectedValue.split(',')
   queryString += `sort=${sort}&order=${order}`
 
   window.location = queryString
@@ -31,25 +32,12 @@ $('#sort').on('change', function() {
 
 // Tag
 $('.nav-tag').on('click', e => {
-  let queryString = `?`
- 
-  // 確認 search query
-  const searchQuery = $('#searchQuery').data('q')
-  if (searchQuery) {
-    queryString += `q=${searchQuery}&`
-  }
+  if (e.target.matches('[data-tag]')) {
+    let queryString = getQueryString()
 
-  // 確認 category query
-  const categoryQuery = $('#categoryQuery').data('category')
-  if (categoryQuery) {
-    queryString += `category=${categoryQuery}&`
-  }
-
-  // 取得 tag
-  if (e.target.matches('.btn-sm')) {
-    const tagValue = $(e.target).data('tag')
+    const tagValue = $(event.target).data('tag')
     queryString += `tag=${tagValue}`
-  }
 
-  window.location = queryString 
-})  
+    window.location = queryString
+  }
+})

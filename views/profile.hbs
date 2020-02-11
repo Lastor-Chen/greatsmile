@@ -1,7 +1,7 @@
 <main class="container py-5">
   <div class="row mb-5">
     {{!-- 主卡片 --}}
-    <section class="col-9 ">
+    <section class="col-9">
       <div class="row panel mx-1">
         <div class="panel-heading col-md-12">
           <div class="mt-3">我的帳戶</div>
@@ -10,66 +10,31 @@
         <div class="col-md-12 py-5">
           <div class="row">
             <div class="panel-item col-5  py-2 mb-4 ml-5">
-              <div class="panel-item-heading col-md-12">
-                <div>設定檔</div>
-              </div>
-              <div>
-                <ul class="item-list">
-                  <li><a href="#" class="text-decoration-none profile-href">更新設定檔</a></li>
-                  <li><a href="#" class="text-decoration-none profile-href ">密碼變更</a></li>
-                </ul>
-              </div>
+              <div class="panel-item-heading col-md-12">設定檔</div>
+              <ul class="item-list">
+                <li>更新設定檔</li>
+                <li>密碼變更</li>
+              </ul>
             </div>
             <div class="panel-item col-5  py-2 mb-4 ml-4">
-              <div class="panel-item-heading col-md-12">
-                <div>通訊錄</div>
-              </div>
-              <div>
-                <ul class="item-list">
-                  <li><a href="#" class="text-decoration-none profile-href ">通訊地址管理</a></li>
-                </ul>
-              </div>
+              <div class="panel-item-heading col-md-12">通訊錄</div>
+              <ul class="item-list">
+                <li>通訊地址管理</li>
+              </ul>
             </div>
             <div class="panel-item col-5  py-2 mb-4 ml-5">
-              <div class="panel-item-heading col-md-12">
-                <div>訂購紀錄</div>
-              </div>
-              <div>
-                <ul class="item-list">
-                  <li><a href="/orders" class="text-decoration-none profile-href ">訂購紀錄</a></li>
-                </ul>
-              </div>
+              <div class="panel-item-heading col-md-12">訂購紀錄</div>
+              <ul class="item-list profile-link">
+                <li><a href="/orders">訂購紀錄</a></li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
     </section>
     {{!-- 側邊欄 --}}
-    <section class="col-3 ">
-      <div class="row panel mx-1 side-box-shadow">
-        <div class="panel-body w-100 p-3">
-          <div>
-            <div class="side-heading col-md-12">
-              <div><i class="fas fa-user mr-2"></i> 帳戶</div>
-            </div>
-          </div>
-          <hr class="my-2">
-          <div>
-            <a href="/users/profile" class="font-weight-bold ml-2 text-decoration-none profile-href">我的帳戶</a>
-            <ul class="side-item-list">
-              <li>
-                <a href="#" class="text-decoration-none profile-href side-list-text">設定檔</a>
-              </li>
-              <li>
-                <a href="#" class="text-decoration-none profile-href side-list-text">密碼變更</a>
-              </li>
-              <li>
-                <a href="/orders" class="text-decoration-none profile-href side-list-text">訂購紀錄</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+    <section class="col-3">
+      {{> profileSide}}
     </section>
   </div>
 </main>
