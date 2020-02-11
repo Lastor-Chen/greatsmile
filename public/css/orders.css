@@ -39,7 +39,7 @@
   padding-inline-start: 10px;
   padding-top: 10px;
   line-height: 2rem;
-  font-size: 0.7rem;
+  font-size: 0.9rem;
 }
 
 .side-box-shadow {
@@ -55,8 +55,8 @@
   color: #ff9600;
 }
 
-.side-list-text {
-  font-size: 0.9rem;
+.text-pick:hover {
+  color: #d87401;
 }
 
 .profile-href {
