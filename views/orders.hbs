@@ -175,27 +175,7 @@
     </section>
     {{!-- 側邊欄 --}}
     <section class="col-3">
-      <div class="row panel mx-1 side-box-shadow">
-        <div class="panel-body w-100 p-3">
-          <div>
-            <div class="side-heading col-md-12">
-              <div><i class="fas fa-user mr-2"></i> 帳戶</div>
-            </div>
-          </div>
-          <hr class="my-2">
-          <div>
-            <a href="/users/profile" class="font-weight-bold ml-2 text-decoration-none profile-href">我的帳戶</a>
-            <ul class="side-item-list">
-              <li>更新設定檔案</li>
-              <li>密碼變更</li>
-              <li>通訊地址管理</li>
-              <li>
-                <a href="/orders" class="text-decoration-none font-weight-bold text-pick">訂購紀錄</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      {{> profileSide}}
     </section>
   </div>
 </main>
