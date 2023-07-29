@@ -24,7 +24,10 @@ module.exports = {
     "logging": false
   },
   "production": {
-    "use_env_variable": "JAWSDB_URL",
+    "username": process.env.MYSQL_USER,
+    "password": process.env.MYSQL_KEY,
+    "database": process.env.MYSQL_DATABASE,
+    "host": process.env.MYSQL_HOST,
     "dialect": "mysql",
     "timezone": '+08:00',
     "define": {
