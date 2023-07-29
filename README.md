@@ -74,9 +74,9 @@ $ git clone https://github.com/Lastor-Chen/greatsmile.git
 ※ 藍新金流 API，不支持 localhost 串接。請使用 [ngrok](https://ngrok.com/) 虛擬出一個網域。並將該網域填入 env 的 HOST_URL 條目。
 
 #### 初始化資料庫
-安裝資料庫 ORM sequelize，可選擇安裝在 global 或 local:
+安裝 sequelize-cli，可選擇安裝在 global 或 local:
 ```
-$ npm install [-g] sequelize
+$ npm install [-g] sequelize-cli
 ```
 
 於 MySQL 建立 database:
@@ -88,13 +88,13 @@ CREATE DATABASE `database_name_test`;
 
 運行 sequelize migration 建立 database tables:
 ```
-$ npx sequelize db:migrate
-$ npx sequelize db:migrate --env test
+$ [npx] sequelize db:migrate
+$ [npx] sequelize db:migrate --env test
 ```
 
 登錄 seed 資料:
 ```
-$ npx sequelize db:seed:all
+$ [npx] sequelize db:seed:all
 ```
 
 完成上述前置作業後，即可於本機端啟動 App:
