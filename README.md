@@ -26,7 +26,11 @@ Web development final project. A figure Online Shop.
 
 ## Deploy
 此專案佈署於 heroku 平台。您可以直接前往，開始瀏覽。<br>
-[heroku 傳送門](https://greatsmile.herokuapp.com/products) <br>
+<s>[heroku 站點](https://greatsmile.herokuapp.com/)</s><br>
+
+2023/07/30 update:<br>
+Heroku 取消免費方案，遷移至 fly.io。功能未全部測試，可能局部會有些問題 <br>
+[fly.io 站點](https://greatsmile.fly.dev/)
 
 ps. 有透過 Travis 來進行基本的 CI / CD 自動化技術。
 

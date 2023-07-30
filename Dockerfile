@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1
 
 # Adjust NODE_VERSION as desired
-ARG NODE_VERSION=18.14.0
+ARG NODE_VERSION=10.24.1
 FROM node:${NODE_VERSION}-slim as base
 
 LABEL fly_launch_runtime="NodeJS"
@@ -16,20 +16,12 @@ ENV NODE_ENV=production
 # Throw-away build stage to reduce size of final image
 FROM base as build
 
-# Install packages needed to build node modules
-RUN apt-get update -qq && \
-    apt-get install -y python-is-python3 pkg-config build-essential 
-
 # Install node modules
 COPY --link package.json package-lock.json .
-RUN npm install --production=false
+RUN npm ci --production
 
 # Copy application code
 COPY --link . .
-
-# Remove development dependencies
-RUN npm prune --production
-
 
 # Final stage for app image
 FROM base
